@@ -3,7 +3,7 @@ name: Ci
 on:
     workflow_dispatch:
     push:
-        branches: [ master ]
+        branches: [ rando ]
     pull_request_target:
       types: [opened, synchronize]
 
