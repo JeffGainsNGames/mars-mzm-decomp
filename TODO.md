@@ -3,7 +3,7 @@
 - Draw hash on file select
 - Add pointers to data needed by patcher
   - Palettes
-  - Room data
+  - ~~Room data~~
   - Door data (DLR)
   - Minimap data (DLR)
 - ~~Custom item messages~~

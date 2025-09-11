@@ -31,6 +31,13 @@ struct CurrentRandoItem {
     /* 4 */ const u16* customMessage;
 }; // Size: 8
 
+struct TankIncreaseAmounts {
+    u16 energy;
+    u16 missiles;
+    u8 superMissiles;
+    u8 powerBombs;
+};
+
 struct StartingInfo {
     // Location
     /* 00 */ Area area;

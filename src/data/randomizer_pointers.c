@@ -14,7 +14,7 @@ extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
 // Existing data
 // --------------------------------
 
-/* ?? */ static const struct RoomEntryRom* sAreaRoomEntryPointers_Pointer = sAreaRoomEntryPointers;
+/* ?? */ static const struct RoomEntryRom** sAreaRoomEntryPointers_Pointer = sAreaRoomEntryPointers;
 /* 00 */ static const struct TilesetEntry* sTilesetEntries_Pointer = sTilesetEntries;
 /* 04 */ static const struct ChozoStatueTarget* sChozoStatueTargets_Pointer = sChozoStatueTargets;
 
@@ -46,12 +46,9 @@ extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
 /* 38 */ static const boolu8* sRandoRemoveCutscenes_Pointer = &sRandoRemoveCutscenes;
 /* 3C */ static const boolu8* sRandoSkipSuitlessSequence_Pointer = &sRandoSkipSuitlessSequence;
 
-/* 40 */ static const u16* sEnergyTankIncreaseAmount_Pointer = &sEnergyTankIncreaseAmount;
-/* 44 */ static const u16* sMissileTankIncreaseAmount_Pointer = &sMissileTankIncreaseAmount;
-/* 48 */ static const u8* sSuperMissileTankIncreaseAmount_Pointer = &sSuperMissileTankIncreaseAmount;
-/* 4C */ static const u8* sPowerBombTankIncreaseAmount_Pointer = &sPowerBombTankIncreaseAmount;
+/* 40 */ static const struct TankIncreaseAmounts* sRandoTankIncreaseAmounts_Pointer = &sRandoTankIncreaseAmounts;
 
-/* 50 */ static const u8* sRandoTitleLine1_Pointer = sRandoTitleLine1;
-/* 54 */ static const u8* sRandoTitleLine2_Pointer = sRandoTitleLine2;
+/* 44 */ static const u8* sRandoTitleLine1_Pointer = sRandoTitleLine1;
+/* 48 */ static const u8* sRandoTitleLine2_Pointer = sRandoTitleLine2;
 
 #endif

@@ -48,10 +48,7 @@ extern const boolu8 sRandoSkipSuitlessSequence;
 extern const u8 sRandoTitleLine1[31];
 extern const u8 sRandoTitleLine2[31];
 
-extern const u16 sEnergyTankIncreaseAmount;
-extern const u16 sMissileTankIncreaseAmount;
-extern const u8 sSuperMissileTankIncreaseAmount;
-extern const u8 sPowerBombTankIncreaseAmount;
+extern const struct TankIncreaseAmounts sRandoTankIncreaseAmounts;
 
 extern const struct StartingInfo sStartingInfo;
 

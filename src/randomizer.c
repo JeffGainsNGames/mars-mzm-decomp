@@ -103,7 +103,7 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
         case RIT_ENERGY_TANK:
             message = MESSAGE_ENERGY_TANK_ACQUIRED;
 
-            gEquipment.maxEnergy += sEnergyTankIncreaseAmount;
+            gEquipment.maxEnergy += sRandoTankIncreaseAmounts.energy;
             if (gEquipment.maxEnergy > MAX_ENERGY_CAPACITY)
                 gEquipment.maxEnergy = MAX_ENERGY_CAPACITY;
 
@@ -115,11 +115,11 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (gEquipment.maxMissiles == 0)
                 isFirstTank = TRUE;
 
-            gEquipment.maxMissiles += sMissileTankIncreaseAmount;
+            gEquipment.maxMissiles += sRandoTankIncreaseAmounts.missiles;
             if (gEquipment.maxMissiles > MAX_MISSILE_CAPACITY)
                 gEquipment.maxMissiles = MAX_MISSILE_CAPACITY;
 
-            gEquipment.currentMissiles += sMissileTankIncreaseAmount;
+            gEquipment.currentMissiles += sRandoTankIncreaseAmounts.missiles;
             if (gEquipment.currentMissiles > MAX_MISSILE_CAPACITY)
                 gEquipment.currentMissiles = MAX_MISSILE_CAPACITY;
             break;
@@ -129,11 +129,11 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (gEquipment.maxSuperMissiles == 0)
                 isFirstTank = TRUE;
 
-            gEquipment.maxSuperMissiles += sSuperMissileTankIncreaseAmount;
+            gEquipment.maxSuperMissiles += sRandoTankIncreaseAmounts.superMissiles;
             if (gEquipment.maxSuperMissiles > MAX_SUPER_MISSILE_CAPACITY)
                 gEquipment.maxSuperMissiles = MAX_SUPER_MISSILE_CAPACITY;
 
-            gEquipment.currentSuperMissiles += sSuperMissileTankIncreaseAmount;
+            gEquipment.currentSuperMissiles += sRandoTankIncreaseAmounts.superMissiles;
             if (gEquipment.currentSuperMissiles > MAX_SUPER_MISSILE_CAPACITY)
                 gEquipment.currentSuperMissiles = MAX_SUPER_MISSILE_CAPACITY;
             break;
@@ -143,11 +143,11 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (gEquipment.maxPowerBombs == 0)
                 isFirstTank = TRUE;
 
-            gEquipment.maxPowerBombs += sPowerBombTankIncreaseAmount;
+            gEquipment.maxPowerBombs += sRandoTankIncreaseAmounts.powerBombs;
             if (gEquipment.maxPowerBombs > MAX_POWER_BOMB_CAPACITY)
                 gEquipment.maxPowerBombs = MAX_POWER_BOMB_CAPACITY;
 
-            gEquipment.currentPowerBombs += sPowerBombTankIncreaseAmount;
+            gEquipment.currentPowerBombs += sRandoTankIncreaseAmounts.powerBombs;
             if (gEquipment.currentPowerBombs > MAX_POWER_BOMB_CAPACITY)
                 gEquipment.currentPowerBombs = MAX_POWER_BOMB_CAPACITY;
             break;
@@ -233,11 +233,6 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
         case RIT_ZIPLINES:
             message = MESSAGE_ZIPLINES;
             EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_ACTIVATED);
-            break;
-
-        case RIT_INFANT_METROID:
-            message = MESSAGE_INFANT_METROID;
-            // TODO: Add RAM value to increment
             break;
     }
 

@@ -140,10 +140,12 @@ const boolu8 sRandoSkipSuitlessSequence = FALSE;
 const u8 sRandoTitleLine1[31] = "RANDOMIZER LINE 1";
 const u8 sRandoTitleLine2[31] = "RANDOMIZER LINE 2";
 
-const u16 sEnergyTankIncreaseAmount = 100;
-const u16 sMissileTankIncreaseAmount = 5;
-const u8 sSuperMissileTankIncreaseAmount = 2;
-const u8 sPowerBombTankIncreaseAmount = 2;
+const struct TankIncreaseAmounts sRandoTankIncreaseAmounts = {
+    .energy = 100,
+    .missiles = 5,
+    .superMissiles = 5,
+    .powerBombs = 2
+};
 
 const struct StartingInfo sStartingInfo = {
     // Location
@@ -577,14 +579,6 @@ const struct MinorLocation sMinorLocations[MINOR_LOCATION_COUNT] = {
         .customMessage = NULL,
         .hintedBy = 0xFF
     },
-    { // Norfair 0x2E at 33, 5
-        .key = 0x22E0521,
-        .bg1Value = 0x47,
-        .item = RIT_WAVE_BEAM,
-        .jingle = RIJ_DEFAULT,
-        .customMessage = NULL,
-        .hintedBy = 0xFF
-    },
     { // Norfair 0x2F at 24, 3
         .key = 0x22F0318,
         .bg1Value = 0x47,
@@ -777,8 +771,8 @@ const struct MinorLocation sMinorLocations[MINOR_LOCATION_COUNT] = {
         .customMessage = NULL,
         .hintedBy = 0xFF
     },
-    { // Crateria 0x5 at 20, 37
-        .key = 0x5052514,
+    { // Crateria 0x0 at 20, 37
+        .key = 0x5002514,
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,

@@ -201,15 +201,18 @@ u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
     u8 i;
     u32 completionPercentage;
     u32 endingNbr;
+#ifdef RANDOMIZER
+    u32 totalItemCount;
+#endif // !RANDOMIZER
 
     difficulty = gDifficulty;
 
     // Calculate the amount of tanks of each type (remove starting energy)
 #ifdef RANDOMIZER
-    energyNbr = (gEquipment.maxEnergy - sStartingInfo.maxEnergy) / sEnergyTankIncreaseAmount;
-    missilesNbr = (gEquipment.maxMissiles - sStartingInfo.maxMissiles) / sMissileTankIncreaseAmount;
-    superMissilesNbr = (gEquipment.maxSuperMissiles - sStartingInfo.maxSuperMissiles) / sSuperMissileTankIncreaseAmount;
-    powerBombNbr = (gEquipment.maxPowerBombs - sStartingInfo.maxPowerBombs) / sPowerBombTankIncreaseAmount;
+    energyNbr = (gEquipment.maxEnergy - sStartingInfo.maxEnergy) / sRandoTankIncreaseAmounts.energy;
+    missilesNbr = (gEquipment.maxMissiles - sStartingInfo.maxMissiles) / sRandoTankIncreaseAmounts.missiles;
+    superMissilesNbr = (gEquipment.maxSuperMissiles - sStartingInfo.maxSuperMissiles) / sRandoTankIncreaseAmounts.superMissiles;
+    powerBombNbr = (gEquipment.maxPowerBombs - sStartingInfo.maxPowerBombs) / sRandoTankIncreaseAmounts.powerBombs;
 #else // !RANDOMIZER
     energyNbr = (gEquipment.maxEnergy - 99) / sTankIncreaseAmount[difficulty].energy;
     missilesNbr = gEquipment.maxMissiles / sTankIncreaseAmount[difficulty].missile;
@@ -277,7 +280,7 @@ u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
     if (gEquipment.suitType == SUIT_FULLY_POWERED)
         completionPercentage++;
 
-    u32 totalItemCount = ITEM_SOURCE_COUNT + MINOR_LOCATION_COUNT;
+    totalItemCount = ITEM_SOURCE_COUNT + MINOR_LOCATION_COUNT;
     for (i = 0; i < ARRAY_SIZE(sMajorLocations); i++)
     {
         if (sMajorLocations[i].item == RIT_NONE)
