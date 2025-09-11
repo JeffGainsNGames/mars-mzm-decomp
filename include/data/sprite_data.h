@@ -59,4 +59,10 @@ extern const u16 sPrimarySpriteStats[PSPRITE_COUNT][9];
  */
 extern const u16 sSecondarySpriteStats[SSPRITE_COUNT][9];
 
+#ifdef RANDOMIZER
+extern const u32* sSpritesGraphicsPointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_COUNT)];
+extern const u16* sSpritesPalettePointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_COUNT)];
+extern const u8* sSpritesetPointers[114];
+#endif // !RANDOMIZER
+
 #endif /* SPRITE_DATA_H */

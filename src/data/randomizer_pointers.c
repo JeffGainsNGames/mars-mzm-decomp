@@ -1,12 +1,25 @@
+#include "data/animated_graphics_data.h"
+#include "data/audio.h"
+#include "data/cutscenes/statue_opening_data.h"
+#include "data/hatch_data.h"
 #include "data/in_game_cutscene_data.h"
+#include "data/menus/file_select_data.h"
+#include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_sub_menus_data.h"
+#include "data/projectile_data.h"
 #include "data/randomizer_data.h"
 #include "data/rooms_data.h"
+#include "data/samus/samus_palette_data.h"
 #include "data/sprite_data.h"
+
+#include "structs/animated_graphics.h"
+#include "structs/connection.h"
 
 #ifdef RANDOMIZER
 
 extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
+extern const u32* sMinimapDataPointers[AREA_COUNT];
+extern const struct Door* sAreaDoorsPointers[AREA_ENTRY_COUNT];
 
 // The pointers in this file are written to 0x7D0000 (see linker.ld)
 
@@ -14,41 +27,53 @@ extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
 // Existing data
 // --------------------------------
 
-/* ?? */ static const struct RoomEntryRom** sAreaRoomEntryPointers_Pointer = sAreaRoomEntryPointers;
-/* 00 */ static const struct TilesetEntry* sTilesetEntries_Pointer = sTilesetEntries;
-/* 04 */ static const struct ChozoStatueTarget* sChozoStatueTargets_Pointer = sChozoStatueTargets;
-
-/* 08 */ static const u32* sRandoTilesetTilemapSizes_Pointer = sRandoTilesetTilemapSizes;
+static const struct RoomEntryRom** sAreaRoomEntryPointers_Pointer = sAreaRoomEntryPointers;
+static const struct TilesetEntry* sTilesetEntries_Pointer = sTilesetEntries;
+static const u32* sRandoTilesetTilemapSizes_Pointer = sRandoTilesetTilemapSizes;
+static const u32** sMinimapDataPointers_Pointer = sMinimapDataPointers;
+static const struct Door** sAreaDoorsPointers_Pointer = sAreaDoorsPointers;
+static const u8 (*sAreaConnections_Pointer)[AREA_CONNECTION_FIELD_COUNT] = sAreaConnections;
+static const struct AnimatedPaletteData* sAnimatedPaletteEntries_Pointer = sAnimatedPaletteEntries;
+static const u32** sSpritesGraphicsPointers_Pointer = sSpritesGraphicsPointers;
+static const u16** sSpritesPalettePointers_Pointer = sSpritesPalettePointers;
+static const u8** sSpritesetPointers_Pointer = sSpritesetPointers;
+static const u16* sSamusPalettes_Pointer = sSamusPal_PowerSuit_Default;
+static const u16* sHelmetCursorPalettes_Pointer = sFileSelectIconsPal;
+static const u16* sBeamPalettes_Pointer = sBeamPal;
+static const u16* sStatueCutscenePalette_Pointer = sStatueOpeningPal;
+static const u8* sCharacterWidths_Pointer = sCharacterWidths;
+static const struct SoundEntry* sSoundDataEntries_Pointer = sSoundDataEntries;
+static const struct ChozoStatueTarget* sChozoStatueTargets_Pointer = sChozoStatueTargets;
 
 // --------------------------------
 // Rando data
 // --------------------------------
 
 // Need to write starting area to cutscene data entry
-/* 0C */ static const struct InGameCutsceneData* sIntroCutsceneData_Pointer = &sInGameCutsceneData[IGC_CLOSE_UP];
+static const struct InGameCutsceneData* sIntroCutsceneData_Pointer = &sInGameCutsceneData[IGC_CLOSE_UP];
 
-/* 10 */ static const struct StartingInfo* sStartingInfo_Pointer = &sStartingInfo;
+static const struct StartingInfo* sStartingInfo_Pointer = &sStartingInfo;
 
-/* 14 */ static const struct MajorLocation* sMajorLocations_Pointer = sMajorLocations;
-/* 18 */ static const struct MinorLocation* sMinorLocations_Pointer = sMinorLocations;
+static const struct MajorLocation* sMajorLocations_Pointer = sMajorLocations;
+static const struct MinorLocation* sMinorLocations_Pointer = sMinorLocations;
 
 // --------------------------------
 // Rando options
 // --------------------------------
 
-/* 1C */ static const u8* sRandoDifficultyOptions_Pointer = &sRandoDifficultyOptions;
-/* 20 */ static const u16* sRandoMetroidSpriteStats_Pointer = sPrimarySpriteStats[PSPRITE_METROID];
-/* 24 */ static const boolu8* sRandoBlackPiratesRequirePlasma_Pointer = &sRandoBlackPiratesRequirePlasma;
-/* 28 */ static const boolu8* sRandoSkipDoorTransitions_Pointer = &sRandoSkipDoorTransitions;
-/* 2C */ static const boolu8* sRandoBallLauncherWithoutBombs_Pointer = &sRandoBallLauncherWithoutBombs;
-/* 30 */ static const boolu8* sRandoDisableMidAirBombJump_Pointer = &sRandoDisableMidAirBombJump;
-/* 34 */ static const boolu8* sRandoDisableWallJump_Pointer = &sRandoDisableWallJump;
-/* 38 */ static const boolu8* sRandoRemoveCutscenes_Pointer = &sRandoRemoveCutscenes;
-/* 3C */ static const boolu8* sRandoSkipSuitlessSequence_Pointer = &sRandoSkipSuitlessSequence;
+static const u8* sRandoDifficultyOptions_Pointer = &sRandoDifficultyOptions;
+static const u16* sRandoMetroidSpriteStats_Pointer = sPrimarySpriteStats[PSPRITE_METROID];
+static const boolu8* sRandoBlackPiratesRequirePlasma_Pointer = &sRandoBlackPiratesRequirePlasma;
+static const boolu8* sRandoSkipDoorTransitions_Pointer = &sRandoSkipDoorTransitions;
+static const boolu8* sRandoBallLauncherWithoutBombs_Pointer = &sRandoBallLauncherWithoutBombs;
+static const boolu8* sRandoDisableMidAirBombJump_Pointer = &sRandoDisableMidAirBombJump;
+static const boolu8* sRandoDisableWallJump_Pointer = &sRandoDisableWallJump;
+static const boolu8* sRandoRemoveCutscenes_Pointer = &sRandoRemoveCutscenes;
+static const boolu8* sRandoSkipSuitlessSequence_Pointer = &sRandoSkipSuitlessSequence;
 
-/* 40 */ static const struct TankIncreaseAmounts* sRandoTankIncreaseAmounts_Pointer = &sRandoTankIncreaseAmounts;
+static const struct TankIncreaseAmounts* sRandoTankIncreaseAmounts_Pointer = &sRandoTankIncreaseAmounts;
 
-/* 44 */ static const u8* sRandoTitleLine1_Pointer = sRandoTitleLine1;
-/* 48 */ static const u8* sRandoTitleLine2_Pointer = sRandoTitleLine2;
+static const u8* sRandoTitleLine1_Pointer = sRandoTitleLine1;
+static const u8* sRandoTitleLine2_Pointer = sRandoTitleLine2;
 
 #endif

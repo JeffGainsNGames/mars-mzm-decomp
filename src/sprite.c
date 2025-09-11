@@ -312,7 +312,11 @@ static Func_T sPrimarySpritesAIPointers[PSPRITE_COUNT] = {
     [PSPRITE_RINKA_MOTHER_BRAIN6] = RinkaMotherBrain 
 };
 
+#ifdef RANDOMIZER
+const u32* sSpritesGraphicsPointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_COUNT)] = {
+#else // !RANDOMIZER
 static const u32* sSpritesGraphicsPointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_COUNT)] = {
+#endif // RANDOMIZER
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_UNUSED16)] = sUnusedSpritesGfx,
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_MESSAGE_BANNER)] = sMessageBannerGfx,
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_ZOOMER_YELLOW)] = sZoomerGfx,
@@ -505,7 +509,11 @@ static const u32* sSpritesGraphicsPointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_C
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_RINKA_MOTHER_BRAIN6)] = sRinkaZebetiteAndCannonGfx
 };
 
+#ifdef RANDOMIZER
+const u16* sSpritesPalettePointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_COUNT)] = {
+#else // !RANDOMIZER
 static const u16* sSpritesPalettePointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_COUNT)] = {
+#endif // RANDOMIZER
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_UNUSED16)] = sUnusedSpritesPal,
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_MESSAGE_BANNER)] = sMessageBannerPal,
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_ZOOMER_YELLOW)] = sZoomerPal,
@@ -778,7 +786,11 @@ static Func_T sSecondarySpritesAIPointers[SSPRITE_COUNT] = {
     [SSPRITE_MOTHER_BRAIN_GLASS_BREAKING] = MotherBrainGlassBreaking 
 };
 
+#ifdef RANDOMIZER
+const u8* sSpritesetPointers[MAX_AMOUNT_OF_SPRITESET] = {
+#else // !RANDOMIZER
 static const u8* sSpritesetPointers[MAX_AMOUNT_OF_SPRITESET] = {
+#endif // RANDOMIZER
     sSpriteset0,
     sSpriteset1,
     sSpriteset2,
