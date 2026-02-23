@@ -43,6 +43,8 @@
 #include "oam.h"
 #include "temp_globals.h"
 
+#include "structs/randomizer.h"
+
 #ifdef RAM_PADDING
 IWRAM_DATA u8 gUnk_3005908[8] = {};
 #endif
@@ -69,3 +71,8 @@ IWRAM_DATA u8 gUnk_3005B55[11] = {};
 #endif
 
 IWRAM_DATA struct LinkInfo gLink = {};
+
+
+#ifdef RANDOMIZER
+IWRAM_DATA struct CurrentRandoItem gCurrentRandoItem = {};
+#endif

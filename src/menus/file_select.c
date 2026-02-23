@@ -5819,7 +5819,7 @@ static u8 FileSelectProcessFileSelection(void)
                         action = 0x80;
                         FILE_SELECT_DATA.fileSelectCursors.completedFileOptions = 2;
                         FILE_SELECT_DATA.inputtedTimeAttack = TRUE;
-                        FILE_SELECT_DATA.subroutineStage = 8;
+                        FILE_SELECT_DATA.subMenuStage = 8;
                     }
                 }
             }

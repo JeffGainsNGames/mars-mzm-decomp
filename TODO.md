@@ -11,6 +11,7 @@
 - ~~Major locations having any item~~
 - ~~Allow getting ziplines as an item~~
 - ~~Allow getting item from zipline source~~
+  - Add minimap tile for zipline source
 - ~~Allow getting item from ruins test~~
 - Support infant metroid items?
 - ~~Starting items~~
