@@ -2,16 +2,18 @@
 #define RIDLEY_SPAWN_CUTSCENE
 
 #include "types.h"
+#include "macros.h"
 
-enum RidleySpawnOamId {
-    RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING_REFLECTION = 1,
+MAKE_ENUM(u8, RidleySpawnOamId) {
+    RIDLEY_SPAWN_OAM_ID_NONE,
+    RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING_REFLECTION,
     RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING,
     RIDLEY_SPAWN_OAM_ID_RIDLEY_SCREAMING,
     RIDLEY_SPAWN_OAM_ID_SAMUS,
 
-    RIDLEY_SPAWN_OAM_ID_END
+    RIDLEY_SPAWN_OAM_ID_COUNT
 };
 
-u8 RidleySpawnSubroutine(void);
+u8 RidleySpawnMainLoop(void);
 
 #endif /* RIDLEY_SPAWN_CUTSCENE */

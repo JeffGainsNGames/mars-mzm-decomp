@@ -5,7 +5,7 @@
 #include "constants/game_state.h"
 #include "constants/text.h"
 
-const u8 sCharactersGfx[176 * 1024] = INCBIN_U8("data/characters_graphics.gfx");
+const u8 sCharactersGfx[176 * 1024] = INCBIN_U8("data/text_characters.gfx");
 
 const u16 sJapaneseText_Message_Dummy[] = INCTEXT("{GAP(98)}ダミー\n{GAP(110)}");
 const u16 sJapaneseText_Message_EnergyTankAcquired[] = INCTEXT("{GAP(38)}{COLOR(5)}ENERGY TANK エネルギータンク\n{GAP(62)}{COLOR(0)}体力の最大値がＵＰした");
@@ -598,7 +598,7 @@ static const u16* sGermanTextPointers_Message[] = {
     [MESSAGE_ENEMY_LOCATION_ABNORMAL] = sGermanText_Message_EnemyLocationAbnormal,
     [MESSAGE_ACTIVATE_EASY_SLEEP] = sGermanText_Message_ActivateEasySleep,
     [MESSAGE_PRESS_SELECT_L_AND_R] = sGermanText_Message_PressSelectLAndR,
-    [MESSAGE_EASY_SLEEP_PROMPT] = sGermanText_Message_EasySleepPrompt,
+    [MESSAGE_EASY_SLEEP_PROMPT] = sGermanText_Message_EasySleepPrompt
 };
 
 const u16 sGermanText_Location_Brinstar[] = INCTEXT("{GAP(86)}BRINSTAR");
@@ -654,7 +654,7 @@ static const u16* sGermanTextPointers_Location[] = {
     [LT_UNUSED_15] = sGermanText_Location_Unused15,
     [LT_UNUSED_16] = sGermanText_Location_Unused16,
     [LT_UNUSED_17] = sGermanText_Location_Unused17,
-    [LT_UNUSED_18] = sGermanText_Location_Unused18,
+    [LT_UNUSED_18] = sGermanText_Location_Unused18
 };
 
 const u16 sFrenchText_Message_Dummy[] = INCTEXT("{GAP(36)}DUMMY MESSAGE (OBJ Cell B1)\n{GAP(110)}");
@@ -736,7 +736,7 @@ static const u16* sFrenchTextPointers_Message[] = {
     [MESSAGE_ENEMY_LOCATION_ABNORMAL] = sFrenchText_Message_EnemyLocationAbnormal,
     [MESSAGE_ACTIVATE_EASY_SLEEP] = sFrenchText_Message_ActivateEasySleep,
     [MESSAGE_PRESS_SELECT_L_AND_R] = sFrenchText_Message_PressSelectLAndR,
-    [MESSAGE_EASY_SLEEP_PROMPT] = sFrenchText_Message_EasySleepPrompt,
+    [MESSAGE_EASY_SLEEP_PROMPT] = sFrenchText_Message_EasySleepPrompt
 };
 
 const u16 sFrenchText_Location_Brinstar[] = INCTEXT("{GAP(86)}BRINSTAR");
@@ -792,7 +792,7 @@ static const u16* sFrenchTextPointers_Location[] = {
     [LT_UNUSED_15] = sFrenchText_Location_Unused15,
     [LT_UNUSED_16] = sFrenchText_Location_Unused16,
     [LT_UNUSED_17] = sFrenchText_Location_Unused17,
-    [LT_UNUSED_18] = sFrenchText_Location_Unused18,
+    [LT_UNUSED_18] = sFrenchText_Location_Unused18
 };
 
 const u16 sItalianText_Message_Dummy[] = INCTEXT("{GAP(36)}DUMMY MESSAGE (OBJ Cell B1)\n{GAP(110)}");
@@ -874,7 +874,7 @@ static const u16* sItalianTextPointers_Message[] = {
     [MESSAGE_ENEMY_LOCATION_ABNORMAL] = sItalianText_Message_EnemyLocationAbnormal,
     [MESSAGE_ACTIVATE_EASY_SLEEP] = sItalianText_Message_ActivateEasySleep,
     [MESSAGE_PRESS_SELECT_L_AND_R] = sItalianText_Message_PressSelectLAndR,
-    [MESSAGE_EASY_SLEEP_PROMPT] = sItalianText_Message_EasySleepPrompt,
+    [MESSAGE_EASY_SLEEP_PROMPT] = sItalianText_Message_EasySleepPrompt
 };
 
 const u16 sItalianText_Location_Brinstar[] = INCTEXT("{GAP(86)}BRINSTAR");
@@ -930,7 +930,7 @@ static const u16* sItalianTextPointers_Location[] = {
     [LT_UNUSED_15] = sItalianText_Location_Unused15,
     [LT_UNUSED_16] = sItalianText_Location_Unused16,
     [LT_UNUSED_17] = sItalianText_Location_Unused17,
-    [LT_UNUSED_18] = sItalianText_Location_Unused18,
+    [LT_UNUSED_18] = sItalianText_Location_Unused18
 };
 
 const u16 sSpanishText_Message_Dummy[] = INCTEXT("{GAP(36)}DUMMY MESSAGE (OBJ Cell B1)\n{GAP(110)}");
@@ -1012,7 +1012,7 @@ static const u16* sSpanishTextPointers_Message[] = {
     [MESSAGE_ENEMY_LOCATION_ABNORMAL] = sSpanishText_Message_EnemyLocationAbnormal,
     [MESSAGE_ACTIVATE_EASY_SLEEP] = sSpanishText_Message_ActivateEasySleep,
     [MESSAGE_PRESS_SELECT_L_AND_R] = sSpanishText_Message_PressSelectLAndR,
-    [MESSAGE_EASY_SLEEP_PROMPT] = sSpanishText_Message_EasySleepPrompt,
+    [MESSAGE_EASY_SLEEP_PROMPT] = sSpanishText_Message_EasySleepPrompt
 };
 
 const u16 sSpanishText_Location_Brinstar[] = INCTEXT("{GAP(86)}BRINSTAR");
@@ -1068,12 +1068,12 @@ static const u16* sSpanishTextPointers_Location[] = {
     [LT_UNUSED_15] = sSpanishText_Location_Unused15,
     [LT_UNUSED_16] = sSpanishText_Location_Unused16,
     [LT_UNUSED_17] = sSpanishText_Location_Unused17,
-    [LT_UNUSED_18] = sSpanishText_Location_Unused18,
+    [LT_UNUSED_18] = sSpanishText_Location_Unused18
 };
 
 #endif // REGION_EU
 
-const u16** sLocationTextPointers[LANGUAGE_END] = {
+const u16** sLocationTextPointers[LANGUAGE_COUNT] = {
     [LANGUAGE_JAPANESE] = sJapaneseTextPointers_Location,
     [LANGUAGE_HIRAGANA] = sHiraganaTextPointers_Location,
     [LANGUAGE_ENGLISH] = sEnglishTextPointers_Location,
@@ -1090,7 +1090,7 @@ const u16** sLocationTextPointers[LANGUAGE_END] = {
     #endif // REGION_EU
 };
 
-const u16** sMessageTextPointers[LANGUAGE_END] = {
+const u16** sMessageTextPointers[LANGUAGE_COUNT] = {
     [LANGUAGE_JAPANESE] = sJapaneseTextPointers_Message,
     [LANGUAGE_HIRAGANA] = sHiraganaTextPointers_Message,
     [LANGUAGE_ENGLISH] = sEnglishTextPointers_Message,
@@ -1107,7 +1107,7 @@ const u16** sMessageTextPointers[LANGUAGE_END] = {
     #endif // REGION_EU
 };
 
-const u16** sFileScreenTextPointers[LANGUAGE_END] = {
+const u16** sFileScreenTextPointers[LANGUAGE_COUNT] = {
     [LANGUAGE_JAPANESE] = sJapaneseTextPointers_FileScreen,
     [LANGUAGE_HIRAGANA] = sHiraganaTextPointers_FileScreen,
     [LANGUAGE_ENGLISH] = sEnglishTextPointers_FileScreen,
@@ -1165,7 +1165,7 @@ const u16* sJapaneseTextPointers_Description[DESCRIPTION_TEXT_COUNT] = {
     [DESCRIPTION_TEXT_SCREW_ATTACK] = sJapaneseText_Description_ScrewAttack,
     [DESCRIPTION_TEXT_SPACE_JUMP] = sJapaneseText_Description_SpaceJump,
     [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sJapaneseText_Description_UnknownItem,
-    [DESCRIPTION_TEXT_PISTOL] = sJapaneseText_Description_Pistol,
+    [DESCRIPTION_TEXT_PISTOL] = sJapaneseText_Description_Pistol
 };
 
 const u16 sJapaneseText_Story_PlanetZebes[] = INCTEXT("　私が幼い日々を過ごした、第二のふるさと\n　「惑星ゼーベス」・・・　今や臆の巣くつと化した\n　この星への、私のファーストアタックとなった、\n　通称「ZERO　MISSION」\n　その戦いの全てを、今ここに語ろう・・・\n　　　　　　　　　　　　　　　　　　－　サムス・アラン　－");
@@ -1181,7 +1181,7 @@ const u16* sJapaneseTextPointers_Story[STORY_TEXT_COUNT] = {
     [STORY_TEXT_COULD_I_SURVIVE] = sJapaneseText_Story_CouldISurvive,
     [STORY_TEXT_EMERGENCY] = sJapaneseText_Story_Emergency,
     [STORY_TEXT_EXTERMINATE] = sJapaneseText_Story_Exterminate,
-    [STORY_TEXT_DEFEAT] = sJapaneseText_Story_Defeat,
+    [STORY_TEXT_DEFEAT] = sJapaneseText_Story_Defeat
 };
 
 const u16 sJapaneseText_FileScreen_StartGame[] = INCTEXT("ゲームスタート\nゲームスタート（通信）");
@@ -1222,7 +1222,7 @@ const u16 sJapaneseText_FileScreen_TimeAttackRecordUnlock[] = INCTEXT("{COLOR(6)
 const u16 sJapaneseText_FileScreen_SoundTestUnlock[] = INCTEXT("{COLOR(6)}OPTIONS　[オプション]　{COLOR(0)}に\n{COLOR(5)}「サウンドテスト」{COLOR(0)}が\nついかされました。");
 const u16 sJapaneseText_FileScreen_NesMetroidUnlock[] = INCTEXT("{COLOR(6)}OPTIONS　[オプション]　{COLOR(0)}に\n{COLOR(5)}「オリジナルメトロイド」{COLOR(0)}が\nついかされました。");
 
-const u16* sJapaneseTextPointers_FileScreen[FILE_SCREEN_TEXT_END] = {
+const u16* sJapaneseTextPointers_FileScreen[FILE_SCREEN_TEXT_COUNT] = {
     [FILE_SCREEN_TEXT_START_GAME] = sJapaneseText_FileScreen_StartGame,
     [FILE_SCREEN_TEXT_COPY_SOURCE_CHOOSE] = sJapaneseText_FileScreen_CopySourceChoose,
     [FILE_SCREEN_TEXT_COPY_DESTINATION_CHOOSE] = sJapaneseText_FileScreen_CopyDestinationChoose,
@@ -1259,7 +1259,7 @@ const u16* sJapaneseTextPointers_FileScreen[FILE_SCREEN_TEXT_END] = {
     [FILE_SCREEN_TEXT_GALLERY_UNLOCK] = sJapaneseText_FileScreen_GalleryUnlock,
     [FILE_SCREEN_TEXT_TIME_ATTACK_RECORD_UNLOCK] = sJapaneseText_FileScreen_TimeAttackRecordUnlock,
     [FILE_SCREEN_TEXT_SOUND_TEST_UNLOCK] = sJapaneseText_FileScreen_SoundTestUnlock,
-    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sJapaneseText_FileScreen_NesMetroidUnlock,
+    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sJapaneseText_FileScreen_NesMetroidUnlock
 };
 
 const u16 sAlign_1 = 0; // File alignment
@@ -1303,7 +1303,7 @@ const u16* sHiraganaTextPointers_Description[DESCRIPTION_TEXT_COUNT] = {
     [DESCRIPTION_TEXT_SCREW_ATTACK] = sHiraganaText_Description_ScrewAttack,
     [DESCRIPTION_TEXT_SPACE_JUMP] = sHiraganaText_Description_SpaceJump,
     [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sHiraganaText_Description_UnknownItem,
-    [DESCRIPTION_TEXT_PISTOL] = sHiraganaText_Description_Pistol,
+    [DESCRIPTION_TEXT_PISTOL] = sHiraganaText_Description_Pistol
 };
 
 const u16 sHiraganaText_Story_PlanetZebes[] = INCTEXT("ちいさいころの　わたしが　くらした「わくせいゼーベス」\nいまはもう、とてもおそろしい　ほしになってしまった、\nそのゼーベスでの、わたしのさいしょの　にんむのことを\nみんなは「ゼロミッション」と、よんでいる。\nそのたたかいのことを、いま、ぜんぶはなそう・・・\n　　　　　　　　　　　　　　　　　　　　 　－　サムス・アラン　－");
@@ -1319,7 +1319,7 @@ const u16* sHiraganaTextPointers_Story[STORY_TEXT_COUNT] = {
     [STORY_TEXT_COULD_I_SURVIVE] = sHiraganaText_Story_CouldISurvive,
     [STORY_TEXT_EMERGENCY] = sHiraganaText_Story_Emergency,
     [STORY_TEXT_EXTERMINATE] = sHiraganaText_Story_Exterminate,
-    [STORY_TEXT_DEFEAT] = sHiraganaText_Story_Defeat,
+    [STORY_TEXT_DEFEAT] = sHiraganaText_Story_Defeat
 };
 
 const u16 sHiraganaText_FileScreen_StartGame[] = INCTEXT("ゲームスタート\nゲームスタート（通信）");
@@ -1360,7 +1360,7 @@ const u16 sHiraganaText_FileScreen_TimeAttackRecordUnlock[] = INCTEXT("{COLOR(6)
 const u16 sHiraganaText_FileScreen_SoundTestUnlock[] = INCTEXT("{COLOR(6)}OPTIONS　[オプション]　{COLOR(0)}に\n{COLOR(5)}「サウンドテスト」{COLOR(0)}が\nついかされました。");
 const u16 sHiraganaText_FileScreen_NesMetroidUnlock[] = INCTEXT("{COLOR(6)}OPTIONS　[オプション]　{COLOR(0)}に\n{COLOR(5)}「オリジナルメトロイド」{COLOR(0)}が\nついかされました。");
 
-const u16* sHiraganaTextPointers_FileScreen[FILE_SCREEN_TEXT_END] = {
+const u16* sHiraganaTextPointers_FileScreen[FILE_SCREEN_TEXT_COUNT] = {
     [FILE_SCREEN_TEXT_START_GAME] = sHiraganaText_FileScreen_StartGame,
     [FILE_SCREEN_TEXT_COPY_SOURCE_CHOOSE] = sHiraganaText_FileScreen_CopySourceChoose,
     [FILE_SCREEN_TEXT_COPY_DESTINATION_CHOOSE] = sHiraganaText_FileScreen_CopyDestinationChoose,
@@ -1397,7 +1397,7 @@ const u16* sHiraganaTextPointers_FileScreen[FILE_SCREEN_TEXT_END] = {
     [FILE_SCREEN_TEXT_GALLERY_UNLOCK] = sHiraganaText_FileScreen_GalleryUnlock,
     [FILE_SCREEN_TEXT_TIME_ATTACK_RECORD_UNLOCK] = sHiraganaText_FileScreen_TimeAttackRecordUnlock,
     [FILE_SCREEN_TEXT_SOUND_TEST_UNLOCK] = sHiraganaText_FileScreen_SoundTestUnlock,
-    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sHiraganaText_FileScreen_NesMetroidUnlock,
+    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sHiraganaText_FileScreen_NesMetroidUnlock
 };
 
 const u16 sEnglishText_Description_LongBeam[] = INCTEXT("Fire long-distance shots with this beam.\nPress {L_button} + {B_button} to fire diagonally.");
@@ -1439,7 +1439,7 @@ const u16* sEnglishTextPointers_Description[DESCRIPTION_TEXT_COUNT] = {
     [DESCRIPTION_TEXT_SCREW_ATTACK] = sEnglishText_Description_ScrewAttack,
     [DESCRIPTION_TEXT_SPACE_JUMP] = sEnglishText_Description_SpaceJump,
     [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sEnglishText_Description_UnknownItem,
-    [DESCRIPTION_TEXT_PISTOL] = sEnglishText_Description_Pistol,
+    [DESCRIPTION_TEXT_PISTOL] = sEnglishText_Description_Pistol
 };
 
 const u16 sAlign_2 = 0;
@@ -1467,7 +1467,7 @@ const u16* sEnglishTextPointers_Story[STORY_TEXT_COUNT] = {
     [STORY_TEXT_COULD_I_SURVIVE] = sEnglishText_Story_CouldISurvive,
     [STORY_TEXT_EMERGENCY] = sEnglishText_Story_Emergency,
     [STORY_TEXT_EXTERMINATE] = sEnglishText_Story_Exterminate,
-    [STORY_TEXT_DEFEAT] = sEnglishText_Story_Defeat,
+    [STORY_TEXT_DEFEAT] = sEnglishText_Story_Defeat
 };
 
 const u16 sEnglishText_FileScreen_StartGame[] = INCTEXT("Start Game\nStart Game (Link)");
@@ -1531,7 +1531,7 @@ const u16 sEnglishText_FileScreen_NesMetroidUnlock[] = INCTEXT("{COLOR(5)}Origin
 const u16 sEnglishText_FileScreen_DifficultyHardOnly[] = INCTEXT("Difficulty Setting\n  HARD");
 #endif // RANDOMIZER
 
-const u16* sEnglishTextPointers_FileScreen[FILE_SCREEN_TEXT_END] = {
+const u16* sEnglishTextPointers_FileScreen[FILE_SCREEN_TEXT_COUNT] = {
     [FILE_SCREEN_TEXT_START_GAME] = sEnglishText_FileScreen_StartGame,
     [FILE_SCREEN_TEXT_COPY_SOURCE_CHOOSE] = sEnglishText_FileScreen_CopySourceChoose,
     [FILE_SCREEN_TEXT_COPY_DESTINATION_CHOOSE] = sEnglishText_FileScreen_CopyDestinationChoose,
@@ -1617,7 +1617,7 @@ const u16* sGermanTextPointers_Description[] = {
     [DESCRIPTION_TEXT_SCREW_ATTACK] = sGermanText_Description_ScrewAttack,
     [DESCRIPTION_TEXT_SPACE_JUMP] = sGermanText_Description_SpaceJump,
     [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sGermanText_Description_UnknownItem,
-    [DESCRIPTION_TEXT_PISTOL] = sGermanText_Description_Pistol,
+    [DESCRIPTION_TEXT_PISTOL] = sGermanText_Description_Pistol
 };
 
 const u16 sAlign_4 = 0;
@@ -1635,7 +1635,7 @@ const u16* sGermanTextPointers_Story[] = {
     [STORY_TEXT_COULD_I_SURVIVE] = sGermanText_Story_CouldISurvive,
     [STORY_TEXT_EMERGENCY] = sGermanText_Story_Emergency,
     [STORY_TEXT_EXTERMINATE] = sGermanText_Story_Exterminate,
-    [STORY_TEXT_DEFEAT] = sGermanText_Story_Defeat,
+    [STORY_TEXT_DEFEAT] = sGermanText_Story_Defeat
 };
 
 const u16 sAlign_5 = 0;
@@ -1715,7 +1715,7 @@ const u16* sGermanTextPointers_FileScreen[] = {
     [FILE_SCREEN_TEXT_GALLERY_UNLOCK] = sGermanText_FileScreen_GalleryUnlock,
     [FILE_SCREEN_TEXT_TIME_ATTACK_RECORD_UNLOCK] = sGermanText_FileScreen_TimeAttackRecordUnlock,
     [FILE_SCREEN_TEXT_SOUND_TEST_UNLOCK] = sGermanText_FileScreen_SoundTestUnlock,
-    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sGermanText_FileScreen_NesMetroidUnlock,
+    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sGermanText_FileScreen_NesMetroidUnlock
 };
 
 const u16 sFrenchText_Description_LongBeam[] = INCTEXT("Permet d'atteindre une cible éloignée.\nAppuie sur {L_button} + {B_button} pour tirer en biais.");
@@ -1757,7 +1757,7 @@ const u16* sFrenchTextPointers_Description[] = {
     [DESCRIPTION_TEXT_SCREW_ATTACK] = sFrenchText_Description_ScrewAttack,
     [DESCRIPTION_TEXT_SPACE_JUMP] = sFrenchText_Description_SpaceJump,
     [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sFrenchText_Description_UnknownItem,
-    [DESCRIPTION_TEXT_PISTOL] = sFrenchText_Description_Pistol,
+    [DESCRIPTION_TEXT_PISTOL] = sFrenchText_Description_Pistol
 };
 
 const u16 sAlign_6 = 0;
@@ -1775,7 +1775,7 @@ const u16* sFrenchTextPointers_Story[] = {
     [STORY_TEXT_COULD_I_SURVIVE] = sFrenchText_Story_CouldISurvive,
     [STORY_TEXT_EMERGENCY] = sFrenchText_Story_Emergency,
     [STORY_TEXT_EXTERMINATE] = sFrenchText_Story_Exterminate,
-    [STORY_TEXT_DEFEAT] = sFrenchText_Story_Defeat,
+    [STORY_TEXT_DEFEAT] = sFrenchText_Story_Defeat
 };
 
 const u16 sAlign_7 = 0;
@@ -1855,7 +1855,7 @@ const u16* sFrenchTextPointers_FileScreen[] = {
     [FILE_SCREEN_TEXT_GALLERY_UNLOCK] = sFrenchText_FileScreen_GalleryUnlock,
     [FILE_SCREEN_TEXT_TIME_ATTACK_RECORD_UNLOCK] = sFrenchText_FileScreen_TimeAttackRecordUnlock,
     [FILE_SCREEN_TEXT_SOUND_TEST_UNLOCK] = sFrenchText_FileScreen_SoundTestUnlock,
-    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sFrenchText_FileScreen_NesMetroidUnlock,
+    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sFrenchText_FileScreen_NesMetroidUnlock
 };
 
 const u16 sAlign_8 = 0;
@@ -1899,7 +1899,7 @@ const u16* sItalianTextPointers_Description[] = {
     [DESCRIPTION_TEXT_SCREW_ATTACK] = sItalianText_Description_ScrewAttack,
     [DESCRIPTION_TEXT_SPACE_JUMP] = sItalianText_Description_SpaceJump,
     [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sItalianText_Description_UnknownItem,
-    [DESCRIPTION_TEXT_PISTOL] = sItalianText_Description_Pistol,
+    [DESCRIPTION_TEXT_PISTOL] = sItalianText_Description_Pistol
 };
 
 const u16 sAlign_9 = 0;
@@ -1917,7 +1917,7 @@ const u16* sItalianTextPointers_Story[] = {
     [STORY_TEXT_COULD_I_SURVIVE] = sItalianText_Story_CouldISurvive,
     [STORY_TEXT_EMERGENCY] = sItalianText_Story_Emergency,
     [STORY_TEXT_EXTERMINATE] = sItalianText_Story_Exterminate,
-    [STORY_TEXT_DEFEAT] = sItalianText_Story_Defeat,
+    [STORY_TEXT_DEFEAT] = sItalianText_Story_Defeat
 };
 
 const u16 sItalianText_FileScreen_StartGame[] = INCTEXT("Inizia gioco\nInizia gioco (in link)");
@@ -1995,7 +1995,7 @@ const u16* sItalianTextPointers_FileScreen[] = {
     [FILE_SCREEN_TEXT_GALLERY_UNLOCK] = sItalianText_FileScreen_GalleryUnlock,
     [FILE_SCREEN_TEXT_TIME_ATTACK_RECORD_UNLOCK] = sItalianText_FileScreen_TimeAttackRecordUnlock,
     [FILE_SCREEN_TEXT_SOUND_TEST_UNLOCK] = sItalianText_FileScreen_SoundTestUnlock,
-    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sItalianText_FileScreen_NesMetroidUnlock,
+    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sItalianText_FileScreen_NesMetroidUnlock
 };
 
 const u16 sAlign_10 = 0;
@@ -2039,7 +2039,7 @@ const u16* sSpanishTextPointers_Description[] = {
     [DESCRIPTION_TEXT_SCREW_ATTACK] = sSpanishText_Description_ScrewAttack,
     [DESCRIPTION_TEXT_SPACE_JUMP] = sSpanishText_Description_SpaceJump,
     [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sSpanishText_Description_UnknownItem,
-    [DESCRIPTION_TEXT_PISTOL] = sSpanishText_Description_Pistol,
+    [DESCRIPTION_TEXT_PISTOL] = sSpanishText_Description_Pistol
 };
 
 const u16 sSpanishText_Story_PlanetZebes[] = INCTEXT("{GAP(8)}El Planeta Zebes... Hace mucho, en\n{GAP(8)}tiempos de paz, antes de que el mal\n{GAP(8)}arrasara las cavernas, era mi hogar.\n{GAP(8)}Ahora debo narrar la historia de mi\n{GAP(8)}primera batalla... La Misión Zero.\n{GAP(138)}-Samus Aran-");
@@ -2055,7 +2055,7 @@ const u16* sSpanishTextPointers_Story[] = {
     [STORY_TEXT_COULD_I_SURVIVE] = sSpanishText_Story_CouldISurvive,
     [STORY_TEXT_EMERGENCY] = sSpanishText_Story_Emergency,
     [STORY_TEXT_EXTERMINATE] = sSpanishText_Story_Exterminate,
-    [STORY_TEXT_DEFEAT] = sSpanishText_Story_Defeat,
+    [STORY_TEXT_DEFEAT] = sSpanishText_Story_Defeat
 };
 
 const u16 sSpanishText_FileScreen_StartGame[] = INCTEXT("Jugar\nJugar (Link)");
@@ -2133,7 +2133,7 @@ const u16* sSpanishTextPointers_FileScreen[] = {
     [FILE_SCREEN_TEXT_GALLERY_UNLOCK] = sSpanishText_FileScreen_GalleryUnlock,
     [FILE_SCREEN_TEXT_TIME_ATTACK_RECORD_UNLOCK] = sSpanishText_FileScreen_TimeAttackRecordUnlock,
     [FILE_SCREEN_TEXT_SOUND_TEST_UNLOCK] = sSpanishText_FileScreen_SoundTestUnlock,
-    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sSpanishText_FileScreen_NesMetroidUnlock,
+    [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sSpanishText_FileScreen_NesMetroidUnlock
 };
 
 #elif defined(REGION_US_BETA)
@@ -2192,7 +2192,7 @@ const u16 sGermanText_Story_Defeat[] = INCTEXT("{DEL}");
 const u16* sGermanTextPointers_Story[3] = {
     [0] = sGermanText_Story_PlanetZebes,
     [1] = sGermanText_Story_CouldISurvive,
-    [2] = sGermanText_Story_Exterminate,
+    [2] = sGermanText_Story_Exterminate
 };
 
 const u16 sAlign_4 = 0;
@@ -2249,7 +2249,7 @@ const u16 sFrenchText_Story_Defeat[] = INCTEXT("{DEL}");
 const u16* sFrenchTextPointers_Story[3] = {
     [0] = sFrenchText_Story_PlanetZebes,
     [1] = sFrenchText_Story_CouldISurvive,
-    [2] = sFrenchText_Story_Exterminate,
+    [2] = sFrenchText_Story_Exterminate
 };
 
 const u16 sAlign_6 = 0;
@@ -2306,7 +2306,7 @@ const u16 sItalianText_Story_Defeat[] = INCTEXT("{DEL}");
 const u16* sItalianTextPointers_Story[3] = {
     [0] = sItalianText_Story_PlanetZebes,
     [1] = sItalianText_Story_CouldISurvive,
-    [2] = sItalianText_Story_Exterminate,
+    [2] = sItalianText_Story_Exterminate
 };
 
 const u16 sAlign_8 = 0;
@@ -2363,7 +2363,7 @@ const u16 sSpanishText_Story_Defeat[] = INCTEXT("{DEL}");
 const u16* sSpanishTextPointers_Story[3] = {
     [0] = sSpanishText_Story_PlanetZebes,
     [1] = sSpanishText_Story_CouldISurvive,
-    [2] = sSpanishText_Story_Exterminate,
+    [2] = sSpanishText_Story_Exterminate
 };
 
 #endif

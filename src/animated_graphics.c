@@ -22,7 +22,7 @@
 #include "structs/power_bomb_explosion.h"
 #include "structs/room.h"
 
-static const BackgroundEffectBehaviorEntry_T* sBackgroundEffectBehaviorPointers[BACKGROUND_EFFECT_END] = {
+static const BackgroundEffectBehaviorEntry_T* sBackgroundEffectBehaviorPointers[BACKGROUND_EFFECT_COUNT] = {
     [BACKGROUND_EFFECT_NONE] = sBackgroundEffectBehavior_Lightning,
     [BACKGROUND_EFFECT_LIGHTNING] = sBackgroundEffectBehavior_Lightning,
     [BACKGROUND_EFFECT_SLIGHT_YELLOW] = sBackgroundEffectBehavior_SlightYellow,
@@ -31,7 +31,7 @@ static const BackgroundEffectBehaviorEntry_T* sBackgroundEffectBehaviorPointers[
     [BACKGROUND_EFFECT_INTRO_TEXT_FADE] = sBackgroundEffectBehavior_IntroText,
     [BACKGROUND_EFFECT_QUICK_FLASH] = sBackgroundEffectBehavior_QuickFlash,
     [BACKGROUND_EFFECT_ALL_BLACK] = sBackgroundEffectBehavior_AllBlackWhite,
-    [BACKGROUND_EFFECT_ALL_WHITE] = sBackgroundEffectBehavior_AllBlackWhite,
+    [BACKGROUND_EFFECT_ALL_WHITE] = sBackgroundEffectBehavior_AllBlackWhite
 };
 
 static u16 BackgroundEffectProcess(void);
@@ -47,40 +47,40 @@ void AnimatedGraphicsTransfer(void)
         return;
 
     if (gAnimatedGraphicsToUpdate & 1 << 0)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(0), ANIMATED_GFX_VRAM_POS(0), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(0), ANIMATED_GFX_VRAM_POS(0), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 1)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(1), ANIMATED_GFX_VRAM_POS(1), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(1), ANIMATED_GFX_VRAM_POS(1), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 2)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(2), ANIMATED_GFX_VRAM_POS(2), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(2), ANIMATED_GFX_VRAM_POS(2), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 3)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(3), ANIMATED_GFX_VRAM_POS(3), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(3), ANIMATED_GFX_VRAM_POS(3), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 4)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(4), ANIMATED_GFX_VRAM_POS(4), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(4), ANIMATED_GFX_VRAM_POS(4), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 5)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(5), ANIMATED_GFX_VRAM_POS(5), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(5), ANIMATED_GFX_VRAM_POS(5), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 6)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(6), ANIMATED_GFX_VRAM_POS(6), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(6), ANIMATED_GFX_VRAM_POS(6), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 7)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(7), ANIMATED_GFX_VRAM_POS(7), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(7), ANIMATED_GFX_VRAM_POS(7), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 8)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(8), ANIMATED_GFX_VRAM_POS(8), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(8), ANIMATED_GFX_VRAM_POS(8), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 9)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(9), ANIMATED_GFX_VRAM_POS(9), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(9), ANIMATED_GFX_VRAM_POS(9), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 10)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(10), ANIMATED_GFX_VRAM_POS(10), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(10), ANIMATED_GFX_VRAM_POS(10), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 11)
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(11), ANIMATED_GFX_VRAM_POS(11), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(11), ANIMATED_GFX_VRAM_POS(11), ANIMATED_GFX_SIZE_16_BITS);
 
     if (gAnimatedGraphicsToUpdate & 1 << 12)
     {
@@ -88,8 +88,8 @@ void AnimatedGraphicsTransfer(void)
         DmaTransfer(3, ANIMATED_GFX_EWRAM_POS(12), ANIMATED_GFX_VRAM_POS(12), ANIMATED_GFX_SIZE, 16);
         DmaTransfer(3, ANIMATED_GFX_EWRAM_POS(12), ANIMATED_GFX_VRAM_END_POS(3), ANIMATED_GFX_SIZE, 16);
         #else // !REGION_EU
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(12), ANIMATED_GFX_VRAM_POS(12), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(12), ANIMATED_GFX_VRAM_END_POS(3), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(12), ANIMATED_GFX_VRAM_POS(12), ANIMATED_GFX_SIZE_16_BITS);
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(12), ANIMATED_GFX_VRAM_END_POS(3), ANIMATED_GFX_SIZE_16_BITS);
         #endif // REGION_EU
     }
 
@@ -99,8 +99,8 @@ void AnimatedGraphicsTransfer(void)
         DmaTransfer(3, ANIMATED_GFX_EWRAM_POS(13), ANIMATED_GFX_VRAM_POS(13), ANIMATED_GFX_SIZE, 16);
         DmaTransfer(3, ANIMATED_GFX_EWRAM_POS(13), ANIMATED_GFX_VRAM_END_POS(2), ANIMATED_GFX_SIZE, 16);
         #else // !REGION_EU
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(13), ANIMATED_GFX_VRAM_POS(13), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(13), ANIMATED_GFX_VRAM_END_POS(2), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(13), ANIMATED_GFX_VRAM_POS(13), ANIMATED_GFX_SIZE_16_BITS);
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(13), ANIMATED_GFX_VRAM_END_POS(2), ANIMATED_GFX_SIZE_16_BITS);
         #endif // REGION_EU
     }
 
@@ -110,8 +110,8 @@ void AnimatedGraphicsTransfer(void)
         DmaTransfer(3, ANIMATED_GFX_EWRAM_POS(14), ANIMATED_GFX_VRAM_POS(14), ANIMATED_GFX_SIZE, 16);
         DmaTransfer(3, ANIMATED_GFX_EWRAM_POS(14), ANIMATED_GFX_VRAM_END_POS(1), ANIMATED_GFX_SIZE, 16);
         #else // !REGION_EU
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(14), ANIMATED_GFX_VRAM_POS(14), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(14), ANIMATED_GFX_VRAM_END_POS(1), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(14), ANIMATED_GFX_VRAM_POS(14), ANIMATED_GFX_SIZE_16_BITS);
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(14), ANIMATED_GFX_VRAM_END_POS(1), ANIMATED_GFX_SIZE_16_BITS);
         #endif // REGION_EU
     }
 
@@ -121,8 +121,8 @@ void AnimatedGraphicsTransfer(void)
         DmaTransfer(3, ANIMATED_GFX_EWRAM_POS(15), ANIMATED_GFX_VRAM_POS(15), ANIMATED_GFX_SIZE, 16);
         DmaTransfer(3, ANIMATED_GFX_EWRAM_POS(15), ANIMATED_GFX_VRAM_END_POS(0), ANIMATED_GFX_SIZE, 16);
         #else // !REGION_EU
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(15), ANIMATED_GFX_VRAM_POS(15), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
-        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(15), ANIMATED_GFX_VRAM_END_POS(0), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(15), ANIMATED_GFX_VRAM_POS(15), ANIMATED_GFX_SIZE_16_BITS);
+        DMA3_COPY_16(ANIMATED_GFX_EWRAM_POS(15), ANIMATED_GFX_VRAM_END_POS(0), ANIMATED_GFX_SIZE_16_BITS);
         #endif // REGION_EU
     }
 
@@ -248,7 +248,7 @@ void AnimatedGraphicsUpdate(void)
             src = &pGraphics->pGraphics[frame * ANIMATED_GFX_SIZE];
 
             // Transfer graphics to EWRAM
-            DMA_SET(3, src, ANIMATED_GFX_EWRAM_POS(i), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+            DMA3_COPY_16(src, ANIMATED_GFX_EWRAM_POS(i), ANIMATED_GFX_SIZE_16_BITS);
 
             // Mark for transfer to VRAM
             gAnimatedGraphicsToUpdate |= 1 << i;
@@ -302,7 +302,7 @@ void AnimatedGraphicsLoad(void)
         src = &pGraphics->pGraphics[pGraphics->currentAnimationFrame * ANIMATED_GFX_SIZE];
         dst = ANIMATED_GFX_VRAM_POS(i);
 
-        DMA_SET(3, src, dst, C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(src, dst, ANIMATED_GFX_SIZE_16_BITS);
 
         // Check enable rain sound
         if (gPauseScreenFlag == 0 && pGraphics->graphicsEntry == ANIMATED_GFX_ID_RAIN)
@@ -313,7 +313,7 @@ void AnimatedGraphicsLoad(void)
     #ifdef REGION_EU
     DmaTransfer(3, ANIMATED_GFX_VRAM_POS(12), ANIMATED_GFX_VRAM_END_POS(4 - 1), ANIMATED_GFX_SIZE * 4, 16);
     #else // !REGION_EU
-    DMA_SET(3, ANIMATED_GFX_VRAM_POS(12), ANIMATED_GFX_VRAM_END_POS(4 - 1), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE * 4 / 2));
+    DMA3_COPY_16(ANIMATED_GFX_VRAM_POS(12), ANIMATED_GFX_VRAM_END_POS(4 - 1), ANIMATED_GFX_SIZE * 4 / 2);
     #endif // REGION_EU
 }
 
@@ -361,8 +361,7 @@ void AnimatedGraphicsTanksAnimationUpdate(void)
             gTankAnimations[i].frame = 0;
 
         // Transfer graphics
-        DMA_SET(3, &sAnimatedTankGfx[ANIMATED_GFX_TANK_POS(i, gTankAnimations[i].frame)],
-            ANIMATED_GFX_TANK_VRAM_POS(i), C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
+        DMA3_COPY_16(&sAnimatedTankGfx[ANIMATED_GFX_TANK_POS(i, gTankAnimations[i].frame)], ANIMATED_GFX_TANK_VRAM_POS(i), ANIMATED_GFX_SIZE_16_BITS);
     }
 }
 
@@ -377,7 +376,7 @@ void AnimatedPaletteUpdate(void)
     s32 newRow;
 
     // Check has animated palette
-    if (gAnimatedGraphicsEntry.palette == 0)
+    if (gAnimatedGraphicsEntry.palette == ANIMATED_PALETTE_ID_NONE)
         return;
 
     // Don't update if a power bomb explosion is occuring
@@ -462,14 +461,12 @@ void AnimatedPaletteUpdate(void)
     if (gSubGameMode1 == SUB_GAME_MODE_PLAYING)
     {
         // Directly to palram if in game
-        DMA_SET(3, &sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * PAL_ROW],
-            ANIMATED_PALETTE_PALRAM, C_32_2_16(DMA_ENABLE, PAL_ROW_SIZE / 2));
+        DMA3_COPY_16(&sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * PAL_ROW], ANIMATED_PALETTE_PALRAM, PAL_ROW_SIZE / 2);
     }
     else
     {
         // To backup if not in game
-        DMA_SET(3, &sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * PAL_ROW],
-            ANIMATED_PALETTE_EWRAM, C_32_2_16(DMA_ENABLE, PAL_ROW_SIZE / 2));    
+        DMA3_COPY_16(&sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * PAL_ROW], ANIMATED_PALETTE_EWRAM, PAL_ROW_SIZE / 2);    
     }
 }
 
@@ -484,12 +481,11 @@ void AnimatedPaletteCheckDisableOnTransition(void)
 
     gDisableAnimatedPalette = FALSE;
 
-    if (gAnimatedGraphicsEntry.palette == 0)
+    if (gAnimatedGraphicsEntry.palette == ANIMATED_PALETTE_ID_NONE)
         return;
 
     // Transfer palette
-    DMA_SET(3, sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette,
-        ANIMATED_PALETTE_PALRAM, C_32_2_16(DMA_ENABLE, PAL_ROW));
+    DMA3_COPY_16(sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette, ANIMATED_PALETTE_PALRAM, PAL_ROW);
 
     // Check disable
     switch (gAnimatedGraphicsEntry.palette)

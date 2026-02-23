@@ -15,7 +15,7 @@
 #include "constants/audio.h"
 
 
-const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_END] = {
+const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_COUNT] = {
     [ANIMATED_GFX_ID_CRYSTAL] = {
         .type = ANIMATED_GFX_TYPE_NONE,
         .framesPerState = 0,
@@ -472,7 +472,7 @@ const struct AnimatedPaletteTiming sAnimatedPaletteTiming_Empty = {
     .row2 = 0
 };
 
-const struct AnimatedPaletteData sAnimatedPaletteEntries[ANIMATED_PALETTE_ID_END] = {
+const struct AnimatedPaletteData sAnimatedPaletteEntries[ANIMATED_PALETTE_ID_COUNT] = {
     [0] = {
         .type = ANIMATED_PALETTE_TYPE_NONE,
         .framesPerState = 0,
@@ -580,11 +580,11 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[ANIMATED_PALETTE_ID_END
         .framesPerState = CONVERT_SECONDS(.05f),
         .numbersOfStates = ARRAY_SIZE(sAnimatedPal_17) / 16,
         .pPalette = sAnimatedPal_17
-    },
+    }
 };
 
 
-const struct BackgroundEffectColorData sBackgroundEffectColorData[BACKGROUND_EFFECT_END] = {
+const struct BackgroundEffectColorData sBackgroundEffectColorData[BACKGROUND_EFFECT_COUNT] = {
     [BACKGROUND_EFFECT_NONE] = {
         .colorMask = COLOR_WHITE,
         .color_1 = BACKGROUND_EFFECT_NO_COLOR,
@@ -638,11 +638,11 @@ const struct BackgroundEffectColorData sBackgroundEffectColorData[BACKGROUND_EFF
         .color_1 = COLOR_WHITE,
         .color_2 = BACKGROUND_EFFECT_NO_COLOR,
         .applyToObj = TRUE
-    },
+    }
 };
 
 
-const u16 sBackgroundEffectBehavior_Lightning[34][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END] = {
+const u16 sBackgroundEffectBehavior_Lightning[34][BACKGROUND_EFFECT_BEHAVIOR_FIELD_COUNT] = {
     {
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE] = BACKGROUND_EFFECT_CMD_WAIT_FOR_TIMER_RANDOM,
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] = CONVERT_SECONDS(5.f),
@@ -815,7 +815,7 @@ const u16 sBackgroundEffectBehavior_Lightning[34][BACKGROUND_EFFECT_BEHAVIOR_FIE
     }
 };
 
-const u16 sBackgroundEffectBehavior_QuickFlash[12][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END] = {
+const u16 sBackgroundEffectBehavior_QuickFlash[12][BACKGROUND_EFFECT_BEHAVIOR_FIELD_COUNT] = {
     {
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE] = BACKGROUND_EFFECT_CMD_CHECK_APPLY_FIRST_COLOR,
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] = 0,
@@ -878,7 +878,7 @@ const u16 sBackgroundEffectBehavior_QuickFlash[12][BACKGROUND_EFFECT_BEHAVIOR_FI
     }
 };
 
-const u16 sBackgroundEffectBehavior_SlightYellow[21][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END] = {
+const u16 sBackgroundEffectBehavior_SlightYellow[21][BACKGROUND_EFFECT_BEHAVIOR_FIELD_COUNT] = {
     {
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE] = BACKGROUND_EFFECT_CMD_WAIT_FOR_TIMER_BEFORE,
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] = 13,
@@ -986,7 +986,7 @@ const u16 sBackgroundEffectBehavior_SlightYellow[21][BACKGROUND_EFFECT_BEHAVIOR_
     }
 };
 
-const u16 sBackgroundEffectBehavior_HeavyYellow[20][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END] = {
+const u16 sBackgroundEffectBehavior_HeavyYellow[20][BACKGROUND_EFFECT_BEHAVIOR_FIELD_COUNT] = {
     {
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE] = BACKGROUND_EFFECT_CMD_CHECK_APPLY_FIRST_COLOR,
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] = 0,
@@ -1089,7 +1089,7 @@ const u16 sBackgroundEffectBehavior_HeavyYellow[20][BACKGROUND_EFFECT_BEHAVIOR_F
     }
 };
 
-const u16 sBackgroundEffectBehavior_ExitZebes[30][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END] = {
+const u16 sBackgroundEffectBehavior_ExitZebes[30][BACKGROUND_EFFECT_BEHAVIOR_FIELD_COUNT] = {
     {
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE] = BACKGROUND_EFFECT_CMD_CHECK_APPLY_FIRST_COLOR,
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] = 0,
@@ -1242,7 +1242,7 @@ const u16 sBackgroundEffectBehavior_ExitZebes[30][BACKGROUND_EFFECT_BEHAVIOR_FIE
     }
 };
 
-const u16 sBackgroundEffectBehavior_IntroText[30][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END] = {
+const u16 sBackgroundEffectBehavior_IntroText[30][BACKGROUND_EFFECT_BEHAVIOR_FIELD_COUNT] = {
     {
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE] = BACKGROUND_EFFECT_CMD_CHECK_APPLY_FIRST_COLOR,
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] = 0,
@@ -1395,7 +1395,7 @@ const u16 sBackgroundEffectBehavior_IntroText[30][BACKGROUND_EFFECT_BEHAVIOR_FIE
     }
 };
 
-const u16 sBackgroundEffectBehavior_AllBlackWhite[39][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END] = {
+const u16 sBackgroundEffectBehavior_AllBlackWhite[39][BACKGROUND_EFFECT_BEHAVIOR_FIELD_COUNT] = {
     {
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE] = BACKGROUND_EFFECT_CMD_CHECK_APPLY_FIRST_COLOR,
         [BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] = 0,

@@ -22,15 +22,14 @@
 void ClipdataSetupCode(void)
 {
     // Copy code to RAM
-    DMA_SET(3, ClipdataConvertToCollision + 1, gNonGameplayRam.inGame.clipdataCode,
-        C_32_2_16(DMA_ENABLE, sizeof(gNonGameplayRam.inGame.clipdataCode) / 2));
+    DMA3_COPY_16(ClipdataConvertToCollision + 1, gNonGameplayRam.inGame.clipdataCode, sizeof(gNonGameplayRam.inGame.clipdataCode) / 2);
 
     // Set pointer
     gClipdataCodePointer = (ClipFunc_T)(gNonGameplayRam.inGame.clipdataCode + 1);
 }
 
 /**
- * @brief Gets information on the clipdata block at the position in parameters, only used for samus
+ * @brief 57df8 | 84 | Gets information on the clipdata block at the position in parameters, only used for samus
  * 
  * @param yPosition Y position (in sub-pixels)
  * @param xPosition X position (in sub-pixels)
@@ -54,8 +53,8 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
         if (collision.tileY < gBgPointersAndDimensions.clipdataHeight)
         {
             // Get clip type at position
-            collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[gBgPointersAndDimensions.pClipDecomp[
-                gBgPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
+            collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[
+                GET_CLIP_BLOCK_(collision.tileX, collision.tileY)];
 
             // Get sub pixel
             collision.subPixelY = yPosition % BLOCK_SIZE;
@@ -121,7 +120,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
     }
 
     // Get clip at position
-    clipdata = gBgPointersAndDimensions.pClipDecomp[collision.tileY * gBgPointersAndDimensions.clipdataWidth + collision.tileX];
+    clipdata = GET_CLIP_BLOCK(collision.tileX, collision.tileY);
     if (gCurrentClipdataAffectingAction != CAA_NONE)
     {
         // Apply Ccaa if not none
@@ -142,9 +141,9 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
  * @param pCollision Pointer to a collision data structure
  * @return u32 Clipdata type (including solid flag)
  */
-u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
+ClipdataType ClipdataConvertToCollision(struct CollisionData* pCollision)
 {
-    u32 result;
+    ClipdataType result;
 
     result = CLIPDATA_TYPE_AIR;
 
@@ -452,8 +451,7 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
     u32 specialClip;
 
     // Get clipdata behavior of the current tile
-    behavior = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[
-        tileY * gBgPointersAndDimensions.clipdataWidth + tileX]];
+    behavior = gTilemapAndClipPointers.pClipBehaviors[GET_CLIP_BLOCK(tileX, tileY)];
 
     // Check for movement clipdata
     if (behavior != CLIP_BEHAVIOR_NONE)
@@ -487,7 +485,7 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
     else
     {
         // Check for hazard behavior (effect based)
-        if (gCurrentRoomEntry.bg0Prop != 0 && gCurrentRoomEntry.damageEffect != 0)
+        if (gCurrentRoomEntry.bg0Prop != 0 && gCurrentRoomEntry.damageEffect != EFFECT_NONE)
         {
             if (gCurrentRoomEntry.damageEffect < ARRAY_SIZE(sHazardsDefinitions))
             {
@@ -585,7 +583,7 @@ u32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
     if (tileY >= gBgPointersAndDimensions.clipdataHeight || tileX >= gBgPointersAndDimensions.clipdataWidth)
         return GROUND_EFFECT_NONE;
 
-    clipdata = gBgPointersAndDimensions.pClipDecomp[tileY * gBgPointersAndDimensions.clipdataWidth + tileX];
+    clipdata = GET_CLIP_BLOCK(tileX, tileY);
     if (clipdata & CLIPDATA_TILEMAP_FLAG)
         clipdata = CLIP_BEHAVIOR_NONE;
     else

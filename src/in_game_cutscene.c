@@ -1,5 +1,5 @@
 #include "in_game_cutscene.h"
-#include "sprites_AI/ruins_test.h"
+#include "sprites_ai/ruins_test.h"
 #include "dma.h"
 #include "gba.h"
 #include "randomizer.h"
@@ -342,7 +342,7 @@ u32 InGameCutsceneUpgradingSuit(InGameCutsceneScene cutsceneNumber, InGameCutsce
             #ifdef REGION_EU
             DmaTransfer(3, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), EWRAM_BASE + 0x1E000, BGCNT_VRAM_TILE_SIZE, 16);
             #else // !REGION_EU
-            DMA_SET(3, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), EWRAM_BASE + 0x1E000, C_32_2_16(DMA_ENABLE, BGCNT_VRAM_TILE_SIZE / 2));
+            DMA3_COPY_16(VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), EWRAM_BASE + 0x1E000, BGCNT_VRAM_TILE_SIZE / 2);
             #endif // REGION_EU
 
             changeStage = TRUE;
@@ -531,7 +531,7 @@ u32 InGameCutsceneUpgradingSuit(InGameCutsceneScene cutsceneNumber, InGameCutsce
             #ifdef REGION_EU
             DmaTransfer(3, EWRAM_BASE + 0x1E000, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), BGCNT_VRAM_TILE_SIZE, 16);
             #else // !REGION_EU
-            DMA_SET(3, EWRAM_BASE + 0x1E000, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), C_32_2_16(DMA_ENABLE, BGCNT_VRAM_TILE_SIZE / 2));
+            DMA3_COPY_16(EWRAM_BASE + 0x1E000, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), BGCNT_VRAM_TILE_SIZE / 2);
             #endif // REGION_EU
             WRITE_16(REG_BG0CNT, gIoRegistersBackup.BG0CNT);
 
@@ -704,12 +704,12 @@ void InGameCutsceneProcess(void)
     // Check was init
     if (cutsceneNumber & IGC_STARTED_FLAG)
     {
-        // Check has subroutine pointer, and check if has cutscene again (why?)
-        if (gInGameCutscene.pSubroutine == NULL || !(cutsceneNumber & IGC_NO_STARTED_FLAG))
+        // Check has a function pointer, and check if has cutscene again (why?)
+        if (gInGameCutscene.pFunction == NULL || !(cutsceneNumber & IGC_NO_STARTED_FLAG))
             return;
 
-        // Execute subroutine
-        result = gInGameCutscene.pSubroutine(cutsceneNumber & IGC_NO_STARTED_FLAG, cutsceneNumber);
+        // Execute function
+        result = gInGameCutscene.pFunction(cutsceneNumber & IGC_NO_STARTED_FLAG, cutsceneNumber);
 
         if (result != IGC_RESULT_NONE)
             gInGameCutscene.timer = 0;
@@ -779,7 +779,7 @@ void InGameCutsceneInit(void)
     gInGameCutscene.stage = 0;
     gInGameCutscene.timer = 0;
 
-    gInGameCutscene.pSubroutine = sInGameCutsceneData[gInGameCutscene.cutsceneNumber].pSubroutine;
+    gInGameCutscene.pFunction = sInGameCutsceneData[gInGameCutscene.cutsceneNumber].pFunction;
     gInGameCutscene.cutsceneNumber |= IGC_STARTED_FLAG;
 }
 
@@ -872,7 +872,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
             CallLZ77UncompVram(sSamusCloseUpGfx, VRAM_BASE + 0x9000);
             CallLZ77UncompWram(sSamusCloseUpBackgroundMap, gDecompBg0Map);
             CallLZ77UncompWram(sSamusCloseUpEyesTiletable, EWRAM_BASE + 0x2B000);
-            DMA_SET(3, sSamusCloseUpPal, PALRAM_BASE + 7 * PAL_ROW_SIZE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sSamusCloseUpPal)));
+            DMA3_COPY_16(sSamusCloseUpPal, PALRAM_BASE + 7 * PAL_ROW_SIZE, ARRAY_SIZE(sSamusCloseUpPal));
 
             unk_5fd58();
 
@@ -986,8 +986,8 @@ void UpdateAnimatedPaletteAfterTransitionOrReload(void)
 {
     if (gPauseScreenFlag)
     {
-        if (gAnimatedGraphicsEntry.palette != 0)
-            DMA_SET(3, ANIMATED_PALETTE_EWRAM, ANIMATED_PALETTE_PALRAM, C_32_2_16(DMA_ENABLE, 16));
+        if (gAnimatedGraphicsEntry.palette != ANIMATED_PALETTE_ID_NONE)
+            DMA3_COPY_16(ANIMATED_PALETTE_EWRAM, ANIMATED_PALETTE_PALRAM, 16);
     }
     else
     {

@@ -4,6 +4,7 @@
 #include "types.h"
 
 #include "constants/connection.h"
+#include "constants/menus/status_screen.h"
 #include "constants/samus.h"
 #include "constants/text.h"
 
@@ -14,7 +15,7 @@ void LoadPauseScreenBgPalette(void);
 
 void PauseDebugUpdateMapOverlay(u8 param_0, Area area);
 void PauseDebugActivateAbilities(void);
-u32 PauseDebugSubroutine(void);
+u32 PauseDebugMainLoop(void);
 void PauseDebugToggleAbility(u8 isActivation, u8 group, u8 abilityNum);
 void PauseDebugStatusScreen(void);
 void PauseDebugDrawAbilityGroup(u8 group);
@@ -35,28 +36,28 @@ void PauseDebugDrawEventName(u16 event, u16* dst);
 
 void UpdateSuitType(SuitType newSuit);
 u32 StatusScreenDrawItems(u8 row);
-u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item);
+StatusSlots StatusScreenGetSlotForNewItem(u8 param_1, u8 item);
 void StatusScreenDraw(void);
 void StatusScreenSetPistolVisibility(u16* pTilemap);
-void StatusScreenDrawSingleTankAmount(u8 group, u16 amount, u8 palette, u8 isMax);
+void StatusScreenDrawSingleTankAmount(AbilityGroup group, u16 amount, u8 palette, u8 isMax);
 void StatusScreenSetBeamsVisibility(u16* pTilemap);
 void StatusScreenSetSuitsVisibility(u16* pTilemap);
 void StatusScreenSetMiscsVisibility(u16* pTilemap);
 void StatusScreenSetBombsVisibility(u16* pTilemap);
 void StatusScreenSetMissilesVisibility(u16* pTilemap);
-void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 drawUpdate);
-void StatusScreenEnableUnknownItem(u8 group, u8 row);
+void StatusScreenUpdateRow(AbilityGroup group, u8 row, u8 isActivated, u8 drawUpdate);
+void StatusScreenEnableUnknownItem(AbilityGroup group, u8 row);
 u32 StatusScreenCheckItemToggleInput(u16 button);
 void StatusScreenInitCursorAndItems(void);
 u32 StatusScreenSuitlessItems(void);
 u32 StatusScreenFindUnknownItemSlot(u8 wantUnknownItem);
 u32 StatusScreenUpdateUnknownItemPalette(u8 stage);
 u32 StatusScreenFullyPoweredItems(void);
-void StatusScreenSubroutine(void);
+void StatusScreenMainLoop(void);
 DescriptionTextId StatusScreenGetCurrentEquipmentSelected(u8 statusSlot);
 u32 StatusScreenUpdateCursorPosition(u8 statusSlot);
 u32 StatusScreenIsStatusSlotEnabled(u8 statusSlot);
-u32 StatusScreenToggleItem(u8 statusSlot, u8 action);
+boolu32 StatusScreenToggleItem(u8 statusSlot, ItemToggleAction action);
 void StatusScreenMoveCursor(void);
 u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot);
 

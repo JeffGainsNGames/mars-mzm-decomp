@@ -535,10 +535,10 @@ void ProjectileUpdateAnimation(struct ProjectileData* pProj)
 }
 
 /**
- * @brief 4f33c | 44 | Draws every projectile if the status flag 80 isn't set
+ * @brief 4f33c | 44 | Draws every projectile with high OAM priority
  * 
  */
-void ProjectileDrawAllStatusFalse(void)
+void ProjectileDrawAll_HighPriority(void)
 {
     struct ProjectileData* pProj;
 
@@ -547,7 +547,7 @@ void ProjectileDrawAllStatusFalse(void)
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
-        if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_UNKNOWN_80)) ==
+        if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_LOW_OAM_PRIORITY)) ==
             (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN))
         {
             ProjectileDraw(pProj);
@@ -556,10 +556,10 @@ void ProjectileDrawAllStatusFalse(void)
 }
 
 /**
- * @brief 4f380 | 44 | Draws every projectile if the status flag 80 is set
+ * @brief 4f380 | 44 | Draws every projectile with low OAM priority
  * 
  */
-void ProjectileDrawAllStatusTrue(void)
+void ProjectileDrawAll_LowPriority(void)
 {
     struct ProjectileData* pProj;
 
@@ -568,8 +568,8 @@ void ProjectileDrawAllStatusTrue(void)
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
-        if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_UNKNOWN_80)) ==
-            (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_UNKNOWN_80))
+        if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_LOW_OAM_PRIORITY)) ==
+            (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_LOW_OAM_PRIORITY))
         {
             ProjectileDraw(pProj);
         }
@@ -616,7 +616,7 @@ void ProjectileDraw(struct ProjectileData* pProj)
         yFlip = pProj->status & PROJ_STATUS_Y_FLIP;
 
         bgPriority = BGCNT_GET_PRIORITY(gIoRegistersBackup.BG1CNT);
-        if (pProj->status & PROJ_STATUS_HIGH_PRIORITY)
+        if (pProj->status & PROJ_STATUS_ABOVE_BG1)
             bgPriority = 0;
         else
             bgPriority++;
@@ -751,10 +751,10 @@ void ProjectileLoadGraphics(void)
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
         // Only transfer beam section (ignore CHARGE GAUGE)
-        DMA_SET(3, sPistolGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sPistolGfx_Top) / 2 / 2));
-        DMA_SET(3, sPistolGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sPistolGfx_Bottom) / 2));
-        DMA_SET(3, sPistolGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sPistolGfx_Charged_Top) / 2));
-        DMA_SET(3, sPistolGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sPistolGfx_Charged_Bottom) / 2));
+        DMA3_COPY_16(sPistolGfx_Top, VRAM_BASE + 0x11000, sizeof(sPistolGfx_Top) / 2 / 2);
+        DMA3_COPY_16(sPistolGfx_Bottom, VRAM_BASE + 0x11400, sizeof(sPistolGfx_Bottom) / 2);
+        DMA3_COPY_16(sPistolGfx_Charged_Top, VRAM_BASE + 0x11800, sizeof(sPistolGfx_Charged_Top) / 2);
+        DMA3_COPY_16(sPistolGfx_Charged_Bottom, VRAM_BASE + 0x11C00, sizeof(sPistolGfx_Charged_Bottom) / 2);
 
         HudDrawSuitless();
         palOffset = 5 * PAL_ROW;
@@ -764,10 +764,10 @@ void ProjectileLoadGraphics(void)
         bba = gEquipment.beamBombsActivation;
         if (bba & BBF_PLASMA_BEAM)
         {
-            DMA_SET(3, sPlasmaBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sPlasmaBeamGfx_Top) / 2));
-            DMA_SET(3, sPlasmaBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sPlasmaBeamGfx_Bottom) / 2));
-            DMA_SET(3, sPlasmaBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sPlasmaBeamGfx_Charged_Top) / 2));
-            DMA_SET(3, sPlasmaBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sPlasmaBeamGfx_Charged_Bottom) / 2));
+            DMA3_COPY_16(sPlasmaBeamGfx_Top, VRAM_BASE + 0x11000, sizeof(sPlasmaBeamGfx_Top) / 2);
+            DMA3_COPY_16(sPlasmaBeamGfx_Bottom, VRAM_BASE + 0x11400, sizeof(sPlasmaBeamGfx_Bottom) / 2);
+            DMA3_COPY_16(sPlasmaBeamGfx_Charged_Top, VRAM_BASE + 0x11800, sizeof(sPlasmaBeamGfx_Charged_Top) / 2);
+            DMA3_COPY_16(sPlasmaBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, sizeof(sPlasmaBeamGfx_Charged_Bottom) / 2);
 
             if (bba & BBF_ICE_BEAM)
                 palOffset = 2 * PAL_ROW;
@@ -776,10 +776,10 @@ void ProjectileLoadGraphics(void)
         }
         else if (bba & BBF_WAVE_BEAM)
         {
-            DMA_SET(3, sWaveBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sWaveBeamGfx_Top) / 2));
-            DMA_SET(3, sWaveBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sWaveBeamGfx_Bottom) / 2));
-            DMA_SET(3, sWaveBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sWaveBeamGfx_Charged_Top) / 2));
-            DMA_SET(3, sWaveBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sWaveBeamGfx_Charged_Bottom) / 2));
+            DMA3_COPY_16(sWaveBeamGfx_Top, VRAM_BASE + 0x11000, sizeof(sWaveBeamGfx_Top) / 2);
+            DMA3_COPY_16(sWaveBeamGfx_Bottom, VRAM_BASE + 0x11400, sizeof(sWaveBeamGfx_Bottom) / 2);
+            DMA3_COPY_16(sWaveBeamGfx_Charged_Top, VRAM_BASE + 0x11800, sizeof(sWaveBeamGfx_Charged_Top) / 2);
+            DMA3_COPY_16(sWaveBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, sizeof(sWaveBeamGfx_Charged_Bottom) / 2);
 
             if (bba & BBF_ICE_BEAM)
                 palOffset = 2 * PAL_ROW;
@@ -788,34 +788,34 @@ void ProjectileLoadGraphics(void)
         }
         else if (bba & BBF_ICE_BEAM)
         {
-            DMA_SET(3, sIceBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sIceBeamGfx_Top) / 2));
-            DMA_SET(3, sIceBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sIceBeamGfx_Bottom) / 2));
-            DMA_SET(3, sIceBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sIceBeamGfx_Charged_Top) / 2));
-            DMA_SET(3, sIceBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sIceBeamGfx_Charged_Bottom) / 2));
+            DMA3_COPY_16(sIceBeamGfx_Top, VRAM_BASE + 0x11000, sizeof(sIceBeamGfx_Top) / 2);
+            DMA3_COPY_16(sIceBeamGfx_Bottom, VRAM_BASE + 0x11400, sizeof(sIceBeamGfx_Bottom) / 2);
+            DMA3_COPY_16(sIceBeamGfx_Charged_Top, VRAM_BASE + 0x11800, sizeof(sIceBeamGfx_Charged_Top) / 2);
+            DMA3_COPY_16(sIceBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, sizeof(sIceBeamGfx_Charged_Bottom) / 2);
 
             palOffset = 2 * PAL_ROW;
         }
         else if (bba & BBF_LONG_BEAM)
         {
-            DMA_SET(3, sLongBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sLongBeamGfx_Top) / 2));
-            DMA_SET(3, sLongBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sLongBeamGfx_Bottom) / 2));
-            DMA_SET(3, sLongBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sLongBeamGfx_Charged_Top) / 2));
-            DMA_SET(3, sLongBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sLongBeamGfx_Charged_Bottom) / 2));
+            DMA3_COPY_16(sLongBeamGfx_Top, VRAM_BASE + 0x11000, sizeof(sLongBeamGfx_Top) / 2);
+            DMA3_COPY_16(sLongBeamGfx_Bottom, VRAM_BASE + 0x11400, sizeof(sLongBeamGfx_Bottom) / 2);
+            DMA3_COPY_16(sLongBeamGfx_Charged_Top, VRAM_BASE + 0x11800, sizeof(sLongBeamGfx_Charged_Top) / 2);
+            DMA3_COPY_16(sLongBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, sizeof(sLongBeamGfx_Charged_Bottom) / 2);
 
             palOffset = 1 * PAL_ROW;
         }
         else
         {
-            DMA_SET(3, sNormalBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sNormalBeamGfx_Top) / 2));
-            DMA_SET(3, sNormalBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sNormalBeamGfx_Bottom) / 2));
-            DMA_SET(3, sNormalBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sNormalBeamGfx_Charged_Top) / 2));
-            DMA_SET(3, sNormalBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sNormalBeamGfx_Charged_Bottom) / 2));
+            DMA3_COPY_16(sNormalBeamGfx_Top, VRAM_BASE + 0x11000, sizeof(sNormalBeamGfx_Top) / 2);
+            DMA3_COPY_16(sNormalBeamGfx_Bottom, VRAM_BASE + 0x11400, sizeof(sNormalBeamGfx_Bottom) / 2);
+            DMA3_COPY_16(sNormalBeamGfx_Charged_Top, VRAM_BASE + 0x11800, sizeof(sNormalBeamGfx_Charged_Top) / 2);
+            DMA3_COPY_16(sNormalBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, sizeof(sNormalBeamGfx_Charged_Bottom) / 2);
 
             palOffset = 0 * PAL_ROW;
         }
     }
     
-    DMA_SET(3, (sBeamPal + palOffset), PALRAM_OBJ + 2 * PAL_ROW_SIZE, C_32_2_16(DMA_ENABLE, 6));
+    DMA3_COPY_16((sBeamPal + palOffset), PALRAM_OBJ + 2 * PAL_ROW_SIZE, 6);
 }
 
 /**
@@ -928,12 +928,12 @@ boolu32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition)
  * @param pProj Projectile data pointer
  * @return u32 Collision result
  */
-u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
+CollisionResult ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 {
     u16 yPosition;
     u16 xPosition;
     u32 clipdata;
-    u32 result;
+    CollisionResult result;
     u16 collisionY;
     u16 collisionX;
     
@@ -1158,7 +1158,7 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
  * @param caa Clipdata Affecting Action
  * @param effect Particle effect
  */
-void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 caa, ParticleEffectId effect)
+void ProjectileCheckHitBlock(struct ProjectileData* pProj, ClipdataAffectingAction caa, ParticleEffectId effect)
 {
     u16 yPosition;
     u16 xPosition;
@@ -1986,7 +1986,7 @@ void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct Projectil
     pProj->timer = 0;
 
     pProj->status &= ~PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
-    pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+    pProj->status |= PROJ_STATUS_ABOVE_BG1;
 
     pProj->animationDurationCounter = 0;
     pProj->currentAnimationFrame = 0;
@@ -2020,7 +2020,7 @@ void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u
     pProj->timer = 0;
 
     pProj->status &= ~PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
-    pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+    pProj->status |= PROJ_STATUS_ABOVE_BG1;
 
     pProj->animationDurationCounter = 0;
     pProj->currentAnimationFrame = 0;

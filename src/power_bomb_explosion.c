@@ -27,10 +27,10 @@ static void PowerBombExplosionSet0x12To0(void);
 static void PowerBombExplosionBegin(void);
 static void PowerBombExplosionEnd(void);
 
-extern u8 sHazeData[EFFECT_HAZE_END][4];
+extern u8 sHazeData[EFFECT_HAZE_COUNT][4];
 
 /**
- * 5745c | 48 | Subroutine for the power bomb explosion
+ * 5745c | 48 | Main loop for the power bomb explosion
  */
 void PowerBombExplosionProcess(void)
 {
@@ -139,7 +139,7 @@ static void PowerBombExplosion(void)
                     innerLoop = 0;
                     if (yPositionTop >= hitboxTop)
                     {
-                        clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionTop * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
+                        clipdata = GET_CLIP_BLOCK(horizontalAxis, yPositionTop);
                         if (clipdata != 0)
                             BlockApplyCcaa(yPositionTop, horizontalAxis, clipdata);
 
@@ -150,7 +150,7 @@ static void PowerBombExplosion(void)
                     
                     if ((s32)yPositionBottom <= hitboxBottom)
                     {
-                        clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionBottom * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
+                        clipdata = GET_CLIP_BLOCK(horizontalAxis, yPositionBottom);
                         if (clipdata != 0)
                             BlockApplyCcaa(yPositionBottom, horizontalAxis, clipdata);
 
@@ -182,7 +182,7 @@ static void PowerBombExplosion(void)
                     innerLoop = 0;
                     if (xPositionLeft >= hitboxLeft)
                     {
-                        clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionLeft];
+                        clipdata = GET_CLIP_BLOCK(xPositionLeft, verticalAxis);
                         if (clipdata != 0)
                             BlockApplyCcaa(verticalAxis, xPositionLeft, clipdata);
                         
@@ -193,7 +193,7 @@ static void PowerBombExplosion(void)
                     
                     if (xPositionRight <= hitboxRight)
                     {
-                        clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionRight];
+                        clipdata = GET_CLIP_BLOCK(xPositionRight, verticalAxis);
                         if (clipdata != 0)
                             BlockApplyCcaa(verticalAxis, xPositionRight, clipdata);
 
@@ -256,7 +256,7 @@ static void PowerBombExplosionBegin(void)
     gCurrentPowerBomb.animationState = PB_STATE_EXPLODING;
     gCurrentPowerBomb.powerBombPlaced = FALSE;
 
-    DMA_SET(3, PALRAM_BASE, EWRAM_BASE + 0x9000, C_32_2_16(DMA_ENABLE, PAL_SIZE / 2));
+    DMA3_COPY_16(PALRAM_BASE, EWRAM_BASE + 0x9000, PAL_SIZE / 2);
     gUnk_02035400 = 0;
 
     HazeSetupCode(HAZE_VALUE_POWER_BOMB_EXPANDING);

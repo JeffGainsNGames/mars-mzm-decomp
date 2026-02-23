@@ -4,7 +4,7 @@
 #include "constants/connection.h"
 #include "constants/samus.h"
 
-const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
+const struct ChozoStatueTarget sChozoStatueTargets[TARGET_COUNT] = {
     [TARGET_LONG_BEAM] = {
         .statueArea = AREA_BRINSTAR,
         .statueXStart = 9,
@@ -131,7 +131,7 @@ const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
         .statueXEnd = 0,
         .statueYStart = 0,
         .statueYEnd = 0,
-        .startIcon = 0,
+        .startIcon = TARGET_OAM_ID_NONE,
         .targetArea = AREA_NONE,
         .targetX = 0,
         .targetY = 0,
@@ -143,7 +143,7 @@ const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
         .statueXEnd = 0,
         .statueYStart = 0,
         .statueYEnd = 0,
-        .startIcon = 0,
+        .startIcon = TARGET_OAM_ID_NONE,
         .targetArea = AREA_NONE,
         .targetX = 0,
         .targetY = 0,
@@ -155,7 +155,7 @@ const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
         .statueXEnd = 0,
         .statueYStart = 0,
         .statueYEnd = 0,
-        .startIcon = 0,
+        .startIcon = TARGET_OAM_ID_NONE,
         .targetArea = AREA_NONE,
         .targetX = 0,
         .targetY = 0,
@@ -167,7 +167,7 @@ const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
         .statueXEnd = 0,
         .statueYStart = 0,
         .statueYEnd = 0,
-        .startIcon = 0,
+        .startIcon = TARGET_OAM_ID_NONE,
         .targetArea = AREA_NONE,
         .targetX = 0,
         .targetY = 0,
@@ -179,7 +179,7 @@ const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
         .statueXEnd = 0,
         .statueYStart = 0,
         .statueYEnd = 0,
-        .startIcon = 0,
+        .startIcon = TARGET_OAM_ID_NONE,
         .targetArea = AREA_NONE,
         .targetX = 0,
         .targetY = 0,
@@ -191,18 +191,18 @@ const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
         .statueXEnd = 0,
         .statueYStart = 0,
         .statueYEnd = 0,
-        .startIcon = 0,
+        .startIcon = TARGET_OAM_ID_NONE,
         .targetArea = AREA_NONE,
         .targetX = 0,
         .targetY = 0,
         .endIcon = 0
-    },
+    }
 };
 
 /**
  * Indicates when a hint should no longer be displayed on the map
  */
-const u8 sChozoStatueTargetConditions[TARGET_END][2] = {
+const u8 sChozoStatueTargetConditions[TARGET_COUNT][2] = {
 // Use events for each hint condition instead of checking equipment
 #ifdef RANDOMIZER
     [TARGET_LONG_BEAM] = {
@@ -308,7 +308,7 @@ const u8 sChozoStatueTargetConditions[TARGET_END][2] = {
 /**
  * Indicates which event should be set for a hint to be active
  */
-const Event sChozoStatueHintEvents[TARGET_END] = {
+const Event sChozoStatueHintEvents[TARGET_COUNT] = {
     [TARGET_LONG_BEAM] = EVENT_STATUE_LONG_BEAM_GRABBED,
     [TARGET_BOMBS] = EVENT_STATUE_BOMBS_GRABBED,
     [TARGET_ICE_BEAM] = EVENT_STATUE_ICE_BEAM_GRABBED,
@@ -426,7 +426,7 @@ const s8 sChozoStatueTargetPathKraid[9][2] = {
     },
     [8] = {
         ELEVATOR_ROUTE_NONE, 0x40
-    },
+    }
 };
 
 #ifdef RANDOMIZER
@@ -528,7 +528,7 @@ const s8 sChozoStatueTargetPathRidley[9][2] = {
     },
     [8] = {
         ELEVATOR_ROUTE_NONE, 0x40
-    },
+    }
 };
 
 const s8 sChozoStatueTargetPathCrateria[9][2] = {
@@ -558,5 +558,5 @@ const s8 sChozoStatueTargetPathCrateria[9][2] = {
     },
     [8] = {
         ELEVATOR_ROUTE_NONE, 0x40
-    },
+    }
 };

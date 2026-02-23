@@ -218,7 +218,7 @@ static u8 MotherBrainCloseUpEyeOpening(void)
 
             // Initialize eye
             MotherBrainCloseUpUpdateEye(FALSE);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sMotherBrainCloseUpPageData[2].bg, NON_GAMEPLAY_START_BG_POS);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X | CUTSCENE_BG_EDIT_Y, sMotherBrainCloseUpPageData[2].bg, NON_GAMEPLAY_START_BG_POS);
 
             // Setup transparency for the flicker effect
             gWrittenToBldalpha_L = 6;
@@ -393,7 +393,7 @@ static u8 MotherBrainCloseUpInit(void)
     CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
     gWrittenToBldy_NonGameplay = BLDY_MAX_VALUE;
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sMotherBrainCloseUpPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X | CUTSCENE_BG_EDIT_Y, sMotherBrainCloseUpPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
 
     PlayMusic(MUSIC_ENTERING_NORFAIR_CUTSCENE, 0);
     CUTSCENE_DATA.dispcnt = sMotherBrainCloseUpPageData[0].bg;
@@ -405,7 +405,7 @@ static u8 MotherBrainCloseUpInit(void)
     return FALSE;
 }
 
-static struct CutsceneSubroutineData sMotherBrainCloseUpSubroutineData[5] = {
+static struct CutsceneStageData sMotherBrainCloseUpData[5] = {
     [0] = {
         .pFunction = MotherBrainCloseUpInit,
         .oamLength = 0
@@ -429,15 +429,15 @@ static struct CutsceneSubroutineData sMotherBrainCloseUpSubroutineData[5] = {
 };
 
 /**
- * @brief 6363c | 34 | Subroutine for the mother brain close up cutscene
+ * @brief 6363c | 34 | Main loop for the mother brain close up cutscene
  * 
  * @return u8 bool, ended
  */
-u8 MotherBrainCloseUpSubroutine(void)
+u8 MotherBrainCloseUpMainLoop(void)
 {
     u8 ended;
 
-    ended = sMotherBrainCloseUpSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
+    ended = sMotherBrainCloseUpData[CUTSCENE_DATA.timeInfo.stage].pFunction();
     CutsceneUpdateBackgroundsPosition(TRUE);
     MotherBrainCloseUpProcessOAM();
 
@@ -451,7 +451,7 @@ u8 MotherBrainCloseUpSubroutine(void)
 static void MotherBrainCloseUpProcessOAM(void)
 {
     gNextOamSlot = 0;
-    ProcessCutsceneOam(sMotherBrainCloseUpSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMotherBrainCloseUpCutsceneOam);
+    ProcessCutsceneOam(sMotherBrainCloseUpData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMotherBrainCloseUpCutsceneOam);
     ResetFreeOam();
 }
 

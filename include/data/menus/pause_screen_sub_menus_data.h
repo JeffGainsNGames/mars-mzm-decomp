@@ -8,10 +8,10 @@
 
 #include "structs/menus/pause_screen.h"
 
-extern const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END];
+extern const struct ChozoStatueTarget sChozoStatueTargets[TARGET_COUNT];
 
-extern const u8 sChozoStatueTargetConditions[TARGET_END][2];
-extern const Event sChozoStatueHintEvents[TARGET_END];
+extern const u8 sChozoStatueTargetConditions[TARGET_COUNT][2];
+extern const Event sChozoStatueHintEvents[TARGET_COUNT];
 
 #ifdef RANDOMIZER
 extern const s8 sChozoStatueTargetPathBrinstar[21][2];

@@ -6,6 +6,12 @@
 #define REG_TM0CNT_L (REG_BASE + 0x100)
 #define REG_TM0CNT_H (REG_BASE + 0x102)
 
+#define REG_TM1CNT_L (REG_BASE + 0x104)
+#define REG_TM1CNT_H (REG_BASE + 0x106)
+
+#define REG_TM2CNT_L (REG_BASE + 0x108)
+#define REG_TM2CNT_H (REG_BASE + 0x10A)
+
 #define REG_TM3CNT_L (REG_BASE + 0x10C)
 #define REG_TM3CNT_H (REG_BASE + 0x10E)
 
@@ -14,7 +20,7 @@
 #define REG_SIO_DATA8 (REG_BASE + 0x12A)
 #define REG_RNCT (REG_BASE + 0x134)
 
-#define SIO_SHIFT_CLOCK_EXTERNAL (0 << 0)
+#define SIO_SHIFT_CLOCK_EXTERNAL 0
 #define SIO_SHIFT_CLOCK_INTERNAL (1 << 0)
 
 #define SIO_INTERNAL_SHIFT_CLOCK_256K (0 << 1)
@@ -32,7 +38,7 @@
 #define SIO_START_BIT_ACTIVE          (1 << 7)
 #define SIO_IRQ_ENABLE                (1 << 14)
 
-#define SIO_BAUD_RATE_9600   (0 << 0)
+#define SIO_BAUD_RATE_9600   0
 #define SIO_BAUD_RATE_38400  (1 << 0)
 #define SIO_BAUD_RATE_57600  (2 << 0)
 #define SIO_BAUD_RATE_115200 (3 << 0)

@@ -2,7 +2,7 @@
 
 #include "macros.h"
 
-const u8 sClipdataCollisionTypes[CLIPDATA_END] = {
+const u8 sClipdataCollisionTypes[CLIPDATA_COUNT] = {
     [CLIPDATA_AIR] = CLIPDATA_TYPE_AIR,
     [CLIPDATA_PASS_THROUGH_BOTTOM] = CLIPDATA_TYPE_PASS_THROUGH_BOTTOM,
     [CLIPDATA_NON_POWER_GRIP] = CLIPDATA_TYPE_SOLID,
@@ -101,7 +101,7 @@ const u8 sClipdataCollisionTypes[CLIPDATA_END] = {
     [CLIPDATA_ACID] = CLIPDATA_TYPE_AIR
 };
 
-const u16 sClipdataBehaviorTypes[CLIPDATA_END] = {
+const ClipBehavior sClipdataBehaviorTypes[CLIPDATA_COUNT] = {
     [CLIPDATA_AIR] = CLIP_BEHAVIOR_NONE,
     [CLIPDATA_PASS_THROUGH_BOTTOM] = CLIP_BEHAVIOR_NONE,
     [CLIPDATA_NON_POWER_GRIP] = CLIP_BEHAVIOR_NON_POWER_GRIP,
@@ -200,5 +200,5 @@ const u16 sClipdataBehaviorTypes[CLIPDATA_END] = {
     [CLIPDATA_ACID] = CLIP_BEHAVIOR_ACID
 };
 
-const u8 sCommonTilesGfx[4096] = INCBIN_U8("data/common/CommonTiles.gfx");
-const u8 sCommonTilesMothershipGfx[4096] = INCBIN_U8("data/common/CommonTilesMotherShip.gfx");
+const u8 sCommonTilesGfx[4096] = INCBIN_U8("data/common/common_tiles.gfx");
+const u8 sCommonTilesMothershipGfx[4096] = INCBIN_U8("data/common/common_tiles_mother_ship.gfx");

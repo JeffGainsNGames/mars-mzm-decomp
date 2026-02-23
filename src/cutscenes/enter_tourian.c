@@ -22,6 +22,8 @@ static void EnterTourianSwitchMetroidPalette(struct CutscenePaletteData* pPalett
 static void EnterTourianUpdatePirate(struct CutsceneOamData* pOam);
 static void EnterTourianProcessOAM(void);
 
+#define MAX_METROID_IDS 4
+
 // (x, y) coordinates
 static u16 sEnterTourianMetroidsStartPosition[MAX_METROID_IDS * 2 + 1][2] = {
     [0] = {
@@ -592,10 +594,10 @@ static u8 EnterTourianInit(void)
     CutsceneSetBgcntPageData(sEnterTourianPageData[1]);
     CutsceneReset();
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sEnterTourianPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sEnterTourianPageData[1].bg, NON_GAMEPLAY_START_BG_POS);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sEnterTourianPageData[0].bg, NON_GAMEPLAY_START_BG_POS + 5 * BLOCK_SIZE + QUARTER_BLOCK_SIZE);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sEnterTourianPageData[1].bg, NON_GAMEPLAY_START_BG_POS);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_Y, sEnterTourianPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_Y, sEnterTourianPageData[1].bg, NON_GAMEPLAY_START_BG_POS);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X, sEnterTourianPageData[0].bg, NON_GAMEPLAY_START_BG_POS + 5 * BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X, sEnterTourianPageData[1].bg, NON_GAMEPLAY_START_BG_POS);
 
     CUTSCENE_DATA.oam[1].oamID = 6;
     CUTSCENE_DATA.oam[1].exists = TRUE;
@@ -657,7 +659,7 @@ static u8 EnterTourianInit(void)
     return FALSE;
 }
 
-static struct CutsceneSubroutineData sEnterTourianSubroutineData[3] = {
+static struct CutsceneStageData sEnterTourianStageData[3] = {
     [0] = {
         .pFunction = EnterTourianInit,
         .oamLength = 9
@@ -672,11 +674,11 @@ static struct CutsceneSubroutineData sEnterTourianSubroutineData[3] = {
     }
 };
 
-u8 EnterTourianSubroutine(void)
+u8 EnterTourianMainLoop(void)
 {
     u8 ended;
 
-    ended = sEnterTourianSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
+    ended = sEnterTourianStageData[CUTSCENE_DATA.timeInfo.stage].pFunction();
 
     CutsceneUpdateBackgroundsPosition(TRUE);
     EnterTourianProcessOAM();
@@ -691,7 +693,7 @@ u8 EnterTourianSubroutine(void)
 static void EnterTourianProcessOAM(void)
 {
     gNextOamSlot = 0;
-    ProcessCutsceneOam(sEnterTourianSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength,
+    ProcessCutsceneOam(sEnterTourianStageData[CUTSCENE_DATA.timeInfo.stage].oamLength,
         CUTSCENE_DATA.oam, sEnterTourianOam);
     ResetFreeOam();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);

@@ -5,17 +5,17 @@
 
 #include "constants/game_over.h"
 
-const u16 sGameOverMenuPal[16 * 5] = INCBIN_U16("data/menus/GameOver/Palette.pal");
-const u32 sGameOverTextAndBackgroundGfx[2738] = INCBIN_U32("data/menus/GameOver/TextAndBackground.gfx.lz");
-const u32 sGameOverTextPromptEnglishGfx[333] = INCBIN_U32("data/menus/GameOver/TextPromptEnglish.gfx.lz");
-const u32 sGameOverTextPromptHiraganaGfx[428] = INCBIN_U32("data/menus/GameOver/TextPromptHiragana.gfx.lz");
-const u32 sGameOverTextPromptGermanGfx[] = INCBIN_U32("data/menus/GameOver/TextPromptGerman.gfx.lz");
-const u32 sGameOverTextPromptFrenchGfx[] = INCBIN_U32("data/menus/GameOver/TextPromptFrench.gfx.lz");
-const u32 sGameOverTextPromptItalianGfx[] = INCBIN_U32("data/menus/GameOver/TextPromptItalian.gfx.lz");
-const u32 sGameOverTextPromptSpanishGfx[] = INCBIN_U32("data/menus/GameOver/TextPromptSpanish.gfx.lz");
-const u32 sGameOverBackgroundTileTable[370] = INCBIN_U32("data/menus/GameOver/Background.tt");
-const u32 sGameOverTextTileTable[116] = INCBIN_U32("data/menus/GameOver/Text.tt");
-const u32 sGameOver_454520[160] = INCBIN_U32("data/menus/GameOver/454520.tt");
+const u16 sGameOverMenuPal[16 * 5] = INCBIN_U16("data/menus/game_over/palette.pal");
+const u32 sGameOverTextAndBackgroundGfx[2738] = INCBIN_U32("data/menus/game_over/text_and_background.gfx.lz");
+const u32 sGameOverTextPromptEnglishGfx[333] = INCBIN_U32("data/menus/game_over/text_prompt_english.gfx.lz");
+const u32 sGameOverTextPromptHiraganaGfx[428] = INCBIN_U32("data/menus/game_over/text_prompt_hiragana.gfx.lz");
+const u32 sGameOverTextPromptGermanGfx[] = INCBIN_U32("data/menus/game_over/text_prompt_german.gfx.lz");
+const u32 sGameOverTextPromptFrenchGfx[] = INCBIN_U32("data/menus/game_over/text_prompt_french.gfx.lz");
+const u32 sGameOverTextPromptItalianGfx[] = INCBIN_U32("data/menus/game_over/text_prompt_italian.gfx.lz");
+const u32 sGameOverTextPromptSpanishGfx[] = INCBIN_U32("data/menus/game_over/text_prompt_spanish.gfx.lz");
+const u32 sGameOverBackgroundTileTable[370] = INCBIN_U32("data/menus/game_over/background.tt");
+const u32 sGameOverTextTileTable[116] = INCBIN_U32("data/menus/game_over/text.tt");
+const u32 sGameOver_454520[160] = INCBIN_U32("data/menus/game_over/454520.tt");
 
 const struct GameOverDynamicPalette sGameOverDynamicPalette_Empty = {
     .timer = 0,
@@ -27,7 +27,7 @@ const struct GameOverDynamicPalette sGameOverDynamicPalette_Empty = {
     .unk_13 = 0
 };
 
-const u16 sGameOverSamusHeadXPositions[LANGUAGE_END] = {
+const u16 sGameOverSamusHeadXPositions[LANGUAGE_COUNT] = {
     [LANGUAGE_JAPANESE] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
     [LANGUAGE_HIRAGANA] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
     [LANGUAGE_ENGLISH] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
@@ -49,7 +49,7 @@ const u16 sGameOverSamusHeadYPositions[2] = {
     [TRUE] = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE
 };
 
-const GameOverOamId sGameOverSamusHeadOamIds[SUIT_END][SAMUS_CURSOR_ACTION_END] = {
+const GameOverOamId sGameOverSamusHeadOamIds[SUIT_COUNT][SAMUS_CURSOR_ACTION_COUNT] = {
     [SUIT_NORMAL] = {
         [SAMUS_CURSOR_ACTION_LOADING] = GAME_OVER_OAM_ID_SUIT_LOADING,
         [SAMUS_CURSOR_ACTION_MOVING] = GAME_OVER_OAM_ID_SUIT_MOVING,
@@ -67,7 +67,7 @@ const GameOverOamId sGameOverSamusHeadOamIds[SUIT_END][SAMUS_CURSOR_ACTION_END] 
     }
 };
 
-const struct OamArray sGameOverOam[GAME_OVER_OAM_ID_END] = {
+const struct OamArray sGameOverOam[GAME_OVER_OAM_ID_COUNT] = {
     [0] = {
         .pOam = sFileSelectOam_SamusHeadTurningOn,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -82,7 +82,7 @@ const struct OamArray sGameOverOam[GAME_OVER_OAM_ID_END] = {
     },
     [3] = {
         .pOam = sFileSelectOam_SamusHeadTurning,
-        .preAction = OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING
+        .preAction = OAM_ARRAY_PRE_ACTION_PLAY_BACKWARDS_DECREMENT_ID
     },
     [GAME_OVER_OAM_ID_SUIT_SELECTING] = {
         .pOam = sFileSelectOam_SamusHeadTurning,
@@ -98,10 +98,10 @@ const struct OamArray sGameOverOam[GAME_OVER_OAM_ID_END] = {
     },
     [7] = {
         .pOam = sFileSelectOam_SamusHeadSuitlessTurning,
-        .preAction = OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING
+        .preAction = OAM_ARRAY_PRE_ACTION_PLAY_BACKWARDS_DECREMENT_ID
     },
     [GAME_OVER_OAM_ID_SUITLESS_SELECTING] = {
         .pOam = sFileSelectOam_SamusHeadSuitlessTurning,
         .preAction = OAM_ARRAY_PRE_ACTION_LOOP_ON_LAST_FRAME
-    },
+    }
 };

@@ -58,14 +58,18 @@ void SoftReset(void)
     WRITE_16(REG_BLDY, BLDY_MAX_VALUE);
     WRITE_16(REG_BLDCNT, BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT);
 
-    DMA_FILL_32(3, 0, EWRAM_BASE, EWRAM_SIZE);
-    DMA_FILL_32(3, 0, IWRAM_BASE, IWRAM_SIZE - 0x200);
+    DMA3_FILL_32(0, EWRAM_BASE, EWRAM_SIZE);
+    DMA3_FILL_32(0, IWRAM_BASE, IWRAM_SIZE - 0x200);
 
     ClearGfxRam();
     LoadInterruptCode();
     CallbackSetVblank(SoftResetVBlankCallback);
     SramRead_All();
     InitializeAudio();
+    #ifdef BUGFIX
+    SramRead_SoundMode();
+    FileSelectApplyStereo();
+    #endif // BUGFIX
 
     WRITE_16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
     WRITE_16(REG_DISPSTAT, DSTAT_IF_VBLANK);
@@ -79,7 +83,7 @@ void SoftReset(void)
 
     gSubGameMode1 = 0;
     gSubGameMode2 = 0;
-    gResetGame = 0;
+    gResetGame = FALSE;
     gStereoFlag = 0;
 
     #ifdef REGION_EU

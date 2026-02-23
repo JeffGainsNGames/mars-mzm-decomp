@@ -15,9 +15,9 @@
 #include "structs/menus/pause_screen.h"
 #include "structs/randomizer.h"
 
-extern u16** sStoryTextPointers[LANGUAGE_END];
+extern u16** sStoryTextPointers[LANGUAGE_COUNT];
 
-static const u16** sDescriptionTextPointers[LANGUAGE_END] = {
+static const u16** sDescriptionTextPointers[LANGUAGE_COUNT] = {
     [LANGUAGE_JAPANESE] = sJapaneseTextPointers_Description,
     [LANGUAGE_HIRAGANA] = sHiraganaTextPointers_Description,
     [LANGUAGE_ENGLISH] = sEnglishTextPointers_Description,
@@ -556,6 +556,9 @@ void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
         #ifdef REGION_EU
         palette = indent;
         palette &= 7;
+        // If next char position is within same line, and next char position is
+        // on a tile boundary, and char width is not an exact tile multiple,
+        // increment char width
         if (indent + width < 224 && (indent + width) % 8 == 0 && width % 8 != 0)
             width++;
         #else // !REGION_EU
@@ -761,8 +764,8 @@ void TextDrawLocation(u8 locationText, u8 gfxSlot)
     DmaTransfer(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, 0xE0 * sizeof(u32), 32);
     DmaTransfer(3, EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, 0xE0 * sizeof(u32), 32);
     #else // !REGION_EU
-    DMA_SET(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, C_32_2_16(DMA_ENABLE | DMA_32BIT, 0xE0));
-    DMA_SET(3, EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, C_32_2_16(DMA_ENABLE | DMA_32BIT, 0xE0));
+    DMA3_COPY_32(EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, 0xE0);
+    DMA3_COPY_32(EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, 0xE0);
     #endif // REGION_EU
 }
 
@@ -783,7 +786,7 @@ u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
     {
         gCurrentMessage = sMessage_Empty;
         
-        gCurrentMessage.messageID = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
+        gCurrentMessage.messageId = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
         gCurrentMessage.gfxSlot = gfxSlot;
     }
 
@@ -817,7 +820,7 @@ u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
 
             for (; i != 0; i--)
             {
-                switch (TextProcessCurrentMessage(&gCurrentMessage, sMessageTextPointers[gLanguage][gCurrentMessage.messageID],
+                switch (TextProcessCurrentMessage(&gCurrentMessage, sMessageTextPointers[gLanguage][gCurrentMessage.messageId],
                     VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
                 {
                     case TEXT_STATE_ENDED:
@@ -840,10 +843,10 @@ u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
 
         case 3:
             gCurrentMessage.line++;
-            if (gCurrentMessage.messageID <= MESSAGE_POWER_GRIP)
+            if (gCurrentMessage.messageId <= MESSAGE_POWER_GRIP)
             {
-                gCurrentItemBeingAcquired = gCurrentMessage.messageID;
-                if (gCurrentMessage.messageID >= MESSAGE_LONG_BEAM)
+                gCurrentItemBeingAcquired = gCurrentMessage.messageId;
+                if (gCurrentMessage.messageId >= MESSAGE_LONG_BEAM)
                     BgClipFinishCollectingAbility();
             }
             gCurrentMessage.stage++;
@@ -868,9 +871,9 @@ void TextStartMessage(u8 textID, u8 gfxSlot)
 
 #ifdef RANDOMIZER
     // Assume textID is valid for randomizer
-    gCurrentMessage.messageID = textID;
+    gCurrentMessage.messageId = textID;
 #else // !RANDOMIZER
-    gCurrentMessage.messageID = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
+    gCurrentMessage.messageId = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
 #endif // RANDOMIZER
     gCurrentMessage.gfxSlot = gfxSlot;
 }
@@ -916,9 +919,9 @@ u8 TextProcessMessageBanner(void)
             {
                 switch (TextProcessCurrentMessage(&gCurrentMessage,
 #ifdef RANDOMIZER
-                    RandoGetMessageText(gCurrentMessage.messageID),
+                    RandoGetMessageText(gCurrentMessage.messageId),
 #else // !RANDOMIZER
-                    sMessageTextPointers[gLanguage][gCurrentMessage.messageID],
+                    sMessageTextPointers[gLanguage][gCurrentMessage.messageId],
 #endif // RANDOMIZER
                     VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
                 {
@@ -948,17 +951,17 @@ u8 TextProcessMessageBanner(void)
         case 3:
             gCurrentMessage.line++;
 #ifdef RANDOMIZER
-            if (RandoIsItemMessage(gCurrentMessage.messageID))
+            if (RandoIsItemMessage(gCurrentMessage.messageId))
             {
-                gCurrentItemBeingAcquired = gCurrentMessage.messageID;
+                gCurrentItemBeingAcquired = gCurrentMessage.messageId;
                 if (!gCurrentRandoItem.isMinor && !IN_RUINS_TEST_ROOM)
                     BgClipFinishCollectingAbility();
             }
 #else // !RANDOMIZER
-            if (gCurrentMessage.messageID <= MESSAGE_POWER_GRIP)
+            if (gCurrentMessage.messageId <= MESSAGE_POWER_GRIP)
             {
-                gCurrentItemBeingAcquired = gCurrentMessage.messageID;
-                if (gCurrentMessage.messageID >= MESSAGE_LONG_BEAM)
+                gCurrentItemBeingAcquired = gCurrentMessage.messageId;
+                if (gCurrentMessage.messageId >= MESSAGE_LONG_BEAM)
                     BgClipFinishCollectingAbility();
             }
 #endif // RANDOMIZER
@@ -980,7 +983,7 @@ u8 TextProcessMessageBanner(void)
 void TextStartStory(StoryTextId textId)
 {
     gCurrentMessage = sMessageStoryText_Empty;
-    gCurrentMessage.messageID = textId;
+    gCurrentMessage.messageId = textId;
 }
 
 /**
@@ -999,7 +1002,7 @@ u8 TextProcessStory(void)
     switch (gCurrentMessage.stage)
     {
         case 0:
-            if (gCurrentMessage.messageID == STORY_TEXT_THE_TIMING)
+            if (gCurrentMessage.messageId == STORY_TEXT_THE_TIMING)
             {
                 gCurrentMessage.stage = 2;
                 gCurrentMessage.gfxSlot = 1;
@@ -1047,7 +1050,7 @@ u8 TextProcessStory(void)
             
             while (i != 0)
             {
-                maxLine = TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageID], dst);
+                maxLine = TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageId], dst);
                 
                 switch (maxLine)
                 {
@@ -1100,7 +1103,7 @@ u8 TextProcessStory(void)
 void TextStartFileScreen(u8 textID)
 {
     gCurrentMessage = sMessageFileScreen_Empty;
-    gCurrentMessage.messageID = textID;
+    gCurrentMessage.messageId = textID;
 }
 
 /**
@@ -1133,7 +1136,7 @@ u8 TextProcessFileScreenPopUp(void)
             {
                 currentMessage = &gCurrentMessage;
                 fileScreenTextPointers = sFileScreenTextPointers;
-                result = TextProcessCurrentMessage(currentMessage, fileScreenTextPointers[gLanguage][currentMessage->messageID], dst);
+                result = TextProcessCurrentMessage(currentMessage, fileScreenTextPointers[gLanguage][currentMessage->messageId], dst);
 
                 switch (result)
                 {

@@ -27,7 +27,7 @@ extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
 
 extern const u32* sMinimapDataPointers[AREA_COUNT];
 
-static const u8* sBootDebugCutsceneBTextPointers[CUTSCENE_END] = {
+static const u8* sBootDebugCutsceneBTextPointers[CUTSCENE_COUNT] = {
     [CUTSCENE_NONE] =                    sBootDebug_Cutscene_Blank_Text,
     [CUTSCENE_INTRO_TEXT] =              sBootDebug_CutsceneB_StartMonologue_Text,
     [CUTSCENE_MOTHERSHIP_MONOLOGUE] =    sBootDebug_CutsceneB_ShotDownMonologue1_Text,
@@ -467,7 +467,7 @@ void BootDebugWriteSram(u8 selectSaveFile)
  * 
  * @return s32 bool, changing game mode
  */
-s32 BootDebugSubroutine(void)
+s32 BootDebugMainLoop(void)
 {
     s32 changing;
     s32 inputResult;
@@ -608,7 +608,7 @@ void VBlankCodeDuringBootDebug(void)
     if (gIoTransferInfo.linkInProgress)
         LinkVSync();
 
-    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
+    DMA3_COPY_32(gOamData, OAM_BASE, OAM_SIZE / sizeof(u32));
 
     WRITE_16(REG_BLDY, gWrittenToBldy_NonGameplay);
 
@@ -668,10 +668,10 @@ void BootDebugSetupMenu(void)
     DmaTransfer(3, sBootDebugBgPal, PALRAM_BASE + 8 * PAL_ROW_SIZE, 8 * PAL_ROW_SIZE, 16);
     DmaTransfer(3, sBootDebugObjPal, PALRAM_OBJ, 3 * PAL_ROW_SIZE, 16);
     #else // !REGION_EU
-    DMA_SET(3, sMinimapTilesGfx, BGCNT_TO_VRAM_CHAR_BASE(1), C_32_2_16(DMA_ENABLE, 0x3000 / sizeof(u16)));
-    DMA_SET(3, sMinimapTilesPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, 5 * PAL_ROW));
-    DMA_SET(3, sBootDebugBgPal, PALRAM_BASE + 8 * PAL_ROW_SIZE, C_32_2_16(DMA_ENABLE, 8 * PAL_ROW));
-    DMA_SET(3, sBootDebugObjPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, 3 * PAL_ROW));
+    DMA3_COPY_16(sMinimapTilesGfx, BGCNT_TO_VRAM_CHAR_BASE(1), 0x3000 / sizeof(u16));
+    DMA3_COPY_16(sMinimapTilesPal, PALRAM_BASE, 5 * PAL_ROW);
+    DMA3_COPY_16(sBootDebugBgPal, PALRAM_BASE + 8 * PAL_ROW_SIZE, 8 * PAL_ROW);
+    DMA3_COPY_16(sBootDebugObjPal, PALRAM_OBJ, 3 * PAL_ROW);
     #endif // REGION_EU
 
     BitFill(3, 0xD040, BGCNT_TO_VRAM_TILE_BASE(30), BGCNT_VRAM_TILE_SIZE * 2, 16);
@@ -862,21 +862,21 @@ s32 BootDebugHandleInput(void)
         switch (BOOT_DEBUG_DATA.menuCursor)
         {
             case BOOT_DEBUG_SUB_MENU_SECTION:
-                subMenuResult = BootDebugSectionSubroutine();
+                subMenuResult = BootDebugSectionMainLoop();
                 break;
 
             case BOOT_DEBUG_SUB_MENU_MODE:
-                BootDebugModeSubroutine();
+                BootDebugModeMainLoop();
                 subMenuResult = FALSE;
                 break;
 
             case BOOT_DEBUG_SUB_MENU_SAVE:
-                BootDebugSaveSubroutine();
+                BootDebugSaveMainLoop();
                 subMenuResult = FALSE;
                 break;
 
             case BOOT_DEBUG_SUB_MENU_SAMUS:
-                BootDebugSamusSubroutine();
+                BootDebugSamusMainLoop();
 
                 if (BOOT_DEBUG_DATA.subMenuOption - BOOT_DEBUG_DATA.bg2vofs > 7)
                     BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption - 7;   
@@ -887,11 +887,11 @@ s32 BootDebugHandleInput(void)
                 break;
 
             case BOOT_DEBUG_SUB_MENU_SOUND:
-                BootDebugSoundSubroutine();
+                BootDebugSoundMainLoop();
                 break;
 
             case BOOT_DEBUG_SUB_MENU_DEMO:
-                tempResult = BootDebugDemoSubroutine();
+                tempResult = BootDebugDemoMainLoop();
                 if (tempResult != 0)
                 {
                     if (tempResult == 1)
@@ -915,7 +915,7 @@ s32 BootDebugHandleInput(void)
                 break;
 
             case BOOT_DEBUG_SUB_MENU_ETC:
-                gBootDebugActive = BootDebugEtcSubroutine();
+                gBootDebugActive = BootDebugEtcMainLoop();
                 if (gBootDebugActive != 0)
                 {
                     gSubGameMode2 = gBootDebugActive == 1 ? 4 : 5;
@@ -1000,7 +1000,7 @@ s32 BootDebugHandleInput(void)
  * 
  * @return s32 bool, cursor has moved
  */
-s32 BootDebugSectionSubroutine(void)
+s32 BootDebugSectionMainLoop(void)
 {
     s32 index;
     u8 prevStarIndex;
@@ -1443,7 +1443,7 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
 /**
  * @brief Handles button input for the "Mode" sub-menu in the boot debug menu
  */
-void BootDebugModeSubroutine(void)
+void BootDebugModeMainLoop(void)
 {
     s32 updateTextAndEvents;
 
@@ -1487,7 +1487,7 @@ void BootDebugModeSubroutine(void)
                 else if (gChangedInput & KEY_UP)
                 {
                     gLanguage++;
-                    if (gLanguage >= LANGUAGE_END)
+                    if (gLanguage >= LANGUAGE_COUNT)
                         gLanguage = 0;
                     updateTextAndEvents = TRUE;
                 }
@@ -1496,7 +1496,7 @@ void BootDebugModeSubroutine(void)
                     if (gLanguage != 0)
                         gLanguage--;
                     else
-                        gLanguage = LANGUAGE_END - 1;
+                        gLanguage = LANGUAGE_COUNT - 1;
                     updateTextAndEvents = TRUE;
                 }
                 break;
@@ -1508,7 +1508,7 @@ void BootDebugModeSubroutine(void)
                 else if (gChangedInput & KEY_UP)
                 {
                     gDifficulty++;
-                    if (gDifficulty >= DIFF_END)
+                    if (gDifficulty >= DIFF_COUNT)
                         gDifficulty = DIFF_EASY;
                     updateTextAndEvents = TRUE;
                 }
@@ -1538,7 +1538,7 @@ void BootDebugModeSubroutine(void)
 /**
  * @brief Handles button input for the "Save" sub-menu in the boot debug menu
  */
-void BootDebugSaveSubroutine(void)
+void BootDebugSaveMainLoop(void)
 {
     s32 value;
     
@@ -1741,7 +1741,7 @@ void BootDebugSaveSetSaveTextColor(void)
 /**
  * @brief Handles button input for the "Samus" sub-menu in the boot debug menu
  */
-void BootDebugSamusSubroutine(void)
+void BootDebugSamusMainLoop(void)
 {
     s32 option;
     u16 flagOrButton;
@@ -1878,7 +1878,7 @@ void BootDebugSamusSubroutine(void)
 /**
  * @brief Handles button input for the "Sound" sub-menu in the boot debug menu
  */
-void BootDebugSoundSubroutine(void)
+void BootDebugSoundMainLoop(void)
 {
     s32 updateText;
     s32 value;
@@ -2004,7 +2004,7 @@ void BootDebugSetSoundTestIdColor(void)
  * 
  * @return s32 Result (1 if starting cutscene A, 2 if starting cutscene B, 3 if starting demo, 0 otherwise)
  */
-s32 BootDebugDemoSubroutine(void)
+s32 BootDebugDemoMainLoop(void)
 {
     s32 result;
     s32 updateText;
@@ -2145,7 +2145,7 @@ s32 BootDebugDemoSubroutine(void)
  * 
  * @return s32 Result (1 if playing ending, 2 if playing credits, 0 otherwise)
  */
-s32 BootDebugEtcSubroutine(void)
+s32 BootDebugEtcMainLoop(void)
 {
     s32 result;
     u8 updateText;

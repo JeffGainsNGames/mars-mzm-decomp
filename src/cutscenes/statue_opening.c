@@ -159,14 +159,14 @@ static u8 StatueOpeningInit(void)
     CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
     gWrittenToBldy_NonGameplay = BLDY_MAX_VALUE;
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[0].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[1].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X, sStatueOpeningPageData[0].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X, sStatueOpeningPageData[1].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE);
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[0].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 6);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[1].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 6);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_Y, sStatueOpeningPageData[0].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 6);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_Y, sStatueOpeningPageData[1].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 6);
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[2].bg, NON_GAMEPLAY_START_BG_POS / 2 + HALF_BLOCK_SIZE);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[2].bg, NON_GAMEPLAY_START_BG_POS / 2);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X, sStatueOpeningPageData[2].bg, NON_GAMEPLAY_START_BG_POS / 2 + HALF_BLOCK_SIZE);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_Y, sStatueOpeningPageData[2].bg, NON_GAMEPLAY_START_BG_POS / 2);
 
     CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 8;
     CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 7;
@@ -217,7 +217,7 @@ static u8 StatueOpeningInit(void)
     return FALSE;
 }
 
-static struct CutsceneSubroutineData sStatueOpeningSubroutineData[3] = {
+static struct CutsceneStageData sStatueOpeningStageData[3] = {
     [0] = {
         .pFunction = StatueOpeningInit,
         .oamLength = 2
@@ -233,15 +233,15 @@ static struct CutsceneSubroutineData sStatueOpeningSubroutineData[3] = {
 };
 
 /**
- * @brief 67014 | 34 | Subroutine for the statue opening cutscene
+ * @brief 67014 | 34 | Main loop for the statue opening cutscene
  * 
  * @return u8 bool, ended
  */
-u8 StatueOpeningSubroutine(void)
+u8 StatueOpeningMainLoop(void)
 {
     u8 ended;
 
-    ended = sStatueOpeningSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
+    ended = sStatueOpeningStageData[CUTSCENE_DATA.timeInfo.stage].pFunction();
 
     CutsceneUpdateBackgroundsPosition(TRUE);
     StatueOpeningProcessOAM();
@@ -256,6 +256,6 @@ u8 StatueOpeningSubroutine(void)
 static void StatueOpeningProcessOAM(void)
 {
     gNextOamSlot = 0;
-    ProcessCutsceneOam(sStatueOpeningSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sStatueOpeningOam);
+    ProcessCutsceneOam(sStatueOpeningStageData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sStatueOpeningOam);
     ResetFreeOam();
 }

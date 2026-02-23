@@ -3,6 +3,7 @@
 
 #include "types.h"
 
+#include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 #include "constants/particle.h"
@@ -18,10 +19,10 @@ boolu32 SpriteUtilCheckObjectsTouching(u16 o1Top, u16 o1Bottom, u16 o1Left, u16 
 void SpriteUtilSamusAndSpriteCollision(void);
 u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition);
 u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPosition);
-void unk_f594(void);
-void unk_f608(void);
+void SpriteUtilAlignYPositionOnSlopeAtOrigin(void);
+void SpriteUtilAlignYPositionOnSlopeAtHitboxBottom(void);
 void SpriteUtilCheckCollisionAtPosition(u32 yPosition, u32 xPosition);
-u32 SpriteUtilGetCollisionAtPosition(u16 yPosition, u16 xPosition);
+CollisionResult SpriteUtilGetCollisionAtPosition(u16 yPosition, u16 xPosition);
 void SpriteUtilCurrentSpriteFall(void);
 void SpriteUtilChooseRandomXFlip(void);
 void SpriteUtilChooseRandomXDirection(void);
@@ -30,8 +31,8 @@ void SpriteUtilMakeSpriteFaceSamusXFlip(void);
 void SpriteUtilMakeSpriteFaceSamusDirection(void);
 void SpriteUtilMakeSpriteFaceAwayFromSamusXFlip(void);
 void SpriteUtilMakeSpriteFaceAwayFromSamusDirection(void);
-void unk_f978(s16 movement);
-void unk_f9e4(s16 movement);
+void SpriteUtilMoveHorizontallyForwardOnSlopeDirection(s16 movement);
+void SpriteUtilMoveHorizontallyForwardOnSlopeXFlip(s16 movement);
 u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 rotation, s32 targetY, s32 targetX, s32 spriteY, s32 spriteX);
 boolu32 SpriteUtilHasCurrentAnimationEnded(void);
 boolu32 SpriteUtilHasCurrentAnimationNearlyEnded(void);

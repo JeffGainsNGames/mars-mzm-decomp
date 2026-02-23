@@ -4,7 +4,7 @@
 #include "gba.h"
 #include "macros.h"
 #include "fixed_point.h"
-#include "sprites_AI/sprites.h"
+#include "sprites_ai/sprites.h"
 
 #include "data/generic_data.h"
 #include "data/sprite_data.h"
@@ -941,7 +941,7 @@ void SpriteUpdate(void)
                     continue;
 
                 // Transfer sprite to current
-                DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                DMA3_COPY_16(&gSpriteData[count], &gCurrentSprite, sizeof(struct SpriteData) / 2);
 
                 // Update random number
                 gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
@@ -964,7 +964,7 @@ void SpriteUpdate(void)
                 }
 
                 // Transfer current back to array
-                DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                DMA3_COPY_16(&gCurrentSprite, &gSpriteData[count], sizeof(struct SpriteData) / 2);
             }
 
             // Update alarm
@@ -987,7 +987,7 @@ void SpriteUpdate(void)
                     // Only update sprites to initialize them or if they have the always active flag
 
                     // Transfer sprite to current
-                    DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                    DMA3_COPY_16(&gSpriteData[count], &gCurrentSprite, sizeof(struct SpriteData) / 2);
                     
                     // Update random number
                     gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
@@ -1010,19 +1010,19 @@ void SpriteUpdate(void)
                     }
 
                     // Transfer current back to array
-                    DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                    DMA3_COPY_16(&gCurrentSprite, &gSpriteData[count], sizeof(struct SpriteData) / 2);
                 }
                 else
                 {
                     // Only check if on screen
 
                     // Transfer sprite to current
-                    DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                    DMA3_COPY_16(&gSpriteData[count], &gCurrentSprite, sizeof(struct SpriteData) / 2);
 
                     SpriteCheckOnScreen(pCurrent);
 
                     // Transfer current back to array
-                    DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                    DMA3_COPY_16(&gCurrentSprite, &gSpriteData[count], sizeof(struct SpriteData) / 2);
                 }
             }
         }
@@ -1036,7 +1036,7 @@ void SpriteUpdate(void)
                 continue;
 
             // Transfer sprite to current
-            DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+            DMA3_COPY_16(&gSpriteData[count], &gCurrentSprite, sizeof(struct SpriteData) / 2);
 
             // Update random number
             gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
@@ -1059,7 +1059,7 @@ void SpriteUpdate(void)
             }
 
             // Transfer current back to array
-            DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+            DMA3_COPY_16(&gCurrentSprite, &gSpriteData[count], sizeof(struct SpriteData) / 2);
         }
 
         // Update alarm
@@ -1077,7 +1077,7 @@ void SpriteUpdate(void)
                 continue;
 
             // Transfer sprite to current
-            DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+            DMA3_COPY_16(&gSpriteData[count], &gCurrentSprite, sizeof(struct SpriteData) / 2);
 
             // Update random number
             gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
@@ -1097,7 +1097,7 @@ void SpriteUpdate(void)
                 SpriteCheckOnScreen(pCurrent);
 
             // Transfer current back to array
-            DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+            DMA3_COPY_16(&gCurrentSprite, &gSpriteData[count], sizeof(struct SpriteData) / 2);
         }
     }
 }
@@ -1130,10 +1130,10 @@ void SpriteUpdateAnimation(struct SpriteData* pSprite)
 }
 
 /**
- * @brief d36c | c4 | Call draw sprite function, difference with the other is unknown
+ * @brief d36c | c4 | Draws all high-priority sprites based on the draw order
  * 
  */
-void SpriteDrawAll_2(void)
+void SpriteDrawAll_HighPriority(void)
 {
     struct SpriteData* pSprite;
     s32 i;
@@ -1147,8 +1147,8 @@ void SpriteDrawAll_2(void)
     else
         notPlaying = TRUE;
 
-    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN_10;
-    drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_10;
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_HIGH_PRIORITY;
+    drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_HIGH_PRIORITY;
 
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
     {
@@ -1192,10 +1192,10 @@ void SpriteDrawAll_2(void)
 }
 
 /**
- * @brief d430 | 8c | Draws the sprites based on the draw order
+ * @brief d430 | 8c | Draws all medium-priority sprites based on the draw order
  * 
  */
-void SpriteDrawAll(void)
+void SpriteDrawAll_MediumPriority(void)
 {
     struct SpriteData* pSprite;
     s32 i;
@@ -1203,7 +1203,7 @@ void SpriteDrawAll(void)
     u32 drawStatus;
     u32 checkStatus;
 
-    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN_10;
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_HIGH_PRIORITY;
     drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
     
     SpriteDebrisDrawAll();
@@ -1239,7 +1239,7 @@ void SpriteDrawAll(void)
  * @brief d4bc | 88 | Draws the sprites that have a draw order between 9 and 16
  * 
  */
-void SpriteDrawAll_Upper(void)
+void SpriteDrawAll_LowPriority(void)
 {
     struct SpriteData* pSprite;
     s32 i;
@@ -1247,7 +1247,7 @@ void SpriteDrawAll_Upper(void)
     u32 drawStatus;
     u32 checkStatus;
 
-    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN_10;
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_HIGH_PRIORITY;
     drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
 
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
@@ -1310,7 +1310,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
     s32 scaledX;
     s32 scaledY;
 
-    u16 status_unk3;
+    u16 rotationScalingSingle;
     s32 i;
     u16 partCount;
     
@@ -1345,7 +1345,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
 
     // Shortcuts for status
     xFlip = pSprite->status & SPRITE_STATUS_X_FLIP;
-    status_unk3 = pSprite->status & SPRITE_STATUS_UNKNOWN_80;
+    rotationScalingSingle = pSprite->status & SPRITE_STATUS_ROTATION_SCALING_SINGLE;
     doubleSize = pSprite->status & SPRITE_STATUS_DOUBLE_SIZE;
     alphaBlending = pSprite->status & SPRITE_STATUS_ALPHA_BLENDING;
     yFlip = pSprite->status & SPRITE_STATUS_Y_FLIP;
@@ -1366,7 +1366,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
         xPosition = pSprite->xPosition;
     }
 
-    if (!(pSprite->status & SPRITE_STATUS_ROTATION_SCALING))
+    if (!(pSprite->status & SPRITE_STATUS_ROTATION_SCALING_WHOLE))
     {
         for (i = 0; i < partCount; i++)
         {
@@ -1412,7 +1412,9 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
                 gOamData[prevSlot + i].split.y = yPosition - (part1 + offset * 8);
             }
 
-            if (status_unk3)
+            // Rotates and scales objects at their centers independently if SS_ROTATE_SCALE_INDIVIDUAL is set
+            // Breaks if any of the objects are flipped (not the sprite status)
+            if (rotationScalingSingle)
             {
                 if (doubleSize)
                 {
@@ -1443,7 +1445,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
         // Update next oam slot
         gNextOamSlot = partCount + prevSlot;
 
-        if (status_unk3)
+        if (rotationScalingSingle)
         {
             rotation = pSprite->rotation;
             scaling = pSprite->scaling;
@@ -1494,10 +1496,11 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             gOamData[prevSlot + i].split.paletteNum += paletteRow;
             gOamData[prevSlot + i].split.tileNum += gfxOffset;
 
-            // Don't really know what maths are used here, but it seems to be directly applying rotation and scaling to the position
+            // Rotates and scales the whole sprite, ignores flip
             shape = gOamData[prevSlot + i].split.shape;
             size = gOamData[prevSlot + i].split.size;
         
+            // Get center relative to top-left corner of object
             yOffset = sOamYFlipOffsets[shape][size];
             yOffset = PIXEL_TO_SUB_PIXEL(yOffset);
             xOffset = sOamXFlipOffsets[shape][size];
@@ -1507,6 +1510,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             y = (s16)MOD_AND(part1 + yPosition, 256);
             x = (s16)MOD_AND(part2 + xPosition, 512);
         
+            // Get center of object relative to the sprite's position
             tmpY = (s16)(y - yPosition + yOffset);
             tmpX = (s16)(x - xPosition + xOffset);
 
@@ -1525,6 +1529,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             x = Q_8_8_TO_S16(unk_2 * COS(rotation) - unk_3 * SIN(rotation));
             y = Q_8_8_TO_S16(unk_2 * SIN(rotation) + unk_3 * COS(rotation));
         
+            // Offset it back to top-left corner
             if (doubleSize)
             {
                 x = (s16)(x - xOffset * 2);
@@ -1551,21 +1556,21 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
                 gOamData[prevSlot + i].split.affineMode = 1;
             }
 
-            // Select proper matrix depending on mosaic and flipping?
+            // Select proper matrix: mosaic flag doesn't enable mosaic and instead chooses between one of the two matrix slots
             if (mosaic)
             {
                 if (gOamData[prevSlot + i].split.xFlip)
                 {
                     gOamData[prevSlot + i].split.x--;
-                    gOamData[prevSlot + i].split.yFlip = TRUE;
-                    gOamData[prevSlot + i].split.xFlip = TRUE;
-                    gOamData[prevSlot + i].split.matrixNum = 5;
+                    gOamData[prevSlot + i].split.yFlip = 29 >> 4;
+                    gOamData[prevSlot + i].split.xFlip = 29 >> 3;
+                    gOamData[prevSlot + i].split.matrixNum = 29;
                 }
                 else
                 {
-                    gOamData[prevSlot + i].split.yFlip = TRUE;
-                    gOamData[prevSlot + i].split.xFlip = TRUE;
-                    gOamData[prevSlot + i].split.matrixNum = 4;
+                    gOamData[prevSlot + i].split.yFlip = 28 >> 4;
+                    gOamData[prevSlot + i].split.xFlip = 28 >> 3;
+                    gOamData[prevSlot + i].split.matrixNum = 28;
                 }
             }
             else
@@ -1573,15 +1578,15 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
                 if (gOamData[prevSlot + i].split.xFlip)
                 {
                     gOamData[prevSlot + i].split.x--;
-                    gOamData[prevSlot + i].split.yFlip = TRUE;
-                    gOamData[prevSlot + i].split.xFlip = TRUE;
-                    gOamData[prevSlot + i].split.matrixNum = 7;
+                    gOamData[prevSlot + i].split.yFlip = 31 >> 4;
+                    gOamData[prevSlot + i].split.xFlip = 31 >> 3;
+                    gOamData[prevSlot + i].split.matrixNum = 31;
                 }
                 else
                 {
-                    gOamData[prevSlot + i].split.yFlip = TRUE;
-                    gOamData[prevSlot + i].split.xFlip = TRUE;
-                    gOamData[prevSlot + i].split.matrixNum = 6;
+                    gOamData[prevSlot + i].split.yFlip = 30 >> 4;
+                    gOamData[prevSlot + i].split.xFlip = 30 >> 3;
+                    gOamData[prevSlot + i].split.matrixNum = 30;
                 }
             }
 
@@ -1805,7 +1810,7 @@ void SpriteLoadSpriteset(void)
 
         ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteId])[1];
         ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteId])[2] << 8;
-        DMA_SET(3, sSpritesPalettePointers[spriteId], PALRAM_OBJ + 8 * PAL_ROW_SIZE + gfxSlot * 32, C_32_2_16(DMA_ENABLE, (ctrl_1 | ctrl_2) / 2048 << 4));
+        DMA3_COPY_16(sSpritesPalettePointers[spriteId], PALRAM_OBJ + 8 * PAL_ROW_SIZE + gfxSlot * 32, (ctrl_1 | ctrl_2) / 2048 << 4);
     }
 }
 
@@ -1833,7 +1838,7 @@ void SpriteLoadPal(u8 spriteId, u8 row, u8 len)
 {
     spriteId = PSPRITE_OFFSET_FOR_GRAPHICS(spriteId);
 
-    DMA_SET(3, sSpritesPalettePointers[spriteId], PALRAM_OBJ + 8 * PAL_ROW_SIZE + (row * 16 * sizeof(u16)), C_32_2_16(DMA_ENABLE, len * 16));
+    DMA3_COPY_16(sSpritesPalettePointers[spriteId], PALRAM_OBJ + 8 * PAL_ROW_SIZE + (row * 16 * sizeof(u16)), len * 16);
 }
 
 /**

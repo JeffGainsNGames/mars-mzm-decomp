@@ -3,14 +3,16 @@
 
 #include "types.h"
 
+#include "constants/cable_link.h"
+
 struct IoTransferInfo {
     Func_T pFunction;
     u8 linkInProgress;
     u16 timer;
-    u8 active;
-    u8 connectStage;
-    u8 linkStage;
-    u8 result;
+    ActiveTransfer active;
+    ConnectStage connectStage;
+    LinkStage linkStage;
+    TransferResult result;
     u8 errorFlag;
     u16 command;
     s8 fusionGalleryImages;
@@ -26,7 +28,7 @@ extern const u8* gDataSentPointer;
 extern u32 gDataSentSize;
 
 extern u32 gMultibootErrorFlags;  // set but never read
-extern u8 gMultibootInProgress;   // set but never read
 extern u32 gMultibootUnk_3005880; // read but never set (always 0)
+extern u8 gMultibootInProgress;   // set but never read
 
 #endif /* CABLE_LINK_STRUCTS_H */

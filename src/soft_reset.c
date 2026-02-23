@@ -17,15 +17,15 @@
 #ifdef REGION_EU
 static void LanguageSelectChangeHighlight(u8 highlight, u8 language);
 static void LanguageSelectUpdateHighlightAnimation(struct LanguageColorAnimation* pAnim);
-static u32 LanguageSelectSubroutine(void);
+static u32 LanguageSelectMainLoop(void);
 #endif // REGION_EU
 
 /**
- * @brief 7ef9c | 54 | Subroutine for a soft reset
+ * @brief 7ef9c | 54 | Main loop for a soft reset
  * 
  * @return u32 bool, ended
  */
-u32 SoftResetSubroutine(void)
+u32 SoftResetMainLoop(void)
 {
     switch (gSubGameMode1)
     {
@@ -72,7 +72,7 @@ u32 SoftResetSubroutine(void)
             break;
 
         case 4:
-            if (LanguageSelectSubroutine())
+            if (LanguageSelectMainLoop())
             {
                 LANGUAGE_SELECT_DATA.timer = 0;
                 LANGUAGE_SELECT_DATA.languageAnimation.interval = DELTA_TIME;
@@ -188,7 +188,7 @@ static void LanguageSelectUpdateHighlightAnimation(struct LanguageColorAnimation
  * 
  * @return u32 bool, language selected
  */
-static u32 LanguageSelectSubroutine(void)
+static u32 LanguageSelectMainLoop(void)
 {
     s32 language;
 
@@ -202,7 +202,7 @@ static u32 LanguageSelectSubroutine(void)
             LANGUAGE_SELECT_DATA.selectedLanguage = LANGUAGE_ENGLISH;
             LanguageSelectChangeHighlight(TRUE, LANGUAGE_SELECT_DATA.selectedLanguage);
 
-            for (language = LANGUAGE_ENGLISH + 1; language < LANGUAGE_END; language++)
+            for (language = LANGUAGE_ENGLISH + 1; language < LANGUAGE_COUNT; language++)
             {
                 LanguageSelectChangeHighlight(FALSE, language);
             }
@@ -233,19 +233,19 @@ static u32 LanguageSelectSubroutine(void)
         else
         {
             language = LANGUAGE_ENGLISH;
-            LANGUAGE_SELECT_DATA.selectedLanguage = LANGUAGE_END - 1;
+            LANGUAGE_SELECT_DATA.selectedLanguage = LANGUAGE_COUNT - 1;
         }
     }
     else if (gChangedInput & KEY_DOWN)
     {
-        if (LANGUAGE_SELECT_DATA.selectedLanguage < LANGUAGE_END - 1)
+        if (LANGUAGE_SELECT_DATA.selectedLanguage < LANGUAGE_COUNT - 1)
         {
             language = LANGUAGE_SELECT_DATA.selectedLanguage;
             LANGUAGE_SELECT_DATA.selectedLanguage = language + 1;
         }
         else
         {
-            language = LANGUAGE_END - 1;
+            language = LANGUAGE_COUNT - 1;
             LANGUAGE_SELECT_DATA.selectedLanguage = LANGUAGE_ENGLISH;
         }
     }
@@ -275,7 +275,7 @@ void SoftResetInit(void)
     #ifdef REGION_EU
     BitFill(3, 0, &gNonGameplayRam, sizeof(gNonGameplayRam), 32);
     #else // !REGION_EU
-    DMA_FILL_32(3, 0, &gNonGameplayRam, sizeof(gNonGameplayRam));
+    DMA3_FILL_32(0, &gNonGameplayRam, sizeof(gNonGameplayRam));
     #endif
 
     #ifdef REGION_EU
@@ -335,7 +335,7 @@ void SoftResetInit(void)
     {
         LANGUAGE_SELECT_DATA.languageAnimation = sInitialLanguageColorAnimation;
 
-        DMA_SET(3, sLanguageSelectBgPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, COLORS_IN_PAL));
+        DMA3_COPY_16(sLanguageSelectBgPal, PALRAM_BASE, COLORS_IN_PAL);
         SET_BACKDROP_COLOR(COLOR_BLACK);
 
         LZ77UncompVRAM(sLanguageSelectGfx, VRAM_BASE);

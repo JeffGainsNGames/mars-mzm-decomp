@@ -428,7 +428,7 @@ void RoomReset(void)
     gColorFading.fadeTimer = 0;
     gColorFading.status = 0;
     gColorFading.stage = 0;
-    gColorFading.subroutineTimer = 0;
+    gColorFading.workTimer = 0;
 
     if (gCurrentPowerBomb.animationState != PB_STATE_NONE)
         gScreenShakeX = sScreenShake_Empty;
@@ -893,8 +893,10 @@ void RoomUpdateGfxInfo(void)
     else
         gDisableDoorAndTanks |= 0x80;
 
-    if (gMonochromeBgFading != 0)
+    if (gMonochromeBgFading != MONOCHROME_FADING_NONE)
+    {
         ColorFadingApplyMonochrome();
+    }
     else
     {
         MinimapUpdate();
@@ -993,7 +995,7 @@ void RoomUpdateHatchFlashingAnimation(void)
             #ifdef REGION_EU
             DmaTransfer(3, &pPalette[gHatchFlashingAnimation.row2 * PAL_ROW + 6], PALRAM_BASE + 2 * PAL_ROW_SIZE + 6 * sizeof(u16), 2 * sizeof(u16), 16);
             #else // !REGION_EU
-            DMA_SET(3, &pPalette[gHatchFlashingAnimation.row2 * PAL_ROW + 6], PALRAM_BASE + 2 * PAL_ROW_SIZE + 6 * sizeof(u16), C_32_2_16(DMA_ENABLE, 2));
+            DMA3_COPY_16(&pPalette[gHatchFlashingAnimation.row2 * PAL_ROW + 6], PALRAM_BASE + 2 * PAL_ROW_SIZE + 6 * sizeof(u16), 2);
             #endif // REGION_EU
         }
     }

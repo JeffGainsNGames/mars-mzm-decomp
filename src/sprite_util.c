@@ -2,9 +2,9 @@
 #include "gba.h"
 #include "oam.h"
 #include "clipdata.h"
-#include "sprites_AI/parasite.h"
-#include "sprites_AI/ridley.h"
-#include "sprites_AI/acid_worm.h"
+#include "sprites_ai/parasite.h"
+#include "sprites_ai/ridley.h"
+#include "sprites_ai/acid_worm.h"
 #include "data/sprite_data.h"
 
 #include "constants/audio.h"
@@ -22,6 +22,13 @@
 #include "structs/screen_shake.h"
 #include "structs/sprite.h"
 
+MAKE_ENUM(u8, SpriteCollisionFlag) ENUM_FLAG {
+    SPRITE_COLLISION_FLAG_NONE      = 0,
+    SPRITE_COLLISION_FLAG_ON_TOP    = 1 << 0,
+    SPRITE_COLLISION_FLAG_ON_BOTTOM = 1 << 1,
+    SPRITE_COLLISION_FLAG_ON_LEFT   = 1 << 2,
+    SPRITE_COLLISION_FLAG_ON_RIGHT  = 1 << 3
+};
 
 /**
  * @brief e498 | 7c | Initialize the first sprite to be a location text if necessary
@@ -35,7 +42,7 @@ void SpriteUtilInitLocationText(void)
     if (gfxSlot < SPRITE_GFX_SLOT_MAX)
     {
         gSpriteData[0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN |
-            SPRITE_STATUS_UNKNOWN_10 | SPRITE_STATUS_IGNORE_PROJECTILES;
+            SPRITE_STATUS_HIGH_PRIORITY | SPRITE_STATUS_IGNORE_PROJECTILES;
 
         gSpriteData[0].properties = SP_ABSOLUTE_POSITION;
         gSpriteData[0].spritesetGfxSlot = gfxSlot;
@@ -896,7 +903,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
  * 
  * @param yPosition Y Position
  * @param xPosition X Position
- * @return u32 Block Top Edge Y Position
+ * @return CollisionResult Block Top Edge Y Position
  */
 u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition)
 {
@@ -1022,10 +1029,10 @@ u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPositio
 }
 
 /**
- * @brief f594 | 74 | Unknown function
+ * @brief f594 | 74 | Aligns the current sprite's Y position on slope, check position at origin
  * 
  */
-void unk_f594(void)
+void SpriteUtilAlignYPositionOnSlopeAtOrigin(void)
 {
     u16 yPosition;
     u16 xPosition;
@@ -1034,6 +1041,7 @@ void unk_f594(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
+    // Check the block one pixel above the sprite's feet
     blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition - PIXEL_SIZE, xPosition);
     if ((gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F) >= COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
     {
@@ -1041,6 +1049,7 @@ void unk_f594(void)
         return;
     }
 
+    // Check the block directly below the sprite's feet
     blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition);
     if ((gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F) >= COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
     {
@@ -1048,16 +1057,17 @@ void unk_f594(void)
         return;
     }
 
+    // Check the block one pixel below the sprite's feet
     blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition + PIXEL_SIZE, xPosition);
     if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
         gCurrentSprite.yPosition = blockTop;
 }
 
 /**
- * @brief f608 | 80 | Unknown function
+ * @brief f608 | 80 | Aligns the current sprite's Y position on slope, check position at bottom of hitbox, X origin
  * 
  */
-void unk_f608(void)
+void SpriteUtilAlignYPositionOnSlopeAtHitboxBottom(void)
 {
     u16 yPosition;
     u16 xPosition;
@@ -1066,6 +1076,7 @@ void unk_f608(void)
     yPosition = gCurrentSprite.yPosition + gCurrentSprite.hitboxBottom;
     xPosition = gCurrentSprite.xPosition;
 
+    // Check the block one pixel above the sprite's feet
     blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition - PIXEL_SIZE, xPosition);
     if ((gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F) >= COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
     {
@@ -1073,6 +1084,7 @@ void unk_f608(void)
         return;
     }
 
+    // Check the block directly below the sprite's feet
     blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition);
     if ((gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F) >= COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
     {
@@ -1080,6 +1092,7 @@ void unk_f608(void)
         return;
     }
 
+    // Check the block one pixel below the sprite's feet
     blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition + PIXEL_SIZE, xPosition);
     if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
         gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottom;
@@ -1140,10 +1153,10 @@ void SpriteUtilCheckCollisionAtPosition(u32 yPosition, u32 xPosition)
  * @param xPosition X Position
  * @return u32 Collision check
  */
-u32 SpriteUtilGetCollisionAtPosition(u16 yPosition, u16 xPosition)
+CollisionResult SpriteUtilGetCollisionAtPosition(u16 yPosition, u16 xPosition)
 {
     u32 clipdata;
-    u32 collision;
+    CollisionResult collision;
 
     clipdata = ClipdataProcess(yPosition, xPosition);
 
@@ -1298,11 +1311,11 @@ void SpriteUtilMakeSpriteFaceAwayFromSamusDirection(void)
 }
 
 /**
- * @brief f978 | 6c | To document
+ * @brief f978 | 6c | Moves the current sprite horizontally forward (direction), slowing down on slopes
  * 
  * @param movement Movement
  */
-void unk_f978(s16 movement)
+void SpriteUtilMoveHorizontallyForwardOnSlopeDirection(s16 movement)
 {
     s32 velocity;
 
@@ -1327,11 +1340,11 @@ void unk_f978(s16 movement)
 }
 
 /**
- * @brief f9e4 | 98 | To document
+ * @brief f9e4 | 98 | Moves the current sprite's horizontally forward (X flip), slowing down on slopes
  * 
  * @param movement Movement
  */
-void unk_f9e4(s16 movement)
+void SpriteUtilMoveHorizontallyForwardOnSlopeXFlip(s16 movement)
 {
     s32 velocity;
 
@@ -3135,6 +3148,8 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
     rng = rng % SPRITE_DROP_MAX_PROB;
 
     #ifndef REGION_US_BETA
+    // Without this check, a value of 0 would always result in dropping nothing.
+    // Alternatively, the probability comparisons below could be changed to >=
     if (rng == 0)
         rng = 1;
     #endif // !REGION_US_BETA

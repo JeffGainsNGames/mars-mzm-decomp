@@ -41,7 +41,7 @@ static u8 RidleyLandingRidleyFlying(void)
 			CallLZ77UncompVram(sRidleyLandingRidleyFlyingBackgroundTileTable, BGCNT_TO_VRAM_TILE_BASE(sRidleyLandingPageData[4].tiletablePage));
 			
             CutsceneSetBgcntPageData(sRidleyLandingPageData[4]);
-			CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[4].bg, NON_GAMEPLAY_START_BG_POS);
+			CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X | CUTSCENE_BG_EDIT_Y, sRidleyLandingPageData[4].bg, NON_GAMEPLAY_START_BG_POS);
 			CutsceneReset();
             
             CUTSCENE_DATA.oam[1].xPosition = 18 * BLOCK_SIZE;
@@ -151,9 +151,9 @@ static u8 RidleyLandingShipLanding(void)
             CutsceneSetBgcntPageData(sRidleyLandingPageData[2]);
             CutsceneSetBgcntPageData(sRidleyLandingPageData[3]);
 
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[1].bg, NON_GAMEPLAY_START_BG_POS);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[2].bg, NON_GAMEPLAY_START_BG_POS);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[3].bg, NON_GAMEPLAY_START_BG_POS);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X | CUTSCENE_BG_EDIT_Y, sRidleyLandingPageData[1].bg, NON_GAMEPLAY_START_BG_POS);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X | CUTSCENE_BG_EDIT_Y, sRidleyLandingPageData[2].bg, NON_GAMEPLAY_START_BG_POS);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X | CUTSCENE_BG_EDIT_Y, sRidleyLandingPageData[3].bg, NON_GAMEPLAY_START_BG_POS);
 
             CutsceneReset();
 
@@ -172,9 +172,9 @@ static u8 RidleyLandingShipLanding(void)
             CUTSCENE_DATA.oam[8].boundBackground = 3;
             CUTSCENE_DATA.oam[8].priority = 1;
 
-            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[6], 2);
-            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[7], 3);
-            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[8], 4);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[6], RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_BOTTOM_PART);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[7], RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_MIDDLE_PART);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[8], RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_TOP_PART);
 
             CUTSCENE_DATA.dispcnt = sRidleyLandingPageData[1].bg | DCNT_OBJ;
 
@@ -236,7 +236,7 @@ static u8 RidleyLandingShipLanding(void)
                     break;
 
                 case CONVERT_SECONDS(4.f / 15):
-                    CUTSCENE_DATA.oam[0].oamID = 5;
+                    CUTSCENE_DATA.oam[0].oamID = RIDLEY_LANDING_OAM_ID_SMOKE_PARTICLES;
                     CUTSCENE_DATA.oam[0].oamID++;
                     movement = -(2 * PIXEL_SIZE);
                     break;
@@ -248,7 +248,7 @@ static u8 RidleyLandingShipLanding(void)
                     break;
 
                 case CONVERT_SECONDS(.4f):
-                    CUTSCENE_DATA.oam[1].oamID = 5;
+                    CUTSCENE_DATA.oam[1].oamID = RIDLEY_LANDING_OAM_ID_SMOKE_PARTICLES;
                     CUTSCENE_DATA.oam[1].oamID++;
                     movement = -PIXEL_SIZE;
                     CUTSCENE_DATA.timeInfo.timer = 0;
@@ -454,7 +454,7 @@ static u8 RidleyLandingInit(void)
     CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
     gWrittenToBldy_NonGameplay = BLDY_MAX_VALUE;
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X | CUTSCENE_BG_EDIT_Y, sRidleyLandingPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
 
     CUTSCENE_DATA.oam[0].xPosition = 0;
     CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 3;
@@ -473,7 +473,7 @@ static u8 RidleyLandingInit(void)
     return FALSE;
 }
 
-static struct CutsceneSubroutineData sRidleyLandingSubroutineData[5] = {
+static struct CutsceneStageData sRidleyLandingStageData[5] = {
     {
         .pFunction = RidleyLandingInit,
         .oamLength = 1
@@ -497,15 +497,15 @@ static struct CutsceneSubroutineData sRidleyLandingSubroutineData[5] = {
 };
 
 /**
- * @brief 65284 | 34 | Subroutine for the ridley landing cutscene
+ * @brief 65284 | 34 | Main loop for the ridley landing cutscene
  * 
  * @return u8 bool, ended
  */
-u8 RidleyLandingSubroutine(void)
+u8 RidleyLandingMainLoop(void)
 {
     u8 ended;
 
-    ended = sRidleyLandingSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
+    ended = sRidleyLandingStageData[CUTSCENE_DATA.timeInfo.stage].pFunction();
     CutsceneUpdateBackgroundsPosition(TRUE);
     RidleyLandingProcessOAM();
 
@@ -520,7 +520,7 @@ static void RidleyLandingProcessOAM(void)
 {
     gNextOamSlot = 0;
 
-    ProcessCutsceneOam(sRidleyLandingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyLandingCutsceneOAM);
+    ProcessCutsceneOam(sRidleyLandingStageData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyLandingCutsceneOAM);
     ResetFreeOam();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }

@@ -2,9 +2,9 @@
 
 #ifdef REGION_EU
 
-const u16 sLanguageSelectBgPal[16 * 16] = INCBIN_U16("data/menus/LanguageSelect/Background.pal");
-const u32 sLanguageSelectGfx[145] = INCBIN_U32("data/menus/LanguageSelect/Background.gfx.lz");
-const u32 sLanguageSelectTileTable[95] = INCBIN_U32("data/menus/LanguageSelect/Background.tt");
+const u16 sLanguageSelectBgPal[16 * 16] = INCBIN_U16("data/menus/language_select/background.pal");
+const u32 sLanguageSelectGfx[145] = INCBIN_U32("data/menus/language_select/background.gfx.lz");
+const u32 sLanguageSelectTileTable[95] = INCBIN_U32("data/menus/language_select/background.tt");
 
 const struct LanguageColorAnimation sInitialLanguageColorAnimation = {
     .timer = 4,
@@ -14,7 +14,7 @@ const struct LanguageColorAnimation sInitialLanguageColorAnimation = {
 
 const u8 sLanguageSelectGameModeSub1Values[3] = {0, 7, 8};
 
-const u16 sLanguageSelectLanguageTileTableOffsets[LANGUAGE_END - LANGUAGE_ENGLISH] = {
+const u16 sLanguageSelectLanguageTileTableOffsets[LANGUAGE_COUNT - LANGUAGE_ENGLISH] = {
     [LANGUAGE_ENGLISH - LANGUAGE_ENGLISH] = 0xA8,
     [LANGUAGE_GERMAN - LANGUAGE_ENGLISH] = 0xE8,
     [LANGUAGE_FRENCH - LANGUAGE_ENGLISH] = 0x128,

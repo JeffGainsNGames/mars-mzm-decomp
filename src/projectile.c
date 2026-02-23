@@ -21,7 +21,7 @@
 #include "structs/power_bomb_explosion.h"
 
 /**
- * 50b64 | f8 | Subroutine for a normal beam projectile
+ * 50b64 | f8 | Main loop for a normal beam projectile
  * 
  * @param pProj Projectile data pointer
  */
@@ -96,7 +96,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 50c5c | ec | Subroutine for a long beam projectile
+ * 50c5c | ec | Main loop for a long beam projectile
  * 
  * @param pProj Projectile data pointer
  */
@@ -174,7 +174,7 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 50d48 | 124 | Subroutine for a ice beam projectile
+ * 50d48 | 124 | Main loop for a ice beam projectile
  * 
  * @param pProj Projectile data pointer
  */
@@ -263,7 +263,7 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
     u16 yPosition;
     u16 xPosition;
     u8 nbrBlocks;
-    u8 caa;
+    ClipdataAffectingAction caa;
     const u32 hitboxOffset = BLOCK_SIZE;
     const u32 hitboxDiagOffset = hitboxOffset * .7f + ONE_SUB_PIXEL;
 
@@ -371,7 +371,7 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
 }
 
 /**
- * 51068 | 130 | Subroutine for a wave beam projectile
+ * 51068 | 130 | Main loop for a wave beam projectile
  * 
  * @param pProj Projectile data pointer
  */
@@ -432,7 +432,7 @@ void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
         pProj->drawDistanceOffset = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
 
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
-        pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+        pProj->status |= PROJ_STATUS_ABOVE_BG1;
 
         pProj->animationDurationCounter = 0;
         pProj->currentAnimationFrame = 0;
@@ -445,7 +445,7 @@ void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 51198 | 1bc | Subroutine for a plasma beam projectile
+ * 51198 | 1bc | Main loop for a plasma beam projectile
  * 
  * @param pProj Projectile data pointer
  */
@@ -543,7 +543,7 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
         if (hasWave)
         {
             pProj->drawDistanceOffset = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
-            pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+            pProj->status |= PROJ_STATUS_ABOVE_BG1;
         }
         else
         {
@@ -566,7 +566,7 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
 }
 
 /**
-* 51354 | ec | Subroutine for a pistol projectile
+* 51354 | ec | Main loop for a pistol projectile
 *
 * @param pProj Projectile data pointer
 */
@@ -639,7 +639,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
 }
 
 /**
- * @brief 51440 | f8 | Subroutine for a charged normal beam
+ * @brief 51440 | f8 | Main loop for a charged normal beam
  * 
  * @param pProj Projectile data pointer
  */
@@ -712,7 +712,7 @@ void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
 }
 
 /**
- * @brief 51538 | f8 | Subroutine for a charged long beam
+ * @brief 51538 | f8 | Main loop for a charged long beam
  * 
  * @param pProj Projectile data pointer
  */
@@ -784,7 +784,7 @@ void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)
 }
 
 /**
- * @brief 51630 | 134 | Subroutine for a charged ice beam
+ * @brief 51630 | 134 | Main loop for a charged ice beam
  * 
  * @param pProj Projectile data pointer
  */
@@ -863,7 +863,7 @@ void ProjectileProcessChargedIceBeam(struct ProjectileData* pProj)
 }
 
 /**
- * @brief 51764 | 13c | Subroutine for a charged wave beam
+ * @brief 51764 | 13c | Main loop for a charged wave beam
  * 
  * @param pProj Projectile data pointer
  */
@@ -928,7 +928,7 @@ void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj)
 
         pProj->drawDistanceOffset = BLOCK_SIZE * 3;
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
-        pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+        pProj->status |= PROJ_STATUS_ABOVE_BG1;
 
         pProj->animationDurationCounter = 0;
         pProj->currentAnimationFrame = 0;
@@ -942,7 +942,7 @@ void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj)
 }
 
 /**
- * @brief 518a0 | 1dc | Subroutine for a charged plasma beam
+ * @brief 518a0 | 1dc | Main loop for a charged plasma beam
  * 
  * @param pProj Projectile data pointer
  */
@@ -1059,7 +1059,7 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
         if (hasWave)
         {
             pProj->drawDistanceOffset = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE;
-            pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+            pProj->status |= PROJ_STATUS_ABOVE_BG1;
         }
         else
         {
@@ -1078,7 +1078,7 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 51a7c | f8 | Subroutine for a charged pistol projectile
+ * 51a7c | f8 | Main loop for a charged pistol projectile
  * 
  * @param pProj Projectile data pointer
  */
@@ -1170,7 +1170,7 @@ void ProjectileDecrementMissileCounter(struct ProjectileData* pProj)
 }
 
 /**
-* 51bac | 118 | Subroutine for a missile projectile
+* 51bac | 118 | Main loop for a missile projectile
 *
 * @param pProj Projectile data pointer
 */
@@ -1272,7 +1272,7 @@ void ProjectileDecrementSuperMissileCounter(struct ProjectileData* pProj)
 }
 
 /**
- * @brief 51cfc | 118 | Subroutine for a super missile
+ * @brief 51cfc | 118 | Main loop for a super missile
  * 
  * @param pProj Projectile data pointer
  */
@@ -1475,7 +1475,7 @@ void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
 }
 
 /**
-* 51ff8 | 1f8 | Subroutine for a bomb projectile
+* 51ff8 | 1f8 | Main loop for a bomb projectile
 *
 * @param pProj Projectile data pointer
 */
@@ -1496,7 +1496,7 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
 
             // X Flip is cleared to make it always face the same way, cancelling the automatic X Flip if samus is facing right
             pProj->status &= ~(PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_X_FLIP);
-            pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+            pProj->status |= PROJ_STATUS_ABOVE_BG1;
 
             // Timer before the bomb starts spinning faster
             pProj->timer = CONVERT_SECONDS(.25f) + 1 * DELTA_TIME;
@@ -1628,7 +1628,7 @@ void ProjectileProcess_Empty(struct ProjectileData* pProj)
 }
 
 /**
-* 521f4 | 114 | Subroutine for a power bomb projectile
+* 521f4 | 114 | Main loop for a power bomb projectile
 *
 * @param pProj Projectile data pointer
 */
@@ -1660,7 +1660,7 @@ void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
             pProj->hitboxRight = QUARTER_BLOCK_SIZE;
 
             pProj->status &= ~(PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_X_FLIP);
-            pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+            pProj->status |= PROJ_STATUS_ABOVE_BG1;
 
             pProj->timer = CONVERT_SECONDS(.9f);
             pProj->movementStage++;

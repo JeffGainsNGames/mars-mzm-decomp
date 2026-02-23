@@ -18,6 +18,9 @@
 #include "structs/display.h"
 #include "structs/samus.h"
 
+#define KRAID_RISING_PUFF_AMOUNT 11
+#define KRAID_RISING_DEBRIS_AMOUNT 6
+
 static struct CutsceneOamData* KraidRisingUpdatePuff(struct CutsceneOamData* pOam, u8 puffID);
 static struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8 debrisID);
 static void KraidRisingProcessOam(void);
@@ -114,7 +117,7 @@ static u8 KraidRisingRising(void)
     {
         case 0:
             // Load kraid rising palette
-            DMA_SET(3, sKraidRisingRisingPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sKraidRisingRisingPal)));
+            DMA3_COPY_16(sKraidRisingRisingPal, PALRAM_BASE, ARRAY_SIZE(sKraidRisingRisingPal));
             WRITE_16(PALRAM_BASE, COLOR_BLACK);
 
             // Load kraid rising graphics
@@ -223,7 +226,7 @@ static u8 KraidRisingRising(void)
     for (i = 0; i < KRAID_RISING_DEBRIS_AMOUNT; i++)
         KraidRisingUpdateDebris(&CUTSCENE_DATA.oam[i], i);
 
-    #if DEBUG
+    #ifdef DEBUG
     CutsceneCheckSkipStage(1);
     #endif // DEBUG
 
@@ -445,13 +448,13 @@ static u8 KraidRisingInit(void)
 
     // Setup for the eyes closed tile table
     CutsceneSetBgcntPageData(sKraidRisingPagesData[0]);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sKraidRisingPagesData[0].bg, NON_GAMEPLAY_START_BG_POS);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_X | CUTSCENE_BG_EDIT_Y, sKraidRisingPagesData[0].bg, NON_GAMEPLAY_START_BG_POS);
     CutsceneReset();
 
     gWrittenToBldy_NonGameplay = BLDY_MAX_VALUE;
     CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sKraidRisingPagesData[2].bg, NON_GAMEPLAY_START_BG_POS - HALF_BLOCK_SIZE);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_Y, sKraidRisingPagesData[2].bg, NON_GAMEPLAY_START_BG_POS - HALF_BLOCK_SIZE);
 
     // Only display the background of the eyes closed
     CUTSCENE_DATA.dispcnt = sKraidRisingPagesData[0].bg;
@@ -462,7 +465,7 @@ static u8 KraidRisingInit(void)
     return FALSE;
 }
 
-static struct CutsceneSubroutineData sKraidRisingSubroutineData[4] = {
+static struct CutsceneStageData sKraidRisingStageData[4] = {
     [0] = {
         .pFunction = KraidRisingInit,
         .oamLength = 18
@@ -482,15 +485,15 @@ static struct CutsceneSubroutineData sKraidRisingSubroutineData[4] = {
 };
 
 /**
- * @brief 62b24 | 37 | Kraid rising cutscene subroutine
+ * @brief 62b24 | 37 | Kraid rising cutscene main loop
  * 
  * @return u8 1 if ended, 0 otherwise
  */
-u8 KraidRisingSubroutine(void)
+u8 KraidRisingMainLoop(void)
 {
     u8 ended;
 
-    ended = sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
+    ended = sKraidRisingStageData[CUTSCENE_DATA.timeInfo.stage].pFunction();
 
     CutsceneUpdateBackgroundsPosition(TRUE);
     KraidRisingProcessOam();
@@ -506,6 +509,6 @@ static void KraidRisingProcessOam(void)
 {
     gNextOamSlot = 0;
 
-    ProcessCutsceneOam(sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOam);
+    ProcessCutsceneOam(sKraidRisingStageData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOam);
     ResetFreeOam();
 }

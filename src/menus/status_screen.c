@@ -143,7 +143,7 @@ static u8 sStatusScreenGroupsDimensions[6][3] = {
         [0] = ABILITY_GROUP_MISSILES,
         [1] = 6,
         [2] = 9
-    },
+    }
 };
 
 // bomb column offset?
@@ -309,23 +309,23 @@ void PauseDebugActivateAbilities(void)
  * 
  * @return u32 Leaving
  */
-u32 PauseDebugSubroutine(void)
+u32 PauseDebugMainLoop(void)
 {
     if (!PAUSE_SCREEN_DATA.debugOnEventList)
     {
         if (gChangedInput == KEY_NONE)
             return FALSE;
 
-        if (gChangedInput & (gButtonAssignments.pause | KEY_B) && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+        if (gChangedInput & (gButtonAssignments.pause | KEY_B) && PAUSE_SCREEN_DATA.stateInfo.stage == 0)
             return TRUE;
 
-        if (gChangedInput & (KEY_L | KEY_R) && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+        if (gChangedInput & (KEY_L | KEY_R) && PAUSE_SCREEN_DATA.stateInfo.stage == 0)
         {
-            PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0xC;
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
-            PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+            PAUSE_SCREEN_DATA.stateInfo.state = 0xC;
+            PAUSE_SCREEN_DATA.stateInfo.timer = 0;
+            PAUSE_SCREEN_DATA.stateInfo.stage = 0;
         }
-        else if (gChangedInput & KEY_SELECT && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+        else if (gChangedInput & KEY_SELECT && PAUSE_SCREEN_DATA.stateInfo.stage == 0)
         {
             PAUSE_SCREEN_DATA.debugOnEventList = TRUE;
             PAUSE_SCREEN_DATA.debugEventListStage = 0;
@@ -426,7 +426,7 @@ void PauseDebugStatusScreen(void)
     yPos = PAUSE_SCREEN_DATA.miscOam[0].yPosition / 32;
     xPos = PAUSE_SCREEN_DATA.miscOam[0].xPosition / 32;
 
-    for (i = 0; i < PAUSE_DEBUG_GROUP_END; i++)
+    for (i = 0; i < PAUSE_DEBUG_GROUP_COUNT; i++)
     {
         if (sPauseDebugGroupsPositions[i].top <= yPos && sPauseDebugGroupsPositions[i].bottom >= yPos &&
             sPauseDebugGroupsPositions[i].left <= xPos && sPauseDebugGroupsPositions[i].right >= xPos)
@@ -439,9 +439,9 @@ void PauseDebugStatusScreen(void)
     if (!work1)
         return;
 
-    if (sPauseDebugGroupsPositions[i].group != PAUSE_DEBUG_GROUP_EQUIP_TANK && gChangedInput & KEY_B && PAUSE_SCREEN_DATA.subroutineInfo.stage != 0)
+    if (sPauseDebugGroupsPositions[i].group != PAUSE_DEBUG_GROUP_EQUIP_TANK && gChangedInput & KEY_B && PAUSE_SCREEN_DATA.stateInfo.stage != 0)
     {
-        PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+        PAUSE_SCREEN_DATA.stateInfo.stage = 0;
         UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
         if (sPauseDebugGroupsPositions[i].group == PAUSE_DEBUG_GROUP_TIME)
             gMaxInGameTimerFlag = 0;
@@ -477,9 +477,9 @@ void PauseDebugStatusScreen(void)
             if (gChangedInput & KEY_A)
             {
                 UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
+                PAUSE_SCREEN_DATA.stateInfo.stage = 1;
             }
-            else if (PAUSE_SCREEN_DATA.subroutineInfo.stage != 0 && PauseDebugEnergyAmmoInput(xPos, sPauseDebugGroupsPositions[i].group))
+            else if (PAUSE_SCREEN_DATA.stateInfo.stage != 0 && PauseDebugEnergyAmmoInput(xPos, sPauseDebugGroupsPositions[i].group))
             {
                 PauseDebugDrawAffectedGroups(1 << sPauseDebugGroupsPositions[i].group);
             }
@@ -520,23 +520,23 @@ void PauseDebugStatusScreen(void)
             break;
 
         case PAUSE_DEBUG_GROUP_EQUIP_TANK:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+            if (PAUSE_SCREEN_DATA.stateInfo.stage == 0)
             {
                 if (gChangedInput & KEY_A)
                 {
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
                     break;
                 }
             }
             else if (gChangedInput & (KEY_A | KEY_B))
             {
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                PAUSE_SCREEN_DATA.stateInfo.stage = 0;
                 UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
                 break;
             }
             
-            if (PAUSE_SCREEN_DATA.subroutineInfo.stage != 0)
+            if (PAUSE_SCREEN_DATA.stateInfo.stage != 0)
             {
                 if (gChangedInput & KEY_RIGHT)
                 {
@@ -558,27 +558,27 @@ void PauseDebugStatusScreen(void)
         
         case PAUSE_DEBUG_GROUP_S_EVENT:
             work3 = FALSE;
-            if (PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+            if (PAUSE_SCREEN_DATA.stateInfo.stage == 0)
             {
                 if (gChangedInput & KEY_A)
                 {
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
                 }
             }
             else if (gChangedInput & (KEY_A | KEY_B))
             {
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                PAUSE_SCREEN_DATA.stateInfo.stage = 0;
                 UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
             }
             break;
 
         case PAUSE_DEBUG_GROUP_TIME:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+            if (PAUSE_SCREEN_DATA.stateInfo.stage == 0)
             {
                 if (gChangedInput & KEY_A) {
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                     gMaxInGameTimerFlag = 1;
                 }
                 break;
@@ -690,12 +690,12 @@ void PauseDebugStatusScreen(void)
             break;
 
         case PAUSE_DEBUG_GROUP_LANGUAGE:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+            if (PAUSE_SCREEN_DATA.stateInfo.stage == 0)
             {
                 if (gChangedInput & KEY_A)
                 {
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                 }
             }
             else
@@ -708,7 +708,7 @@ void PauseDebugStatusScreen(void)
                     else if (gChangedInput & KEY_DOWN)
                         work3 = 1;
                 }
-                if (gLanguage + work3 < 0 || gLanguage + work3 >= LANGUAGE_END)
+                if (gLanguage + work3 < 0 || gLanguage + work3 >= LANGUAGE_COUNT)
                     work3 = 0;
                 if (work3 != 0)
                 {
@@ -720,12 +720,12 @@ void PauseDebugStatusScreen(void)
             break;
 
         case PAUSE_DEBUG_GROUP_DIFFICULTY:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+            if (PAUSE_SCREEN_DATA.stateInfo.stage == 0)
             {
                 if (gChangedInput & KEY_A)
                 {
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                 }
             }
             else
@@ -738,7 +738,7 @@ void PauseDebugStatusScreen(void)
                     else if (gChangedInput & KEY_DOWN)
                         work3 = 1;
                 }
-                if (gDifficulty + work3 < 0 || gDifficulty + work3 >= DIFF_END)
+                if (gDifficulty + work3 < 0 || gDifficulty + work3 >= DIFF_COUNT)
                     work3 = 0;
                 if (work3 != 0)
                 {
@@ -752,7 +752,7 @@ void PauseDebugStatusScreen(void)
             break;
 
         case PAUSE_DEBUG_GROUP_SUIT_TYPE:
-            if (gChangedInput & KEY_A && gEquipment.suitType != yPos && yPos < SUIT_END)
+            if (gChangedInput & KEY_A && gEquipment.suitType != yPos && yPos < SUIT_COUNT)
             {
                 work1 = 1 << PAUSE_DEBUG_GROUP_SUIT_TYPE;
                 work2 = FALSE;
@@ -1011,10 +1011,10 @@ void PauseDebugDrawAffectedGroups(u32 groups)
     
     if (groups & (1 << PAUSE_DEBUG_GROUP_LANGUAGE))
     {
-        if (gLanguage < LANGUAGE_END)
+        if (gLanguage < LANGUAGE_COUNT)
             i = gLanguage;
         else
-            i = LANGUAGE_END;
+            i = LANGUAGE_COUNT;
 
         dst = VRAM_BASE + 0xB000;
         dst += sPauseDebugLanguagePosition[0] * 32 + sPauseDebugLanguagePosition[1];
@@ -1024,10 +1024,10 @@ void PauseDebugDrawAffectedGroups(u32 groups)
     
     if (groups & (1 << PAUSE_DEBUG_GROUP_DIFFICULTY))
     {
-        if (gDifficulty < DIFF_END)
+        if (gDifficulty < DIFF_COUNT)
             i = gDifficulty;
         else
-            i = DIFF_END;
+            i = DIFF_COUNT;
 
         dst = VRAM_BASE + 0xB000;
         dst += sPauseDebugDifficultyPosition[0] * 32 + sPauseDebugDifficultyPosition[1];
@@ -1037,9 +1037,9 @@ void PauseDebugDrawAffectedGroups(u32 groups)
     
     if (groups & (1 << PAUSE_DEBUG_GROUP_SUIT_TYPE))
     {
-        if (gEquipment.suitType < SUIT_END)
+        if (gEquipment.suitType < SUIT_COUNT)
         {
-            for (i = 0; i < SUIT_END; i++)
+            for (i = 0; i < SUIT_COUNT; i++)
             {
                 dst = VRAM_BASE + 0xB000 + (sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_SUIT_TYPE].top + i) * 64 +
                     sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_SUIT_TYPE].left * 2;
@@ -1516,7 +1516,7 @@ void PauseDebugEventList(void)
             DmaTransfer(3, VRAM_BASE + 0xB000, (void*)sEwramPointer + 0xC800, 0x800, 16);
             DmaTransfer(3, (void*)sEwramPointer + 0xD000, VRAM_BASE + 0xB000, 0x800, 16);
             CallLZ77UncompVram(sPauseDebugEventListTextGfx, VRAM_BASE + 0x8000);
-            DMA_SET(3, sPauseDebugEventListBgPalette, PALRAM_BASE + 0x1C0, C_32_2_16(DMA_ENABLE, 0x20));
+            DMA3_COPY_16(sPauseDebugEventListBgPalette, PALRAM_BASE + 0x1C0, 0x20);
             PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_7A;
             PauseDebugEventListInput();
             PAUSE_SCREEN_DATA.debugEventListStage++;
@@ -1528,7 +1528,7 @@ void PauseDebugEventList(void)
             break;
 
         case 3:
-            if (gChangedInput & (KEY_B | KEY_SELECT) && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+            if (gChangedInput & (KEY_B | KEY_SELECT) && PAUSE_SCREEN_DATA.stateInfo.stage == 0)
                 PAUSE_SCREEN_DATA.debugEventListStage++;
             else
                 PauseDebugEventListInput();
@@ -1833,11 +1833,11 @@ u32 StatusScreenDrawItems(u8 row)
  * @param item Item
  * @return u8 Status slot
  */
-u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
+StatusSlots StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
 {
     u8* pActivation;
     u8* pStatusActivation;
-    u8 slot;
+    StatusSlots slot;
     u8 flag;
     s32 i;
 
@@ -2044,7 +2044,7 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
  * @param palette Palette
  * @param isMax Is the max
  */
-void StatusScreenDrawSingleTankAmount(u8 group, u16 amount, u8 palette, u8 isMax)
+void StatusScreenDrawSingleTankAmount(AbilityGroup group, u16 amount, u8 palette, u8 isMax)
 {
     u16 baseTile;
     u16* pTilemap;
@@ -2710,7 +2710,7 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
  * @param isActivated Is the row activated
  * @param drawUpdate Bool, draw the updated row
  */
-void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 drawUpdate)
+void StatusScreenUpdateRow(AbilityGroup group, u8 row, u8 isActivated, u8 drawUpdate)
 {
     s32 position;
     s32 size;
@@ -2751,7 +2751,7 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 drawUpdate)
  * @param group Group
  * @param row Row
  */
-void StatusScreenEnableUnknownItem(u8 group, u8 row)
+void StatusScreenEnableUnknownItem(AbilityGroup group, u8 row)
 {
     u32 position;
     s32 size;
@@ -2794,7 +2794,7 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
  */
 u32 StatusScreenCheckItemToggleInput(u16 button)
 {
-    return (gChangedInput & button) != 0;
+    return (gChangedInput & button) != KEY_NONE;
 }
 
 /**
@@ -2826,22 +2826,22 @@ u32 StatusScreenSuitlessItems(void)
 
     ended = FALSE;
 
-    if (PAUSE_SCREEN_DATA.subroutineInfo.stage > 5)
+    if (PAUSE_SCREEN_DATA.stateInfo.stage > 5)
         ended = gPrevChangedInput != 0;
 
     if (ended)
         return ended;
 
-    if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
+    if (PAUSE_SCREEN_DATA.stateInfo.fadeWireframeStage != 0)
     {
         PauseScreenFadeWireframeSamus();
     }
     else
     {
-        switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
+        switch (PAUSE_SCREEN_DATA.stateInfo.stage)
         {
             case 0:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(4.f / 15))
+                if (PAUSE_SCREEN_DATA.stateInfo.timer <= CONVERT_SECONDS(4.f / 15))
                     break;
 
                 if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != STATUS_SLOT_0)
@@ -2852,24 +2852,24 @@ u32 StatusScreenSuitlessItems(void)
                     if (togglingResult < 0)
                     {
                         if (gDemoState != DEMO_STATE_NONE)
-                            PAUSE_SCREEN_DATA.subroutineInfo.stage = 3;
+                            PAUSE_SCREEN_DATA.stateInfo.stage = 3;
                         else
-                            PAUSE_SCREEN_DATA.subroutineInfo.stage = 5;
+                            PAUSE_SCREEN_DATA.stateInfo.stage = 5;
                     }
                     else
-                        PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
+                        PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                     gCurrentMessage.messageEnded = FALSE;
                 }
                 else
                 {
                     gCurrentMessage.messageEnded = TRUE;
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 7;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 7;
                 }
-                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                PAUSE_SCREEN_DATA.stateInfo.timer = 0;
                 break;
 
             case 1:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(2.f / 15))
+                if (PAUSE_SCREEN_DATA.stateInfo.timer <= CONVERT_SECONDS(2.f / 15))
                     break;
 
                 StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_TOGGLING);
@@ -2905,26 +2905,26 @@ u32 StatusScreenSuitlessItems(void)
                         break;
                 }
                 
-                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
-                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+                PAUSE_SCREEN_DATA.stateInfo.timer = 0;
+                PAUSE_SCREEN_DATA.stateInfo.stage++;
                 break;
 
             case 2:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
+                if (PAUSE_SCREEN_DATA.stateInfo.fadeWireframeStage != 0)
                     break;
 
-                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                PAUSE_SCREEN_DATA.stateInfo.timer = 0;
                 if (gDemoState != DEMO_STATE_NONE)
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 3;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 3;
                 else
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 5;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 5;
                 break;
 
             case 3:
                 if (gCurrentMessage.messageEnded)
                 {
-                    PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+                    PAUSE_SCREEN_DATA.stateInfo.timer = 0;
+                    PAUSE_SCREEN_DATA.stateInfo.stage++;
                     break;
                 }
 
@@ -2932,14 +2932,14 @@ u32 StatusScreenSuitlessItems(void)
                 break;
 
             case 4:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(.5f))
+                if (PAUSE_SCREEN_DATA.stateInfo.timer > CONVERT_SECONDS(.5f))
                     ended = TRUE;
                 break;
 
             case 5:
                 TextProcessDescription();
                 if (gCurrentMessage.messageEnded)
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 7;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = 7;
                 break;
 
             case 6:
@@ -2968,7 +2968,7 @@ u32 StatusScreenFindUnknownItemSlot(u8 wantUnknownItem)
 
     for ( ; ; PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot++)
     {
-        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= STATUS_SLOT_END)
+        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= STATUS_SLOT_COUNT)
             return 2;
         
         switch (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group)
@@ -3131,33 +3131,33 @@ u32 StatusScreenFullyPoweredItems(void)
     u32 result;
     u8 rightSlot;
 
-    if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
+    if (PAUSE_SCREEN_DATA.stateInfo.fadeWireframeStage != 0)
     {
         PauseScreenFadeWireframeSamus();
         return FALSE;
     }
 
-    switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
+    switch (PAUSE_SCREEN_DATA.stateInfo.stage)
     {
         case FULLY_POWERED_ITEMS_CHECK_ENABLE_SUIT:
             // Wait
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(5.f / 6))
+            if (PAUSE_SCREEN_DATA.stateInfo.timer > CONVERT_SECONDS(5.f / 6))
             {
                 // Update to suit wireframe
                 PauseScreenUpdateWireframeSamus(2);
-                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
-                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+                PAUSE_SCREEN_DATA.stateInfo.timer = 0;
+                PAUSE_SCREEN_DATA.stateInfo.stage++;
             }
             break;
 
         case FULLY_POWERED_ITEMS_DELAY:
             // Wait
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(.5f))
+            if (PAUSE_SCREEN_DATA.stateInfo.timer > CONVERT_SECONDS(.5f))
             {
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_LONG_BEAM;
                 PAUSE_SCREEN_DATA.notPlayingEnablingNormalItemSound = TRUE;
-                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
-                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+                PAUSE_SCREEN_DATA.stateInfo.timer = 0;
+                PAUSE_SCREEN_DATA.stateInfo.stage++;
             }
             break;
 
@@ -3172,12 +3172,12 @@ u32 StatusScreenFullyPoweredItems(void)
 
             // If the slot was invalid, it'll stay on this stage, if it found a normal item it'll go to stage 3,
             // and if it reached the end of the slots, it'll go to stage 4
-            PAUSE_SCREEN_DATA.subroutineInfo.stage += result;
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            PAUSE_SCREEN_DATA.stateInfo.stage += result;
+            PAUSE_SCREEN_DATA.stateInfo.timer = 0;
             break;
 
         case FULLY_POWERED_ITEMS_ACTIVATE_NORMAL_SLOT:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(.1f))
+            if (PAUSE_SCREEN_DATA.stateInfo.timer <= CONVERT_SECONDS(.1f))
                 break;
             
             // Update row (enables it)
@@ -3203,8 +3203,8 @@ u32 StatusScreenFullyPoweredItems(void)
             // Goto next slot
             PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot++;
             // Go back to looking for normal items
-            PAUSE_SCREEN_DATA.subroutineInfo.stage--;
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            PAUSE_SCREEN_DATA.stateInfo.stage--;
+            PAUSE_SCREEN_DATA.stateInfo.timer = 0;
             break;
 
         case FULLY_POWERED_ITEMS_SEARCH_FOR_UNKNOWN_ITEM:
@@ -3213,14 +3213,14 @@ u32 StatusScreenFullyPoweredItems(void)
             {
                 // Found unknown item
                 BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
-                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+                PAUSE_SCREEN_DATA.stateInfo.stage++;
             }
             else
             {
                 // Didn't found any unknown item, finish sequence
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = FULLY_POWERED_ITEMS_FINISH;
+                PAUSE_SCREEN_DATA.stateInfo.stage = FULLY_POWERED_ITEMS_FINISH;
             }
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            PAUSE_SCREEN_DATA.stateInfo.timer = 0;
             break;
 
         case FULLY_POWERED_ITEMS_ENABLE_UNKNOWN_ITEM_INIT:
@@ -3244,16 +3244,16 @@ u32 StatusScreenFullyPoweredItems(void)
 
             StatusScreenUpdateUnknownItemPalette(0);
             SoundPlay(SOUND_ENABLING_UNKNOWN_ITEM);
-            PAUSE_SCREEN_DATA.subroutineInfo.stage++;
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            PAUSE_SCREEN_DATA.stateInfo.stage++;
+            PAUSE_SCREEN_DATA.stateInfo.timer = 0;
             break;
 
         case FULLY_POWERED_ITEMS_UNKNOWN_ITEM_ACTIVATING_ANIMATION_PART1:
             if (StatusScreenUpdateUnknownItemPalette(1))
             {
                 // Goto part 2
-                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
-                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                PAUSE_SCREEN_DATA.stateInfo.stage++;
+                PAUSE_SCREEN_DATA.stateInfo.timer = 0;
             }
             break;
 
@@ -3272,8 +3272,8 @@ u32 StatusScreenFullyPoweredItems(void)
             else
                 PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
 
-            PAUSE_SCREEN_DATA.subroutineInfo.stage++;
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            PAUSE_SCREEN_DATA.stateInfo.stage++;
+            PAUSE_SCREEN_DATA.stateInfo.timer = 0;
 
             PAUSE_SCREEN_DATA.miscOam[10].oamID++;
 
@@ -3289,8 +3289,8 @@ u32 StatusScreenFullyPoweredItems(void)
             if (StatusScreenUpdateUnknownItemPalette(2))
             {
                 // Goto enable unknown item
-                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
-                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                PAUSE_SCREEN_DATA.stateInfo.stage++;
+                PAUSE_SCREEN_DATA.stateInfo.timer = 0;
             }
             break;
 
@@ -3308,7 +3308,7 @@ u32 StatusScreenFullyPoweredItems(void)
                     gCurrentMessage.messageEnded = FALSE;
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[10], 0);
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0);
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = FULLY_POWERED_ITEMS_SEARCH_FOR_UNKNOWN_ITEM;
+                    PAUSE_SCREEN_DATA.stateInfo.stage = FULLY_POWERED_ITEMS_SEARCH_FOR_UNKNOWN_ITEM;
                 }
                 break;
             }
@@ -3330,11 +3330,11 @@ u32 StatusScreenFullyPoweredItems(void)
             else
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = rightSlot;
 
-            PAUSE_SCREEN_DATA.subroutineInfo.stage++;
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            PAUSE_SCREEN_DATA.stateInfo.stage++;
+            PAUSE_SCREEN_DATA.stateInfo.timer = 0;
             break;
 
-        case FULLY_POWERED_ITEMS_END:
+        case FULLY_POWERED_ITEMS_COUNT:
         default:
             return TRUE;
     }
@@ -3343,22 +3343,22 @@ u32 StatusScreenFullyPoweredItems(void)
 }
 
 /**
- * @brief 71800 | 94 | Subroutine for the status screen
+ * @brief 71800 | 94 | Main loop for the status screen
  * 
  */
-void StatusScreenSubroutine(void)
+void StatusScreenMainLoop(void)
 {
     u32 toggleResult;
 
     // Check leaving status screen
-    if (gChangedInput & (KEY_B | KEY_L | KEY_R) && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
+    if (gChangedInput & (KEY_B | KEY_L | KEY_R) && PAUSE_SCREEN_DATA.stateInfo.stage == 0)
     {
-        if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage == 0)
+        if (PAUSE_SCREEN_DATA.stateInfo.fadeWireframeStage == 0)
         {
             // Set leaving
-            PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN_LEAVING;
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
-            PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+            PAUSE_SCREEN_DATA.stateInfo.state = PAUSE_SCREEN_STATE_STATUS_SCREEN_LEAVING;
+            PAUSE_SCREEN_DATA.stateInfo.timer = 0;
+            PAUSE_SCREEN_DATA.stateInfo.stage = 0;
             return;
         }
         else
@@ -3368,7 +3368,7 @@ void StatusScreenSubroutine(void)
     }
     else
     {
-        if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
+        if (PAUSE_SCREEN_DATA.stateInfo.fadeWireframeStage != 0)
         {
             PauseScreenFadeWireframeSamus();
         }
@@ -3634,9 +3634,9 @@ u32 StatusScreenIsStatusSlotEnabled(u8 statusSlot)
  * 
  * @param statusSlot Status slot
  * @param action Toggling action
- * @return u32 bool, is on (0xFF if can't toggle)
+ * @return boolu32 bool, is on (0xFF if can't toggle)
  */
-u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
+u32 StatusScreenToggleItem(u8 statusSlot, ItemToggleAction action)
 {
     u32 flag;
     u8* pActivation;

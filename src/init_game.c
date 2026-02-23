@@ -18,14 +18,18 @@ void InitializeGame(void)
     WRITE_16(REG_IME, FALSE);
     WRITE_16(REG_DISPSTAT, 0);
 
-    DMA_FILL_32(3, 0, EWRAM_BASE, EWRAM_SIZE);
-    DMA_FILL_32(3, 0, IWRAM_BASE, IWRAM_SIZE - 0x200);
+    DMA3_FILL_32(0, EWRAM_BASE, EWRAM_SIZE);
+    DMA3_FILL_32(0, IWRAM_BASE, IWRAM_SIZE - 0x200);
 
     ClearGfxRam();
     LoadInterruptCode();
     CallbackSetVblank(SoftResetVBlankCallback);
     SramRead_All();
     InitializeAudio();
+    #ifdef BUGFIX
+    SramRead_SoundMode();
+    FileSelectApplyStereo();
+    #endif // BUGFIX
 
     WRITE_16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
     WRITE_16(REG_DISPSTAT, DSTAT_IF_VBLANK);
@@ -59,9 +63,9 @@ void InitializeGame(void)
         #endif // DEBUG
     }
 
-    gButtonInput = 0;
-    gPreviousButtonInput = 0;
-    gChangedInput = 0;
+    gButtonInput = KEY_NONE;
+    gPreviousButtonInput = KEY_NONE;
+    gChangedInput = KEY_NONE;
 
     gDisableSoftReset = FALSE;
     gStereoFlag = FALSE;

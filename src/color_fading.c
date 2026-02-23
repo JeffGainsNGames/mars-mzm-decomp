@@ -2,7 +2,7 @@
 #include "dma.h"
 #include "gba.h"
 #include "color_effects.h"
-#include "sprites_AI/ruins_test.h"
+#include "sprites_ai/ruins_test.h"
 
 #include "data/color_fading_data.h"
 #include "data/common_pals.h"
@@ -31,13 +31,13 @@
 #include "structs/visual_effects.h"
 #include "structs/room.h"
 
-extern u8 sHazeData[EFFECT_HAZE_END][4];
+extern u8 sHazeData[EFFECT_HAZE_COUNT][4];
 
-static ColorFadingFunc_T sColorFadingSubroutinePointers[COLOR_FADING_SUBROUTINE_END] = {
-    [COLOR_FADING_SUBROUTINE_EMPTY] = ColorFadingSubroutine_Empty,
-    [COLOR_FADING_SUBROUTINE_1] = unk_5bd58,
-    [COLOR_FADING_SUBROUTINE_2] = unk_5bdc8,
-    [COLOR_FADING_SUBROUTINE_3] = unk_5be7c
+static ColorFadingFunc_T sColorFadingFunctionPointers[COLOR_FADING_FUNCTION_COUNT] = {
+    [COLOR_FADING_FUNCTION_EMPTY] = ColorFadingFunction_Empty,
+    [COLOR_FADING_FUNCTION_1] = unk_5bd58,
+    [COLOR_FADING_FUNCTION_2] = unk_5bdc8,
+    [COLOR_FADING_FUNCTION_3] = unk_5be7c
 };
 
 /**
@@ -77,8 +77,8 @@ u8 ColorFadingUpdate(void)
         color = 0;
 
     // Process color
-    colorType = sColorFadingData[gColorFading.type].fadeSubroutine;
-    if (sColorFadingSubroutinePointers[colorType](stage, color))
+    colorType = sColorFadingData[gColorFading.type].fadeFunction;
+    if (sColorFadingFunctionPointers[colorType](stage, color))
     {
         gColorFading.fadeTimer = 0;
         return TRUE;
@@ -94,7 +94,7 @@ u8 ColorFadingUpdate(void)
  * @param color Color
  * @return u8 bool, ended
  */
-u8 unk_5bd58(u8 stage, u8 color)
+u8 unk_5bd58(ColorFadingStage stage, u8 color)
 {
     switch (stage)
     {
@@ -129,7 +129,7 @@ u8 unk_5bd58(u8 stage, u8 color)
  * @param color Color
  * @return u8 bool, ended
  */
-u8 unk_5bdc8(u8 stage, u8 color)
+u8 unk_5bdc8(ColorFadingStage stage, u8 color)
 {
     switch (stage)
     {
@@ -177,7 +177,7 @@ u8 unk_5bdc8(u8 stage, u8 color)
  * @param color Color
  * @return u8 bool, ended
  */
-u8 unk_5be7c(u8 stage, u8 color)
+u8 unk_5be7c(ColorFadingStage stage, u8 color)
 {
     switch (stage)
     {
@@ -198,13 +198,13 @@ u8 unk_5be7c(u8 stage, u8 color)
 }
 
 /**
- * @brief 5bec8 | 4 | Empty fading subroutine
+ * @brief 5bec8 | 4 | Empty fading function
  * 
  * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
  */
-u8 ColorFadingSubroutine_Empty(u8 stage, u8 color)
+u8 ColorFadingFunction_Empty(ColorFadingStage stage, u8 color)
 {
     return TRUE;
 }
@@ -252,7 +252,7 @@ void ColorFadingTransferPaletteOnTransition(void)
  * 
  * @param request Request
  */
-void StartEffectForCutscene(u8 request)
+void StartEffectForCutscene(EffectCutscene request)
 {
     switch (request)
     {
@@ -309,7 +309,7 @@ void StartEffectForCutscene(u8 request)
  * 
  * @param type Type
  */
-void ColorFadingStart(u8 type)
+void ColorFadingStart(ColorFadingEffect type)
 {
     gColorFading.type = type;
     gColorFading.stage = 0;
@@ -317,7 +317,7 @@ void ColorFadingStart(u8 type)
     gColorFading.unk_3 = 0;
     gColorFading.status = 0;
     gColorFading.useSecondColorSet = FALSE;
-    gColorFading.subroutineTimer = 0;
+    gColorFading.workTimer = 0;
 }
 
 /**
@@ -363,7 +363,7 @@ void ColorFadingHideScreenDuringLoad(void)
  */
 void ColorFadingSetBg3Position(void)
 {
-    if (sColorFadingData[gColorFading.type].fadeSubroutine == COLOR_FADING_SUBROUTINE_1)
+    if (sColorFadingData[gColorFading.type].fadeFunction == COLOR_FADING_FUNCTION_1)
         gWhichBGPositionIsWrittenToBG3OFS = 4;
     else
         gWhichBGPositionIsWrittenToBG3OFS = 3;
@@ -485,16 +485,16 @@ u32 ColorFadingFinishDoorTransition(void)
 {
     gColorFading.useSecondColorSet = FALSE;
 
-    if (sColorFadingData[gColorFading.type].pUpdateSubroutine && sColorFadingData[gColorFading.type].pUpdateSubroutine())
+    if (sColorFadingData[gColorFading.type].pUpdateFunction && sColorFadingData[gColorFading.type].pUpdateFunction())
     {
-        switch (sColorFadingData[gColorFading.type].fadeSubroutine)
+        switch (sColorFadingData[gColorFading.type].fadeFunction)
         {
-            case COLOR_FADING_SUBROUTINE_1:
+            case COLOR_FADING_FUNCTION_1:
                 if (!gMusicTrackInfo.unk)
                     CheckPlayTransitionMusicTrack();
                 break;
 
-            case COLOR_FADING_SUBROUTINE_2:
+            case COLOR_FADING_FUNCTION_2:
                 if (gMusicTrackInfo.pauseScreenFlag)
                     UpdateMusicAfterPause();
                 break;
@@ -527,7 +527,7 @@ u32 ColorFadingProcess(void)
     if (gColorFading.unk_3 != UCHAR_MAX)
         gColorFading.unk_3++;
 
-    if (sColorFadingData[gColorFading.type].pProcessSubroutine == NULL || !sColorFadingData[gColorFading.type].pProcessSubroutine())
+    if (sColorFadingData[gColorFading.type].pProcessFunction == NULL || !sColorFadingData[gColorFading.type].pProcessFunction())
         return FALSE;
 
     gNextOamSlot = 0;
@@ -540,7 +540,7 @@ u32 ColorFadingProcess(void)
 }
 
 /**
- * @brief 5c4c0 | 268 | Door transition fade subroutine
+ * @brief 5c4c0 | 268 | Door transition fade function
  * 
  * @return u8 bool, ended
  */
@@ -656,7 +656,7 @@ u8 ColorFadingProcess_DoorTransition(void)
 }
 
 /**
- * @brief 5c728 | 54 | Default subroutine for a color fading
+ * @brief 5c728 | 54 | Default function for a color fading
  * 
  * @return u8 bool, ended
  */
@@ -685,7 +685,7 @@ u8 ColorFadingProcess_Default(void)
 }
 
 /**
- * @brief 5c77c | 98 | Escape failed fade subroutine
+ * @brief 5c77c | 98 | Escape failed fade function
  * 
  * @return u8 bool, ended
  */
@@ -709,13 +709,13 @@ u8 ColorFadingProcess_EscapeFailed(void)
         case 2:
             unk_5d09c();
             SET_BACKDROP_COLOR(COLOR_WHITE);
-            gColorFading.subroutineTimer = 0;
+            gColorFading.workTimer = 0;
             gColorFading.stage++;
             break;
 
         case 3:
-            gColorFading.subroutineTimer++;
-            if (gColorFading.subroutineTimer > CONVERT_SECONDS(1.f))
+            gColorFading.workTimer++;
+            if (gColorFading.workTimer > CONVERT_SECONDS(1.f))
             {
                 gSubGameMode1 = 0;
                 gMainGameMode = GM_GAMEOVER;
@@ -727,7 +727,7 @@ u8 ColorFadingProcess_EscapeFailed(void)
 }
 
 /**
- * @brief 5c814 | 98 | Before chozodia escape fade subroutine
+ * @brief 5c814 | 98 | Before chozodia escape fade function
  * 
  * @return u8 bool, ended
  */
@@ -772,7 +772,7 @@ u8 ColorFadingProcess_ChozodiaEscape(void)
 }
 
 /**
- * @brief 5c8ac | 78 | Before demo end fade subroutine
+ * @brief 5c8ac | 78 | Before demo end fade function
  * 
  * @return u8 bool, ended
  */
@@ -808,7 +808,7 @@ u8 ColorFadingProcess_BeforeDemoEnding(void)
 }
 
 /**
- * @brief 5c924 | 78 | Before tourian escape fade subroutine
+ * @brief 5c924 | 78 | Before tourian escape fade function
  * 
  * @return u8 bool, ended
  */
@@ -822,10 +822,10 @@ u8 ColorFadingProcess_TourianEscape(void)
             break;
 
         case 1:
-            if (gAnimatedGraphicsEntry.palette != 0)
-                gAnimatedGraphicsEntry.palette = 0;
+            if (gAnimatedGraphicsEntry.palette != ANIMATED_PALETTE_ID_NONE)
+                gAnimatedGraphicsEntry.palette = ANIMATED_PALETTE_ID_NONE;
 
-            gColorFading.subroutineTimer = 0;
+            gColorFading.workTimer = 0;
             gColorFading.stage++;
             break;
 
@@ -846,7 +846,7 @@ u8 ColorFadingProcess_TourianEscape(void)
 }
 
 /**
- * @brief 5c99c | bc | Before getting fully powered suit cutscene fade subroutine
+ * @brief 5c99c | bc | Before getting fully powered suit cutscene fade function
  * 
  * @return u8 bool, ended
  */
@@ -861,8 +861,8 @@ u8 ColorFadingProcess_GettingFullyPowered(void)
             break;
 
         case 1:
-            if (gAnimatedGraphicsEntry.palette != 0)
-                gAnimatedGraphicsEntry.palette = 0;
+            if (gAnimatedGraphicsEntry.palette != ANIMATED_PALETTE_ID_NONE)
+                gAnimatedGraphicsEntry.palette = ANIMATED_PALETTE_ID_NONE;
 
             gColorFading.unk_3 = 0;
             gColorFading.stage++;
@@ -900,7 +900,7 @@ u8 ColorFadingProcess_GettingFullyPowered(void)
 }
 
 /**
- * @brief 5ca58 | 80 | Before ridley spawn cutscene fade subroutine
+ * @brief 5ca58 | 80 | Before ridley spawn cutscene fade function
  * 
  * @return u8 bool, ended
  */
@@ -915,8 +915,8 @@ u8 ColorFadingProcess_BeforeRidleySpawn(void)
             break;
 
         case 1:
-            if (gAnimatedGraphicsEntry.palette != 0)
-                gAnimatedGraphicsEntry.palette = 0;
+            if (gAnimatedGraphicsEntry.palette != ANIMATED_PALETTE_ID_NONE)
+                gAnimatedGraphicsEntry.palette = ANIMATED_PALETTE_ID_NONE;
 
             gColorFading.unk_3 = 0;
             gColorFading.stage++;
@@ -941,7 +941,7 @@ u8 ColorFadingProcess_BeforeRidleySpawn(void)
 }
 
 /**
- * @brief 5cad8 | a0 | Before statue opening cutscene fade subroutine
+ * @brief 5cad8 | a0 | Before statue opening cutscene fade function
  * 
  * @return u8 bool, ended
  */
@@ -958,8 +958,8 @@ u8 ColorFadingProcess_StatueOpening(void)
             if (gCurrentArea == AREA_KRAID || gCurrentArea == AREA_RIDLEY)
                 FadeCurrentInsertMusicQueueCurrent(CONVERT_SECONDS(1.f), MUSIC_STATUE_ROOM_OPENED, 0);
 
-            if (gAnimatedGraphicsEntry.palette != 0)
-                gAnimatedGraphicsEntry.palette = 0;
+            if (gAnimatedGraphicsEntry.palette != ANIMATED_PALETTE_ID_NONE)
+                gAnimatedGraphicsEntry.palette = ANIMATED_PALETTE_ID_NONE;
 
             gColorFading.stage++;
             break;
@@ -983,7 +983,7 @@ u8 ColorFadingProcess_StatueOpening(void)
 }
 
 /**
- * @brief 5cb78 | a4 | Before intro text cutscene fade subroutine
+ * @brief 5cb78 | a4 | Before intro text cutscene fade function
  * 
  * @return u8 bool, ended
  */
@@ -997,8 +997,8 @@ u8 ColorFadingProcess_BeforeIntroText(void)
             break;
 
         case 1:
-            if (gAnimatedGraphicsEntry.palette != 0)
-                gAnimatedGraphicsEntry.palette = 0;
+            if (gAnimatedGraphicsEntry.palette != ANIMATED_PALETTE_ID_NONE)
+                gAnimatedGraphicsEntry.palette = ANIMATED_PALETTE_ID_NONE;
 
             gColorFading.stage++;
             break;
@@ -1037,7 +1037,7 @@ u8 ColorFadingProcess_BeforeIntroText(void)
 }
 
 /**
- * @brief 5cc1c | 78 | Before samus in blue ship cutscene fade subroutine
+ * @brief 5cc1c | 78 | Before samus in blue ship cutscene fade function
  * 
  * @return u8 bool, ended
  */
@@ -1051,8 +1051,8 @@ u8 ColorFadingProcess_BeforeBlueShip(void)
             break;
 
         case 1:
-            if (gAnimatedGraphicsEntry.palette != 0)
-                gAnimatedGraphicsEntry.palette = 0;
+            if (gAnimatedGraphicsEntry.palette != ANIMATED_PALETTE_ID_NONE)
+                gAnimatedGraphicsEntry.palette = ANIMATED_PALETTE_ID_NONE;
 
             gColorFading.stage++;
             break;
@@ -1077,7 +1077,7 @@ u8 ColorFadingProcess_BeforeBlueShip(void)
 }
 
 /**
- * @brief 5cc94 | 5c | Before ship landing sequence fade subroutine
+ * @brief 5cc94 | 5c | Before ship landing sequence fade function
  * 
  * @return u8 bool, ended
  */
@@ -1091,16 +1091,16 @@ u8 ColorFadingProcess_BeforeLandingShip(void)
     {
         case 0:
             ColorFadingStartDefault();
-            gColorFading.subroutineTimer = 0;
+            gColorFading.workTimer = 0;
             gColorFading.stage++;
             break;
 
         case 1:
-            gColorFading.subroutineTimer++;
+            gColorFading.workTimer++;
 
-            if (gColorFading.subroutineTimer > CONVERT_SECONDS(1.f))
+            if (gColorFading.workTimer > CONVERT_SECONDS(1.f))
             {
-                gColorFading.subroutineTimer = 0;
+                gColorFading.workTimer = 0;
                 gColorFading.stage++;
             }
             break;
@@ -1262,7 +1262,7 @@ u8 ColorFadingUpdate_DoorTransition(void)
  */
 void ColorFadingApplyMonochrome(void)
 {
-    if (gMonochromeBgFading == 0 || gMonochromeBgFading == MONOCHROME_FADING_ENDED)
+    if (gMonochromeBgFading == MONOCHROME_FADING_NONE || gMonochromeBgFading == MONOCHROME_FADING_ENDED)
         return;
 
     gColorFading.useSecondColorSet = TRUE;
@@ -1280,9 +1280,9 @@ void ColorFadingApplyMonochrome(void)
         if (gMonochromeBgFading == MONOCHROME_FADING_BLACK)
         {
             ColorFadingStart(COLOR_FADING_TO_BLACK);
-            if (gCurrentHazeValue != 0)
+            if (gCurrentHazeValue != HAZE_VALUE_NONE)
             {
-                gCurrentHazeValue = 0;
+                gCurrentHazeValue = HAZE_VALUE_NONE;
                 unk_5d09c();
             }
         }
@@ -1292,7 +1292,7 @@ void ColorFadingApplyMonochrome(void)
         }
         else
         {
-            gMonochromeBgFading = 0;
+            gMonochromeBgFading = MONOCHROME_FADING_NONE;
         }
 
         unk_5b340();
