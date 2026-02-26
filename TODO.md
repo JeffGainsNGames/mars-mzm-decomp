@@ -2,10 +2,10 @@
 - ~~Title screen version info~~
 - Draw hash on file select
 - Add pointers to data needed by patcher
-  - Palettes
+  - ~~Palettes~~
   - ~~Room data~~
-  - Door data (DLR)
-  - Minimap data (DLR)
+  - ~~Door data (DLR)~~
+  - ~~Minimap data (DLR)~~
 - ~~Custom item messages~~
 - ~~Hints for any item~~
 - ~~Major locations having any item~~
@@ -16,7 +16,8 @@
 - Support infant metroid items?
 - ~~Starting items~~
   - ~~Set hint events here for statues that don't have hints~~
-- ~~Starting location~~
+- Starting location
+  - Allow spawning on a save platform
 - Add separate normal and varia palettes for full suit
 - Rooms names
 - Custom credits text

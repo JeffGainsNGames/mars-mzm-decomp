@@ -2,6 +2,7 @@
 #include "sprites_ai/ruins_test.h"
 #include "dma.h"
 #include "gba.h"
+#include "event.h"
 #include "randomizer.h"
 
 #include "data/in_game_cutscene_data.h"
@@ -16,6 +17,7 @@
 #include "constants/samus.h"
 #include "constants/in_game_cutscene.h"
 #include "constants/power_bomb_explosion.h"
+#include "constants/event.h"
 
 #include "structs/display.h"
 #include "structs/hud.h"
@@ -841,18 +843,31 @@ void InGameCutsceneCheckPlayOnTransition(void)
             gEquipment.suitType = sStartingInfo.suitType;
             gEquipment.beamBombs = sStartingInfo.beamBombs;
             gEquipment.suitMisc = sStartingInfo.suitMisc;
-            if (gEquipment.suitType == SUIT_FULLY_POWERED)
+
+            switch (gEquipment.suitType)
             {
-                gEquipment.beamBombsActivation = gEquipment.beamBombs;
-                gEquipment.suitMiscActivation = gEquipment.suitMisc;
-            }
-            else
-            {
-                gEquipment.beamBombsActivation = gEquipment.beamBombs & ~BBF_PLASMA_BEAM;
-                gEquipment.suitMiscActivation = gEquipment.suitMisc & ~(SMF_SPACE_JUMP | SMF_GRAVITY_SUIT);
+                case SUIT_NORMAL:
+                    // Don't activate unknown items
+                    gEquipment.beamBombsActivation = gEquipment.beamBombs & ~BBF_PLASMA_BEAM;
+                    gEquipment.suitMiscActivation = gEquipment.suitMisc & ~(SMF_SPACE_JUMP | SMF_GRAVITY_SUIT);
+                    break;
+                case SUIT_FULLY_POWERED:
+                    // Activate everything
+                    gEquipment.beamBombsActivation = gEquipment.beamBombs;
+                    gEquipment.suitMiscActivation = gEquipment.suitMisc;
+                    break;
+                case SUIT_SUITLESS:
+                    // Only activate power grip, long beam, and charge beam
+                    // (even if you don't have them)
+                    gEquipment.suitMiscActivation = SMF_POWER_GRIP;
+                    gEquipment.beamBombsActivation = BBF_LONG_BEAM | BBF_CHARGE_BEAM;
+                    break;
             }
 
             gEquipment.downloadedMapStatus = sStartingInfo.downloadedMapStatus;
+
+            if (sStartingInfo.ziplinesActivated)
+                EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_ACTIVATED);
 
             for (i = 0; i < 8; i++)
             {

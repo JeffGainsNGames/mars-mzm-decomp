@@ -15,6 +15,23 @@
 extern const u16 sPauseDebugEventListBgPalette[2 * 16];
 extern const u32 sPauseDebugEventListTextGfx[336];
 
+#ifdef RANDOMIZER
+extern const u8 sPauseDebug_Event5D_Text[32];
+extern const u8 sPauseDebug_Event5C_Text[32];
+extern const u8 sPauseDebug_Event5B_Text[32];
+extern const u8 sPauseDebug_Event5A_Text[32];
+extern const u8 sPauseDebug_Event59_Text[32];
+extern const u8 sPauseDebug_Event58_Text[32];
+extern const u8 sPauseDebug_Event57_Text[32];
+extern const u8 sPauseDebug_Event56_Text[32];
+extern const u8 sPauseDebug_Event55_Text[32];
+extern const u8 sPauseDebug_Event54_Text[32];
+extern const u8 sPauseDebug_Event53_Text[32];
+extern const u8 sPauseDebug_Event52_Text[32];
+extern const u8 sPauseDebug_Event51_Text[32];
+extern const u8 sPauseDebug_Event50_Text[32];
+extern const u8 sPauseDebug_Event4F_Text[32];
+#endif // RANDOMIZER
 extern const u8 sPauseDebug_Event4E_Text[32];
 extern const u8 sPauseDebug_Event4D_Text[32];
 extern const u8 sPauseDebug_Event4C_Text[32];

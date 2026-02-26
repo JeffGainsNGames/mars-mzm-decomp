@@ -108,7 +108,28 @@ static const u8* sPauseDebugEventNamePointers[EVENT_COUNT] = {
     [EVENT_ESCAPED_CHOZODIA] = sPauseDebug_Event4B_Text,
     [EVENT_AKI] = sPauseDebug_Event4C_Text,
     [EVENT_BOMBATE] = sPauseDebug_Event4D_Text,
-    [EVENT_END_UNUSED] = sPauseDebug_Event4E_Text
+#ifdef RANDOMIZER
+    [EVENT_LOCATION_LONG_BEAM] = sPauseDebug_Event4E_Text,
+    [EVENT_LOCATION_ICE_BEAM] = sPauseDebug_Event4F_Text,
+    [EVENT_LOCATION_WAVE_BEAM] = sPauseDebug_Event50_Text,
+    [EVENT_LOCATION_BOMBS] = sPauseDebug_Event51_Text,
+    [EVENT_LOCATION_MORPH_BALL] = sPauseDebug_Event52_Text,
+    [EVENT_LOCATION_SPEED_BOOSTER] = sPauseDebug_Event53_Text,
+
+    [EVENT_ZIPLINES_SOURCE] = sPauseDebug_Event54_Text,
+
+    [EVENT_COLLECTED_LONG_BEAM_HINT] = sPauseDebug_Event55_Text,
+    [EVENT_COLLECTED_BOMBS_HINT] = sPauseDebug_Event56_Text,
+    [EVENT_COLLECTED_ICE_BEAM_HINT] = sPauseDebug_Event57_Text,
+    [EVENT_COLLECTED_SPEED_BOOSTER_HINT] = sPauseDebug_Event58_Text,
+    [EVENT_COLLECTED_HI_JUMP_HINT] = sPauseDebug_Event59_Text,
+    [EVENT_COLLECTED_VARIA_SUIT_HINT] = sPauseDebug_Event5A_Text,
+    [EVENT_COLLECTED_WAVE_BEAM_HINT] = sPauseDebug_Event5B_Text,
+    [EVENT_COLLECTED_SCREW_ATTACK_HINT] = sPauseDebug_Event5C_Text,
+    [EVENT_END_UNUSED] = sPauseDebug_Event5D_Text,
+#else // !RANDOMIZER
+    [EVENT_END_UNUSED] = sPauseDebug_Event4E_Text,
+#endif // RANDOMIZER
 };
 #endif // DEBUG
 
