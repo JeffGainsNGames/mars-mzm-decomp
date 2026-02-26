@@ -2,6 +2,7 @@
 
 #include "event.h"
 #include "in_game_cutscene.h"
+#include "projectile_util.h"
 #include "sprite.h"
 
 #include "data/randomizer_data.h"
@@ -20,7 +21,7 @@
 
 #ifdef RANDOMIZER
 
-static u8 sRandoHintEvents[TARGET_ITEM_END][2] = {
+static u8 sRandoHintEvents[TARGET_ITEM_COUNT][2] = {
     [TARGET_LONG_BEAM] = {
         EVENT_STATUE_LONG_BEAM_GRABBED,
         EVENT_COLLECTED_LONG_BEAM_HINT
@@ -56,7 +57,7 @@ static u8 sRandoHintEvents[TARGET_ITEM_END][2] = {
 };
 
 /**
- * @brief TODO
+ * @brief Finds a minor location using binary search
  */
 const struct MinorLocation* RandoGetMinorLocation(Area area, u8 room, u8 blockX, u8 blockY)
 {
@@ -228,6 +229,7 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             // Activate unknown items if obtained
             gEquipment.beamBombsActivation |= gEquipment.beamBombs & BBF_PLASMA_BEAM;
             gEquipment.suitMiscActivation |= gEquipment.suitMisc & (SMF_SPACE_JUMP | SMF_GRAVITY_SUIT);
+            ProjectileLoadGraphics();
             break;
 
         case RIT_ZIPLINES:
@@ -246,7 +248,7 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             gSamusData.yPosition, gSamusData.xPosition, 0);
     }
 
-    if (hintedBy != 0xFF && hintedBy < TARGET_ITEM_END)
+    if (hintedBy != 0xFF && hintedBy < TARGET_ITEM_COUNT)
         RandoSetHintEvents(hintedBy);
 }
 
@@ -262,6 +264,7 @@ void RandoCollectMajorLocationItem(ItemSource source)
     gCurrentRandoItem.isMinor = FALSE;
     gCurrentRandoItem.item = loc->item;
     gCurrentRandoItem.jingle = loc->jingle;
+    gCurrentRandoItem.messageId = loc->messageId;
     gCurrentRandoItem.customMessage = loc->customMessage;
 
     RandoCollectItem(loc->item, loc->hintedBy);
@@ -276,6 +279,7 @@ void RandoCollectMinorLocationItem(const struct MinorLocation* loc)
     gCurrentRandoItem.isMinor = TRUE;
     gCurrentRandoItem.item = loc->item;
     gCurrentRandoItem.jingle = loc->jingle;
+    gCurrentRandoItem.messageId = loc->messageId;
     gCurrentRandoItem.customMessage = loc->customMessage;
 
     RandoCollectItem(loc->item, loc->hintedBy);
@@ -334,10 +338,15 @@ const u16* RandoGetMessageText(u8 message)
 {
     if (RandoIsItemMessage(message))
     {
-        if (gCurrentRandoItem.customMessage != NULL)
-            return gCurrentRandoItem.customMessage;
-        
-        if (gEquipment.suitType != SUIT_FULLY_POWERED)
+        if (gCurrentRandoItem.messageId != UCHAR_MAX)
+        {
+            message = gCurrentRandoItem.messageId;
+        }
+        else if (gCurrentRandoItem.customMessage != NULL)
+        {
+            return (*gCurrentRandoItem.customMessage)[gLanguage];
+        }
+        else if (gEquipment.suitType != SUIT_FULLY_POWERED)
         {
             switch (message)
             {

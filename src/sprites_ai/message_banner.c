@@ -320,13 +320,19 @@ static void MessageBannerPopUp(void)
             }
 #endif // RANDOMIZER
 
-            // Check is one line message (new item/ability, save complete, map text)
-            if (gCurrentSprite.MESSAGE_BANNER_NEW_ITEM || msg == MESSAGE_SAVE_COMPLETE ||
-                (MESSAGE_IS_MAP(msg) || msg == MESSAGE_FULLY_POWERED_SUIT))
+#ifdef RANDOMIZER
+            // Custom messages should always use two lines
+            if (!(isItem && gCurrentRandoItem.customMessage != NULL))
+#endif // RANDOMIZER
             {
-                gCurrentSprite.pOam = sMessageBannerOam_OneLineSpawn;
-                gCurrentSprite.animationDurationCounter = 0;
-                gCurrentSprite.currentAnimationFrame = 0;
+                // Check is one line message (new item/ability, save complete, map text)
+                if (gCurrentSprite.MESSAGE_BANNER_NEW_ITEM || msg == MESSAGE_SAVE_COMPLETE ||
+                    (MESSAGE_IS_MAP(msg) || msg == MESSAGE_FULLY_POWERED_SUIT))
+                {
+                    gCurrentSprite.pOam = sMessageBannerOam_OneLineSpawn;
+                    gCurrentSprite.animationDurationCounter = 0;
+                    gCurrentSprite.currentAnimationFrame = 0;
+                }
             }
         }
 

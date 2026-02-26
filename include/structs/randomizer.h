@@ -4,6 +4,7 @@
 #include "types.h"
 
 #include "constants/connection.h"
+#include "constants/game_state.h"
 #include "constants/randomizer.h"
 #include "constants/samus.h"
 
@@ -11,7 +12,8 @@ struct MajorLocation {
     /* 0 */ RandoItemType item;
     /* 1 */ RandoItemJingle jingle;
     /* 2 */ u8 hintedBy;
-    /* 4 */ const u16* customMessage;
+    /* 3 */ u8 messageId;
+    /* 4 */ const u16 *(*customMessage)[LANGUAGE_COUNT];
 }; // Size: 8
 
 struct MinorLocation {
@@ -20,15 +22,17 @@ struct MinorLocation {
     /* 4 */ u16 bg1Value; // Needed for hidden items
     /* 6 */ RandoItemType item;
     /* 7 */ RandoItemJingle jingle;
-    /* 8 */ const u16* customMessage;
-    /* C */ u8 hintedBy;
+    /* 8 */ u8 hintedBy;
+    /* 9 */ u8 messageId;
+    /* C */ const u16 *(*customMessage)[LANGUAGE_COUNT];
 }; // Size: 0x10
 
 struct CurrentRandoItem {
     /* 0 */ boolu8 isMinor;
     /* 1 */ RandoItemType item;
     /* 2 */ RandoItemJingle jingle;
-    /* 4 */ const u16* customMessage;
+    /* 3 */ u8 messageId;
+    /* 4 */ const u16 *(*customMessage)[LANGUAGE_COUNT];
 }; // Size: 8
 
 struct TankIncreaseAmounts {

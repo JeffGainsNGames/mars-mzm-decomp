@@ -1,3 +1,5 @@
+#include "data/randomizer_pointers.h"
+
 #include "data/animated_graphics_data.h"
 #include "data/audio.h"
 #include "data/cutscenes/statue_opening_data.h"
@@ -28,8 +30,8 @@ extern const struct Door* sAreaDoorsPointers[AREA_ENTRY_COUNT];
 // --------------------------------
 
 static const struct RoomEntryRom** sAreaRoomEntryPointers_Pointer = sAreaRoomEntryPointers;
-static const struct TilesetEntry* sTilesetEntries_Pointer = sTilesetEntries;
-static const u32* sRandoTilesetTilemapSizes_Pointer = sRandoTilesetTilemapSizes;
+const struct TilesetEntry* sTilesetEntries_Pointer = sTilesetEntries;
+const u8 (*sAnimatedTilesetEntries_Pointer)[3*16] = sAnimatedTilesetEntries;
 static const u32** sMinimapDataPointers_Pointer = sMinimapDataPointers;
 static const struct Door** sAreaDoorsPointers_Pointer = sAreaDoorsPointers;
 static const u8 (*sAreaConnections_Pointer)[AREA_CONNECTION_FIELD_COUNT] = sAreaConnections;

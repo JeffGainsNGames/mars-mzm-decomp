@@ -7,6 +7,7 @@
 #include "data/clipdata_types.h"
 #include "data/clipdata_types_tilemap.h"
 #include "data/rooms_data.h"
+#include "data/randomizer_pointers.h"
 
 #include "constants/audio.h"
 #include "constants/haze.h"
@@ -207,7 +208,11 @@ void RoomLoadTileset(void)
     struct TilesetEntry entry;
     u32 backgroundGfxSize;
 
+#ifdef RANDOMIZER
+    entry = sTilesetEntries_Pointer[gCurrentRoomEntry.tileset];
+#else // !RANDOMIZER
     entry = sTilesetEntries[gCurrentRoomEntry.tileset];
+#endif // RANDOMIZER
 
     gTilemapAndClipPointers.pTilemap = gTilemap;
     gTilemapAndClipPointers.pClipCollisions = gClipdataCollisionTypes;

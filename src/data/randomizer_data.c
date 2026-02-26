@@ -1,13 +1,6 @@
+#include "macros.h"
+
 #include "data/randomizer_data.h"
-#include "data/rooms/test_rooms_data.h"
-#include "data/tilesets/tilesets_set0.h"
-#include "data/tilesets/tilesets_set1.h"
-#include "data/tilesets/tilesets_set2.h"
-#include "data/tilesets/tilesets_set3.h"
-#include "data/tilesets/tilesets_set4.h"
-#include "data/tilesets/tilesets_set5.h"
-#include "data/tilesets/tilesets_set6.h"
-#include "data/tilesets/tilesets_set7.h"
 
 #include "constants/menus/pause_screen.h"
 #include "constants/randomizer.h"
@@ -35,96 +28,10 @@ const u8 sRandoHiJumpGfx[384] = INCBIN_U8("data_rando/animated_gfx/hi_jump.gfx")
 const u8 sRandoScrewAttackGfx[384] = INCBIN_U8("data_rando/animated_gfx/screw_attack.gfx");
 const u8 sRandoSpaceJumpGfx[384] = INCBIN_U8("data_rando/animated_gfx/space_jump.gfx");
 const u8 sRandoPowerGripGfx[384] = INCBIN_U8("data_rando/animated_gfx/power_grip.gfx");
-// const u8 sRandoFullyPoweredGfx[384] = INCBIN_U8("data_rando/animated_gfx/fully_powered.gfx");
-// const u8 sRandoZiplinesGfx[384] = INCBIN_U8("data_rando/animated_gfx/ziplines.gfx");
+const u8 sRandoFullyPoweredGfx[384] = INCBIN_U8("data_rando/animated_gfx/morph_ball.gfx"); // TODO: fully_powered.gfx
+const u8 sRandoZiplinesGfx[384] = INCBIN_U8("data_rando/animated_gfx/ziplines.gfx");
 // const u8 sRandoInfantMetroidGfx[384] = INCBIN_U8("data_rando/animated_gfx/infant_metroid.gfx");
 // const u8 sRandoAnonymousGfx[384] = INCBIN_U8("data_rando/animated_gfx/anonymous.gfx");
-
-const u32 sRandoTilesetTilemapSizes[79] = {
-    [0] = sizeof(sTileset_0_Tilemap),
-    [1] = sizeof(sTileset_1_Tilemap),
-    [2] = sizeof(sTileset_2_Tilemap),
-    [3] = sizeof(sTileset_3_Tilemap),
-    [4] = sizeof(sTileset_4_Tilemap),
-    [5] = sizeof(sTileset_5_Tilemap),
-    [6] = sizeof(sTileset_6_Tilemap),
-    [7] = sizeof(sTileset_7_Tilemap),
-    [8] = sizeof(sTileset_8_Tilemap),
-    [9] = sizeof(sTileset_9_Tilemap),
-    [10] = sizeof(sTileset_10_Tilemap),
-    [11] = sizeof(sTileset_11_Tilemap),
-    [12] = sizeof(sTileset_12_Tilemap),
-    [13] = sizeof(sTileset_13_Tilemap),
-    [14] = sizeof(sTileset_14_Tilemap),
-    [15] = sizeof(sTileset_15_Tilemap),
-    [16] = sizeof(sTileset_16_Tilemap),
-#ifdef REGION_EU
-    [17] = 3332,
-#else // !REGION_EU
-    [17] = 4228,
-#endif // REGION_EU
-    [18] = sizeof(sTileset_18_Tilemap),
-    [19] = sizeof(sTileset_19_Tilemap),
-    [20] = sizeof(sTileset_20_Tilemap),
-    [21] = sizeof(sTileset_11_Tilemap),
-    [22] = sizeof(sTileset_22_Tilemap),
-    [23] = sizeof(sTileset_23_Tilemap),
-    [24] = sizeof(sTileset_24_Tilemap),
-    [25] = sizeof(sTileset_25_Tilemap),
-    [26] = sizeof(sTileset_26_Tilemap),
-    [27] = sizeof(sTileset_27_Tilemap),
-    [28] = sizeof(sTileset_28_Tilemap),
-    [29] = sizeof(sTileset_29_Tilemap),
-    [30] = sizeof(sTileset_30_Tilemap),
-    [31] = sizeof(sTileset_2_Tilemap),
-    [32] = sizeof(sTileset_2_Tilemap),
-    [33] = sizeof(sTileset_33_Tilemap),
-    [34] = sizeof(sTileset_34_Tilemap),
-    [35] = sizeof(sTileset_35_Tilemap),
-    [36] = sizeof(sTileset_36_Tilemap),
-    [37] = sizeof(sTileset_37_Tilemap),
-    [38] = sizeof(sTileset_38_Tilemap),
-    [39] = sizeof(sTileset_39_Tilemap),
-    [40] = sizeof(sTileset_40_Tilemap),
-    [41] = sizeof(sTileset_40_Tilemap),
-    [42] = sizeof(sTileset_42_Tilemap),
-    [43] = sizeof(sTileset_28_Tilemap),
-    [44] = sizeof(sTileset_44_Tilemap),
-    [45] = sizeof(sTileset_44_Tilemap),
-    [46] = sizeof(sTileset_46_Tilemap),
-    [47] = sizeof(sTileset_47_Tilemap),
-    [48] = sizeof(sTileset_48_Tilemap),
-    [49] = sizeof(sTileset_49_Tilemap),
-    [50] = sizeof(sTileset_50_Tilemap),
-    [51] = sizeof(sTileset_29_Tilemap),
-    [52] = sizeof(sTileset_52_Tilemap),
-    [53] = sizeof(sTileset_53_Tilemap),
-    [54] = sizeof(sTileset_54_Tilemap),
-    [55] = sizeof(sTileset_55_Tilemap),
-    [56] = sizeof(sTileset_56_Tilemap),
-    [57] = sizeof(sTileset_52_Tilemap),
-    [58] = sizeof(sTileset_52_Tilemap),
-    [59] = sizeof(sTileset_52_Tilemap),
-    [60] = sizeof(sTileset_52_Tilemap),
-    [61] = sizeof(sTileset_61_Tilemap),
-    [62] = sizeof(sTileset_47_Tilemap),
-    [63] = sizeof(sTileset_47_Tilemap),
-    [64] = sizeof(sTileset_64_Tilemap),
-    [65] = sizeof(sTileset_65_Tilemap),
-    [66] = sizeof(sTileset_66_Tilemap),
-    [67] = sizeof(sTileset_11_Tilemap),
-    [68] = sizeof(sTileset_68_Tilemap),
-    [69] = sizeof(sTileset_69_Tilemap),
-    [70] = sizeof(sTileset_49_Tilemap),
-    [71] = sizeof(sTileset_50_Tilemap),
-    [72] = sizeof(sTileset_72_Tilemap),
-    [73] = sizeof(sTileset_3_Tilemap),
-    [74] = sizeof(sTileset_74_Tilemap),
-    [75] = sizeof(sTileset_75_Tilemap),
-    [76] = sizeof(sTileset_76_Tilemap),
-    [77] = sizeof(sTileset_77_Tilemap),
-    [78] = sizeof(sTileset_78_Tilemap),
-};
 
 // From patcher
 
@@ -171,789 +78,892 @@ const struct MajorLocation sMajorLocations[ITEM_SOURCE_COUNT] = {
     [ITEM_SOURCE_LONG_BEAM] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_CHARGE_BEAM] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_ICE_BEAM] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_WAVE_BEAM] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_PLASMA_BEAM] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_BOMBS] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_VARIA_SUIT] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_GRAVITY_SUIT] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_MORPH_BALL] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_SPEED_BOOSTER] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_HI_JUMP] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_SCREW_ATTACK] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_SPACE_JUMP] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_POWER_GRIP] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_FULLY_POWERED] = {
         .item = RIT_ZIPLINES,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     [ITEM_SOURCE_ZIPLINES] = {
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_UNKNOWN,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
 };
 
+// NOTE: These need to be ordered by increasing key value (area, room, block y, block x)
 const struct MinorLocation sMinorLocations[MINOR_LOCATION_COUNT] = {
     { // Brinstar 0x1 at 13, 7
-        .key = 0x1070D,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x1, 13, 7),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = TARGET_LONG_BEAM
     },
     { // Brinstar 0x2 at 28, 2
-        .key = 0x2021C,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x2, 28, 2),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0xC at 54, 6
-        .key = 0xC0636,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0xC, 54, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0xE at 14, 23
-        .key = 0xE170E,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0xE, 14, 23),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0xF at 4, 6
-        .key = 0xF0604,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0xF, 4, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x13 at 39, 6
-        .key = 0x130627,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x13, 39, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x13 at 11, 10
-        .key = 0x130A0B,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x13, 11, 10),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x15 at 39, 5
-        .key = 0x150527,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x15, 39, 5),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x17 at 18, 16
-        .key = 0x171012,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x17, 18, 16),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x19 at 11, 5
-        .key = 0x19050B,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x19, 11, 5),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x1D at 4, 10
-        .key = 0x1D0A04,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x1D, 4, 10),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x28 at 7, 4
-        .key = 0x280407,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x28, 7, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x29 at 5, 18
-        .key = 0x291205,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x29, 5, 18),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Brinstar 0x29 at 5, 25
-        .key = 0x291905,
+        .key = MINOR_LOC_KEY(AREA_BRINSTAR, 0x29, 5, 25),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x1 at 24, 4
-        .key = 0x1010418,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x1, 24, 4),
         .bg1Value = 0x47,
         .item = RIT_PLASMA_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x2 at 9, 33
-        .key = 0x1022109,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x2, 9, 33),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x4 at 22, 6
-        .key = 0x1040616,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x4, 22, 6),
         .bg1Value = 0x47,
         .item = RIT_ZIPLINES,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x7 at 38, 14
-        .key = 0x1070E26,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x7, 38, 14),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x8 at 74, 20
-        .key = 0x108144A,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x8, 74, 20),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x9 at 60, 9
-        .key = 0x109093C,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x9, 60, 9),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0xA at 9, 9
-        .key = 0x10A0909,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0xA, 9, 9),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x11 at 2, 4
-        .key = 0x1110402,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x11, 2, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x15 at 20, 3
-        .key = 0x1150314,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x15, 20, 3),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x1A at 7, 10
-        .key = 0x11A0A07,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x1A, 7, 10),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Kraid 0x26 at 5, 4
-        .key = 0x1260405,
+        .key = MINOR_LOC_KEY(AREA_KRAID, 0x26, 5, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x1 at 65, 4
-        .key = 0x2010441,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x1, 65, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x3 at 72, 4
-        .key = 0x2030448,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x3, 72, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x4 at 74, 9
-        .key = 0x204094A,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x4, 74, 9),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x5 at 14, 79
-        .key = 0x2054F0E,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x5, 14, 79),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x5 at 8, 111
-        .key = 0x2056F08,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x5, 8, 111),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0xA at 11, 4
-        .key = 0x20A040B,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0xA, 11, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x11 at 17, 4
-        .key = 0x2110411,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x11, 17, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x1C at 28, 3
-        .key = 0x21C031C,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x1C, 28, 3),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x1C at 54, 4
-        .key = 0x21C0436,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x1C, 54, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x20 at 45, 3
-        .key = 0x220032D,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x20, 45, 3),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x20 at 4, 5
-        .key = 0x2200504,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x20, 4, 5),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x25 at 21, 3
-        .key = 0x2250315,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x25, 21, 3),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x26 at 5, 6
-        .key = 0x2260605,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x26, 5, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x2A at 33, 5
-        .key = 0x22A0521,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x2A, 33, 5),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x2F at 24, 3
-        .key = 0x22F0318,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x2F, 24, 3),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x37 at 8, 14
-        .key = 0x2370E08,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x37, 8, 14),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Norfair 0x37 at 30, 23
-        .key = 0x237171E,
+        .key = MINOR_LOC_KEY(AREA_NORFAIR, 0x37, 30, 23),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x4 at 6, 8
-        .key = 0x3040806,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x4, 6, 8),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x6 at 8, 33
-        .key = 0x3062108,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x6, 8, 33),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x9 at 9, 4
-        .key = 0x3090409,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x9, 9, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0xA at 27, 6
-        .key = 0x30A061B,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0xA, 27, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0xA at 15, 15
-        .key = 0x30A0F0F,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0xA, 15, 15),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0xD at 8, 7
-        .key = 0x30D0708,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0xD, 8, 7),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0xE at 27, 9
-        .key = 0x30E091B,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0xE, 27, 9),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x10 at 54, 6
-        .key = 0x3100636,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x10, 54, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x11 at 28, 20
-        .key = 0x311141C,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x11, 28, 20),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x12 at 72, 6
-        .key = 0x3120648,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x12, 72, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x13 at 7, 21
-        .key = 0x3131507,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x13, 7, 21),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x16 at 11, 6
-        .key = 0x316060B,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x16, 11, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x16 at 8, 16
-        .key = 0x3161008,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x16, 8, 16),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x17 at 8, 4
-        .key = 0x3170408,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x17, 8, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x17 at 13, 13
-        .key = 0x3170D0D,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x17, 13, 13),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x1D at 24, 3
-        .key = 0x31D0318,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x1D, 24, 3),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x1D at 20, 15
-        .key = 0x31D0F14,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x1D, 20, 15),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x1E at 4, 13
-        .key = 0x31E0D04,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x1E, 4, 13),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Ridley 0x1F at 42, 7
-        .key = 0x31F072A,
+        .key = MINOR_LOC_KEY(AREA_RIDLEY, 0x1F, 42, 7),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Tourian 0x7 at 14, 8
-        .key = 0x407080E,
+        .key = MINOR_LOC_KEY(AREA_TOURIAN, 0x7, 14, 8),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Tourian 0x8 at 11, 109
-        .key = 0x4086D0B,
+        .key = MINOR_LOC_KEY(AREA_TOURIAN, 0x8, 11, 109),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Crateria 0x0 at 20, 37
-        .key = 0x5002514,
+        .key = MINOR_LOC_KEY(AREA_CRATERIA, 0x0, 20, 37),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Crateria 0x7 at 3, 27
-        .key = 0x5071B03,
+        .key = MINOR_LOC_KEY(AREA_CRATERIA, 0x7, 3, 27),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Crateria 0x9 at 90, 9
-        .key = 0x509095A,
+        .key = MINOR_LOC_KEY(AREA_CRATERIA, 0x9, 90, 9),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Crateria 0x9 at 64, 34
-        .key = 0x5092240,
+        .key = MINOR_LOC_KEY(AREA_CRATERIA, 0x9, 64, 34),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Crateria 0xE at 8, 10
-        .key = 0x50E0A08,
+        .key = MINOR_LOC_KEY(AREA_CRATERIA, 0xE, 8, 10),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0xA at 19, 4
-        .key = 0x60A0413,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0xA, 19, 4),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0xE at 13, 5
-        .key = 0x60E050D,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0xE, 13, 5),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x18 at 10, 13
-        .key = 0x6180D0A,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x18, 10, 13),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x1A at 44, 8
-        .key = 0x61A082C,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x1A, 44, 8),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x22 at 34, 14
-        .key = 0x6220E22,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x22, 34, 14),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x2F at 9, 17
-        .key = 0x62F1109,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x2F, 9, 17),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x31 at 10, 7
-        .key = 0x631070A,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x31, 10, 7),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x36 at 59, 20
-        .key = 0x636143B,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x36, 59, 20),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x41 at 9, 3
-        .key = 0x6410309,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x41, 9, 3),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x42 at 16, 13
-        .key = 0x6420D10,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x42, 16, 13),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x47 at 59, 19
-        .key = 0x647133B,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x47, 59, 19),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x49 at 9, 6
-        .key = 0x6490609,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x49, 9, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x4E at 44, 8
-        .key = 0x64E082C,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x4E, 44, 8),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x57 at 18, 18
-        .key = 0x6571212,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x57, 18, 18),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x59 at 6, 27
-        .key = 0x6591B06,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x59, 6, 27),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x5A at 56, 24
-        .key = 0x65A1838,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x5A, 56, 24),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x5A at 56, 40
-        .key = 0x65A2838,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x5A, 56, 40),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
     { // Chozodia 0x5F at 24, 6
-        .key = 0x65F0618,
+        .key = MINOR_LOC_KEY(AREA_CHOZODIA, 0x5F, 24, 6),
         .bg1Value = 0x47,
         .item = RIT_WAVE_BEAM,
         .jingle = RIJ_DEFAULT,
+        .hintedBy = UCHAR_MAX,
+        .messageId = UCHAR_MAX,
         .customMessage = NULL,
-        .hintedBy = 0xFF
     },
 };
 

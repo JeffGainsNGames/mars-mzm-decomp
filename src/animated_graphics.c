@@ -8,6 +8,7 @@
 #include "data/shortcut_pointers.h"
 #include "data/animated_graphics_data.h"
 #include "data/animated_tiles_data.h"
+#include "data/randomizer_pointers.h"
 
 #include "constants/animated_graphics.h"
 #include "constants/color_fading.h"
@@ -274,7 +275,11 @@ void AnimatedGraphicsLoad(void)
     for (pGraphics = gAnimatedGraphicsData, i = 0; i < ARRAY_SIZE(gAnimatedGraphicsData); i++, pGraphics++)
     {
         // Get animated graphics entry
-        pGraphics->graphicsEntry = sAnimatedTilesetEntries[gAnimatedGraphicsEntry.tileset][i * 3];
+#ifdef RANDOMIZER
+    pGraphics->graphicsEntry = sAnimatedTilesetEntries_Pointer[gAnimatedGraphicsEntry.tileset][i * 3];
+#else // !RANDOMIZER
+    pGraphics->graphicsEntry = sAnimatedTilesetEntries[gAnimatedGraphicsEntry.tileset][i * 3];
+#endif // RANDOMIZER
 
         // Get concerned entry
         entry = pGraphics->graphicsEntry;

@@ -353,18 +353,19 @@ const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_COUNT
         .numberOfStates = 3,
         .pGraphics = sRandoPowerGripGfx,
     },
-    // [ANIMATED_GFX_ID_ZIPLINES] = {
-    //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
-    //     .framesPerState = CONVERT_SECONDS(1.f / 6),
-    //     .numberOfStates = 3,
-    //     .pGraphics = sRandoZiplinesGfx,
-    // },
-    // [ANIMATED_GFX_ID_FULLY_POWERED] = {
-    //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
-    //     .framesPerState = CONVERT_SECONDS(1.f / 6),
-    //     .numberOfStates = 3,
-    //     .pGraphics = sRandoFullyPoweredGfx,
-    // },
+    [ANIMATED_GFX_ID_FULLY_POWERED] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
+        .framesPerState = CONVERT_SECONDS(1.f / 6),
+        .numberOfStates = 3,
+        // TODO: sRandoFullyPoweredGfx
+        .pGraphics = sRandoMorphBallGfx,
+    },
+    [ANIMATED_GFX_ID_ZIPLINES] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
+        .framesPerState = CONVERT_SECONDS(1.f / 6),
+        .numberOfStates = 3,
+        .pGraphics = sRandoZiplinesGfx,
+    },
     // [ANIMATED_GFX_ID_INFANT_METROID] = {
     //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
     //     .framesPerState = CONVERT_SECONDS(1.f / 6),

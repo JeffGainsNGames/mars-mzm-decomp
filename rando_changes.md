@@ -12,6 +12,8 @@
 - Get any item from a minor location (tanks)
   - `BgClipCheckTouchingTransitionOrTank` in [bg_clip.c](src/bg_clip.c)
   - `BlockCheckCcaa` in [block.c](src/block.c)
+  - `RoomLoadTileset` in [room.c](src/room.c)
+  - `AnimatedGraphicsLoad` in [animated_graphics.c](src/animated_graphics.c)
 - Get any item from a major location (ability)
   - `MorphBallInit` and `MorphBallGet` in [morph_ball.c](src/sprites_AI/morph_ball.c)
   - `PowerGrip` in [power_grip.c](src/sprites_AI/power_grip.c)
@@ -71,7 +73,7 @@
   - `CheckUnlockTimeAttack` and `TimeAttackCheckSetNewRecord` in [time_attack.c](src/time_attack.c)
   - `SpriteUtilGetFinalCompletionPercentage` in [sprite_util.c](src/sprite_util.c)
 
-## Room Changes
+## Room/Tileset Changes
 - Remove vines in Norfair and near varia
   - `sNorfair_4_Spriteset0`, `sNorfair_4_Spriteset1`, and `sNorfair_4_Spriteset2` in [Norfair_4.c](src/data/rooms/norfair/Norfair_4.c)
   - `sBrinstar_28_Spriteset1` and `sBrinstar_28_Spriteset2` in [Brinstar_28.c](src/data/rooms/brinstar/Brinstar_28.c)
@@ -89,6 +91,10 @@
   - `sChozodiaDoors` in [rooms_data.c](src/data/rooms_data.c)
 - Fix miscolored super missile tank near varia (is this necessary?)
   - `sTileset_37_Tilemap` in [tilesets_set1.c](src/data/tilesets/tilesets_set1.c)
+- Ensure tile value 0 is only used to mark the end of tilemap data
+  - `sTileset_65_Tilemap` and `sTileset_20_Tilemap` in [tilesets_set1.c](src/data/tilesets/tilesets_set1.c)
+  - `sTileset_9_Tilemap` in [tilesets_set2.c](src/data/tilesets/tilesets_set2.c)
+  - `sTileset_38_Tilemap` and `sTileset_48_Tilemap` in [tilesets_set7.c](src/data/tilesets/tilesets_set7.c)
 - Add blank row to tileset 0x47 palette
   - `sTileset_71_Pal` in [tilesets_set7.c](src/data/tilesets/tilesets_set7.c)
 - Don't lock door in ziplines generator room

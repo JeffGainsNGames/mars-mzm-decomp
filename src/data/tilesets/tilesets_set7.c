@@ -38,8 +38,14 @@ const u8 sTileset_77_Tilemap[2180] = INCBIN_U8("data/tilesets/77.tm");
 const u8 sTileset_44_Tilemap[5764] = INCBIN_U8("data/tilesets/44.tm");
 const u8 sTileset_46_Tilemap[3460] = INCBIN_U8("data/tilesets/46.tm");
 const u8 sTileset_75_Tilemap[2436] = INCBIN_U8("data/tilesets/75.tm");
+#ifdef RANDOMIZER
+// Replace 0000 tiles with 0040
+const u8 sTileset_38_Tilemap[5764] = INCBIN_U8("data_rando/tilesets/38.tm");
+const u8 sTileset_48_Tilemap[5764] = INCBIN_U8("data_rando/tilesets/48.tm");
+#else // !RANDOMIZER
 const u8 sTileset_38_Tilemap[5764] = INCBIN_U8("data/tilesets/38.tm");
 const u8 sTileset_48_Tilemap[5764] = INCBIN_U8("data/tilesets/48.tm");
+#endif // RANDOMIZER
 const u8 sTileset_56_Tilemap[4868] = INCBIN_U8("data/tilesets/56.tm");
 const u8 sTileset_47_Tilemap[3460] = INCBIN_U8("data/tilesets/47.tm");
 const u8 sTileset_49_Tilemap[5764] = INCBIN_U8("data/tilesets/49.tm");

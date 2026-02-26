@@ -7,6 +7,8 @@
 
 #include "structs/randomizer.h"
 
+#define MINOR_LOC_KEY(area, room, blockX, blockY) ((area << 24) | (room << 16) | (blockY << 8) | blockX)
+
 // New data
 
 // extern const u8 sRandoEnergyTankGfx[384];
@@ -27,12 +29,10 @@ extern const u8 sRandoHiJumpGfx[384];
 extern const u8 sRandoScrewAttackGfx[384];
 extern const u8 sRandoSpaceJumpGfx[384];
 extern const u8 sRandoPowerGripGfx[384];
-// extern const u8 sRandoFullyPoweredGfx[384];
-// extern const u8 sRandoZiplinesGfx[384];
+extern const u8 sRandoFullyPoweredGfx[384];
+extern const u8 sRandoZiplinesGfx[384];
 // extern const u8 sRandoInfantMetroidGfx[384];
 // extern const u8 sRandoAnonymousGfx[384];
-
-extern const u32 sRandoTilesetTilemapSizes[79];
 
 // From patcher
 

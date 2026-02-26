@@ -21,7 +21,12 @@ const u16 sTileset_51_Pal[14 * 16] = INCBIN_U16("data/tilesets/51.pal");
 const u16 sTileset_39_Pal[14 * 16] = INCBIN_U16("data/tilesets/39.pal");
 const u16 sTileset_5_Pal[14 * 16] = INCBIN_U16("data/tilesets/5.pal");
 
+#ifdef RANDOMIZER
+// Replace 0000 tiles with 0040
+const u8 sTileset_9_Tilemap[2692] = INCBIN_U8("data_rando/tilesets/9.tm");
+#else // !RANDOMIZER
 const u8 sTileset_9_Tilemap[2692] = INCBIN_U8("data/tilesets/9.tm");
+#endif // RANDOMIZER
 const u8 sTileset_22_Tilemap[3076] = INCBIN_U8("data/tilesets/22.tm");
 const u8 sTileset_29_Tilemap[2564] = INCBIN_U8("data/tilesets/29.tm");
 const u8 sTileset_39_Tilemap[3460] = INCBIN_U8("data/tilesets/39.tm");
