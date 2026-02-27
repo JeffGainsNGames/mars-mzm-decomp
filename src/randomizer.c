@@ -1,16 +1,21 @@
 #include "randomizer.h"
 
+#include "audio_wrappers.h"
 #include "event.h"
 #include "in_game_cutscene.h"
+#include "particle.h"
 #include "projectile_util.h"
+#include "samus.h"
 #include "sprite.h"
 
 #include "data/randomizer_data.h"
 #include "data/text_data.h"
 
+#include "constants/audio.h"
 #include "constants/event.h"
 #include "constants/in_game_cutscene.h"
 #include "constants/menus/pause_screen.h"
+#include "constants/particle.h"
 #include "constants/randomizer.h"
 #include "constants/samus.h"
 #include "constants/sprite.h"
@@ -86,7 +91,8 @@ const struct MinorLocation* RandoGetMinorLocation(Area area, u8 room, u8 blockX,
 }
 
 /**
- * @brief TODO
+ * @brief Handles collecting an item, including updating equipment, spawning
+ * a message banner, and updating events
  */
 static void RandoCollectItem(RandoItemType item, u8 hintedBy)
 {
@@ -235,6 +241,17 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
         case RIT_ZIPLINES:
             message = MESSAGE_ZIPLINES;
             EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_ACTIVATED);
+            break;
+        
+        case RIT_ICE_TRAP:
+            message = MESSAGE_ICE_TRAP;
+            // Play freeze sound
+            SoundPlayNotAlreadyPlaying(SOUND_FREEZING_SPRITE);
+            // Add charged ice beam effect
+            ParticleSet(gSamusData.yPosition + (gSamusPhysics.hitboxTop / 2),
+                gSamusData.xPosition, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
+            // TODO: Freeze Samus
+            SamusSetPose(SPOSE_KNOCKBACK_REQUEST);
             break;
     }
 

@@ -380,6 +380,7 @@ const u16 sEnglishText_Message_EasySleepPrompt[] = INCTEXT("{GAP(101)}Yes\n{GAP(
 const u16 sEnglishText_Message_UnknownItem[] = INCTEXT("{GAP(74)}{COLOR(5)}Unknown Item\n{GAP(110)}");
 const u16 sEnglishText_Message_Ziplines[] = INCTEXT("{GAP(74)}{COLOR(5)}Ziplines Activated\n{GAP(110)}");
 const u16 sEnglishText_Message_InfantMetroid[] = INCTEXT("{GAP(74)}{COLOR(5)}Infant Metroid\n{GAP(110)}");
+const u16 sEnglishText_Message_IceTrap[] = INCTEXT("{GAP(74)}You are a FOOL!\n{GAP(110)}");
 #endif // RANDOMIZER
 #endif // REGION_EU
 
@@ -427,6 +428,7 @@ static const u16* sEnglishTextPointers_Message[MESSAGE_COUNT] = {
     [MESSAGE_UNKNOWN_ITEM] = sEnglishText_Message_UnknownItem,
     [MESSAGE_ZIPLINES] = sEnglishText_Message_Ziplines,
     [MESSAGE_INFANT_METROID] = sEnglishText_Message_InfantMetroid,
+    [MESSAGE_ICE_TRAP] = sEnglishText_Message_IceTrap,
 #endif // RANDOMIZER
 };
 

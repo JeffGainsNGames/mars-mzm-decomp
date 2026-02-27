@@ -1,7 +1,7 @@
 ## Randomizer
 - ~~Title screen version info~~
 - Draw hash on file select
-- Add pointers to data needed by patcher
+- ~~Add pointers to data needed by patcher~~
   - ~~Palettes~~
   - ~~Room data~~
   - ~~Door data (DLR)~~
@@ -36,6 +36,7 @@
   - Replace Chozo statue graphics
 - ~~Fix ending percent calculation~~
 - Include bug fixes for bugs that don't help speedrunners
+- Increase enemy drop rates for power bombs
 
 ## Room Changes
 - Remove duplicate rooms near Ruins Test?

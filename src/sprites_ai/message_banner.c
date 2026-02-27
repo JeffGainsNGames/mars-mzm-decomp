@@ -202,6 +202,7 @@ static void MessageBannerPopUp(void)
                 case MESSAGE_FULLY_POWERED_SUIT:
                 case MESSAGE_ZIPLINES:
                 case MESSAGE_INFANT_METROID:
+                case MESSAGE_ICE_TRAP:
                     isItem = TRUE;
                     break;
             }
@@ -218,6 +219,7 @@ static void MessageBannerPopUp(void)
                         case MESSAGE_MISSILE_TANK_ACQUIRED:
                         case MESSAGE_SUPER_MISSILE_TANK_ACQUIRED:
                         case MESSAGE_POWER_BOMB_TANK_ACQUIRED:
+                        case MESSAGE_ICE_TRAP:
                             gCurrentRandoItem.jingle = RIJ_MINOR;
                             break;
 
