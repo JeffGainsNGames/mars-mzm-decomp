@@ -377,6 +377,7 @@ const u16 sEnglishText_Message_ActivateEasySleep[] = INCTEXT("{GAP(52)}Activate 
 const u16 sEnglishText_Message_PressSelectLAndR[] = INCTEXT("{GAP(37)}press {Select_button}, {L_button}, and {R_button}\n{GAP(72)}simultaneously.");
 const u16 sEnglishText_Message_EasySleepPrompt[] = INCTEXT("{GAP(101)}Yes\n{GAP(104)}No");
 #ifdef RANDOMIZER
+const u16 sEnglishText_Message_Nothing[] = INCTEXT("{GAP(74)}{COLOR(5)}Nothing acquired.\n{GAP(110)}");
 const u16 sEnglishText_Message_UnknownItem[] = INCTEXT("{GAP(74)}{COLOR(5)}Unknown Item\n{GAP(110)}");
 const u16 sEnglishText_Message_Ziplines[] = INCTEXT("{GAP(74)}{COLOR(5)}Ziplines Activated\n{GAP(110)}");
 const u16 sEnglishText_Message_InfantMetroid[] = INCTEXT("{GAP(74)}{COLOR(5)}Infant Metroid\n{GAP(110)}");
@@ -425,6 +426,7 @@ static const u16* sEnglishTextPointers_Message[MESSAGE_COUNT] = {
     [MESSAGE_PRESS_SELECT_L_AND_R] = sEnglishText_Message_PressSelectLAndR,
     [MESSAGE_EASY_SLEEP_PROMPT] = sEnglishText_Message_EasySleepPrompt,
 #ifdef RANDOMIZER
+    [MESSAGE_NOTHING_ACQUIRED] = sEnglishText_Message_Nothing,
     [MESSAGE_UNKNOWN_ITEM] = sEnglishText_Message_UnknownItem,
     [MESSAGE_ZIPLINES] = sEnglishText_Message_Ziplines,
     [MESSAGE_INFANT_METROID] = sEnglishText_Message_InfantMetroid,

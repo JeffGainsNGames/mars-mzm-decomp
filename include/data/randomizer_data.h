@@ -11,10 +11,7 @@
 
 // New data
 
-// extern const u8 sRandoEnergyTankGfx[384];
-// extern const u8 sRandoMissileTankGfx[384];
-// extern const u8 sRandoSuperMissileTankGfx[384];
-// extern const u8 sRandoPowerBombTankGfx[384];
+extern const u8 sRandoEmptyGfx[384];
 extern const u8 sRandoLongBeamGfx[384];
 extern const u8 sRandoChargeBeamGfx[384];
 extern const u8 sRandoIceBeamGfx[384];

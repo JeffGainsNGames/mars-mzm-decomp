@@ -107,6 +107,10 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
     // Update equipment
     switch (item)
     {
+        case RIT_NONE:
+            message = MESSAGE_NOTHING_ACQUIRED;
+            break;
+
         case RIT_ENERGY_TANK:
             message = MESSAGE_ENERGY_TANK_ACQUIRED;
 
@@ -340,8 +344,11 @@ boolu8 RandoIsItemMessage(u8 message)
         case MESSAGE_UNKNOWN_ITEM_SPACE_JUMP:
         case MESSAGE_POWER_GRIP:
         case MESSAGE_FULLY_POWERED_SUIT:
+        case MESSAGE_NOTHING_ACQUIRED:
+        case MESSAGE_UNKNOWN_ITEM:
         case MESSAGE_ZIPLINES:
         case MESSAGE_INFANT_METROID:
+        case MESSAGE_ICE_TRAP:
             return TRUE;
     }
 

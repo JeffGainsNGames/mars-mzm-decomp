@@ -10,10 +10,7 @@
 
 // New data
 
-// const u8 sRandoEnergyTankGfx[384] = INCBIN_U8("data_rando/animated_gfx/energy_tank.gfx");
-// const u8 sRandoMissileTankGfx[384] = INCBIN_U8("data_rando/animated_gfx/missile_tank.gfx");
-// const u8 sRandoSuperMissileTankGfx[384] = INCBIN_U8("data_rando/animated_gfx/super_missile_tank.gfx");
-// const u8 sRandoPowerBombTankGfx[384] = INCBIN_U8("data_rando/animated_gfx/power_bomb_tank.gfx");
+const u8 sRandoEmptyGfx[384] = INCBIN_U8("data_rando/animated_gfx/empty.gfx");
 const u8 sRandoLongBeamGfx[384] = INCBIN_U8("data_rando/animated_gfx/long_beam.gfx");
 const u8 sRandoChargeBeamGfx[384] = INCBIN_U8("data_rando/animated_gfx/charge_beam.gfx");
 const u8 sRandoIceBeamGfx[384] = INCBIN_U8("data_rando/animated_gfx/ice_beam.gfx");

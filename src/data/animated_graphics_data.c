@@ -245,30 +245,12 @@ const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_COUNT
         .pGraphics = &sAnimatedTilesGfx[28 * ANIMATED_GFX_SIZE],
     },
 #ifdef RANDOMIZER
-    // [ANIMATED_GFX_ID_ENERGY_TANK] = {
-    //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
-    //     .framesPerState = CONVERT_SECONDS(1.f / 6),
-    //     .numberOfStates = 3,
-    //     .pGraphics = sRandoEnergyTankGfx,
-    // },
-    // [ANIMATED_GFX_ID_MISSILE_TANK] = {
-    //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
-    //     .framesPerState = CONVERT_SECONDS(1.f / 6),
-    //     .numberOfStates = 3,
-    //     .pGraphics = sRandoMissileTankGfx,
-    // },
-    // [ANIMATED_GFX_ID_SUPER_MISSILE_TANK] = {
-    //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
-    //     .framesPerState = CONVERT_SECONDS(1.f / 6),
-    //     .numberOfStates = 3,
-    //     .pGraphics = sRandoSuperMissileTankGfx,
-    // },
-    // [ANIMATED_GFX_ID_POWER_BOMB_TANK] = {
-    //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
-    //     .framesPerState = CONVERT_SECONDS(1.f / 6),
-    //     .numberOfStates = 3,
-    //     .pGraphics = sRandoPowerBombTankGfx,
-    // },
+    [ANIMATED_GFX_ID_EMPTY] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
+        .framesPerState = CONVERT_SECONDS(1.f / 6),
+        .numberOfStates = 3,
+        .pGraphics = sRandoEmptyGfx,
+    },
     [ANIMATED_GFX_ID_LONG_BEAM] = {
         .type = ANIMATED_GFX_TYPE_ALTERNATE,
         .framesPerState = CONVERT_SECONDS(1.f / 6),
