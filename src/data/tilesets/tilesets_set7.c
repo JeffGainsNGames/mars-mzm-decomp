@@ -57,7 +57,12 @@ const u16 sTileset_52_Pal[14 * 16] = INCBIN_U16("data/tilesets/52.pal");
 const u16 sTileset_57_Pal[14 * 16] = INCBIN_U16("data/tilesets/57.pal");
 const u16 sTileset_58_Pal[14 * 16] = INCBIN_U16("data/tilesets/58.pal");
 const u16 sTileset_59_Pal[14 * 16] = INCBIN_U16("data/tilesets/59.pal");
+#ifdef RANDOMIZER
+// Add blank rows to tileset palette
+const u16 sTileset_60_Pal[14 * 16] = INCBIN_U16("data_rando/tilesets/60.pal");
+#else // !RANDOMIZER
 const u16 sTileset_60_Pal[14 * 16] = INCBIN_U16("data/tilesets/60.pal");
+#endif // RANDOMIZER
 const u16 sTileset_74_Pal[14 * 16] = INCBIN_U16("data/tilesets/74.pal");
 const u16 sAnimatedPal_9[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/9.pal");
 const u16 sAnimatedPal_8[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/8.pal");
@@ -84,7 +89,7 @@ const u16 sAnimatedPal_14[4 * 16] = INCBIN_U16("data/tilesets/animated_palettes/
 const u16 sTileset_50_Pal[14 * 16] = INCBIN_U16("data/tilesets/50.pal");
 #ifdef RANDOMIZER
 // Add blank row to tileset palette
-const u16 sTileset_71_Pal[14 * 16] = INCBIN_U16("data_rando/71.pal");
+const u16 sTileset_71_Pal[14 * 16] = INCBIN_U16("data_rando/tilesets/71.pal");
 #else // !RANDOMIZER
 const u16 sTileset_71_Pal[14 * 16] = INCBIN_U16("data/tilesets/71.pal");
 #endif // RANDOMIZER
