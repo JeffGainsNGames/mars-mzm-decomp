@@ -14,6 +14,15 @@
 
 #include "constants/audio.h"
 
+#ifdef RANDOMIZER
+#define RANDO_ANIM_GFX(pGfx) \
+{ \
+    .type = ANIMATED_GFX_TYPE_ALTERNATE, \
+    .framesPerState = CONVERT_SECONDS(1.f / 6), \
+    .numberOfStates = 3, \
+    .pGraphics = pGfx \
+}
+#endif // RANDOMIZER
 
 const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_COUNT] = {
     [ANIMATED_GFX_ID_CRYSTAL] = {
@@ -245,121 +254,28 @@ const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_COUNT
         .pGraphics = &sAnimatedTilesGfx[28 * ANIMATED_GFX_SIZE],
     },
 #ifdef RANDOMIZER
-    [ANIMATED_GFX_ID_EMPTY] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoEmptyGfx,
-    },
-    [ANIMATED_GFX_ID_LONG_BEAM] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoLongBeamGfx,
-    },
-    [ANIMATED_GFX_ID_CHARGE_BEAM] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoChargeBeamGfx,
-    },
-    [ANIMATED_GFX_ID_ICE_BEAM] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoIceBeamGfx,
-    },
-    [ANIMATED_GFX_ID_WAVE_BEAM] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoWaveBeamGfx,
-    },
-    [ANIMATED_GFX_ID_PLASMA_BEAM] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoPlasmaBeamGfx,
-    },
-    [ANIMATED_GFX_ID_BOMBS] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoBombsGfx,
-    },
-    [ANIMATED_GFX_ID_VARIA_SUIT] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoVariaSuitGfx,
-    },
-    [ANIMATED_GFX_ID_GRAVITY_SUIT] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoGravitySuitGfx,
-    },
-    [ANIMATED_GFX_ID_MORPH_BALL] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoMorphBallGfx,
-    },
-    [ANIMATED_GFX_ID_SPEED_BOOSTER] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoSpeedBoosterGfx,
-    },
-    [ANIMATED_GFX_ID_HI_JUMP] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoHiJumpGfx,
-    },
-    [ANIMATED_GFX_ID_SCREW_ATTACK] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoScrewAttackGfx,
-    },
-    [ANIMATED_GFX_ID_SPACE_JUMP] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoSpaceJumpGfx,
-    },
-    [ANIMATED_GFX_ID_POWER_GRIP] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoPowerGripGfx,
-    },
-    [ANIMATED_GFX_ID_FULLY_POWERED] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        // TODO: sRandoFullyPoweredGfx
-        .pGraphics = sRandoMorphBallGfx,
-    },
-    [ANIMATED_GFX_ID_ZIPLINES] = {
-        .type = ANIMATED_GFX_TYPE_ALTERNATE,
-        .framesPerState = CONVERT_SECONDS(1.f / 6),
-        .numberOfStates = 3,
-        .pGraphics = sRandoZiplinesGfx,
-    },
-    // [ANIMATED_GFX_ID_INFANT_METROID] = {
-    //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
-    //     .framesPerState = CONVERT_SECONDS(1.f / 6),
-    //     .numberOfStates = 3,
-    //     .pGraphics = sRandoInfantMetroidGfx,
-    // },
-    // [ANIMATED_GFX_ID_ANONYMOUS] = {
-    //     .type = ANIMATED_GFX_TYPE_ALTERNATE,
-    //     .framesPerState = CONVERT_SECONDS(1.f / 6),
-    //     .numberOfStates = 3,
-    //     .pGraphics = sRandoAnonymousGfx,
-    // },
+    [ANIMATED_GFX_ID_EMPTY] = RANDO_ANIM_GFX(sRandoEmptyGfx),
+    [ANIMATED_GFX_ID_MAIN_MISSILES] = RANDO_ANIM_GFX(sRandoMainMissilesGfx),
+    [ANIMATED_GFX_ID_MAIN_SUPER_MISSILES] = RANDO_ANIM_GFX(sRandoMainSuperMissilesGfx),
+    [ANIMATED_GFX_ID_MAIN_POWER_BOMBS] = RANDO_ANIM_GFX(sRandoMainPowerBombsGfx),
+    [ANIMATED_GFX_ID_LONG_BEAM] = RANDO_ANIM_GFX(sRandoLongBeamGfx),
+    [ANIMATED_GFX_ID_CHARGE_BEAM] = RANDO_ANIM_GFX(sRandoChargeBeamGfx),
+    [ANIMATED_GFX_ID_ICE_BEAM] = RANDO_ANIM_GFX(sRandoIceBeamGfx),
+    [ANIMATED_GFX_ID_WAVE_BEAM] = RANDO_ANIM_GFX(sRandoWaveBeamGfx),
+    [ANIMATED_GFX_ID_PLASMA_BEAM] = RANDO_ANIM_GFX(sRandoPlasmaBeamGfx),
+    [ANIMATED_GFX_ID_BOMBS] = RANDO_ANIM_GFX(sRandoBombsGfx),
+    [ANIMATED_GFX_ID_VARIA_SUIT] = RANDO_ANIM_GFX(sRandoVariaSuitGfx),
+    [ANIMATED_GFX_ID_GRAVITY_SUIT] = RANDO_ANIM_GFX(sRandoGravitySuitGfx),
+    [ANIMATED_GFX_ID_MORPH_BALL] = RANDO_ANIM_GFX(sRandoMorphBallGfx),
+    [ANIMATED_GFX_ID_SPEED_BOOSTER] = RANDO_ANIM_GFX(sRandoSpeedBoosterGfx),
+    [ANIMATED_GFX_ID_HI_JUMP] = RANDO_ANIM_GFX(sRandoHiJumpGfx),
+    [ANIMATED_GFX_ID_SCREW_ATTACK] = RANDO_ANIM_GFX(sRandoScrewAttackGfx),
+    [ANIMATED_GFX_ID_SPACE_JUMP] = RANDO_ANIM_GFX(sRandoSpaceJumpGfx),
+    [ANIMATED_GFX_ID_POWER_GRIP] = RANDO_ANIM_GFX(sRandoPowerGripGfx),
+    [ANIMATED_GFX_ID_FULLY_POWERED] = RANDO_ANIM_GFX(sRandoFullyPoweredGfx),
+    [ANIMATED_GFX_ID_ZIPLINES] =  RANDO_ANIM_GFX(sRandoZiplinesGfx),
+    [ANIMATED_GFX_ID_INFANT_METROID] = RANDO_ANIM_GFX(sRandoInfantMetroidGfx),
+    [ANIMATED_GFX_ID_ANONYMOUS] = RANDO_ANIM_GFX(sRandoAnonymousGfx),
 #endif // RANDOMIZER
 };
 

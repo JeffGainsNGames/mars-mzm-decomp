@@ -12,6 +12,9 @@
 // New data
 
 extern const u8 sRandoEmptyGfx[384];
+extern const u8 sRandoMainMissilesGfx[384];
+extern const u8 sRandoMainSuperMissilesGfx[384];
+extern const u8 sRandoMainPowerBombsGfx[384];
 extern const u8 sRandoLongBeamGfx[384];
 extern const u8 sRandoChargeBeamGfx[384];
 extern const u8 sRandoIceBeamGfx[384];
@@ -28,8 +31,8 @@ extern const u8 sRandoSpaceJumpGfx[384];
 extern const u8 sRandoPowerGripGfx[384];
 extern const u8 sRandoFullyPoweredGfx[384];
 extern const u8 sRandoZiplinesGfx[384];
-// extern const u8 sRandoInfantMetroidGfx[384];
-// extern const u8 sRandoAnonymousGfx[384];
+extern const u8 sRandoInfantMetroidGfx[384];
+extern const u8 sRandoAnonymousGfx[384];
 
 // From patcher
 
