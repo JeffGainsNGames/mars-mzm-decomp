@@ -3,6 +3,7 @@
 #include "sprites_ai/message_banner.h"
 #include "menus/status_screen.h"
 #include "escape.h"
+#include "event.h"
 
 #include "data/sprites/gunship.h"
 #include "data/randomizer_data.h"
@@ -278,7 +279,7 @@ static void GunshipInit(void)
         gCurrentSprite.yPositionSpawn = 0;
         gCurrentSprite.samusCollision = SSC_CAN_STAND_ON_TOP;
 
-        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
+        if (CHECK_EVENT(EVENT_MOTHER_BRAIN_KILLED))
             gCurrentSprite.pose = GUNSHIP_POSE_CHECK_ESCAPE;
         else
             gCurrentSprite.pose = GUNSHIP_POSE_IDLE;
@@ -669,7 +670,7 @@ static void GunshipCheckEscapeZebes(void)
         gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_ENTERING_WHEN_ESCAPING;
 
         // Set event and update minimap
-        EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_ZEBES);
+        SET_EVENT(EVENT_ESCAPED_ZEBES);
         MinimapUpdateChunk(EVENT_ESCAPED_ZEBES);
         SoundFade(SOUND_ESCAPE_BEEP, CONVERT_SECONDS(1.f));
         UpdateMusicPriority(0);
@@ -1433,7 +1434,7 @@ void Gunship(void)
 
     GunshipEntranceFlashingAnim();
 
-    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES) && gCurrentSprite.yPositionSpawn != 0)
+    if (!CHECK_EVENT(EVENT_ESCAPED_ZEBES) && gCurrentSprite.yPositionSpawn != 0)
     {
         gCurrentSprite.yPositionSpawn--;
         if (gCurrentSprite.yPositionSpawn == 0)

@@ -1,6 +1,7 @@
 #include "sprites_ai/metroid.h"
 #include "gba.h"
 #include "macros.h"
+#include "event.h"
 
 #include "data/sprites/metroid.h"
 #include "data/sprites/enemy_drop.h"
@@ -547,32 +548,32 @@ static void MetroidInit(void)
     switch (gCurrentRoom)
     {
         case 14:
-            if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FIRST_METROID_ROOM_CLEARED))
+            if (!CHECK_EVENT(EVENT_FIRST_METROID_ROOM_CLEARED))
                 metroidState++;
             break;
 
         case 1:
-            if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_THIRD_METROID_ROOM_CLEARED))
+            if (!CHECK_EVENT(EVENT_THIRD_METROID_ROOM_CLEARED))
                 metroidState++;
             break;
 
         case 2:
-            if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FIFTH_METROID_ROOM_CLEARED))
+            if (!CHECK_EVENT(EVENT_FIFTH_METROID_ROOM_CLEARED))
                 metroidState++;
             break;
 
         case 15:
-            if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_SECOND_METROID_ROOM_CLEARED))
+            if (!CHECK_EVENT(EVENT_SECOND_METROID_ROOM_CLEARED))
                 metroidState++;
             break;
 
         case 16:
-            if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_SIXTH_METROID_ROOM_CLEARED))
+            if (!CHECK_EVENT(EVENT_SIXTH_METROID_ROOM_CLEARED))
                 metroidState++;
             break;
 
         case 19:
-            if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FOURTH_METROID_ROOM_CLEARED))
+            if (!CHECK_EVENT(EVENT_FOURTH_METROID_ROOM_CLEARED))
                 metroidState++;
             break;
 
@@ -877,8 +878,8 @@ static void MetroidDeath(void)
     u8 rng;
     u16 yPosition;
     u16 xPosition;
-    u8 metroidID;
-    u8 frozenID;
+    u8 metroidId;
+    u8 frozenId;
     u16 exists;
     u8 secondary;
     u8 pose;
@@ -895,8 +896,8 @@ static void MetroidDeath(void)
     // Kill sprite
     SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition + HALF_BLOCK_SIZE + PIXEL_SIZE, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
 
-    metroidID = PSPRITE_METROID;
-    frozenID = PSPRITE_FROZEN_METROID;
+    metroidId = PSPRITE_METROID;
+    frozenId = PSPRITE_FROZEN_METROID;
     pose = METROID_POSE_DEATH;
     exists = SPRITE_STATUS_EXISTS;
     secondary = SP_SECONDARY_SPRITE;
@@ -910,7 +911,7 @@ static void MetroidDeath(void)
         if (pSprite->properties & secondary)
             continue;
 
-        if ((pSprite->spriteId == metroidID || pSprite->spriteId == frozenID) && pSprite->pose < pose)
+        if ((pSprite->spriteId == metroidId || pSprite->spriteId == frozenId) && pSprite->pose < pose)
         {
             // Found an alive metroid, abort
             isMetroidAlive++;
@@ -925,32 +926,32 @@ static void MetroidDeath(void)
     switch (gCurrentRoom)
     {
         case 14:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_FIRST_METROID_ROOM_CLEARED);
+            SET_EVENT(EVENT_FIRST_METROID_ROOM_CLEARED);
             gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 1:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_THIRD_METROID_ROOM_CLEARED);
+            SET_EVENT(EVENT_THIRD_METROID_ROOM_CLEARED);
             gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 2:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_FIFTH_METROID_ROOM_CLEARED);
+            SET_EVENT(EVENT_FIFTH_METROID_ROOM_CLEARED);
             gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 15:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_SECOND_METROID_ROOM_CLEARED);
+            SET_EVENT(EVENT_SECOND_METROID_ROOM_CLEARED);
             gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 16:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_SIXTH_METROID_ROOM_CLEARED);
+            SET_EVENT(EVENT_SIXTH_METROID_ROOM_CLEARED);
             gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 19:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_FOURTH_METROID_ROOM_CLEARED);
+            SET_EVENT(EVENT_FOURTH_METROID_ROOM_CLEARED);
             gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
     }

@@ -3,6 +3,7 @@
 #include "macros.h"
 #include "projectile_util.h"
 #include "randomizer.h"
+#include "event.h"
 
 #include "data/sprites/ruins_test.h"
 #include "data/sprite_data.h"
@@ -1144,7 +1145,7 @@ static void RuinsTestDespawn(void)
         RuinsTestChangeCcaa(CAA_REMOVE_SOLID);
 
         // Set event and IGT
-        EventFunction(EVENT_ACTION_SETTING, EVENT_FULLY_POWERED_SUIT_OBTAINED);
+        SET_EVENT(EVENT_FULLY_POWERED_SUIT_OBTAINED);
         gInGameTimerAtBosses[2] = gInGameTimer;
 
 #ifdef RANDOMIZER

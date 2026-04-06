@@ -330,7 +330,7 @@ void PauseDebugActivateAbilities(void)
  * 
  * @return u32 Leaving
  */
-u32 PauseDebugMainLoop(void)
+u32 PauseDebugHandler(void)
 {
     if (!PAUSE_SCREEN_DATA.debugOnEventList)
     {
@@ -463,7 +463,7 @@ void PauseDebugStatusScreen(void)
     if (sPauseDebugGroupsPositions[i].group != PAUSE_DEBUG_GROUP_EQUIP_TANK && gChangedInput & KEY_B && PAUSE_SCREEN_DATA.stateInfo.stage != 0)
     {
         PAUSE_SCREEN_DATA.stateInfo.stage = 0;
-        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
+        UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
         if (sPauseDebugGroupsPositions[i].group == PAUSE_DEBUG_GROUP_TIME)
             gMaxInGameTimerFlag = 0;
         return;
@@ -497,7 +497,7 @@ void PauseDebugStatusScreen(void)
         case PAUSE_DEBUG_GROUP_MAX_POWER_BOMBS:
             if (gChangedInput & KEY_A)
             {
-                UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
+                UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
                 PAUSE_SCREEN_DATA.stateInfo.stage = 1;
             }
             else if (PAUSE_SCREEN_DATA.stateInfo.stage != 0 && PauseDebugEnergyAmmoInput(xPos, sPauseDebugGroupsPositions[i].group))
@@ -546,14 +546,14 @@ void PauseDebugStatusScreen(void)
                 if (gChangedInput & KEY_A)
                 {
                     PAUSE_SCREEN_DATA.stateInfo.stage = 1;
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
+                    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
                     break;
                 }
             }
             else if (gChangedInput & (KEY_A | KEY_B))
             {
                 PAUSE_SCREEN_DATA.stateInfo.stage = 0;
-                UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
+                UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
                 break;
             }
             
@@ -584,13 +584,13 @@ void PauseDebugStatusScreen(void)
                 if (gChangedInput & KEY_A)
                 {
                     PAUSE_SCREEN_DATA.stateInfo.stage = 1;
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
+                    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
                 }
             }
             else if (gChangedInput & (KEY_A | KEY_B))
             {
                 PAUSE_SCREEN_DATA.stateInfo.stage = 0;
-                UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
+                UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
             }
             break;
 
@@ -598,7 +598,7 @@ void PauseDebugStatusScreen(void)
             if (PAUSE_SCREEN_DATA.stateInfo.stage == 0)
             {
                 if (gChangedInput & KEY_A) {
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
+                    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
                     PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                     gMaxInGameTimerFlag = 1;
                 }
@@ -715,7 +715,7 @@ void PauseDebugStatusScreen(void)
             {
                 if (gChangedInput & KEY_A)
                 {
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
+                    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
                     PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                 }
             }
@@ -745,7 +745,7 @@ void PauseDebugStatusScreen(void)
             {
                 if (gChangedInput & KEY_A)
                 {
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
+                    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x36);
                     PAUSE_SCREEN_DATA.stateInfo.stage = 1;
                 }
             }
@@ -797,7 +797,7 @@ void PauseDebugStatusScreen(void)
                 {
                     UpdateSuitType(yPos);
                     PauseDebugActivateAbilities();
-                    PAUSE_SCREEN_DATA.samusIconOam[0].oamID = gEquipment.suitType != SUIT_SUITLESS ? 1 : 2;
+                    PAUSE_SCREEN_DATA.samusIconOam[0].oamId = gEquipment.suitType != SUIT_SUITLESS ? 1 : 2;
                     work1 |= (1 << PAUSE_DEBUG_GROUP_BEAM) | (1 << PAUSE_DEBUG_GROUP_SUIT) | (1 << PAUSE_DEBUG_GROUP_MISC) |
                         (1 << PAUSE_DEBUG_GROUP_CURRENT_ENERGY) | (1 << PAUSE_DEBUG_GROUP_CURRENT_MISSILES) |
                         (1 << PAUSE_DEBUG_GROUP_CURRENT_SUPER_MISSILES) | (1 << PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS);
@@ -1500,7 +1500,7 @@ void PauseDebugDrawAllGroups(void)
  */
 void PauseDebugInitCursor(void)
 {
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
+    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
     PAUSE_SCREEN_DATA.miscOam[0].yPosition = sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_EQUIP_TANK].top * 32;
     PAUSE_SCREEN_DATA.miscOam[0].xPosition = sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_EQUIP_TANK].right * 32;
 }
@@ -1532,7 +1532,7 @@ void PauseDebugEventList(void)
             break;
 
         case 1:
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0xB);
+            UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0xB);
             PAUSE_SCREEN_DATA.debugEventCursorX = 15;
             DmaTransfer(3, VRAM_BASE + 0xB000, (void*)sEwramPointer + 0xC800, 0x800, 16);
             DmaTransfer(3, (void*)sEwramPointer + 0xD000, VRAM_BASE + 0xB000, 0x800, 16);
@@ -1562,7 +1562,7 @@ void PauseDebugEventList(void)
             break;
 
         case 5:
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
+            UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
             DmaTransfer(3, VRAM_BASE + 0xB000, (void*)sEwramPointer + 0xD000, 0x800, 16);
             DmaTransfer(3, (void*)sEwramPointer + 0xC800, VRAM_BASE + 0xB000, 0x800, 16);
             DmaTransfer(3, sMinimapTilesGfx, VRAM_BASE + 0x8000, 0x1C00, 16);
@@ -1593,7 +1593,7 @@ void PauseDebugEventListInput(void)
     
     if (gChangedInput & KEY_A)
     {
-        event = EventFunction(EVENT_ACTION_TOGGLING, PAUSE_SCREEN_DATA.debugSelectedEvent);
+        event = TOGGLE_EVENT(PAUSE_SCREEN_DATA.debugSelectedEvent);
         PauseDebugDrawEventName(PAUSE_SCREEN_DATA.debugSelectedEvent, VRAM_BASE + 0xB000);
 
         if (PAUSE_SCREEN_DATA.debugSelectedEvent >= EVENT_STATUE_LONG_BEAM_GRABBED && PAUSE_SCREEN_DATA.debugSelectedEvent <= EVENT_STATUE_SCREW_ATTACK_GRABBED)
@@ -1731,7 +1731,7 @@ void PauseDebugDrawEventName(u16 event, u16* dst)
     if (event >= EVENT_COUNT)
         return;
 
-    if (EventFunction(EVENT_ACTION_CHECKING, event))
+    if (CHECK_EVENT(event))
         tmp = 14 << 12;
     else
         tmp = 15 << 12;
@@ -2829,7 +2829,7 @@ void StatusScreenInitCursorAndItems(void)
         StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
 
         if (!(PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM))
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
+            UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
 
         StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING);
     }
@@ -2867,7 +2867,7 @@ u32 StatusScreenSuitlessItems(void)
 
                 if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != STATUS_SLOT_0)
                 {
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
+                    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
                     togglingResult = StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING2);
                 
                     if (togglingResult < 0)
@@ -3207,7 +3207,7 @@ u32 StatusScreenFullyPoweredItems(void)
             
             // Enable cursor
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING_DESTROY);
+            UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING_DESTROY);
 
             if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= STATUS_SLOT_BOMB)
                 PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
@@ -3253,7 +3253,7 @@ u32 StatusScreenFullyPoweredItems(void)
             else
                 result = MISC_OAM_ID_SPACE_JUMP_UNKNOWN;
 
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[10], result);
+            UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[10], result);
 
             // Set position (same calculations as cursor)
             PAUSE_SCREEN_DATA.miscOam[10].yPosition = (sStatusScreenGroupsPositions[sStatusScreenItemsData[
@@ -3285,7 +3285,7 @@ u32 StatusScreenFullyPoweredItems(void)
             
             // Update cursor
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
+            UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
             SoundPlay(SOUND_TOGGLING_ITEM_ON);
 
             if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= STATUS_SLOT_BOMB)
@@ -3296,7 +3296,7 @@ u32 StatusScreenFullyPoweredItems(void)
             PAUSE_SCREEN_DATA.stateInfo.stage++;
             PAUSE_SCREEN_DATA.stateInfo.timer = 0;
 
-            PAUSE_SCREEN_DATA.miscOam[10].oamID++;
+            PAUSE_SCREEN_DATA.miscOam[10].oamId++;
 
             if (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group == ABILITY_GROUP_SUITS)
             {
@@ -3327,8 +3327,8 @@ u32 StatusScreenFullyPoweredItems(void)
                     // Continue search for the next unknown item
                     PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot++;
                     gCurrentMessage.messageEnded = FALSE;
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[10], 0);
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0);
+                    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[10], 0);
+                    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], 0);
                     PAUSE_SCREEN_DATA.stateInfo.stage = FULLY_POWERED_ITEMS_SEARCH_FOR_UNKNOWN_ITEM;
                 }
                 break;
@@ -3367,7 +3367,7 @@ u32 StatusScreenFullyPoweredItems(void)
  * @brief 71800 | 94 | Main loop for the status screen
  * 
  */
-void StatusScreenMainLoop(void)
+void StatusScreenHandler(void)
 {
     u32 toggleResult;
 
@@ -3840,7 +3840,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, ItemToggleAction action)
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
         oamId = 0;
 
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[3], oamId);
+    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.overlayOam[3], oamId);
 
     return isActivated;
 }
@@ -3856,7 +3856,7 @@ void StatusScreenMoveCursor(void)
     u8 prevSlot;
     
     // Check isn't doing the "focusing" animation
-    if (PAUSE_SCREEN_DATA.miscOam[0].oamID == MISC_OAM_ID_ITEM_CURSOR_FOCUSING)
+    if (PAUSE_SCREEN_DATA.miscOam[0].oamId == MISC_OAM_ID_ITEM_CURSOR_FOCUSING)
         return;
 
     statusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
@@ -3902,7 +3902,7 @@ void StatusScreenMoveCursor(void)
         PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = statusSlot;
         StatusScreenUpdateCursorPosition(statusSlot);
         StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING);
-        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
+        UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
         SoundPlay(SOUND_STATUS_SCREEN_CURSOR_MOVING);
     }
 }

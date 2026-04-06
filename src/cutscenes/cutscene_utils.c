@@ -4,6 +4,7 @@
 #include "oam.h"
 #include "color_effects.h"
 #include "tourian_escape.h"
+#include "event.h"
 
 #include "data/cutscenes/cutscenes_data.h"
 #include "data/menus/pause_screen_data.h"
@@ -65,7 +66,7 @@ u8 CutsceneDummyStage(void)
  * 
  * @return u8 bool, ended
  */
-u8 TourianEscapeMainLoop(void)
+u8 TourianEscapeHandler(void)
 {
     u8 ended;
 
@@ -163,7 +164,7 @@ void CutsceneEnd(void)
             #endif // DEBUG
             {
                 // Set the event for the ridley in space cutscene, in case it was skipped
-                EventFunction(EVENT_ACTION_SETTING, sCutsceneData[CUTSCENE_RIDLEY_IN_SPACE].event);
+                SET_EVENT(sCutsceneData[CUTSCENE_RIDLEY_IN_SPACE].event);
             }
             break;
 
@@ -248,7 +249,7 @@ void CutsceneEnd(void)
         if (gBootDebugActive == 0)
         #endif // DEBUG
         {
-            EventFunction(EVENT_ACTION_SETTING, sCutsceneData[gCurrentCutscene].event);
+            SET_EVENT(sCutsceneData[gCurrentCutscene].event);
         }
     }
 
@@ -271,7 +272,7 @@ void CutsceneEnd(void)
  * 
  * @return u8 bool, ended
  */
-u8 CutsceneMainLoop(void)
+u8 CutsceneHandler(void)
 {
     u8 result;
     u8 ended;

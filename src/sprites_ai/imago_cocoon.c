@@ -1,6 +1,7 @@
 #include "sprites_ai/imago_cocoon.h"
 #include "fixed_point.h"
 #include "macros.h"
+#include "event.h"
 
 #include "data/sprites/imago_cocoon.h"
 #include "data/sprites/enemy_drop.h"
@@ -217,7 +218,7 @@ static void ImagoCocoonChangeTwoBlockingCcaa(ClipdataAffectingAction caa)
  * @param limit The limit of the scaling
  * @param value The value to increment/decrement the scaling
  */
-static void ImagoCocoonChangeOAMScaling(u16 limit, u16 value)
+static void ImagoCocoonChangeOamScaling(u16 limit, u16 value)
 {
     if (gCurrentSprite.work2) // Check growing/shrinking
     {
@@ -250,12 +251,12 @@ static void ImagoCocoonInit(void)
     gSubSpriteData1.yPosition = gCurrentSprite.yPosition;
     gSubSpriteData1.xPosition = gCurrentSprite.xPosition;
 
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_IMAGO_COCOON_KILLED))
+    if (CHECK_EVENT(EVENT_IMAGO_COCOON_KILLED))
     {
         SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0);
 
-        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ENTER_RIDLEY_DEMO_PLAYED))
+        if (CHECK_EVENT(EVENT_ENTER_RIDLEY_DEMO_PLAYED))
         {
             gCurrentSprite.status = 0;
             return;
@@ -424,7 +425,7 @@ static void ImagoCocoonIdle(void)
         gCurrentSprite.absolutePaletteRow = 1;
         // CONVERT_SECONDS(1.f) + 4 * DELTA_TIME
         if (MOD_AND(gFrameCounter8Bit, 64) == 0)
-            ImagoCocoonChangeOAMScaling(1, 1);
+            ImagoCocoonChangeOamScaling(1, 1);
     }
 
     // Check should fall
@@ -446,7 +447,7 @@ static void ImagoCocoonIdle(void)
         gCurrentSprite.pose = IMAGO_COCOON_POSE_FALLING_BEFORE_BLOCKS;
 
         // Set falling
-        EventFunction(EVENT_ACTION_SETTING, EVENT_IMAGO_COCOON_KILLED);
+        SET_EVENT(EVENT_IMAGO_COCOON_KILLED);
         SoundPlay(SOUND_IMAGO_COCOON_VINES_CRACKING);
     }
 }
@@ -464,7 +465,7 @@ static void ImagoCocoonFallingBeforeBlocks(void)
 
     // CONVERT_SECONDS(.5f) + 2 * DELTA_TIME
     if (MOD_AND(gFrameCounter8Bit, 32) == 0)
-        ImagoCocoonChangeOAMScaling(1, 1);
+        ImagoCocoonChangeOamScaling(1, 1);
 
     if (gSubSpriteData1.currentAnimationFrame > 7)
     {
@@ -537,7 +538,7 @@ static void ImagoCocoonFallingAfterBlocks(void)
     // Scale and move
     // 2 * DELTA_TIME
     if (MOD_AND(gFrameCounter8Bit, 2) == 0)
-        ImagoCocoonChangeOAMScaling(1, 1);
+        ImagoCocoonChangeOamScaling(1, 1);
 
     ImagoCocoonFallingMovement();
     yPosition = gSubSpriteData1.yPosition + IMAGO_COCOON_SIZE;
@@ -1665,7 +1666,7 @@ void EventTriggerDiscoveredImagoPassage(void)
 {
     if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
-        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_IMAGO_TUNNEL_DISCOVERED))
+        if (CHECK_EVENT(EVENT_IMAGO_TUNNEL_DISCOVERED))
         {
             gCurrentSprite.status = 0;
             return;
@@ -1692,7 +1693,7 @@ void EventTriggerDiscoveredImagoPassage(void)
     {
         // Set event
         gCurrentSprite.status = 0;
-        EventFunction(EVENT_ACTION_SETTING, EVENT_IMAGO_TUNNEL_DISCOVERED);
+        SET_EVENT(EVENT_IMAGO_TUNNEL_DISCOVERED);
     }
 }
 

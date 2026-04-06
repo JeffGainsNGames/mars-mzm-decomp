@@ -1,6 +1,7 @@
 #include "sprites_ai/zipline_generator.h"
 #include "macros.h"
 #include "randomizer.h"
+#include "event.h"
 
 #include "data/sprites/zipline_generator.h"
 
@@ -101,9 +102,9 @@ static void ZiplineGeneratorInit(void)
 // EVENT_ZIPLINES_ACTIVATED determines if ziplines should work
 // EVENT_ZIPLINES_SOURCE indicates if the zipline generator has been used
 #ifdef RANDOMIZER
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_SOURCE))
+    if (CHECK_EVENT(EVENT_ZIPLINES_SOURCE))
 #else // !RANDOMIZER
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+    if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
 #endif // RANDOMIZER
     {
         // Set already activated
@@ -209,9 +210,9 @@ static void ZiplineGeneratorActivating(void)
 // EVENT_ZIPLINES_SOURCE indicates if the zipline generator has been used
 #ifdef RANDOMIZER
         RandoCollectMajorLocationItem(ITEM_SOURCE_ZIPLINES);
-        EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_SOURCE);
+        SET_EVENT(EVENT_ZIPLINES_SOURCE);
 #else // !RANDOMIZER
-        EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_ACTIVATED);
+        SET_EVENT(EVENT_ZIPLINES_ACTIVATED);
 #endif // RANDOMIZER
     }
     else if (gCurrentSprite.work0 == CONVERT_SECONDS(1.5f))

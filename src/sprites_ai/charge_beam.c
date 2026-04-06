@@ -159,7 +159,7 @@ static void ChargeBeamIdle(void)
         gEquipment.beamBombs |= BBF_CHARGE_BEAM;
 
         // Set event
-        EventFunction(EVENT_ACTION_SETTING, EVENT_CHARGE_BEAM_OBTAINED);
+        SET_EVENT(EVENT_CHARGE_BEAM_OBTAINED);
 
         // Spawn banner
         SpriteSpawnPrimary(PSPRITE_MESSAGE_BANNER, MESSAGE_CHARGE_BEAM, SPRITE_GFX_SLOT_SPECIAL,

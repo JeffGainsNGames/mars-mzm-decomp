@@ -1,6 +1,7 @@
 #include "sprites_ai/space_pirate.h"
 #include "macros.h"
 #include "gba/display.h"
+#include "event.h"
 
 #include "data/sprites/space_pirate.h"
 #include "data/sprite_data.h"
@@ -71,7 +72,7 @@ MAKE_ENUM(u8, SpacePirateLaserDirection) {
  */
 void DisableChozodiaAlarm(void)
 {
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
+    if (CHECK_EVENT(EVENT_MECHA_RIDLEY_KILLED))
     {
         // Restart alarm if escape
         gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
@@ -84,7 +85,7 @@ void DisableChozodiaAlarm(void)
 
 #ifndef RANDOMIZER
     // Check is in stealth
-    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
+    if (!CHECK_EVENT(EVENT_FULLY_POWERED_SUIT_OBTAINED))
         UpdateMusicAfterAlarmDisable();
 #endif // !RANDOMIZER
 }
@@ -108,7 +109,7 @@ void DecrementChozodiaAlarm(void)
     gDisableAnimatedPalette = FALSE;
 
 #ifndef RANDOMIZER
-    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
+    if (!CHECK_EVENT(EVENT_FULLY_POWERED_SUIT_OBTAINED))
         PlayMusic(MUSIC_ALARM_ACTIVATED, 0x40);
 #endif // !RANDOMIZER
 }
@@ -127,7 +128,7 @@ void SpawnWaitingPirates(void)
 
     foundPirate = FALSE;
 
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
+    if (CHECK_EVENT(EVENT_MECHA_RIDLEY_KILLED))
     {
         gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
     }
@@ -139,7 +140,7 @@ void SpawnWaitingPirates(void)
     
     for (i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
     {
-        spriteId = gSpritesetSpritesID[i];
+        spriteId = gSpritesetSpritesId[i];
         if (spriteId == PSPRITE_SPACE_PIRATE_WAITING2)
         {
             foundPirate++;
@@ -151,7 +152,7 @@ void SpawnWaitingPirates(void)
     {
         for (i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
         {
-            spriteId = gSpritesetSpritesID[i];
+            spriteId = gSpritesetSpritesId[i];
 
             if (spriteId == PSPRITE_SPACE_PIRATE || spriteId == PSPRITE_SPACE_PIRATE_WAITING1 ||
                 spriteId == PSPRITE_SPACE_PIRATE_WAITING3 || spriteId == PSPRITE_SPACE_PIRATE2)

@@ -1,6 +1,7 @@
 #include "room.h"
 #include "dma.h"
 #include "gba.h"
+#include "event.h"
 
 #include "data/empty_datatypes.h"
 #include "data/common_pals.h"
@@ -301,7 +302,7 @@ void RoomLoadEntry(void)
     gCurrentRoomEntry.firstSpritesetEvent = entry.firstSpritesetEvent;
     gCurrentRoomEntry.secondSpritesetEvent = entry.secondSpritesetEvent;
 
-    if (gCurrentRoomEntry.secondSpritesetEvent != EVENT_NONE && EventFunction(EVENT_ACTION_CHECKING, gCurrentRoomEntry.secondSpritesetEvent))
+    if (gCurrentRoomEntry.secondSpritesetEvent != EVENT_NONE && CHECK_EVENT(gCurrentRoomEntry.secondSpritesetEvent))
     {
         gCurrentRoomEntry.pEnemyRoomData = entry.pSecondSpriteData;
         gSpriteset = entry.secondSpriteset;
@@ -309,7 +310,7 @@ void RoomLoadEntry(void)
     }
 
     if (gCurrentRoomEntry.firstSpritesetEvent != EVENT_NONE && gSpritesetEntryUsed == 0
-        && EventFunction(EVENT_ACTION_CHECKING, gCurrentRoomEntry.firstSpritesetEvent))
+        && CHECK_EVENT(gCurrentRoomEntry.firstSpritesetEvent))
     {
         gCurrentRoomEntry.pEnemyRoomData = entry.pFirstSpriteData;
         gSpriteset = entry.firstSpriteset;
@@ -751,12 +752,12 @@ void RoomSetInitialTilemap(u8 bgNumber)
 /**
  * @brief 56d18 | 110 | RLE decompression algorithm
  * 
- * @param isBG Is background
+ * @param isBg Is background
  * @param src Source address
  * @param dst Destination address
  * @return u32 Size
  */
-u32 RoomRleDecompress(u8 isBG, const u8* src, u8* dst)
+u32 RoomRleDecompress(u8 isBg, const u8* src, u8* dst)
 {
     u32 size;
     s32 length;
@@ -768,7 +769,7 @@ u32 RoomRleDecompress(u8 isBG, const u8* src, u8* dst)
     // get decompressed size of data
     size = 0;
     length = 0x3000;
-    if (!isBG)
+    if (!isBg)
     {
         sizeType = *src;
         size = 0x800;

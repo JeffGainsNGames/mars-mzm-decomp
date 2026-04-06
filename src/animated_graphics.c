@@ -4,6 +4,7 @@
 #include "macros.h"
 #include "sprite.h"
 #include "color_effects.h"
+#include "event.h"
 
 #include "data/shortcut_pointers.h"
 #include "data/animated_graphics_data.h"
@@ -496,7 +497,7 @@ void AnimatedPaletteCheckDisableOnTransition(void)
     switch (gAnimatedGraphicsEntry.palette)
     {
         case ANIMATED_PALETTE_ID_ZIPLINE:
-            if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+            if (!CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
                 gDisableAnimatedPalette = TRUE; // No ziplines
             break;
 
@@ -563,12 +564,12 @@ void BackgroundEffectUpdate(void)
         return;
 
     // Apply on background
-    ApplySpecialBackgroundEffectColorOnBG(sBackgroundEffectColorData[gBackgroundEffect.type].colorMask,
+    ApplySpecialBackgroundEffectColorOnBg(sBackgroundEffectColorData[gBackgroundEffect.type].colorMask,
         color, gBackgroundEffect.colorStage);
 
     // Check apply on obj
     if (sBackgroundEffectColorData[gBackgroundEffect.type].applyToObj)
-        ApplySpecialBackgroundEffectColorOnOBJ(0xFFFC, color, gBackgroundEffect.colorStage);
+        ApplySpecialBackgroundEffectColorOnObj(0xFFFC, color, gBackgroundEffect.colorStage);
 }
 
 /**

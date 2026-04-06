@@ -1,5 +1,6 @@
 #include "sprites_ai/searchlight_eye.h"
 #include "macros.h"
+#include "event.h"
 
 #include "data/sprites/searchlight_eye.h"
 #include "data/sprite_data.h"
@@ -43,7 +44,7 @@ static void SearchlightEyeInit(void)
 #ifdef RANDOMIZER
     if (gEquipment.suitType == SUIT_SUITLESS)
 #else // !RANDOMIZER
-    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
+    if (!CHECK_EVENT(EVENT_FULLY_POWERED_SUIT_OBTAINED))
 #endif // RANDOMIZER
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     
@@ -260,7 +261,7 @@ static void SearchlightEyeBeamInit(void)
     gCurrentSprite.bgPriority = 3;
     gCurrentSprite.drawOrder = 12;
     
-    gCurrentSprite.pOam = sSearchlightEyeBeamOAM_Idle;
+    gCurrentSprite.pOam = sSearchlightEyeBeamOam_Idle;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 
@@ -466,7 +467,7 @@ void SearchlightEyeProjectile(void)
             gCurrentSprite.hitboxTop = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
             gCurrentSprite.hitboxBottom = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
 
-            gCurrentSprite.pOam = sSearchlightEyeProjectileOAM_Moving;
+            gCurrentSprite.pOam = sSearchlightEyeProjectileOam_Moving;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 

@@ -2785,7 +2785,7 @@ void SamusUpdate(void)
     SamusUpdatePhysics(pData);
 
     // Execute pose main loop
-    newPose = SamusExecutePoseMainLoop(pData);
+    newPose = SamusExecutePoseHandler(pData);
     if (newPose != SPOSE_NONE)
     {
         // Set new pose if it changed
@@ -6680,7 +6680,7 @@ SamusPose SamusTurningToEnterEscapeShipGfx(struct SamusData* pData)
  * @param pData Samus data pointer
  * @return SamusPose New pose
  */
-SamusPose SamusExecutePoseMainLoop(struct SamusData* pData)
+SamusPose SamusExecutePoseHandler(struct SamusData* pData)
 {
     u8 pose;
     u8 timer;

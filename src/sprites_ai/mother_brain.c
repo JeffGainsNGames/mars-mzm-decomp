@@ -1,6 +1,7 @@
 #include "sprites_ai/mother_brain.h"
 #include "macros.h"
 #include "gba/display.h"
+#include "event.h"
 
 #include "data/sprites/mother_brain.h"
 #include "data/sprites/zebetite_and_cannon.h"
@@ -135,8 +136,8 @@ static void MotherBrainInit(void)
     u16 yPosition;
     u16 xPosition;
 
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES) ||
-        EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
+    if (CHECK_EVENT(EVENT_ESCAPED_ZEBES) ||
+        CHECK_EVENT(EVENT_MOTHER_BRAIN_KILLED))
     {
         gCurrentSprite.status = 0;
         return;
@@ -220,7 +221,7 @@ static void MotherBrainCheckGlassBroke(void)
  * @brief 3cbfc | 3fc | Mother brain main behavior loop
  * 
  */
-static void MotherBrainMainLoop(void)
+static void MotherBrainHandler(void)
 {
     u8 palette;
     u8 beamShooterSlot;
@@ -263,7 +264,7 @@ static void MotherBrainMainLoop(void)
         gSubSpriteData1.work3 = MB_FIGHT_STAGE_DYING;
 
         // Set event
-        EventFunction(EVENT_ACTION_SETTING, EVENT_MOTHER_BRAIN_KILLED);
+        SET_EVENT(EVENT_MOTHER_BRAIN_KILLED);
         SoundPlay(SOUND_MOTHER_BRAIN_DYING);
         return;
     }
@@ -737,7 +738,7 @@ void MotherBrain(void)
             break;
 
         case MOTHER_BRAIN_POSE_MAIN_LOOP:
-            MotherBrainMainLoop();
+            MotherBrainHandler();
             break;
 
         case MOTHER_BRAIN_POSE_DYING:

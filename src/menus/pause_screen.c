@@ -505,26 +505,26 @@ void PauseScreenUpdateBossIcons(void)
         PAUSE_SCREEN_DATA.bossIconOam[0].yPosition = sBossIcons[PAUSE_SCREEN_DATA.currentArea][3] * HALF_BLOCK_SIZE;
 
         // Check event
-        if (EventFunction(EVENT_ACTION_CHECKING, status))
+        if (CHECK_EVENT(status))
         {
             // Boss dead, set new oam id
             if (PAUSE_SCREEN_DATA.currentArea != AREA_CRATERIA)
             {
                 // Boss dead id, flag id changed
-                PAUSE_SCREEN_DATA.bossIconOam[0].oamID = BOSS_ICON_OAM_ID_CROSSMARK;
+                PAUSE_SCREEN_DATA.bossIconOam[0].oamId = BOSS_ICON_OAM_ID_CROSSMARK;
                 status = TRUE << 1;
             }
             else
             {
                 // Ship, simply remove it
-                PAUSE_SCREEN_DATA.bossIconOam[0].oamID = 0;
+                PAUSE_SCREEN_DATA.bossIconOam[0].oamId = 0;
                 status = FALSE;
             }
         }
         else
         {
             // Set oam id
-            PAUSE_SCREEN_DATA.bossIconOam[0].oamID = sBossIcons[PAUSE_SCREEN_DATA.currentArea][1];
+            PAUSE_SCREEN_DATA.bossIconOam[0].oamId = sBossIcons[PAUSE_SCREEN_DATA.currentArea][1];
             // Flag id changed
             status = OAM_ID_CHANGED_FLAG;
         }
@@ -592,7 +592,7 @@ void PauseScreenDrawCompletionInfo(u8 dontDraw)
 #endif // RANDOMIZER
     {
         // Set oam id and priority
-        PAUSE_SCREEN_DATA.miscOam[sPauseScreenCompletionInfoOamData[i][0]].oamID = sPauseScreenCompletionInfoOamData[i][1];
+        PAUSE_SCREEN_DATA.miscOam[sPauseScreenCompletionInfoOamData[i][0]].oamId = sPauseScreenCompletionInfoOamData[i][1];
         PAUSE_SCREEN_DATA.miscOam[sPauseScreenCompletionInfoOamData[i][0]].priority = priority;
 
         // Set positions
@@ -620,7 +620,7 @@ u8 PauseScreenStatusScreenShouldDrawHeader(SamusWireframeDataId samusWireframeDa
         switch (samusWireframeDataIndex)
         {
             case SAMUS_WIREFRAME_DATA_BEAM:
-                PAUSE_SCREEN_DATA.miscOam[3].oamID = MISC_OAM_ID_GUN_HEADER;
+                PAUSE_SCREEN_DATA.miscOam[3].oamId = MISC_OAM_ID_GUN_HEADER;
                 result = TRUE << 1;
                 break;
 
@@ -689,7 +689,7 @@ u32 PauseScreenUpdateStatusScreenOam(u8 param_1)
         case 0:
             for (i = 0; i < size; i++, pOam++)
             {
-                pOam->oamID = sSamusWireframeData[i].oamId;
+                pOam->oamId = sSamusWireframeData[i].oamId;
                 pOam->xPosition = sSamusWireframeData[i].xPosition;
                 pOam->yPosition = sSamusWireframeData[i].yPosition;
                 pOam->objMode = sSamusWireframeData[i].objMode;
@@ -703,7 +703,7 @@ u32 PauseScreenUpdateStatusScreenOam(u8 param_1)
         case 1:
             for (i = 0; i < size; i++, pOam++)
             {
-                pOam->oamID = sSamusWireframeData[i].oamId;
+                pOam->oamId = sSamusWireframeData[i].oamId;
                 pOam->xPosition = sSamusWireframeData[i].xPosition + sSamusWireframeData[i].xOffset;
                 pOam->yPosition = sSamusWireframeData[i].yPosition;
                 pOam->objMode = sSamusWireframeData[i].objMode;
@@ -746,7 +746,7 @@ u32 PauseScreenUpdateStatusScreenOam(u8 param_1)
                     continue;
 
                 pOam->exists = TRUE << 1;
-                pOam->oamID++;
+                pOam->oamId++;
                 pOam->xPosition = sSamusWireframeData[i].xPosition2;
                 pOam->yPosition = sSamusWireframeData[i].yPosition2;
             }
@@ -764,7 +764,7 @@ u32 PauseScreenUpdateStatusScreenOam(u8 param_1)
                 if (i == 0)
                     continue;
 
-                pOam->oamID++;
+                pOam->oamId++;
                 pOam->animationDurationCounter = 0;
                 if (pOam->currentAnimationFrame)
                     pOam->currentAnimationFrame--;
@@ -820,14 +820,14 @@ void PauseScreenUpdateWireframeSamus(u8 updateWireframeOption)
     if (updateWireframeOption == 0 && gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
         oamId = MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME;
 
-    PAUSE_SCREEN_DATA.miscOam[8].oamID = oamId;
+    PAUSE_SCREEN_DATA.miscOam[8].oamId = oamId;
     PAUSE_SCREEN_DATA.miscOam[8].exists = OAM_ID_CHANGED_FLAG;
 
     PAUSE_SCREEN_DATA.miscOam[9] = PAUSE_SCREEN_DATA.miscOam[8];
     PAUSE_SCREEN_DATA.miscOam[9].objMode = 2;
 
     oamId = 0;
-    if (PAUSE_SCREEN_DATA.miscOam[8].oamID == MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME)
+    if (PAUSE_SCREEN_DATA.miscOam[8].oamId == MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME)
         oamId = 3;
     else if (gEquipment.suitMiscActivation & SMF_GRAVITY_SUIT)
         oamId = 2;
@@ -918,10 +918,10 @@ void PauseScreenUpdateWorldMapHighlight(Area area)
         area = AREA_TEST;
 
     // Update area name at the top
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[area].nameSpawningOamId);
+    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[area].nameSpawningOamId);
     
     // Update hightlight border oam
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[2], sPauseScreenAreaIconsData[area].outlineOamId);
+    UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.overlayOam[2], sPauseScreenAreaIconsData[area].outlineOamId);
 
     // Update hightlight border position
     PAUSE_SCREEN_DATA.overlayOam[2].xPosition = sPauseScreenAreaIconsData[area].xPosition;
@@ -943,7 +943,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
     {
         pOam = &PAUSE_SCREEN_DATA.worldMapOam[0];
         pOam->priority = 2;
-        pOam->oamID = gEquipment.suitType == SUIT_SUITLESS ? WORLD_MAP_OAM_ID_SAMUS_ICON_SUITLESS : WORLD_MAP_OAM_ID_SAMUS_ICON_SUIT;
+        pOam->oamId = gEquipment.suitType == SUIT_SUITLESS ? WORLD_MAP_OAM_ID_SAMUS_ICON_SUITLESS : WORLD_MAP_OAM_ID_SAMUS_ICON_SUIT;
         pOam->exists = TRUE;
 
         pOam = &PAUSE_SCREEN_DATA.worldMapOam[1];
@@ -965,7 +965,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
             if ((PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets >> i) & 1 && pOam->xPosition + pOam->yPosition != 0)
                 pOam->exists = TRUE;
 
-            pOam->oamID = pOam->exists ? WORLD_MAP_OAM_ID_TARGET : 0;
+            pOam->oamId = pOam->exists ? WORLD_MAP_OAM_ID_TARGET : 0;
         }
     }
     else if (onWorldMap == 2)
@@ -975,12 +975,12 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
         {
             if ((PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets >> i) & 1)
             {
-                pOam->oamID = WORLD_MAP_OAM_ID_TARGET;
+                pOam->oamId = WORLD_MAP_OAM_ID_TARGET;
                 pOam->exists = TRUE;
             }
             else
             {
-                pOam->oamID = 0;
+                pOam->oamId = 0;
                 pOam->exists = FALSE;
             }
         }
@@ -995,9 +995,9 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
     for (i = 0; i < AREA_NORMAL_COUNT; i++, pOam++)
     {
         if (PAUSE_SCREEN_DATA.currentArea != i)
-            pOam->oamID = sWorldMapData[i].nameOamId;
+            pOam->oamId = sWorldMapData[i].nameOamId;
         else
-            pOam->oamID = sWorldMapData[i].outlinedOamId;
+            pOam->oamId = sWorldMapData[i].outlinedOamId;
 
         pOam->exists = (PAUSE_SCREEN_DATA.areasViewable >> i) & 1 ? status : FALSE;
     }
@@ -1040,7 +1040,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         return;
     }
     
-    PAUSE_SCREEN_DATA.samusIconOam[0].oamID = gEquipment.suitType != SUIT_SUITLESS ? SAMUS_ICON_OAM_ID_SUIT : SAMUS_ICON_OAM_ID_SUITLESS;
+    PAUSE_SCREEN_DATA.samusIconOam[0].oamId = gEquipment.suitType != SUIT_SUITLESS ? SAMUS_ICON_OAM_ID_SUIT : SAMUS_ICON_OAM_ID_SUITLESS;
     PAUSE_SCREEN_DATA.samusIconOam[0].exists = TRUE;
     PAUSE_SCREEN_DATA.samusIconOam[0].xPosition = gMinimapX * HALF_BLOCK_SIZE;
     PAUSE_SCREEN_DATA.samusIconOam[0].yPosition = gMinimapY * HALF_BLOCK_SIZE;
@@ -1069,14 +1069,14 @@ void PauseScreenLoadAreaNamesAndIcons(void)
     if (PAUSE_SCREEN_DATA.stateInfo.state != PAUSE_SCREEN_STATE_STATUS_SCREEN)
     #endif // DEBUG
     {
-        PAUSE_SCREEN_DATA.miscOam[0].oamID = 0;
+        PAUSE_SCREEN_DATA.miscOam[0].oamId = 0;
         PAUSE_SCREEN_DATA.miscOam[0].yPosition = 0;
         PAUSE_SCREEN_DATA.miscOam[0].xPosition = 0;
     }
     
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
-        PAUSE_SCREEN_DATA.overlayOam[0].oamID = sChozoHintAreaNamesOamIds[PAUSE_SCREEN_DATA.currentArea];
+        PAUSE_SCREEN_DATA.overlayOam[0].oamId = sChozoHintAreaNamesOamIds[PAUSE_SCREEN_DATA.currentArea];
         PAUSE_SCREEN_DATA.overlayOam[0].yPosition = sChozoHintAreaNamesPosition[1];
         PAUSE_SCREEN_DATA.overlayOam[0].xPosition = sChozoHintAreaNamesPosition[0];
         PAUSE_SCREEN_DATA.overlayOam[0].priority = 0;
@@ -1090,14 +1090,14 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         else
             i = AREA_TEST;
 
-        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[i].nameOamId);
+        UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[i].nameOamId);
         PAUSE_SCREEN_DATA.overlayOam[0].yPosition = 12;
         PAUSE_SCREEN_DATA.overlayOam[0].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
         PAUSE_SCREEN_DATA.overlayOam[0].priority = 0;
     }
     else
     {
-        PAUSE_SCREEN_DATA.overlayOam[1].oamID = 0;
+        PAUSE_SCREEN_DATA.overlayOam[1].oamId = 0;
         PAUSE_SCREEN_DATA.overlayOam[1].yPosition = QUARTER_BLOCK_SIZE + 8;
         PAUSE_SCREEN_DATA.overlayOam[1].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
         PAUSE_SCREEN_DATA.overlayOam[1].priority = 1;
@@ -1109,7 +1109,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
 
         PAUSE_SCREEN_DATA.overlayOam[2].priority = 1;
 
-        PAUSE_SCREEN_DATA.overlayOam[3].oamID = 0;
+        PAUSE_SCREEN_DATA.overlayOam[3].oamId = 0;
         PAUSE_SCREEN_DATA.overlayOam[3].yPosition = BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE + 8;
         PAUSE_SCREEN_DATA.overlayOam[3].xPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE;
         PauseScreenUpdateWorldMap(0);
@@ -1126,7 +1126,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
             PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].exists = TRUE;
         }
 
-        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].oamID = sMapScreenArrowsData[i][1];
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].oamId = sMapScreenArrowsData[i][1];
         PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].xPosition = sMapScreenArrowsData[i][2];
         PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].yPosition = sMapScreenArrowsData[i][3];
         PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].priority = 3;
@@ -1216,7 +1216,7 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
     for (i = 0; i < length; i++, pOam++)
     {
         // No id, don't process
-        if (pOam->oamID == 0)
+        if (pOam->oamId == 0)
             continue;
 
         // Doesn't exist, don't process
@@ -1237,12 +1237,12 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
         pOam->ended = FALSE;
 
         // Get frame data
-        pFrame = pOamData[pOam->oamID].pOam;
+        pFrame = pOamData[pOam->oamId].pOam;
 
         if (pOam->animationDurationCounter >= pFrame[pOam->currentAnimationFrame].timer)
         {
             // Current animation frame has ended, apply pre action
-            switch (pOamData[pOam->oamID].preAction)
+            switch (pOamData[pOam->oamId].preAction)
             {
                 case OAM_ARRAY_PRE_ACTION_NONE:
                     break;
@@ -1296,7 +1296,7 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Kill oam
-                        pOam->oamID = 0;
+                        pOam->oamId = 0;
                         pOam->currentAnimationFrame = 0;
                         pOam->exists = FALSE;
 
@@ -1314,9 +1314,9 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Increment oam id and fetch new frame data
-                        pOam->oamID++;
+                        pOam->oamId++;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1329,10 +1329,10 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Increment oam id and fetch new frame data
-                        pOam->oamID++;
+                        pOam->oamId++;
                         // Lock on last frame, pretty unsafe as the number of frames need to be the same
                         pOam->currentAnimationFrame--;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1345,9 +1345,9 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Decrement oam id and fetch new frame data
-                        pOam->oamID--;
+                        pOam->oamId--;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1358,7 +1358,7 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
                     if (pOam->currentAnimationFrame == 0)
                     {
                         // Kill oam
-                        pOam->oamID = 0;
+                        pOam->oamId = 0;
                         pOam->currentAnimationFrame = 0;
                         pOam->exists = FALSE;
 
@@ -1384,9 +1384,9 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
                     else
                     {
                         // Decrement oam id and fetch new frame data
-                        pOam->oamID--;
+                        pOam->oamId--;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
             }
@@ -1497,7 +1497,7 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
     for (i = 0; i < length; i++, pOam++)
     {
         // No id, don't process
-        if (pOam->oamID == 0)
+        if (pOam->oamId == 0)
             continue;
 
         // Doesn't exist, don't process
@@ -1518,12 +1518,12 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
         pOam->ended = FALSE;
 
         // Get frame data
-        pFrame = pOamData[pOam->oamID].pOam;
+        pFrame = pOamData[pOam->oamId].pOam;
 
         if (pOam->animationDurationCounter >= pFrame[pOam->currentAnimationFrame].timer)
         {
             // Current animation frame has ended, apply pre action
-            switch (pOamData[pOam->oamID].preAction)
+            switch (pOamData[pOam->oamId].preAction)
             {
                 case OAM_ARRAY_PRE_ACTION_NONE:
                     break;
@@ -1577,7 +1577,7 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Kill oam
-                        pOam->oamID = 0;
+                        pOam->oamId = 0;
                         pOam->currentAnimationFrame = 0;
                         pOam->exists = FALSE;
 
@@ -1595,9 +1595,9 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Increment oam id and fetch new frame data
-                        pOam->oamID++;
+                        pOam->oamId++;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1610,10 +1610,10 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Increment oam id and fetch new frame data
-                        pOam->oamID++;
+                        pOam->oamId++;
                         // Lock on last frame, pretty unsafe as the number of frames need to be the same
                         pOam->currentAnimationFrame--;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1626,9 +1626,9 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Decrement oam id and fetch new frame data
-                        pOam->oamID--;
+                        pOam->oamId--;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1639,7 +1639,7 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
                     if (pOam->currentAnimationFrame == 0)
                     {
                         // Kill oam
-                        pOam->oamID = 0;
+                        pOam->oamId = 0;
                         pOam->currentAnimationFrame = 0;
                         pOam->exists = FALSE;
 
@@ -1665,9 +1665,9 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
                     else
                     {
                         // Decrement oam id and fetch new frame data
-                        pOam->oamID--;
+                        pOam->oamId--;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
             }
@@ -1795,7 +1795,7 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
     for (i = 0; i < length; i++, pOam++)
     {
         // No id, don't process
-        if (pOam->oamID == 0)
+        if (pOam->oamId == 0)
             continue;
 
         // Doesn't exist, don't process
@@ -1816,12 +1816,12 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
         pOam->ended = FALSE;
 
         // Get frame data
-        pFrame = pOamData[pOam->oamID].pOam;
+        pFrame = pOamData[pOam->oamId].pOam;
 
         if (pOam->animationDurationCounter >= pFrame[pOam->currentAnimationFrame].timer)
         {
             // Current animation frame has ended, apply pre action
-            switch (pOamData[pOam->oamID].preAction)
+            switch (pOamData[pOam->oamId].preAction)
             {
                 case OAM_ARRAY_PRE_ACTION_NONE:
                     break;
@@ -1875,7 +1875,7 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Kill oam
-                        pOam->oamID = 0;
+                        pOam->oamId = 0;
                         pOam->currentAnimationFrame = 0;
                         pOam->exists = FALSE;
 
@@ -1893,9 +1893,9 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Increment oam id and fetch new frame data
-                        pOam->oamID++;
+                        pOam->oamId++;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1908,10 +1908,10 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Increment oam id and fetch new frame data
-                        pOam->oamID++;
+                        pOam->oamId++;
                         // Lock on last frame, pretty unsafe as the number of frames need to be the same
                         pOam->currentAnimationFrame--;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1924,9 +1924,9 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
                     if (pFrame[pOam->currentAnimationFrame].timer == 0)
                     {
                         // Decrement oam id and fetch new frame data
-                        pOam->oamID--;
+                        pOam->oamId--;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
 
@@ -1937,7 +1937,7 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
                     if (pOam->currentAnimationFrame == 0)
                     {
                         // Kill oam
-                        pOam->oamID = 0;
+                        pOam->oamId = 0;
                         pOam->currentAnimationFrame = 0;
                         pOam->exists = FALSE;
 
@@ -1963,9 +1963,9 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
                     else
                     {
                         // Decrement oam id and fetch new frame data
-                        pOam->oamID--;
+                        pOam->oamId--;
                         pOam->currentAnimationFrame = 0;
-                        pFrame = pOamData[pOam->oamID].pOam;
+                        pFrame = pOamData[pOam->oamId].pOam;
                     }
                     break;
             }
@@ -2071,7 +2071,7 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
  * 
  * @return u32 bool, leaving
  */
-u32 PauseScreenMainLoop(void)
+u32 PauseScreenHandler(void)
 {
     u32 leaving;
 
@@ -2094,7 +2094,7 @@ u32 PauseScreenMainLoop(void)
 
         case 2:
             PauseScreenUpdateOrStartFading(0);
-            if (PauseScreenCallStateMainLoop())
+            if (PauseScreenCallStateHandler())
             {
                 PauseScreenUpdateOrStartFading(PAUSE_SCREEN_FADING_OUT_INIT);
                 gSubGameModeStage++;
@@ -2138,7 +2138,7 @@ u32 PauseScreenMainLoop(void)
             else
             {
                 gButtonInput = gChangedInput = KEY_NONE;
-                if (PauseScreenCallStateMainLoop())
+                if (PauseScreenCallStateHandler())
                 {
                     gSubGameMode2 = 11;
                     leaving = TRUE;
@@ -2579,7 +2579,7 @@ void PauseScreenInit(void)
     PauseScreenUpdateMapArrows();
     PauseScreenUpdateBossIcons();
 
-    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP && PAUSE_SCREEN_DATA.bossIconOam[0].oamID != BOSS_ICON_OAM_ID_CROSSMARK)
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP && PAUSE_SCREEN_DATA.bossIconOam[0].oamId != BOSS_ICON_OAM_ID_CROSSMARK)
     {
         PAUSE_SCREEN_DATA.bossIconOam[0].notDrawn = TRUE;
     }
@@ -2710,7 +2710,7 @@ void PauseScreenGetMinimapData(Area area, u16* dst)
 
     // Check update boss icons
     position = sBossIcons[area][0]; // Event
-    if (position && EventFunction(EVENT_ACTION_CHECKING, position))
+    if (position && CHECK_EVENT(position))
     {
         position = sBossIcons[area][2] + sBossIcons[area][3] * MINIMAP_SIZE;
 
@@ -2751,7 +2751,7 @@ void PauseScreenGetMinimapData(Area area, u16* dst)
 
 #ifndef RANDOMIZER
     // Check update the varia statue tile if varia suit was skipped
-    if (area == AREA_BRINSTAR && EventFunction(EVENT_ACTION_CHECKING, EVENT_SKIPPED_VARIA_SUIT))
+    if (area == AREA_BRINSTAR && CHECK_EVENT(EVENT_SKIPPED_VARIA_SUIT))
         dst[MINIMAP_SIZE * 2 + 14]++;
 #endif // !RANDOMIZER
 }
@@ -2761,7 +2761,7 @@ void PauseScreenGetMinimapData(Area area, u16* dst)
  * 
  * @return u32 bool, ended
  */
-u32 PauseScreenCallStateMainLoop(void)
+u32 PauseScreenCallStateHandler(void)
 {
     u32 leaving;
 
@@ -2779,13 +2779,13 @@ u32 PauseScreenCallStateMainLoop(void)
         case PAUSE_SCREEN_STATE_MAP_SCREEN:
             if (!(gChangedInput & (gButtonAssignments.pause | KEY_B)))
             {
-                MapScreenMainLoop();
+                MapScreenHandler();
                 break;
             }
             
             if (PAUSE_SCREEN_DATA.onWorldMap)
             {
-                MapScreenMainLoop();
+                MapScreenHandler();
                 break;
             }
 
@@ -2799,14 +2799,14 @@ u32 PauseScreenCallStateMainLoop(void)
                     PauseScreenMoveDebugCursor(TRUE);
 
                 #ifdef DEBUG
-                leaving = PauseDebugMainLoop();
+                leaving = PauseDebugHandler();
                 #else // !DEBUG
                 leaving = FALSE;
                 #endif
             }
             else
             {
-                StatusScreenMainLoop();
+                StatusScreenHandler();
             }
             break;
 
@@ -2848,21 +2848,21 @@ u32 PauseScreenCallStateMainLoop(void)
             break;
 
         case PAUSE_SCREEN_STATE_CHOZO_STATUE_HINT:
-            if (ChozoStatueHintMainLoop())
+            if (ChozoStatueHintHandler())
             {
                 PAUSE_SCREEN_DATA.stateInfo.state = 14;
             }
             break;
 
         case PAUSE_SCREEN_STATE_MAP_DOWNLOAD:
-            if (PauseScreenMapDownloadMainLoop())
+            if (PauseScreenMapDownloadHandler())
             {
                 PAUSE_SCREEN_DATA.stateInfo.state = 18;
             }
             break;
 
         case PAUSE_SCREEN_STATE_EASY_SLEEP:
-            if (PauseScreenEasySleepMainLoop())
+            if (PauseScreenEasySleepHandler())
             {
                 PAUSE_SCREEN_DATA.stateInfo.state = PAUSE_SCREEN_STATE_EASY_SLEEP_LEAVING;
             }
@@ -3164,7 +3164,7 @@ void PauseScreenUpdateTopVisorOverlay(u8 oamId)
 
     if (oamId != UCHAR_MAX)
     {
-        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[1], oamId);
+        UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.overlayOam[1], oamId);
     }
 
     if (oamId == OVERLAY_OAM_ID_R_PROMPT_PRESSED)
@@ -3402,7 +3402,7 @@ s32 PauseScreenQuitStatusScreen(void)
     {
         case 0:
             SoundPlay(SOUND_LEAVING_STATUS_SCREEN);
-            PAUSE_SCREEN_DATA.miscOam[0].oamID = 0;
+            PAUSE_SCREEN_DATA.miscOam[0].oamId = 0;
             PauseScreenUpdateTopVisorOverlay(0);
             #ifdef DEBUG
             if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
@@ -3605,7 +3605,7 @@ s32 PauseScreenEasySleepInit(void)
 
         case 11:
             // Setup cursor
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[1], MISC_OAM_ID_RIGHT_CURSOR);
+            UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[1], MISC_OAM_ID_RIGHT_CURSOR);
             PAUSE_SCREEN_DATA.miscOam[1].xPosition = BLOCK_SIZE * 8 + QUARTER_BLOCK_SIZE;
             PAUSE_SCREEN_DATA.miscOam[1].yPosition = BLOCK_SIZE * 4 + QUARTER_BLOCK_SIZE;
             PAUSE_SCREEN_DATA.miscOam[1].objMode = 1;
@@ -3642,7 +3642,7 @@ s32 PauseScreenQuitEasySleep(void)
 
         case 2:
             PAUSE_SCREEN_DATA.dispcnt &= ~DCNT_BG2;
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[1], 0);
+            UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.miscOam[1], 0);
             PAUSE_SCREEN_DATA.miscOam[1].objMode = 0;
             break;
 

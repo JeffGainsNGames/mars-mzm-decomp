@@ -1,6 +1,7 @@
 #include "cutscenes/statue_opening.h"
 #include "cutscenes/cutscene_utils.h"
 #include "dma.h"
+#include "event.h"
 
 #include "data/shortcut_pointers.h"
 #include "data/cutscenes/statue_opening_data.h"
@@ -17,7 +18,7 @@
 #include "structs/connection.h"
 #include "structs/display.h"
 
-static void StatueOpeningProcessOAM(void);
+static void StatueOpeningProcessOam(void);
 
 /**
  * @brief 66c00 | 164 | Handles the statue opening animation
@@ -77,8 +78,8 @@ static u8 StatueOpeningOpening(void)
                 #ifdef DEBUG
                 if (gBootDebugActive)
                 {
-                    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
-                    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
+                    UpdateCutsceneOamDataId(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
+                    UpdateCutsceneOamDataId(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
                     SoundPlay(SOUND_STATUE_OPENING_STATUE_ACTIVATING);
                     CUTSCENE_DATA.timeInfo.subStage++;
                     CUTSCENE_DATA.timeInfo.timer = 0;
@@ -88,9 +89,9 @@ static u8 StatueOpeningOpening(void)
                 {
                     // Set opening animation for appropriate statue
                     if (gCurrentArea == AREA_KRAID)
-                        UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
+                        UpdateCutsceneOamDataId(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
                     else if (gCurrentArea == AREA_RIDLEY)
-                        UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
+                        UpdateCutsceneOamDataId(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
     
                     SoundPlay(SOUND_STATUE_OPENING_STATUE_ACTIVATING);
                     CUTSCENE_DATA.timeInfo.subStage++;
@@ -180,11 +181,11 @@ static u8 StatueOpeningInit(void)
     CUTSCENE_DATA.oam[1].boundBackground = 1;
     CUTSCENE_DATA.oam[1].exists = 1;
 
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_STATUE_OPENED))
+    if (CHECK_EVENT(EVENT_KRAID_STATUE_OPENED))
         oamId = STATUE_OPENING_OAM_ID_KRAID_OPENED;
     else
     {
-        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_KILLED))
+        if (CHECK_EVENT(EVENT_KRAID_KILLED))
             oamId = STATUE_OPENING_OAM_ID_KRAID_ACTIVATED;
         else
             oamId = STATUE_OPENING_OAM_ID_KRAID_IDLE;
@@ -192,13 +193,13 @@ static u8 StatueOpeningInit(void)
         if (gCurrentArea == AREA_KRAID)
             oamId = STATUE_OPENING_OAM_ID_KRAID_IDLE;
     }
-    CUTSCENE_DATA.oam[0].oamID = oamId;
+    CUTSCENE_DATA.oam[0].oamId = oamId;
 
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_STATUE_OPENED))
+    if (CHECK_EVENT(EVENT_RIDLEY_STATUE_OPENED))
        oamId = STATUE_OPENING_OAM_ID_RIDLEY_OPENED;
     else
     {
-        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_KILLED))
+        if (CHECK_EVENT(EVENT_RIDLEY_KILLED))
            oamId = STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATED;
         else
            oamId = STATUE_OPENING_OAM_ID_RIDLEY_IDLE;
@@ -206,7 +207,7 @@ static u8 StatueOpeningInit(void)
         if (gCurrentArea == AREA_RIDLEY)
            oamId = STATUE_OPENING_OAM_ID_RIDLEY_IDLE;
     }
-    CUTSCENE_DATA.oam[1].oamID = oamId;
+    CUTSCENE_DATA.oam[1].oamId = oamId;
 
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | sStatueOpeningPageData[0].bg | sStatueOpeningPageData[1].bg | sStatueOpeningPageData[2].bg;
 
@@ -237,14 +238,14 @@ static struct CutsceneStageData sStatueOpeningStageData[3] = {
  * 
  * @return u8 bool, ended
  */
-u8 StatueOpeningMainLoop(void)
+u8 StatueOpeningHandler(void)
 {
     u8 ended;
 
     ended = sStatueOpeningStageData[CUTSCENE_DATA.timeInfo.stage].pFunction();
 
     CutsceneUpdateBackgroundsPosition(TRUE);
-    StatueOpeningProcessOAM();
+    StatueOpeningProcessOam();
 
     return ended;
 }
@@ -253,7 +254,7 @@ u8 StatueOpeningMainLoop(void)
  * @brief 67048 | 38 | Processes the OAM for the cutscene
  * 
  */
-static void StatueOpeningProcessOAM(void)
+static void StatueOpeningProcessOam(void)
 {
     gNextOamSlot = 0;
     ProcessCutsceneOam(sStatueOpeningStageData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sStatueOpeningOam);

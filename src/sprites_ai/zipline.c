@@ -1,5 +1,6 @@
 #include "sprites_ai/zipline.h"
 #include "macros.h"
+#include "event.h"
 
 #include "data/sprites/zipline.h"
 
@@ -147,11 +148,11 @@ static u8 ZiplineMoving(void)
  * @brief 1d46c | 1dc | Updates the OAM of the zipline
  * 
  */
-static void ZiplineUpdateOAM(void)
+static void ZiplineUpdateOam(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+        if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
         {
             switch (gCurrentSprite.work1)
             {
@@ -241,7 +242,7 @@ static void ZiplineUpdateOAM(void)
     }
     else
     {
-        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+        if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
         {
             switch (gCurrentSprite.work1)
             {
@@ -362,7 +363,7 @@ static void ZiplineInit(void)
     ZiplineCheckColliding();
 
     // Set OAM
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+    if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
         gCurrentSprite.pOam = sZiplineOam_OnIdle;
     else
         gCurrentSprite.pOam = sZiplineOam_OffIdle;
@@ -382,7 +383,7 @@ static void ZiplineUpdate(void)
         gCurrentSprite.ignoreSamusCollisionTimer = CONVERT_SECONDS(0.25f);
     }
 
-    ZiplineUpdateOAM();
+    ZiplineUpdateOam();
     if (gCurrentSprite.health == ZIPLINE_HEALTH_MOVING)
     {
         // Move
@@ -408,7 +409,7 @@ static void ZiplineUpdate(void)
  */
 static void ZiplineButtonInit(void)
 {
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+    if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
         gCurrentSprite.pOam = sZiplineButtonOam_OnIdle;
     else
         gCurrentSprite.pOam = sZiplineButtonOam_OffIdle;
@@ -470,7 +471,7 @@ static void ZiplineButtonBindZipline(void)
     gCurrentSprite.work1 = ramSlot;
     
     // Set behavior
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+    if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
         ZiplineButtonIdleInit();
     else
         gCurrentSprite.pose = ZIPLINE_BUTTON_POSE_OFF;
@@ -482,7 +483,7 @@ static void ZiplineButtonBindZipline(void)
  */
 static void ZiplineButtonOff(void)
 {
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+    if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
         ZiplineButtonIdleInit(); // Set on
 }
 
