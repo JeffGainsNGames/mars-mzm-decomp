@@ -1506,7 +1506,7 @@ void PauseDebugEquipTank(u8 tankOrEquip)
 
     change = 0;
     
-    if (tankOrEquip == 0)
+    if (tankOrEquip == 0) // Tank
     {
         if (gChangedInput & (KEY_R | KEY_START))
         {
@@ -1519,8 +1519,10 @@ void PauseDebugEquipTank(u8 tankOrEquip)
             gEquipment.maxPowerBombs = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].powerBomb *
                 sTankIncreaseAmount[gDifficulty].powerBomb + sStartingHealthAmmo.powerBomb;
 
+            #ifndef BUGFIX
             gEquipment.suitMisc |= SMF_MORPH_BALL | SMF_POWER_GRIP;
             gEquipment.beamBombs |= BBF_BOMBS;
+            #endif // !BUGFIX
 
             change = 1;
         }
@@ -1534,7 +1536,7 @@ void PauseDebugEquipTank(u8 tankOrEquip)
             change = 1;
         }
     }
-    else
+    else // Equip
     {
         if (gChangedInput & (KEY_R | KEY_START))
         {
@@ -1558,24 +1560,33 @@ void PauseDebugEquipTank(u8 tankOrEquip)
         }
     }
 
+    #ifdef BUGFIX
+    if (change == 2)
+    #else // !BUGFIX
     if (change != 0)
+    #endif // !BUGFIX
     {
         UpdateSuitType(gEquipment.suitType);
         PauseDebugActivateAbilities();
     }
 
-    if (change == 1)
+    if (change == 1) // Tank
     {
         gEquipment.currentEnergy = gEquipment.maxEnergy;
         gEquipment.currentMissiles = gEquipment.maxMissiles;
         gEquipment.currentSuperMissiles = gEquipment.maxSuperMissiles;
         gEquipment.currentPowerBombs = gEquipment.maxPowerBombs;
 
+        #ifdef BUGFIX
+        PauseDebugDrawAffectedGroups((1 << PAUSE_DEBUG_GROUP_CURRENT_ENERGY) | (1 << PAUSE_DEBUG_GROUP_CURRENT_MISSILES) |
+            (1 << PAUSE_DEBUG_GROUP_CURRENT_SUPER_MISSILES) | (1 << PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS));
+        #else // !BUGFIX
         PauseDebugDrawAffectedGroups((1 << PAUSE_DEBUG_GROUP_BOMB) | (1 << PAUSE_DEBUG_GROUP_MISC) |
             (1 << PAUSE_DEBUG_GROUP_CURRENT_ENERGY) | (1 << PAUSE_DEBUG_GROUP_CURRENT_MISSILES) |
             (1 << PAUSE_DEBUG_GROUP_CURRENT_SUPER_MISSILES) | (1 << PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS));
+        #endif // BUGFIX
     }
-    else if (change == 2)
+    else if (change == 2) // Equip
     {
 #ifdef RANDOMIZER
         PauseDebugDrawAffectedGroups((1 << PAUSE_DEBUG_GROUP_BEAM) | (1 << PAUSE_DEBUG_GROUP_BOMB) |
