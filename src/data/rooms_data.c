@@ -5774,6 +5774,7 @@ const struct Door sCrateriaDoors[53] = {
 		.destinationDoor = 3,
 #else // !RANDOMIZER
 		.destinationDoor = 42,
+#endif // RANDOMIZER
 		.xExit = -BLOCK_TO_PIXEL(2),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -5789,13 +5790,14 @@ const struct Door sCrateriaDoors[53] = {
 		.destinationDoor = 2,
 #else // !RANDOMIZER
 		.destinationDoor = 5,
+#endif // RANDOMIZER
 		.xExit = BLOCK_TO_PIXEL(2),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
 #ifdef RANDOMIZER
 		// Remove event based connection at top right of Crateria 0
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_NORMAL | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 #else // !RANDOMIZER
 		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 #endif // RANDOMIZER
@@ -5964,7 +5966,7 @@ const struct Door sCrateriaDoors[53] = {
 	},
 	{
 #ifdef RANDOMIZER
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_NORMAL,
 #else // !RANDOMIZER
 		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 #endif // RANDOMIZER
@@ -5977,6 +5979,7 @@ const struct Door sCrateriaDoors[53] = {
 		.destinationDoor = 0x2F,
 #else // !RANDOMIZER
 		.destinationDoor = 15,
+#endif // RANDOMIZER
 		.xExit = BLOCK_TO_PIXEL(2),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -6060,7 +6063,7 @@ const struct Door sCrateriaDoors[53] = {
 	{
 #ifdef RANDOMIZER
 		// Remove event based connection at bottom right of Crateria 0
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_NORMAL,
 #else // !RANDOMIZER
 		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 #endif // RANDOMIZER
@@ -6098,7 +6101,7 @@ const struct Door sCrateriaDoors[53] = {
 	{
 #ifdef RANDOMIZER
 		// Remove event connection when leaving power grip room
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_NORMAL,
 #else // !RANDOMIZER
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 #endif // RANDOMIZER
@@ -6901,6 +6904,7 @@ const struct Door sChozodiaDoors[246] = {
 		.destinationDoor = 0xA5,
 #else // !RANDOMIZER
 		.destinationDoor = 51,
+#endif // RANDOMIZER
 		.xExit = BLOCK_TO_PIXEL(2),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -6950,7 +6954,7 @@ const struct Door sChozodiaDoors[246] = {
 	},
 	{
 #ifdef RANDOMIZER
-		.type = DOOR_TYPE_SET_MOTHER_SHIP | DOOR_TYPE_EXISTS | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
+		.type = DOOR_TYPE_SET_MOTHER_SHIP | DOOR_TYPE_NORMAL | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 #else // !RANDOMIZER
 		.type = DOOR_TYPE_SET_MOTHER_SHIP | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 #endif // RANDOMIZER
@@ -6964,6 +6968,7 @@ const struct Door sChozodiaDoors[246] = {
 		.destinationDoor = 0xA9,
 #else // !RANDOMIZER
 		.destinationDoor = 52,
+#endif // RANDOMIZER
 		.xExit = -BLOCK_TO_PIXEL(2),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -8993,7 +8998,7 @@ const struct Door sChozodiaDoors[246] = {
 	},
 	{
 #ifdef RANDOMIZER
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_NORMAL,
 #else // !RANDOMIZER
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 #endif // RANDOMIZER
@@ -9007,6 +9012,7 @@ const struct Door sChozodiaDoors[246] = {
 		.destinationDoor = 0xF2,
 #else // !RANDOMIZER
 		.destinationDoor = 239,
+#endif // RANDOMIZER
 		.xExit = BLOCK_TO_PIXEL(0),
 		.yExit = -BLOCK_TO_PIXEL(2)
 	},

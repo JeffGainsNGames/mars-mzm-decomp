@@ -1098,7 +1098,7 @@ void ConnectionCheckPlayCutsceneDuringTransition(Area area, u8 dstRoomPlusOne)
 #ifdef RANDOMIZER
                 if (sRandoRemoveCutscenes)
                 {
-                    EventFunction(EVENT_ACTION_SETTING, EVENT_ENTER_MOTHERSHIP_DEMO_PLAYED);
+                    SET_EVENT(EVENT_ENTER_MOTHERSHIP_DEMO_PLAYED);
                 }
                 else
 #endif // RANDOMIZER
@@ -1133,7 +1133,7 @@ void ConnectionCheckPlayCutsceneDuringAreaConnection(void)
 #ifdef RANDOMIZER
                 if (sRandoRemoveCutscenes)
                 {
-                    EventFunction(EVENT_ACTION_SETTING, EVENT_ENTER_NORFAIR_DEMO_PLAYED);
+                    SET_EVENT(EVENT_ENTER_NORFAIR_DEMO_PLAYED);
                 }
                 else
 #endif // RANDOMIZER
@@ -1159,7 +1159,7 @@ void ConnectionCheckPlayCutsceneDuringAreaConnection(void)
 #ifdef RANDOMIZER
                 if (sRandoRemoveCutscenes)
                 {
-                    EventFunction(EVENT_ACTION_SETTING, EVENT_EXIT_KRAID_DEMO_PLAYED);
+                    SET_EVENT(EVENT_EXIT_KRAID_DEMO_PLAYED);
                 }
                 else
 #endif // RANDOMIZER
@@ -1179,7 +1179,7 @@ void ConnectionCheckPlayCutsceneDuringAreaConnection(void)
 #ifdef RANDOMIZER
                 if (sRandoRemoveCutscenes)
                 {
-                    EventFunction(EVENT_ACTION_SETTING, EVENT_ENTER_RIDLEY_DEMO_PLAYED);
+                    SET_EVENT(EVENT_ENTER_RIDLEY_DEMO_PLAYED);
                 }
                 else
 #endif // RANDOMIZER
@@ -1199,7 +1199,7 @@ void ConnectionCheckPlayCutsceneDuringAreaConnection(void)
 #ifdef RANDOMIZER
                 if (sRandoRemoveCutscenes)
                 {
-                    EventFunction(EVENT_ACTION_SETTING, EVENT_ENTER_TOURIAN_DEMO_PLAYED);
+                    SET_EVENT(EVENT_ENTER_TOURIAN_DEMO_PLAYED);
                 }
                 else
 #endif // RANDOMIZER

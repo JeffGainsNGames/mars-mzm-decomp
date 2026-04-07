@@ -275,7 +275,7 @@ u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
 
 #ifdef RANDOMIZER
     // Check for ziplines and fully powered suit
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+    if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
         completionPercentage++;
     if (gEquipment.suitType == SUIT_FULLY_POWERED)
         completionPercentage++;

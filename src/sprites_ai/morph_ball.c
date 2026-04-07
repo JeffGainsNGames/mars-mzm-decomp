@@ -25,7 +25,7 @@
 static void MorphBallInit(void)
 {
 #ifdef RANDOMIZER
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LOCATION_MORPH_BALL))
+    if (CHECK_EVENT(EVENT_LOCATION_MORPH_BALL))
 #else // !RANDOMIZER
     if (gEquipment.suitMisc & SMF_MORPH_BALL)
 #endif // RANDOMIZER
@@ -77,7 +77,7 @@ static void MorphBallGet(void)
 
 #ifdef RANDOMIZER
         RandoCollectMajorLocationItem(ITEM_SOURCE_MORPH_BALL);
-        EventFunction(EVENT_ACTION_SETTING, EVENT_LOCATION_MORPH_BALL);
+        SET_EVENT(EVENT_LOCATION_MORPH_BALL);
 #else // !RANDOMIZER
         // Give morph ball
         gEquipment.suitMisc |= SMF_MORPH_BALL;

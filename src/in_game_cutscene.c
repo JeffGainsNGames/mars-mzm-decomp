@@ -867,7 +867,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
             gEquipment.downloadedMapStatus = sStartingInfo.downloadedMapStatus;
 
             if (sStartingInfo.ziplinesActivated)
-                EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_ACTIVATED);
+                SET_EVENT(EVENT_ZIPLINES_ACTIVATED);
 
             for (i = 0; i < 8; i++)
             {

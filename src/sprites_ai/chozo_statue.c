@@ -90,89 +90,89 @@ void ChozoStatueRegisterItem(PrimarySprite spriteId)
 #ifdef RANDOMIZER
         case PSPRITE_CHOZO_STATUE_LONG:
             RandoCollectMajorLocationItem(ITEM_SOURCE_LONG_BEAM);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_LOCATION_LONG_BEAM);
+            SET_EVENT(EVENT_LOCATION_LONG_BEAM);
             break;
 
         case PSPRITE_CHOZO_STATUE_LONG_HINT:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_STATUE_LONG_BEAM_GRABBED);
+            SET_EVENT(EVENT_STATUE_LONG_BEAM_GRABBED);
             break;
 
         case PSPRITE_CHOZO_STATUE_ICE:
             RandoCollectMajorLocationItem(ITEM_SOURCE_ICE_BEAM);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_LOCATION_ICE_BEAM);
+            SET_EVENT(EVENT_LOCATION_ICE_BEAM);
             break;
 
         case PSPRITE_CHOZO_STATUE_ICE_HINT:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_STATUE_ICE_BEAM_GRABBED);
+            SET_EVENT(EVENT_STATUE_ICE_BEAM_GRABBED);
             break;
 
         case PSPRITE_CHOZO_STATUE_WAVE:
             RandoCollectMajorLocationItem(ITEM_SOURCE_WAVE_BEAM);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_LOCATION_WAVE_BEAM);
+            SET_EVENT(EVENT_LOCATION_WAVE_BEAM);
             break;
 
         case PSPRITE_CHOZO_STATUE_WAVE_HINT:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_STATUE_WAVE_BEAM_GRABBED);
+            SET_EVENT(EVENT_STATUE_WAVE_BEAM_GRABBED);
             break;
 
         case PSPRITE_CHOZO_STATUE_BOMB:
             RandoCollectMajorLocationItem(ITEM_SOURCE_BOMBS);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_LOCATION_BOMBS);
+            SET_EVENT(EVENT_LOCATION_BOMBS);
             break;
 
         case PSPRITE_CHOZO_STATUE_BOMB_HINT:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_STATUE_BOMBS_GRABBED);
+            SET_EVENT(EVENT_STATUE_BOMBS_GRABBED);
             break;
 
         case PSPRITE_CHOZO_STATUE_SPEEDBOOSTER:
             RandoCollectMajorLocationItem(ITEM_SOURCE_SPEED_BOOSTER);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_LOCATION_SPEED_BOOSTER);
+            SET_EVENT(EVENT_LOCATION_SPEED_BOOSTER);
             break;
 
         case PSPRITE_CHOZO_STATUE_SPEEDBOOSTER_HINT:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_STATUE_SPEEDBOOSTER_GRABBED);
+            SET_EVENT(EVENT_STATUE_SPEEDBOOSTER_GRABBED);
             break;
 
         case PSPRITE_CHOZO_STATUE_HIGH_JUMP:
             RandoCollectMajorLocationItem(ITEM_SOURCE_HI_JUMP);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_HIGH_JUMP_OBTAINED);
+            SET_EVENT(EVENT_HIGH_JUMP_OBTAINED);
             break;
 
         case PSPRITE_CHOZO_STATUE_HIGH_JUMP_HINT:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_STATUE_HIGH_JUMP_GRABBED);
+            SET_EVENT(EVENT_STATUE_HIGH_JUMP_GRABBED);
             break;
 
         case PSPRITE_CHOZO_STATUE_SCREW:
             RandoCollectMajorLocationItem(ITEM_SOURCE_SCREW_ATTACK);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_SCREW_ATTACK_OBTAINED);
+            SET_EVENT(EVENT_SCREW_ATTACK_OBTAINED);
             break;
 
         case PSPRITE_CHOZO_STATUE_SCREW_HINT:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_STATUE_SCREW_ATTACK_GRABBED);
+            SET_EVENT(EVENT_STATUE_SCREW_ATTACK_GRABBED);
             break;
 
         case PSPRITE_CHOZO_STATUE_VARIA:
             RandoCollectMajorLocationItem(ITEM_SOURCE_VARIA_SUIT);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_VARIA_SUIT_OBTAINED);
+            SET_EVENT(EVENT_VARIA_SUIT_OBTAINED);
             break;
 
         case PSPRITE_CHOZO_STATUE_VARIA_HINT:
-            EventFunction(EVENT_ACTION_SETTING, EVENT_STATUE_VARIA_SUIT_GRABBED);
+            SET_EVENT(EVENT_STATUE_VARIA_SUIT_GRABBED);
             break;
 
         case PSPRITE_CHOZO_STATUE_SPACE_JUMP:
             RandoCollectMajorLocationItem(ITEM_SOURCE_SPACE_JUMP);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_SPACE_JUMP_OBTAINED);
+            SET_EVENT(EVENT_SPACE_JUMP_OBTAINED);
             break;
 
         case PSPRITE_CHOZO_STATUE_GRAVITY:
             RandoCollectMajorLocationItem(ITEM_SOURCE_GRAVITY_SUIT);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_GRAVITY_SUIT_OBTAINED);
+            SET_EVENT(EVENT_GRAVITY_SUIT_OBTAINED);
             break;
 
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
             RandoCollectMajorLocationItem(ITEM_SOURCE_PLASMA_BEAM);
-            EventFunction(EVENT_ACTION_SETTING, EVENT_PLASMA_BEAM_OBTAINED);
+            SET_EVENT(EVENT_PLASMA_BEAM_OBTAINED);
             break;
 #else // !RANDOMIZER
         case PSPRITE_CHOZO_STATUE_LONG:
@@ -358,57 +358,57 @@ ChozoStatueBehavior ChozoStatueGetBehavior(PrimarySprite spriteId)
 
 #ifdef RANDOMIZER
         case PSPRITE_CHOZO_STATUE_LONG:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LOCATION_LONG_BEAM))
+            if (CHECK_EVENT(EVENT_LOCATION_LONG_BEAM))
                 behavior++;
             break;
         
         case PSPRITE_CHOZO_STATUE_ICE:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LOCATION_ICE_BEAM))
+            if (CHECK_EVENT(EVENT_LOCATION_ICE_BEAM))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_WAVE:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LOCATION_WAVE_BEAM))
+            if (CHECK_EVENT(EVENT_LOCATION_WAVE_BEAM))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_PLASMA_BEAM_OBTAINED))
+            if (CHECK_EVENT(EVENT_PLASMA_BEAM_OBTAINED))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_BOMB:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LOCATION_BOMBS))
+            if (CHECK_EVENT(EVENT_LOCATION_BOMBS))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_SPEEDBOOSTER:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LOCATION_SPEED_BOOSTER))
+            if (CHECK_EVENT(EVENT_LOCATION_SPEED_BOOSTER))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_HIGH_JUMP:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_HIGH_JUMP_OBTAINED))
+            if (CHECK_EVENT(EVENT_HIGH_JUMP_OBTAINED))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_SCREW:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_SCREW_ATTACK_OBTAINED))
+            if (CHECK_EVENT(EVENT_SCREW_ATTACK_OBTAINED))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_VARIA:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_VARIA_SUIT_OBTAINED))
+            if (CHECK_EVENT(EVENT_VARIA_SUIT_OBTAINED))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_SPACE_JUMP:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_SPACE_JUMP_OBTAINED))
+            if (CHECK_EVENT(EVENT_SPACE_JUMP_OBTAINED))
                 behavior++;
             break;
 
         case PSPRITE_CHOZO_STATUE_GRAVITY:
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_GRAVITY_SUIT_OBTAINED))
+            if (CHECK_EVENT(EVENT_GRAVITY_SUIT_OBTAINED))
                 behavior++;
             break;
 #else // !RANDOMIZER

@@ -33,7 +33,7 @@
 static void ChargeBeamInit(void)
 {
 #ifdef RANDOMIZER
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_CHARGE_BEAM_OBTAINED))
+    if (CHECK_EVENT(EVENT_CHARGE_BEAM_OBTAINED))
 #else // !RANDOMIZER
     if (gEquipment.beamBombs & BBF_CHARGE_BEAM)
 #endif // RANDOMIZER
@@ -98,7 +98,7 @@ static void ChargeBeamVisibleInit(void)
 #ifdef RANDOMIZER
     // Charge beam's vanilla graphics can't fit other items, so use power grip's OAM
     // since all 3 16x16 frames are on the left side
-    gCurrentSprite.pOam = sPowerGripOAM_Idle;
+    gCurrentSprite.pOam = sPowerGripOam_Idle;
 #else // !RANDOMIZER
     gCurrentSprite.pOam = sChargeBeamOam_Visible;
 #endif // RANDOMIZER
@@ -153,7 +153,7 @@ static void ChargeBeamIdle(void)
 
 #ifdef RANDOMIZER
         RandoCollectMajorLocationItem(ITEM_SOURCE_CHARGE_BEAM);
-        EventFunction(EVENT_ACTION_SETTING, EVENT_CHARGE_BEAM_OBTAINED);
+        SET_EVENT(EVENT_CHARGE_BEAM_OBTAINED);
 #else // !RANDOMIZER
         // Set charge beam
         gEquipment.beamBombs |= BBF_CHARGE_BEAM;

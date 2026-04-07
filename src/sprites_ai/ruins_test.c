@@ -1149,8 +1149,8 @@ static void RuinsTestDespawn(void)
         gInGameTimerAtBosses[2] = gInGameTimer;
 
 #ifdef RANDOMIZER
-        EventFunction(EVENT_ACTION_SETTING, EVENT_MOTHER_BRAIN_KILLED);
-        EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_ZEBES);
+        SET_EVENT(EVENT_MOTHER_BRAIN_KILLED);
+        SET_EVENT(EVENT_ESCAPED_ZEBES);
 
         // TODO: Restore previous suit type if suitless
         if (gEquipment.suitType == SUIT_SUITLESS)
@@ -1184,8 +1184,8 @@ static void RuinsTestDespawn(void)
 #endif // RANDOMIZER
 
 // #ifdef RANDOMIZER
-//         EventFunction(EVENT_ACTION_SETTING, EVENT_MOTHER_BRAIN_KILLED);
-//         EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_ZEBES);
+//         SET_EVENT(EVENT_MOTHER_BRAIN_KILLED);
+//         SET_EVENT(EVENT_ESCAPED_ZEBES);
 
 //         if (sRandoRemoveCutscenes)
 //         {

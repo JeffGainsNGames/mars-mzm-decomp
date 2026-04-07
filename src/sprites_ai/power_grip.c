@@ -29,7 +29,7 @@ void PowerGrip(void)
     {
         case SPRITE_POSE_UNINITIALIZED:
 #ifdef RANDOMIZER
-            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_POWER_GRIP_OBTAINED))
+            if (CHECK_EVENT(EVENT_POWER_GRIP_OBTAINED))
 #else // !RANDOMIZER
             if (gEquipment.suitMisc & SMF_POWER_GRIP)
 #endif // RANDOMIZER
@@ -71,11 +71,11 @@ void PowerGrip(void)
                 gCurrentSprite.pose = POWER_GRIP_POSE_BEING_ACQUIRED;
                 gCurrentSprite.work0 = 0;
 #ifdef RANDOMIZER
-                EventFunction(EVENT_ACTION_SETTING, EVENT_POWER_GRIP_OBTAINED);
+                SET_EVENT(EVENT_POWER_GRIP_OBTAINED);
                 RandoCollectMajorLocationItem(ITEM_SOURCE_POWER_GRIP);
 #else // !RANDOMIZER
                 gEquipment.suitMisc |= SMF_POWER_GRIP;
-                EventFunction(EVENT_ACTION_SETTING, EVENT_POWER_GRIP_OBTAINED);
+                SET_EVENT(EVENT_POWER_GRIP_OBTAINED);
 
                 SpriteSpawnPrimary(PSPRITE_MESSAGE_BANNER, MESSAGE_POWER_GRIP, 6,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
