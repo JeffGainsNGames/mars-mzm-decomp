@@ -7,7 +7,7 @@
   - `sEnglishText_Message_UnknownItem*` and `sEnglishTextPointers_Message` in [text_data.c](src/data/text_data.c)
   - `StatusScreenSuitlessItems` in [status_screen.c](src/menus/status_screen.c)
 - Get any item from anywhere
-  - `MessageBannerPopUp`, `MessageBannerStatic`, and `MessageBannerRemovalAnimation` in [message_banner.c](src/sprites_AI/message_banner.c)
+  - `MessageBannerPopUp`, `MessageBannerStatic`, and `MessageBannerRemovalAnimation` in [message_banner.c](src/sprites_ai/message_banner.c)
   - `TextProcessMessageBanner` in [text.c](src/text.c)
 - Get any item from a minor location (tanks)
   - `BgClipCheckTouchingTransitionOrTank` in [bg_clip.c](src/bg_clip.c)
@@ -15,17 +15,17 @@
   - `RoomLoadTileset` in [room.c](src/room.c)
   - `AnimatedGraphicsLoad` in [animated_graphics.c](src/animated_graphics.c)
 - Get any item from a major location (ability)
-  - `MorphBallInit` and `MorphBallGet` in [morph_ball.c](src/sprites_AI/morph_ball.c)
-  - `PowerGrip` in [power_grip.c](src/sprites_AI/power_grip.c)
-  - `ChargeBeamInit` and `ChargeBeamIdle` in [charge_beam.c](src/sprites_AI/charge_beam.c)
-  - `ChozoStatueRegisterItem` and `ChozoStatueGetBehavior` in [chozo_statue.c](src/sprites_AI/chozo_statue.c)
-  - `ChozoBallRegisterItem` in [chozo_ball.c](src/sprites_AI/chozo_ball.c)
+  - `MorphBallInit` and `MorphBallGet` in [morph_ball.c](src/sprites_ai/morph_ball.c)
+  - `PowerGrip` in [power_grip.c](src/sprites_ai/power_grip.c)
+  - `ChargeBeamInit` and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
+  - `ChozoStatueRegisterItem` and `ChozoStatueGetBehavior` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
+  - `ChozoBallRegisterItem` in [chozo_ball.c](src/sprites_ai/chozo_ball.c)
 - Get any item from zipline generator
-  - `ZiplineGeneratorInit` and `ZiplineGeneratorActivating` in [zipline_generator.c](src/sprites_AI/zipline_generator.c)
+  - `ZiplineGeneratorInit` and `ZiplineGeneratorActivating` in [zipline_generator.c](src/sprites_ai/zipline_generator.c)
 - Get any item from Ruins Test
-  - `RuinsTestDespawn` and `RuinsTestSamusReflectionEnd` in [ruins_test.c](src/sprites_AI/ruins_test.c)
-  - `FallingChozoPillar` in [falling_chozo_pillar.c](src/sprites_AI/falling_chozo_pillar.c)
-  - `MessageBannerRemovalInit` and `MessageBannerRemovalAnimation` in [message_banner.c](src/sprites_AI/message_banner.c)
+  - `RuinsTestDespawn` and `RuinsTestSamusReflectionEnd` in [ruins_test.c](src/sprites_ai/ruins_test.c)
+  - `FallingChozoPillar` in [falling_chozo_pillar.c](src/sprites_ai/falling_chozo_pillar.c)
+  - `MessageBannerRemovalInit` and `MessageBannerRemovalAnimation` in [message_banner.c](src/sprites_ai/message_banner.c)
 - Main missiles, super missiles, and power bombs
   - Equipment struct has additional bytes for main item flags
     - `MainItemFlags` in [constants/samus.h](include/constants/samus.h)
@@ -68,25 +68,25 @@
   - `sMapScreenChozoStatueAreaNamesEnglishGfx` in [pause_screen_data.c](src/data/menus/pause_screen_data.c)
   - `sChozoStatueTargetPathBrinstar` and `sChozoStatueTargetPathNorfair` in [pause_screen_sub_menus_data.c](src/data/menus/pause_screen_sub_menus_data.c)
 - Change charge beam OAM to work with any item (and don't spawn glow)
-  - `ChargeBeamSpawnGlow`, `ChargeBeamVisibleInit`, and `ChargeBeamIdle` in [charge_beam.c](src/sprites_AI/charge_beam.c)
+  - `ChargeBeamSpawnGlow`, `ChargeBeamVisibleInit`, and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
 - Unlock Imago door when it dies (instead of waiting to collect super missiles)
-  - `ImagoSetEvent` in [imago.c](src/sprites_AI/imago.c)
+  - `ImagoSetEvent` in [imago.c](src/sprites_ai/imago.c)
 - Allow both escape timers to work in any order
   - `EscapeDetermineTimer` in [escape.c](src/escape.c)
 - Make Chozo pillar near power grip always extended
-  - `RisingChozoPillar` and `ChozoPillarPlatform` in [rising_chozo_pillar.c](src/sprites_AI/rising_chozo_pillar.c)
+  - `RisingChozoPillar` and `ChozoPillarPlatform` in [rising_chozo_pillar.c](src/sprites_ai/rising_chozo_pillar.c)
 - Allow glass tube to be broken any time
-  - `GlassTubeCheckPowerBombCollision` in [glass_tube.c](src/sprites_AI/glass_tube.c)
+  - `GlassTubeCheckPowerBombCollision` in [glass_tube.c](src/sprites_ai/glass_tube.c)
 - Using any beam on Ruins Test can hurt Samus
-  - `RuinsTestProjectileCollision` in [ruins_test.c](src/sprites_AI/ruins_test.c)
+  - `RuinsTestProjectileCollision` in [ruins_test.c](src/sprites_ai/ruins_test.c)
 - Defeating Ruins Test sets Mother Brain killed event and Zebes escaped event
-  - `RuinsTestDespawn` in [ruins_test.c](src/sprites_AI/ruins_test.c)
+  - `RuinsTestDespawn` in [ruins_test.c](src/sprites_ai/ruins_test.c)
 - Fix space pirate alarm music
-  - `DisableChozodiaAlarm` and `DecrementChozodiaAlarm` in [space_pirate.c](src/sprites_AI/space_pirate.c)
+  - `DisableChozodiaAlarm` and `DecrementChozodiaAlarm` in [space_pirate.c](src/sprites_ai/space_pirate.c)
 - Fix space pirate power bomb OAM (flip horizontally)
   - `sSpacePirateCarryingPowerBombOam_Frame*` in [space_pirate.c](src/data/sprites/space_pirate.c)
 - Fix searchlight eye vulnerability condition
-  - `SearchlightEyeInit` in [searchlight_eye.c](src/sprites_AI/searchlight_eye.c)
+  - `SearchlightEyeInit` in [searchlight_eye.c](src/sprites_ai/searchlight_eye.c)
 - Fix ending percent calculation and rescale to 100%
   - `ChozodiaEscapeGetItemCountAndEndingNumber` and `ChozodiaEscapeGetItemCountAndEndingNumber` in [chozodia_escape.c](src/chozodia_escape.c)
   - `EndingImageInit` in [ending_and_gallery.c](src/ending_and_gallery.c)
@@ -95,17 +95,17 @@
 
 ## Room/Tileset Changes
 - Remove vines in Norfair and near varia
-  - `sNorfair_4_Spriteset0`, `sNorfair_4_Spriteset1`, and `sNorfair_4_Spriteset2` in [Norfair_4.c](src/data/rooms/norfair/Norfair_4.c)
-  - `sBrinstar_28_Spriteset1` and `sBrinstar_28_Spriteset2` in [Brinstar_28.c](src/data/rooms/brinstar/Brinstar_28.c)
+  - `sNorfair_4_Spriteset0`, `sNorfair_4_Spriteset1`, and `sNorfair_4_Spriteset2` in [norfair_4.c](src/data/rooms/norfair/norfair_4.c)
+  - `sBrinstar_28_Spriteset1` and `sBrinstar_28_Spriteset2` in [brinstar_28.c](src/data/rooms/brinstar/brinstar_28.c)
 - Use Crateria room 0 instead of room 5 (landing site)
   - `sCrateriaRoomEntries` and `sCrateriaDoors` in [rooms_data.c](src/data/rooms_data.c)
   - `sHatchLockEventsCrateria` in [hatch_data.c](src/data/hatch_data.c)
-  - `GunshipInit` in [gunship.c](src/sprites_AI/gunship.c)
+  - `GunshipInit` in [gunship.c](src/sprites_ai/gunship.c)
 - Fix Crateria rooms 1 and 0x15 (large room left of landing site)
   - `sHatchLockEventsCrateria` in [hatch_data.c](src/data/hatch_data.c)
   - `sCrateriaDoors` in [rooms_data.c](src/data/rooms_data.c)
 - Fix Crateria rooms near power grip (8, 0x10, and 0x11)
-  - `sCrateria_17_Bg1` and `sCrateria_17_Clipdata` in [Crateria_17.c](src/data/rooms/crateria/Crateria_17.c)
+  - `sCrateria_17_Bg1` and `sCrateria_17_Clipdata` in [crateria_17.c](src/data/rooms/crateria/crateria_17.c)
   - `sCrateriaDoors` in [rooms_data.c](src/data/rooms_data.c)
 - Fix Chozodia rooms near glass tube
   - `sChozodiaDoors` in [rooms_data.c](src/data/rooms_data.c)
@@ -128,7 +128,7 @@
 
 ## Options
 - Allow black space pirates to be hit by any beam
-  - `BlackSpacePirateProjectileCollision` in [black_space_pirate.c](src/sprites_AI/black_space_pirate.c)
+  - `BlackSpacePirateProjectileCollision` in [black_space_pirate.c](src/sprites_ai/black_space_pirate.c)
 - Skip door transitions
   - `ConnectionProcessDoorType` in [connection.c](src/connection.c)
 - New file difficulty options
@@ -136,7 +136,7 @@
   - `sFileScreenMessagesInfo` in [file_select_data.c](src/data/menus/file_select_data.c)
   - `sEnglishText_FileScreen_DifficultyHardOnly` and `sEnglishTextPointers_FileScreen` in [text_data.c](src/data/text_data.c)
 - Use ball launchers without bombs
-  - `MorphBallLauncherDetectBomb` in [morph_ball_launcher.c](src/sprites_AI/morph_ball_launcher.c)
+  - `MorphBallLauncherDetectBomb` in [morph_ball_launcher.c](src/sprites_ai/morph_ball_launcher.c)
 - Disable infinite bomb jumping
   - `SamusSetMidAir` in [samus.c](src/samus.c)
 - Disable wall jumping
@@ -144,11 +144,11 @@
 - Skip suitless sequence
   - `TourianEscapeSubroutine` in [cutscene_utils.c](src/cutscenes/cutscene_utils.c)
   - `UpdateMusicAfterPause` in [room_music.c](src/room_music.c)
-  - `GunshipFlying` in [gunship.c](src/sprites_AI/gunship.c)
+  - `GunshipFlying` in [gunship.c](src/sprites_ai/gunship.c)
 - Skip cutscenes
   - `ConnectionCheckPlayCutsceneDuringTransition` in [connection.c](src/connection.c)
   - `CheckPlayRoomMusicTrack` in [room_music.c](src/room_music.c)
-  - `GunshipFlying` in [gunship.c](src/sprites_AI/gunship.c)
-  - `KraidInit` and `KraidDying` in [kraid.c](src/sprites_AI/kraid.c)
-  - `RidleyCheckPlayCutscene` and `RidleyDying` in [ridley.c](src/sprites_AI/ridley.c)
-  - `RuinsTestDespawn` in [ruins_test.c](src/sprites_AI/ruins_test.c)
+  - `GunshipFlying` in [gunship.c](src/sprites_ai/gunship.c)
+  - `KraidInit` and `KraidDying` in [kraid.c](src/sprites_ai/kraid.c)
+  - `RidleyCheckPlayCutscene` and `RidleyDying` in [ridley.c](src/sprites_ai/ridley.c)
+  - `RuinsTestDespawn` in [ruins_test.c](src/sprites_ai/ruins_test.c)
