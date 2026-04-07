@@ -28,7 +28,9 @@
  * @brief Enables padding the ram with dummy values to get a matching rom
  * 
  */
+#ifndef RANDOMIZER
 #define RAM_PADDING
+#endif // RANDOMIZER
 
 /**
  * @brief Enables various fixes to known bugs, issues, or bad code.

@@ -118,7 +118,11 @@ void HudUpdateOam(void)
         }
         else
         {
+#ifdef RANDOMIZER
+            if (pEquipment->mainItemsActivation & MIF_MISSILES && pEquipment->maxMissiles != 0)
+#else // !RANDOMIZER
             if (pEquipment->maxMissiles != 0)
+#endif // RANDOMIZER
             {
                 // Missile digits
                 
@@ -138,7 +142,11 @@ void HudUpdateOam(void)
                 oamSlot++;
             }
 
+#ifdef RANDOMIZER
+            if (pEquipment->mainItemsActivation & MIF_SUPER_MISSILES && pEquipment->maxSuperMissiles != 0)
+#else // !RANDOMIZER
             if (pEquipment->maxSuperMissiles != 0)
+#endif // RANDOMIZER
             {
                 // Super missile digits
 
@@ -158,7 +166,11 @@ void HudUpdateOam(void)
                 oamSlot++;
             }
 
+#ifdef RANDOMIZER
+            if (pEquipment->mainItemsActivation & MIF_POWER_BOMBS && pEquipment->maxPowerBombs != 0)
+#else // !RANDOMIZER
             if (pEquipment->maxPowerBombs != 0)
+#endif // RANDOMIZER
             {
                 // Power bomb digits
 

@@ -120,7 +120,12 @@ struct SaveFile {
 
     u8 SamusAran_Text[SRAM_TEXT_SIZE];
 
+#ifdef RANDOMIZER
+    // Reduced by 4 since Equipment struct is 4 bytes bigger
+    u8 freeSpace[156];
+#else // !RANDOMIZER
     u8 freeSpace[160];
+#endif // RANDOMIZER
 
     struct SaveWorldData worldData;
 };
@@ -145,7 +150,12 @@ struct SaveDemo {
     u8 text[8];
     u8 useMotherShipDoors;
 
+#ifdef RANDOMIZER
+    // Reduced by 4 since Equipment struct is 4 bytes bigger
+    u8 padding_241[59];
+#else // !RANDOMIZER
     u8 padding_241[63];
+#endif // RANDOMIZER
 };
 
 struct SaveFileScreenOptions {

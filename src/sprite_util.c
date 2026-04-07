@@ -3190,7 +3190,11 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
                 if (fullLife)
                 {
                     // As default, either a small energy or a power bomb if the player unlocked them
+#ifdef RANDOMIZER
+                    if (gEquipment.mainItemsActivation & MIF_POWER_BOMBS && gEquipment.maxPowerBombs != 0)
+#else // !RANDOMIZER
                     if (gEquipment.maxPowerBombs != 0)
+#endif // RANDOMIZER
                         drop = PSPRITE_POWER_BOMB_DROP;
                     else
                         drop = PSPRITE_SMALL_ENERGY_DROP;
@@ -3225,7 +3229,11 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
             {
                 if (fullLife)
                 {
+#ifdef RANDOMIZER
+                    if (gEquipment.mainItemsActivation & MIF_SUPER_MISSILES && gEquipment.maxSuperMissiles != 0)
+#else // !RANDOMIZER
                     if (gEquipment.maxSuperMissiles != 0)
+#endif // RANDOMIZER
                         drop = PSPRITE_SUPER_MISSILE_DROP;
                     else
                         drop = PSPRITE_SMALL_ENERGY_DROP;
@@ -3259,7 +3267,11 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
             {
                 if (fullLife)
                 {
+#ifdef RANDOMIZER
+                    if (gEquipment.mainItemsActivation & MIF_MISSILES && gEquipment.maxMissiles != 0)
+#else // !RANDOMIZER
                     if (gEquipment.maxMissiles != 0)
+#endif // RANDOMIZER
                         drop = PSPRITE_MISSILE_DROP;
                     else
                         drop = PSPRITE_SMALL_ENERGY_DROP;

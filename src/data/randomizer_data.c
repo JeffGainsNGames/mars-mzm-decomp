@@ -11,6 +11,9 @@
 // New data
 
 const u8 sRandoEmptyGfx[384] = INCBIN_U8("data_rando/animated_gfx/empty.gfx");
+const u8 sRandoMainMissilesGfx[384] = INCBIN_U8("data_rando/animated_gfx/main_missiles.gfx");
+const u8 sRandoMainSuperMissilesGfx[384] = INCBIN_U8("data_rando/animated_gfx/main_super_missiles.gfx");
+const u8 sRandoMainPowerBombsGfx[384] = INCBIN_U8("data_rando/animated_gfx/main_power_bombs.gfx");
 const u8 sRandoLongBeamGfx[384] = INCBIN_U8("data_rando/animated_gfx/long_beam.gfx");
 const u8 sRandoChargeBeamGfx[384] = INCBIN_U8("data_rando/animated_gfx/charge_beam.gfx");
 const u8 sRandoIceBeamGfx[384] = INCBIN_U8("data_rando/animated_gfx/ice_beam.gfx");
@@ -25,10 +28,10 @@ const u8 sRandoHiJumpGfx[384] = INCBIN_U8("data_rando/animated_gfx/hi_jump.gfx")
 const u8 sRandoScrewAttackGfx[384] = INCBIN_U8("data_rando/animated_gfx/screw_attack.gfx");
 const u8 sRandoSpaceJumpGfx[384] = INCBIN_U8("data_rando/animated_gfx/space_jump.gfx");
 const u8 sRandoPowerGripGfx[384] = INCBIN_U8("data_rando/animated_gfx/power_grip.gfx");
-const u8 sRandoFullyPoweredGfx[384] = INCBIN_U8("data_rando/animated_gfx/morph_ball.gfx"); // TODO: fully_powered.gfx
+const u8 sRandoFullyPoweredGfx[384] = INCBIN_U8("data_rando/animated_gfx/fully_powered.gfx");
 const u8 sRandoZiplinesGfx[384] = INCBIN_U8("data_rando/animated_gfx/ziplines.gfx");
-// const u8 sRandoInfantMetroidGfx[384] = INCBIN_U8("data_rando/animated_gfx/infant_metroid.gfx");
-// const u8 sRandoAnonymousGfx[384] = INCBIN_U8("data_rando/animated_gfx/anonymous.gfx");
+const u8 sRandoInfantMetroidGfx[384] = INCBIN_U8("data_rando/animated_gfx/infant_metroid.gfx");
+const u8 sRandoAnonymousGfx[384] = INCBIN_U8("data_rando/animated_gfx/anonymous.gfx");
 
 // From patcher
 
@@ -45,10 +48,13 @@ const u8 sRandoTitleLine1[31] = "RANDOMIZER LINE 1";
 const u8 sRandoTitleLine2[31] = "RANDOMIZER LINE 2";
 
 const struct TankIncreaseAmounts sRandoTankIncreaseAmounts = {
-    .energy = 100,
-    .missiles = 5,
-    .superMissiles = 5,
-    .powerBombs = 2
+    .energyTank = 100,
+    .missileTank = 5,
+    .superMissileTank = 5,
+    .powerBombTank = 2,
+    .mainMissiles = 5,
+    .mainSuperMissiles = 5,
+    .mainPowerBombs = 2
 };
 
 const struct StartingInfo sStartingInfo = {
@@ -65,6 +71,7 @@ const struct StartingInfo sStartingInfo = {
     .maxPowerBombs = 0,
     .beamBombs = BBF_NONE,
     .suitMisc = SMF_NONE,
+    .mainItems = MIF_NONE,
     .downloadedMapStatus = 0,
     .suitType = SUIT_NORMAL,
     // Disabled hints

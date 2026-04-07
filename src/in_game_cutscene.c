@@ -840,9 +840,10 @@ void InGameCutsceneCheckPlayOnTransition(void)
             gEquipment.maxSuperMissiles = gEquipment.currentSuperMissiles = sStartingInfo.maxSuperMissiles;
             gEquipment.maxPowerBombs = gEquipment.currentPowerBombs = sStartingInfo.maxPowerBombs;
 
-            gEquipment.suitType = sStartingInfo.suitType;
             gEquipment.beamBombs = sStartingInfo.beamBombs;
             gEquipment.suitMisc = sStartingInfo.suitMisc;
+            gEquipment.mainItems = sStartingInfo.mainItems;
+            gEquipment.suitType = sStartingInfo.suitType;
 
             switch (gEquipment.suitType)
             {
@@ -850,17 +851,20 @@ void InGameCutsceneCheckPlayOnTransition(void)
                     // Don't activate unknown items
                     gEquipment.beamBombsActivation = gEquipment.beamBombs & ~BBF_PLASMA_BEAM;
                     gEquipment.suitMiscActivation = gEquipment.suitMisc & ~(SMF_SPACE_JUMP | SMF_GRAVITY_SUIT);
+                    gEquipment.mainItemsActivation = sStartingInfo.mainItems;
                     break;
                 case SUIT_FULLY_POWERED:
                     // Activate everything
                     gEquipment.beamBombsActivation = gEquipment.beamBombs;
                     gEquipment.suitMiscActivation = gEquipment.suitMisc;
+                    gEquipment.mainItemsActivation = sStartingInfo.mainItems;
                     break;
                 case SUIT_SUITLESS:
                     // Only activate power grip, long beam, and charge beam
                     // (even if you don't have them)
                     gEquipment.suitMiscActivation = SMF_POWER_GRIP;
                     gEquipment.beamBombsActivation = BBF_LONG_BEAM | BBF_CHARGE_BEAM;
+                    gEquipment.mainItemsActivation = MIF_NONE;
                     break;
             }
 

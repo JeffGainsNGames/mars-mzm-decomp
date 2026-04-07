@@ -3406,21 +3406,34 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
     
     weaponHigh = WH_NONE;
 
+#ifdef RANDOMIZER
+    if (!(pEquipment->mainItemsActivation & MIF_SUPER_MISSILES) || pEquipment->currentSuperMissiles == 0)
+#else // !RANDOMIZER
     if (pEquipment->currentSuperMissiles == 0)
+#endif // RANDOMIZER
     {
         // No missiles left, select super missiles
         pWeapon->missilesSelected = FALSE;
     }
+#ifdef RANDOMIZER
+    else if (!(pEquipment->mainItemsActivation & MIF_MISSILES) || pEquipment->currentMissiles == 0)
+#else // !RANDOMIZER
     else if (pEquipment->currentMissiles == 0)
+#endif // RANDOMIZER
     {
         // No super missiles left, select missiles
         pWeapon->missilesSelected = TRUE;
     }
     else if (gChangedInput & KEY_SELECT)
     {
-        // Toggle
-        pWeapon->missilesSelected ^= TRUE;
-        SoundPlay(SOUND_MISSILE_TOGGLE); // Selecting missiles
+#ifdef RANDOMIZER
+        if ((gEquipment.mainItemsActivation & (MIF_MISSILES | MIF_SUPER_MISSILES)) == (MIF_MISSILES | MIF_SUPER_MISSILES))
+#endif // RANDOMIZER
+        {
+            // Toggle
+            pWeapon->missilesSelected ^= TRUE;
+            SoundPlay(SOUND_MISSILE_TOGGLE); // Selecting missiles
+        }
     }
 
     switch (pData->pose)
@@ -3432,8 +3445,15 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
         case SPOSE_GETTING_HURT_IN_MORPH_BALL:
         case SPOSE_GETTING_KNOCKED_BACK_IN_MORPH_BALL:
             // Check select power bombs
+#ifdef RANDOMIZER
+            if (gButtonInput & gButtonAssignments.armWeapon &&
+                pEquipment->mainItemsActivation & MIF_POWER_BOMBS && pEquipment->currentPowerBombs != 0)
+#else // !RANDOMIZER
             if (gButtonInput & gButtonAssignments.armWeapon && pEquipment->currentPowerBombs != 0)
+#endif // RANDOMIZER
+            {
                 weaponHigh = WH_POWER_BOMB;
+            }
             break;
 
         case SPOSE_HANGING_ON_LEDGE:
@@ -3458,14 +3478,24 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
             {
                 if (!pWeapon->missilesSelected)
                 {
-                    // Missiles are select, check again because by default missiles are selected in any case
-                    if (pEquipment->currentMissiles != 0)
-                        weaponHigh = WH_MISSILE;
+#ifdef RANDOMIZER
+                    if (pEquipment->mainItemsActivation & MIF_MISSILES)
+#endif // RANDOMIZER
+                    {
+                        // Missiles are select, check again because by default missiles are selected in any case
+                        if (pEquipment->currentMissiles != 0)
+                            weaponHigh = WH_MISSILE;
+                    }
                 }
                 else
                 {
-                    // Super missiles are selected
-                    weaponHigh = WH_SUPER_MISSILE;
+#ifdef RANDOMIZER
+                    if (pEquipment->mainItemsActivation & MIF_SUPER_MISSILES)
+#endif // RANDOMIZER
+                    {
+                        // Super missiles are selected
+                        weaponHigh = WH_SUPER_MISSILE;
+                    }
                 }
             }
             break;

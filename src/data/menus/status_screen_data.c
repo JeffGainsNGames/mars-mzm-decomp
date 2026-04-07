@@ -408,7 +408,16 @@ const struct StatusScreenGroupPositions sPauseDebugGroupsPositions[PAUSE_DEBUG_G
         .left = 9,
         .right = 15,
         .group = PAUSE_DEBUG_GROUP_SUIT_TYPE
-    }
+    },
+#ifdef RANDOMIZER
+    [PAUSE_DEBUG_GROUP_MAINS] = {
+        .top = 18,
+        .bottom = 19,
+        .left = 9,
+        .right = 15,
+        .group = PAUSE_DEBUG_GROUP_MAINS
+    },
+#endif // RANDOMIZER
 };
 
 const EventAction sEasyHardEventActions[DIFF_COUNT][2] = {

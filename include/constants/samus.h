@@ -27,6 +27,15 @@ MAKE_ENUM(u8, SuitMiscFlags) ENUM_FLAG {
     SMF_ALL_SUITS    = (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)
 };
 
+#ifdef RANDOMIZER
+MAKE_ENUM(u8, MainItemFlags) ENUM_FLAG {
+    MIF_NONE           = 0,
+    MIF_MISSILES       = 1 << 0,
+    MIF_SUPER_MISSILES = 1 << 1,
+    MIF_POWER_BOMBS    = 1 << 2,
+};
+#endif // RANDOMIZER
+
 MAKE_ENUM(u8, SuitType) {
     SUIT_NORMAL,
     SUIT_FULLY_POWERED,

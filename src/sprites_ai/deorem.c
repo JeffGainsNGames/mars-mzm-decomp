@@ -549,7 +549,11 @@ static void DeoremWaitingForFight(void)
 
     APPLY_DELTA_TIME_INC(gCurrentSprite.work0);
 
+#ifdef RANDOMIZER
+    if (!(gEquipment.mainItemsActivation & MIF_MISSILES) || gEquipment.maxMissiles == 0)
+#else // !RANDOMIZER
     if (gEquipment.maxMissiles == 0)
+#endif // RANDOMIZER
     {
         if (samusX > xPosition - DEOREM_OUTSIDE_FIGHT_RANGE && samusX < xPosition + DEOREM_OUTSIDE_FIGHT_RANGE)
         {

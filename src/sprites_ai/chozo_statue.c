@@ -1198,7 +1198,13 @@ static void ChozoStatuePartArmRefill(void)
                 gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_SLEEPING_INIT;
 
                 // Spawn refill correct ended message
+#ifdef RANDOMIZER
+                if ((!(gEquipment.mainItemsActivation & MIF_MISSILES) || gEquipment.maxMissiles == 0) &&
+                    (!(gEquipment.mainItemsActivation & MIF_SUPER_MISSILES) || gEquipment.maxSuperMissiles == 0) &&
+                    (!(gEquipment.mainItemsActivation & MIF_POWER_BOMBS) || gEquipment.maxPowerBombs == 0))
+#else // !RANDOMIZER
                 if (gEquipment.maxMissiles == 0 && gEquipment.maxSuperMissiles == 0 && gEquipment.maxPowerBombs == 0)
+#endif // RANDOMIZER
                 {
                     // Only energy
                     SpriteSpawnPrimary(PSPRITE_MESSAGE_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE, SPRITE_GFX_SLOT_SPECIAL,

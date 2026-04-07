@@ -8,6 +8,8 @@
 #include "constants/randomizer.h"
 #include "constants/samus.h"
 
+#ifdef RANDOMIZER
+
 struct MajorLocation {
     /* 0 */ RandoItemType item;
     /* 1 */ RandoItemJingle jingle;
@@ -17,8 +19,7 @@ struct MajorLocation {
 }; // Size: 8
 
 struct MinorLocation {
-    // See MINOR_LOC_KEY macro
-    /* 0 */ u32 key;
+    /* 0 */ u32 key; // See MINOR_LOC_KEY macro
     /* 4 */ u16 bg1Value; // Needed for hidden items
     /* 6 */ RandoItemType item;
     /* 7 */ RandoItemJingle jingle;
@@ -36,10 +37,13 @@ struct CurrentRandoItem {
 }; // Size: 8
 
 struct TankIncreaseAmounts {
-    u16 energy;
-    u16 missiles;
-    u8 superMissiles;
-    u8 powerBombs;
+    /* 0 */ u16 energyTank;
+    /* 2 */ u16 missileTank;
+    /* 4 */ u8 superMissileTank;
+    /* 5 */ u8 powerBombTank;
+    /* 6 */ u16 mainMissiles;
+    /* 8 */ u8 mainSuperMissiles;
+    /* 9 */ u8 mainPowerBombs;
 };
 
 struct StartingInfo {
@@ -56,13 +60,16 @@ struct StartingInfo {
     /* 0B */ u8 maxPowerBombs;
     /* 0C */ BeamBombFlags beamBombs;
     /* 0D */ SuitMiscFlags suitMisc;
-    /* 0E */ u8 downloadedMapStatus;
-    /* 0F */ SuitType suitType;
-    /* 10 */ boolu8 ziplinesActivated;
+    /* 0E */ MainItemFlags mainItems;
+    /* 0F */ u8 downloadedMapStatus;
+    /* 10 */ SuitType suitType;
+    /* 11 */ boolu8 ziplinesActivated;
     // Disabled hints
-    /* 11 */ u8 disabledHints;
+    /* 12 */ u8 disabledHints;
 };
 
 extern struct CurrentRandoItem gCurrentRandoItem;
+
+#endif // RANDOMIZER
 
 #endif // RANDOMIZER_STRUCT_H

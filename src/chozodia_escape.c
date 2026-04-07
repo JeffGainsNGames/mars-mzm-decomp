@@ -209,10 +209,10 @@ u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
 
     // Calculate the amount of tanks of each type (remove starting energy)
 #ifdef RANDOMIZER
-    energyNbr = (gEquipment.maxEnergy - sStartingInfo.maxEnergy) / sRandoTankIncreaseAmounts.energy;
-    missilesNbr = (gEquipment.maxMissiles - sStartingInfo.maxMissiles) / sRandoTankIncreaseAmounts.missiles;
-    superMissilesNbr = (gEquipment.maxSuperMissiles - sStartingInfo.maxSuperMissiles) / sRandoTankIncreaseAmounts.superMissiles;
-    powerBombNbr = (gEquipment.maxPowerBombs - sStartingInfo.maxPowerBombs) / sRandoTankIncreaseAmounts.powerBombs;
+    energyNbr = (gEquipment.maxEnergy - sStartingInfo.maxEnergy) / sRandoTankIncreaseAmounts.energyTank;
+    missilesNbr = (gEquipment.maxMissiles - sStartingInfo.maxMissiles) / sRandoTankIncreaseAmounts.missileTank;
+    superMissilesNbr = (gEquipment.maxSuperMissiles - sStartingInfo.maxSuperMissiles) / sRandoTankIncreaseAmounts.superMissileTank;
+    powerBombNbr = (gEquipment.maxPowerBombs - sStartingInfo.maxPowerBombs) / sRandoTankIncreaseAmounts.powerBombTank;
 #else // !RANDOMIZER
     energyNbr = (gEquipment.maxEnergy - 99) / sTankIncreaseAmount[difficulty].energy;
     missilesNbr = gEquipment.maxMissiles / sTankIncreaseAmount[difficulty].missile;

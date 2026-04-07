@@ -100,8 +100,8 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
     // message is for spawning the message banner, the actual text can be
     // overridden with custom text
     s32 message;
+    s32 amount;
 
-    isFirstTank = FALSE;
     message = MESSAGE_NONE;
 
     // Update equipment
@@ -114,7 +114,7 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
         case RIT_ENERGY_TANK:
             message = MESSAGE_ENERGY_TANK_ACQUIRED;
 
-            gEquipment.maxEnergy += sRandoTankIncreaseAmounts.energy;
+            gEquipment.maxEnergy += sRandoTankIncreaseAmounts.energyTank;
             if (gEquipment.maxEnergy > MAX_ENERGY_CAPACITY)
                 gEquipment.maxEnergy = MAX_ENERGY_CAPACITY;
 
@@ -122,43 +122,73 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             break;
 
         case RIT_MISSILE_TANK:
-            message = MESSAGE_MISSILE_TANK_ACQUIRED;
-            if (gEquipment.maxMissiles == 0)
-                isFirstTank = TRUE;
+        case RIT_MAIN_MISSILES:
+            if (item == RIT_MAIN_MISSILES)
+            {
+                gEquipment.mainItems |= MIF_MISSILES;
+                gEquipment.mainItemsActivation |= MIF_MISSILES;
+                amount = sRandoTankIncreaseAmounts.mainMissiles;
+                message = MESSAGE_FIRST_MISSILE_TANK;
+            }
+            else
+            {
+                amount = sRandoTankIncreaseAmounts.missileTank;
+                message = MESSAGE_MISSILE_TANK_ACQUIRED;
+            }
 
-            gEquipment.maxMissiles += sRandoTankIncreaseAmounts.missiles;
+            gEquipment.maxMissiles += amount;
             if (gEquipment.maxMissiles > MAX_MISSILE_CAPACITY)
                 gEquipment.maxMissiles = MAX_MISSILE_CAPACITY;
 
-            gEquipment.currentMissiles += sRandoTankIncreaseAmounts.missiles;
+            gEquipment.currentMissiles += amount;
             if (gEquipment.currentMissiles > MAX_MISSILE_CAPACITY)
                 gEquipment.currentMissiles = MAX_MISSILE_CAPACITY;
             break;
 
         case RIT_SUPER_MISSILE_TANK:
-            message = MESSAGE_SUPER_MISSILE_TANK_ACQUIRED;
-            if (gEquipment.maxSuperMissiles == 0)
-                isFirstTank = TRUE;
+        case RIT_MAIN_SUPER_MISSILES:
+            if (item == RIT_MAIN_SUPER_MISSILES)
+            {
+                gEquipment.mainItems |= MIF_SUPER_MISSILES;
+                gEquipment.mainItemsActivation |= MIF_SUPER_MISSILES;
+                amount = sRandoTankIncreaseAmounts.mainSuperMissiles;
+                message = MESSAGE_FIRST_SUPER_MISSILE_TANK;
+            }
+            else
+            {
+                amount = sRandoTankIncreaseAmounts.superMissileTank;
+                message = MESSAGE_SUPER_MISSILE_TANK_ACQUIRED;
+            }
 
-            gEquipment.maxSuperMissiles += sRandoTankIncreaseAmounts.superMissiles;
+            gEquipment.maxSuperMissiles += amount;
             if (gEquipment.maxSuperMissiles > MAX_SUPER_MISSILE_CAPACITY)
                 gEquipment.maxSuperMissiles = MAX_SUPER_MISSILE_CAPACITY;
 
-            gEquipment.currentSuperMissiles += sRandoTankIncreaseAmounts.superMissiles;
+            gEquipment.currentSuperMissiles += amount;
             if (gEquipment.currentSuperMissiles > MAX_SUPER_MISSILE_CAPACITY)
                 gEquipment.currentSuperMissiles = MAX_SUPER_MISSILE_CAPACITY;
             break;
 
         case RIT_POWER_BOMB_TANK:
-            message = MESSAGE_POWER_BOMB_TANK_ACQUIRED;
-            if (gEquipment.maxPowerBombs == 0)
-                isFirstTank = TRUE;
+        case RIT_MAIN_POWER_BOMBS:
+            if (item == RIT_MAIN_POWER_BOMBS)
+            {
+                gEquipment.mainItems |= MIF_POWER_BOMBS;
+                gEquipment.mainItemsActivation |= MIF_POWER_BOMBS;
+                amount = sRandoTankIncreaseAmounts.mainPowerBombs;
+                message = MESSAGE_FIRST_POWER_BOMB_TANK;
+            }
+            else
+            {
+                amount = sRandoTankIncreaseAmounts.powerBombTank;
+                message = MESSAGE_POWER_BOMB_TANK_ACQUIRED;
+            }
 
-            gEquipment.maxPowerBombs += sRandoTankIncreaseAmounts.powerBombs;
+            gEquipment.maxPowerBombs += amount;
             if (gEquipment.maxPowerBombs > MAX_POWER_BOMB_CAPACITY)
                 gEquipment.maxPowerBombs = MAX_POWER_BOMB_CAPACITY;
 
-            gEquipment.currentPowerBombs += sRandoTankIncreaseAmounts.powerBombs;
+            gEquipment.currentPowerBombs += amount;
             if (gEquipment.currentPowerBombs > MAX_POWER_BOMB_CAPACITY)
                 gEquipment.currentPowerBombs = MAX_POWER_BOMB_CAPACITY;
             break;
@@ -244,7 +274,7 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
 
         case RIT_ZIPLINES:
             message = MESSAGE_ZIPLINES;
-            EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_ACTIVATED);
+            SET_EVENT(EVENT_ZIPLINES_ACTIVATED);
             break;
         
         case RIT_ICE_TRAP:
@@ -260,16 +290,13 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
     }
 
     // Spawn the message banner
-    if (isFirstTank)
-        message++;
-
     if (message != MESSAGE_NONE)
     {
         SpriteSpawnPrimary(PSPRITE_MESSAGE_BANNER, message, SPRITE_GFX_SLOT_SPECIAL,
             gSamusData.yPosition, gSamusData.xPosition, 0);
     }
 
-    if (hintedBy != 0xFF && hintedBy < TARGET_ITEM_COUNT)
+    if (hintedBy != UCHAR_MAX && hintedBy < TARGET_ITEM_COUNT)
         RandoSetHintEvents(hintedBy);
 }
 
@@ -308,8 +335,8 @@ void RandoCollectMinorLocationItem(const struct MinorLocation* loc)
 
 void RandoSetHintEvents(u8 hint)
 {
-    EventFunction(EVENT_ACTION_SETTING, sRandoHintEvents[hint][0]);
-    EventFunction(EVENT_ACTION_SETTING, sRandoHintEvents[hint][1]);
+    SET_EVENT(sRandoHintEvents[hint][0]);
+    SET_EVENT(sRandoHintEvents[hint][1]);
 
     if (hint == TARGET_LONG_BEAM)
         InGameCutsceneCheckFlag(TRUE, IGC_LONG_BEAM_HINT);

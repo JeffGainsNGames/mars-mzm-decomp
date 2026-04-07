@@ -26,6 +26,26 @@
   - `RuinsTestDespawn` and `RuinsTestSamusReflectionEnd` in [ruins_test.c](src/sprites_AI/ruins_test.c)
   - `FallingChozoPillar` in [falling_chozo_pillar.c](src/sprites_AI/falling_chozo_pillar.c)
   - `MessageBannerRemovalInit` and `MessageBannerRemovalAnimation` in [message_banner.c](src/sprites_AI/message_banner.c)
+- Main missiles, super missiles, and power bombs
+  - Equipment struct has additional bytes for main item flags
+    - `MainItemFlags` in [constants/samus.h](include/constants/samus.h)
+    - `Equipment` in [structs/samus.h](include/structs/samus.h)
+    - `InGameCutsceneCheckPlayOnTransition` in [in_game_cutscene.c](src/in_game_cutscene.c)
+    - `sDemo*_Ram` in [demo_data.c](src/data/demo_data.c)
+    - `SaveFile` and `SaveDemo` in [save_file.h](include/structs/save_file.h)
+  - Fix checks related to current/max ammo amounts
+    - `SamusSetHighlightedWeapon` in [samus.c](src/samus.c)
+    - `HudUpdateOam` in [hud.c](src/hud.c)
+    - `SpriteUtilDetermineEnemyDrop` in [sprite_util.c](src/sprite_util.c)
+    - `ChozoStatuePartArmRefill` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
+    - `UnknownItemChozoStatuePartArmRefill` in [unknown_item_chozo_statue.c](src/sprites_ai/unknown_item_chozo_statue.c)
+    - `GunshipRefill` in [gunship.c](src/sprites_ai/gunship.c)
+    - `DeoremWaitingForFight` in [deorem.c](src/sprites_ai/deorem.c)
+    - `StatusScreenSetBombsVisibility` and `StatusScreenSetMissilesVisibility` in [status_screen.c](src/menus/status_screen.c)
+  - Allow toggling items on pause debug screen
+    - `PauseDebugGroup` in [status_screen.h](include/constants/menus/status_screen.h)
+    - `sPauseDebugGroupsPositions` in [status_screen_data.c](src/data/menus/status_screen_data.c)
+    - `PauseDebugActivateAbilities`, `PauseDebugStatusScreen`, `PauseDebugDrawAffectedGroups`, `PauseDebugEquipTank`, and `UpdateSuitType` in [status_screen.c](src/menus/status_screen.c)
 - Custom text on items
   - `TextProcessMessageBanner` in [text.c](src/text.c)
 - Chozo hints for any item

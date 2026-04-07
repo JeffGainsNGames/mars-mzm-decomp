@@ -26,6 +26,11 @@ struct Equipment {
     BeamBombFlags beamBombsActivation;
     SuitMiscFlags suitMisc;
     SuitMiscFlags suitMiscActivation;
+#ifdef RANDOMIZER
+    // Used to track main missiles, super missiles, and power bombs
+    MainItemFlags mainItems;
+    MainItemFlags mainItemsActivation;
+#endif // RANDOMIZER
     u8 downloadedMapStatus;
     boolu8 lowHealth;
     SuitType suitType;

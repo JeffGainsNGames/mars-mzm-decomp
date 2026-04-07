@@ -2457,6 +2457,10 @@ const struct SaveDemo sDemo0_Ram = {
         .beamBombsActivation = BBF_NONE,
         .suitMisc = SMF_MORPH_BALL,
         .suitMiscActivation = SMF_MORPH_BALL,
+#ifdef RANDOMIZER
+        .mainItems = MIF_NONE,
+        .mainItemsActivation = MIF_NONE,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -2547,7 +2551,10 @@ const struct SaveDemo sDemo0_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -2641,6 +2648,10 @@ const struct SaveDemo sDemo1_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM,
         .suitMisc = SMF_MORPH_BALL,
         .suitMiscActivation = SMF_MORPH_BALL,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -2731,7 +2742,10 @@ const struct SaveDemo sDemo1_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -2825,6 +2839,10 @@ const struct SaveDemo sDemo2_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -2915,7 +2933,10 @@ const struct SaveDemo sDemo2_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -3009,6 +3030,10 @@ const struct SaveDemo sDemo3_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -3099,7 +3124,10 @@ const struct SaveDemo sDemo3_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -3193,6 +3221,10 @@ const struct SaveDemo sDemo4_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -3283,7 +3315,10 @@ const struct SaveDemo sDemo4_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -3377,6 +3412,10 @@ const struct SaveDemo sDemo5_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -3467,7 +3506,10 @@ const struct SaveDemo sDemo5_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -3561,6 +3603,10 @@ const struct SaveDemo sDemo6_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -3651,7 +3697,10 @@ const struct SaveDemo sDemo6_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -3745,6 +3794,10 @@ const struct SaveDemo sDemo7_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_VARIA_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_VARIA_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -3835,7 +3888,10 @@ const struct SaveDemo sDemo7_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -3929,6 +3985,10 @@ const struct SaveDemo sDemo8_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_VARIA_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_VARIA_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -4019,7 +4079,10 @@ const struct SaveDemo sDemo8_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -4115,6 +4178,10 @@ const struct SaveDemo sDemo9_Ram = {
             SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SCREW_ATTACK | SMF_VARIA_SUIT |
             SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES | MIF_SUPER_MISSILES,
+        .mainItemsActivation = MIF_MISSILES | MIF_SUPER_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -4205,7 +4272,10 @@ const struct SaveDemo sDemo9_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -4299,6 +4369,10 @@ const struct SaveDemo sDemo10_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -4389,7 +4463,10 @@ const struct SaveDemo sDemo10_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -4483,6 +4560,10 @@ const struct SaveDemo sDemo11_Ram = {
         .beamBombsActivation = 0,
         .suitMisc = SMF_MORPH_BALL,
         .suitMiscActivation = SMF_MORPH_BALL,
+#ifdef RANDOMIZER
+        .mainItems = MIF_NONE,
+        .mainItemsActivation = MIF_NONE,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -4573,7 +4654,10 @@ const struct SaveDemo sDemo11_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -4667,6 +4751,10 @@ const struct SaveDemo sDemo12_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_BOMBS,
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -4757,7 +4845,10 @@ const struct SaveDemo sDemo12_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -4853,6 +4944,10 @@ const struct SaveDemo sDemo13_Ram = {
 			SMF_GRAVITY_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SPACE_JUMP | SMF_SCREW_ATTACK | SMF_VARIA_SUIT |
 			SMF_GRAVITY_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES | MIF_SUPER_MISSILES | MIF_POWER_BOMBS,
+        .mainItemsActivation = MIF_MISSILES | MIF_SUPER_MISSILES | MIF_POWER_BOMBS,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_FULLY_POWERED,
@@ -4943,7 +5038,10 @@ const struct SaveDemo sDemo13_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -5037,6 +5135,10 @@ const struct SaveDemo sDemo14_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -5127,7 +5229,10 @@ const struct SaveDemo sDemo14_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
@@ -5221,6 +5326,10 @@ const struct SaveDemo sDemo15_Ram = {
         .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+#ifdef RANDOMIZER
+        .mainItems = MIF_MISSILES,
+        .mainItemsActivation = MIF_MISSILES,
+#endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
         .suitType = SUIT_NORMAL,
@@ -5311,7 +5420,10 @@ const struct SaveDemo sDemo15_Ram = {
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
         UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
-        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+#ifndef RANDOMIZER
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+#endif // !RANDOMIZER
     }
 };
 
