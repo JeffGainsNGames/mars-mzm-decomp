@@ -1519,10 +1519,10 @@ void PauseDebugEquipTank(u8 tankOrEquip)
             gEquipment.maxPowerBombs = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].powerBomb *
                 sTankIncreaseAmount[gDifficulty].powerBomb + sStartingHealthAmmo.powerBomb;
 
-            #ifndef BUGFIX
+#if !defined(BUGFIX) && !defined(RANDOMIZER)
             gEquipment.suitMisc |= SMF_MORPH_BALL | SMF_POWER_GRIP;
             gEquipment.beamBombs |= BBF_BOMBS;
-            #endif // !BUGFIX
+#endif // !BUGFIX && !RANDOMIZER
 
             change = 1;
         }
@@ -1560,11 +1560,11 @@ void PauseDebugEquipTank(u8 tankOrEquip)
         }
     }
 
-    #ifdef BUGFIX
+#if defined(BUGFIX) || defined(RANDOMIZER)
     if (change == 2)
-    #else // !BUGFIX
+#else // !(BUGFIX || RANDOMIZER)
     if (change != 0)
-    #endif // !BUGFIX
+#endif // BUGFIX || RANDOMIZER
     {
         UpdateSuitType(gEquipment.suitType);
         PauseDebugActivateAbilities();
@@ -1577,14 +1577,14 @@ void PauseDebugEquipTank(u8 tankOrEquip)
         gEquipment.currentSuperMissiles = gEquipment.maxSuperMissiles;
         gEquipment.currentPowerBombs = gEquipment.maxPowerBombs;
 
-        #ifdef BUGFIX
+#if defined(BUGFIX) || defined(RANDOMIZER)
         PauseDebugDrawAffectedGroups((1 << PAUSE_DEBUG_GROUP_CURRENT_ENERGY) | (1 << PAUSE_DEBUG_GROUP_CURRENT_MISSILES) |
             (1 << PAUSE_DEBUG_GROUP_CURRENT_SUPER_MISSILES) | (1 << PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS));
-        #else // !BUGFIX
+#else // !(BUGFIX || RANDOMIZER)
         PauseDebugDrawAffectedGroups((1 << PAUSE_DEBUG_GROUP_BOMB) | (1 << PAUSE_DEBUG_GROUP_MISC) |
             (1 << PAUSE_DEBUG_GROUP_CURRENT_ENERGY) | (1 << PAUSE_DEBUG_GROUP_CURRENT_MISSILES) |
             (1 << PAUSE_DEBUG_GROUP_CURRENT_SUPER_MISSILES) | (1 << PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS));
-        #endif // BUGFIX
+#endif // BUGFIX || RANDOMIZER
     }
     else if (change == 2) // Equip
     {
