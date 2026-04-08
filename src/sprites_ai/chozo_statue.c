@@ -32,7 +32,12 @@
 
 #define DELAY_BEFORE_HINT (CONVERT_SECONDS(2.f))
 
+#ifdef RANDOMIZER
+// Don't declare static so it can be used by unknown item statues
+const struct FrameData* sChozoStatueFrameDataPointers[CHOZO_STATUE_OAM_COUNT] = {
+#else // !RANDOMIZER
 static const struct FrameData* sChozoStatueFrameDataPointers[CHOZO_STATUE_OAM_COUNT] = {
+#endif // RANDOMIZER
     [CHOZO_STATUE_OAM_LEG_STANDING] = sChozoStatuePartOam_LegStanding,
     [CHOZO_STATUE_OAM_LEG_SITTING] = sChozoStatuePartOam_LegSitting,
     [CHOZO_STATUE_OAM_LEG_SEATED] = sChozoStatuePartOam_LegSeated,

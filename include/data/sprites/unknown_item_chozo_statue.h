@@ -35,7 +35,11 @@ extern const struct MultiSpriteData sUnknownItemChozoStatueMultiSpriteData_Seate
 
 extern const u8 sUnknownItemChozoStatueFlashingPaletteRows[4];
 
+#ifdef RANDOMIZER
+extern const u32 sChozoStatueSpaceJumpGfx[1201];
+#else // !RANDOMIZER
 extern const u32 sChozoStatueSpaceJumpGfx[1353];
+#endif // RANDOMIZER
 extern const u16 sChozoStatueSpaceJumpPal[80];
 
 extern const struct FrameData sUnknownItemChozoStatuePartOam_LegStanding[2];
@@ -70,10 +74,18 @@ extern const struct FrameData sUnknownItemChozoStatueRefillOam[41];
 
 extern const struct FrameData sUnknownItemChozoStatuePartOam_GlowIdle[41];
 
+#ifdef RANDOMIZER
+extern const u32 sChozoStatueGravitySuitGfx[1201];
+#else // !RANDOMIZER
 extern const u32 sChozoStatueGravitySuitGfx[1357];
+#endif // RANDOMIZER
 extern const u16 sChozoStatueGravitySuitPal[80];
 
+#ifdef RANDOMIZER
+extern const u32 sChozoStatuePlasmaBeamGfx[1201];
+#else // !RANDOMIZER
 extern const u32 sChozoStatuePlasmaBeamGfx[1356];
+#endif // RANDOMIZER
 extern const u16 sChozoStatuePlasmaBeamPal[80];
 
 #endif /* UNKNOWN_ITEM_CHOZO_STATUE_DATA_H */

@@ -54,9 +54,12 @@ static void MorphBallInit(void)
     gCurrentSprite.pose = MORPH_BALL_POSE_IDLE;
     gCurrentSprite.drawOrder = 3;
 
+// Don't spawn morph ball shell in randomizer
+#ifndef RANDOMIZER
     // Spawn outside
     SpriteSpawnSecondary(SSPRITE_MORPH_BALL_OUTSIDE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
         gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
+#endif // !RANDOMIZER
 }
 
 /**

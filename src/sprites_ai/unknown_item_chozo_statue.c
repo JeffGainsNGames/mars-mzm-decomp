@@ -58,6 +58,9 @@
 
 #define UNKNOWN_ITEM_CHOZO_STATUE_REFILL_POSE_IDLE 0x9
 
+#ifdef RANDOMIZER
+extern const struct FrameData* sChozoStatueFrameDataPointers[16];
+#else // !RANDOMIZER
 static const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[UNKNOWN_ITEM_CHOZO_STATUE_OAM_COUNT] = {
     [UNKNOWN_ITEM_CHOZO_STATUE_OAM_LEG_STANDING] = sUnknownItemChozoStatuePartOam_LegStanding,
     [UNKNOWN_ITEM_CHOZO_STATUE_OAM_LEG_SITTING] = sUnknownItemChozoStatuePartOam_LegSitting,
@@ -76,6 +79,7 @@ static const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[UNKNOWN_
     [UNKNOWN_ITEM_CHOZO_STATUE_OAM_REFILL] = sUnknownItemChozoStatueRefillOam,
     [UNKNOWN_ITEM_CHOZO_STATUE_OAM_REFILL_GLOW_IDLE] = sUnknownItemChozoStatuePartOam_GlowIdle
 };
+#endif // RANDOMIZER
 
 /**
  * @brief 150a8 | 88 | Synchronize the sub sprites of an unknown item chozo statue
@@ -88,13 +92,23 @@ static void UnknownItemChozoStatueSyncSubSprites(void)
 
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
+#ifdef RANDOMIZER
+    // Use normal chozo statue OAM since normal chozo statue graphics are used
+    if (gCurrentSprite.pOam != sChozoStatueFrameDataPointers[oamIdx])
+    {
+        gCurrentSprite.pOam = sChozoStatueFrameDataPointers[oamIdx];
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+    }
+#else // !RANDOMIZER
     if (gCurrentSprite.pOam != sUnknownItemChozoStatueFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sUnknownItemChozoStatueFrameDataPointers[oamIdx];
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
+#endif // RANDOMIZER
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
@@ -202,6 +216,23 @@ static void UnknownItemChozoStatueInit(void)
     gfxSlot = gCurrentSprite.spritesetGfxSlot;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
+#ifdef RANDOMIZER
+    // Spawn eye
+    gCurrentSprite.work1 = SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_EYE,
+        gfxSlot, ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
+
+    // Spawn arm
+    behavior = SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_ARM,
+        gfxSlot, ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
+
+    // Spawn leg
+    SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_LEG, gfxSlot, ramSlot,
+        yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
+
+    // Spawn glow
+    newRamSlot = SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_GLOW, gfxSlot,
+        ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
+#else // !RANDOMIZER
     // Spawn eye
     gCurrentSprite.work1 = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_EYE,
         gfxSlot, ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
@@ -217,6 +248,8 @@ static void UnknownItemChozoStatueInit(void)
     // Spawn glow
     newRamSlot = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_GLOW, gfxSlot,
         ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
+#endif // RANDOMIZER
+
     gSpriteData[newRamSlot].work1 = behavior;
 }
 

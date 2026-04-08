@@ -15,11 +15,24 @@
   - `RoomLoadTileset` in [room.c](src/room.c)
   - `AnimatedGraphicsLoad` in [animated_graphics.c](src/animated_graphics.c)
 - Get any item from a major location (ability)
-  - `MorphBallInit` and `MorphBallGet` in [morph_ball.c](src/sprites_ai/morph_ball.c)
-  - `PowerGrip` in [power_grip.c](src/sprites_ai/power_grip.c)
-  - `ChargeBeamInit` and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
-  - `ChozoStatueRegisterItem` and `ChozoStatueGetBehavior` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
-  - `ChozoBallRegisterItem` in [chozo_ball.c](src/sprites_ai/chozo_ball.c)
+  - Fix morph ball
+    - `MorphBallInit` and `MorphBallGet` in [morph_ball.c](src/sprites_ai/morph_ball.c)
+  - Fix power grip
+    - `PowerGrip` in [power_grip.c](src/sprites_ai/power_grip.c)
+  - Fix charge beam
+    - `ChargeBeamInit` and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
+  - Fix chozo statues
+    - `ChozoStatueRegisterItem` and `ChozoStatueGetBehavior` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
+    - `ChozoBallRegisterItem` in [chozo_ball.c](src/sprites_ai/chozo_ball.c)
+  - Make unknown item chozo statues look like normal ones (since they don't have enough space in their graphics)
+    - Replace unknown item chozo statue graphics with normal statue graphics
+      - `sChozoStatueSpaceJumpGfx`, `sChozoStatueGravitySuitGfx`, and `sChozoStatuePlasmaBeamGfx` in [unknown_item_chozo_statue.c](src/data/sprites/unknown_item_chozo_statue.c)
+    - Use normal statue OAM for unknown item statue
+      - `UnknownItemChozoStatueSyncSubSprites` in [unknown_item_chozo_statue.c](src/sprites_ai/unknown_item_chozo_statue.c)
+    - Use normal statue parts for unknown item statue parts
+      - `UnknownItemChozoStatueInit` in [unknown_item_chozo_statue.c](src/sprites_ai/unknown_item_chozo_statue.c)
+    - Use normal ball OAM for unknown item ball
+      - `ChozoBallInit`, `ChozoBallRevealingInit`, and `ChozoBallCheckRevealingAnimEnded` in [chozo_ball.c](src/sprites_ai/chozo_ball.c)
 - Get any item from zipline generator
   - `ZiplineGeneratorInit` and `ZiplineGeneratorActivating` in [zipline_generator.c](src/sprites_ai/zipline_generator.c)
 - Get any item from Ruins Test

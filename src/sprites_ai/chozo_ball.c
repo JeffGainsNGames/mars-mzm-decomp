@@ -75,6 +75,7 @@ static void ChozoBallSpawnMessageBanner(u8 spriteId)
         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 }
 
+#ifndef RANDOMIZER
 /**
  * @brief 16344 | 64 | Sets the closed OAM of a chozo ball based on the sprite ID
  * 
@@ -188,6 +189,7 @@ static void ChozoBallSetRevealedOam(u8 spriteId)
             gCurrentSprite.pOam = sChozoBallOam_NormalRevealed;
     }
 }
+#endif // !RANDOMIZER
 
 /**
  * 16470 | 74 | Initializes a chozo ball sprite
@@ -213,7 +215,11 @@ static void ChozoBallInit(void)
     gCurrentSprite.health = 1;
     gCurrentSprite.pose = CHOZO_BALL_POSE_DO_NOTHING;
 
+#ifdef RANDOMIZER
+    gCurrentSprite.pOam = sChozoBallOam_NormalClosed;
+#else // !RANDOMIZER
     ChozoBallSetClosedOam(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
+#endif // RANDOMIZER
 }
 
 /**
@@ -242,7 +248,11 @@ static void ChozoBallRevealingInit(void)
     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     SPRITE_CLEAR_ISFT(gCurrentSprite);
 
+#ifdef RANDOMIZER
+    gCurrentSprite.pOam = sChozoBallOam_NormalRevealing;
+#else // !RANDOMIZER
     ChozoBallSetRevealingOam(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
+#endif // RANDOMIZER
     SoundPlay(SOUND_CHOZO_BALL_REVEALING);
 }
 
@@ -258,7 +268,11 @@ static void ChozoBallCheckRevealingAnimEnded(void)
 
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
+#ifdef RANDOMIZER
+        gCurrentSprite.pOam = sChozoBallOam_NormalRevealed;
+#else // !RANDOMIZER
         ChozoBallSetRevealedOam(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
+#endif // RANDOMIZER
     }
 }
 
