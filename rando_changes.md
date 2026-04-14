@@ -21,6 +21,7 @@
     - `PowerGrip` in [power_grip.c](src/sprites_ai/power_grip.c)
   - Fix charge beam
     - `ChargeBeamInit` and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
+    - `DeoremInit` in [deorem.c](src/sprites_ai/deorem.c)
   - Fix chozo statues
     - `ChozoStatueRegisterItem` and `ChozoStatueGetBehavior` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
     - `ChozoBallRegisterItem` in [chozo_ball.c](src/sprites_ai/chozo_ball.c)
@@ -105,6 +106,8 @@
   - `EndingImageInit` in [ending_and_gallery.c](src/ending_and_gallery.c)
   - `CheckUnlockTimeAttack` and `TimeAttackCheckSetNewRecord` in [time_attack.c](src/time_attack.c)
   - `SpriteUtilGetFinalCompletionPercentage` in [sprite_util.c](src/sprite_util.c)
+- Prevent Deorem from leaving, and only spawn at first location
+  - `DeoremInit`, `DeoremHandler`, `DeoremRetracting`, `DeoremEyeInit`, and `DeoremEyeIdle` in [deorem.c](src/sprites_ai/deorem.c)
 
 ## Room/Tileset Changes
 - Remove vines in Norfair and near varia

@@ -473,9 +473,14 @@ static void DeoremInit(void)
     {
         if (CHECK_EVENT(EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED))
         {
+#ifdef RANDOMIZER
+            // Spawn item if it hasn't been picked up yet
+            if (!CHECK_EVENT(EVENT_CHARGE_BEAM_OBTAINED))
+#else // !RANDOMIZER
             if (CHECK_EVENT(EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED) &&
                 !(gEquipment.beamBombs & BBF_CHARGE_BEAM) &&
                 !CHECK_EVENT(EVENT_DEOREM_KILLED_AT_SECOND_LOCATION))
+#endif // RANDOMIZER
             {
                 gCurrentSprite.pose = DEOREM_POSE_CALL_SPAWN_CHARGE_BEAM;
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
@@ -489,6 +494,11 @@ static void DeoremInit(void)
     }
     else
     {
+#ifdef RANDOMIZER
+        // Don't spawn at second location
+        gCurrentSprite.status = 0;
+        return;
+#else // !RANDOMIZER
         if (CHECK_EVENT(EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED))
         {
             if (CHECK_EVENT(EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED) &&
@@ -504,6 +514,7 @@ static void DeoremInit(void)
             }
             return;
         }
+#endif // RANDOMIZER
     }
 
     gBossWork.work1 = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
@@ -549,6 +560,7 @@ static void DeoremWaitingForFight(void)
 
     APPLY_DELTA_TIME_INC(gCurrentSprite.work0);
 
+// Deorem does not leave in randomizer
 #ifdef RANDOMIZER
     if (!(gEquipment.mainItemsActivation & MIF_MISSILES) || gEquipment.maxMissiles == 0)
 #else // !RANDOMIZER
@@ -880,7 +892,9 @@ static void DeoremHandler(void)
 
     if (gCurrentSprite.work0 != 0 && !(gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN))
     {
+#ifndef RANDOMIZER
         if (!DeoremCheckLeaving(gCurrentSprite.work3))
+#endif // !RANDOMIZER
         {
             if (gCurrentSprite.pOam == sDeoremOam_Closing)
             {
@@ -1062,8 +1076,10 @@ static void DeoremRetracting(void)
             gCurrentSprite.hitboxRight = BLOCK_SIZE + HALF_BLOCK_SIZE;
             gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + DEOREM_HEAD_Y_OFFSET;
         
+#ifndef RANDOMIZER
             if (DeoremCheckLeaving(eyeSlot))
                 return;
+#endif // !RANDOMIZER
 
             if (health == DEOREM_MAX_HEALTH || gSpriteRng >= SPRITE_RNG_PROB(.6875f) || health <= DEOREM_MAX_HEALTH / 3)
             {
@@ -2330,6 +2346,8 @@ static void DeoremEyeInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.pose = DEOREM_EYE_POSE_IDLE_INIT;
 
+// Deorem does not leave in randomizer
+#ifndef RANDOMIZER
     // Duration of the fight
     gCurrentSprite.yPositionSpawn = CONVERT_SECONDS(30.f);
 
@@ -2339,6 +2357,7 @@ static void DeoremEyeInit(void)
         // Half the time if it's the first encounter
         gCurrentSprite.yPositionSpawn /= 2;
     }
+#endif // !RANDOMIZER
 
     if (gCurrentSprite.xPosition > gSamusData.xPosition)
     {
@@ -2527,6 +2546,8 @@ static void DeoremEyeIdle(void)
 
     DeoremEyeMove();
 
+// Deorem does not leave in randomizer
+#ifndef RANDOMIZER
     // Update fight duration timer
     if (CHECK_EVENT(EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED) ||
         CHECK_EVENT(EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED) ||
@@ -2536,6 +2557,7 @@ static void DeoremEyeIdle(void)
         if (gCurrentSprite.yPositionSpawn != 0)
             APPLY_DELTA_TIME_DEC(gCurrentSprite.yPositionSpawn);
     }
+#endif // !RANDOMIZER
 }
 
 /**
