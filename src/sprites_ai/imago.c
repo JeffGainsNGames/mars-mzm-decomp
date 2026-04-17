@@ -1,6 +1,7 @@
 #include "sprites_ai/imago.h"
 #include "macros.h"
 #include "event.h"
+#include "bg_clip.h"
 
 #include "data/sprites/imago.h"
 #include "data/sprite_data.h"
@@ -280,6 +281,83 @@ static void ImagoSetSidesHitbox(void)
     }
 }
 
+#ifdef RANDOMIZER
+static void ImagoRemoveWall(void)
+{
+    s32 y;
+
+    // x = 13
+    for (y = 20; y <= 22; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 13);
+        BgClipSetClipdataBlockValue(0, y, 13);
+    }
+
+    // x = 12
+    for (y = 19; y <= 22; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 12);
+        BgClipSetClipdataBlockValue(0, y, 12);
+    }
+
+    // x = 11
+    for (y = 19; y <= 21; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 11);
+        BgClipSetClipdataBlockValue(0, y, 11);
+    }
+
+    // x = 10
+    for (y = 18; y <= 21; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 10);
+        BgClipSetClipdataBlockValue(0, y, 10);
+    }
+
+    // x = 9
+    for (y = 18; y <= 21; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 9);
+        BgClipSetClipdataBlockValue(0, y, 9);
+    }
+
+    // x = 8
+    for (y = 18; y <= 22; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 8);
+        BgClipSetClipdataBlockValue(0, y, 8);
+    }
+
+    // x = 7
+    for (y = 19; y <= 20; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 7);
+        BgClipSetClipdataBlockValue(0, y, 7);
+    }
+
+    // x = 6
+    for (y = 19; y <= 22; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 6);
+        BgClipSetClipdataBlockValue(0, y, 6);
+    }
+
+    // x = 5
+    for (y = 19; y <= 22; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 5);
+        BgClipSetClipdataBlockValue(0, y, 5);
+    }
+
+    // x = 4
+    for (y = 20; y <= 22; y++)
+    {
+        BgClipSetBg1BlockValue(0, y, 4);
+        BgClipSetClipdataBlockValue(0, y, 4);
+    }
+}
+#endif // !RANDOMIZER
+
 /**
  * @brief 420ec | 23c | Initializes an Imago sprite
  * 
@@ -295,6 +373,10 @@ static void ImagoInit(void)
 
     if (CHECK_EVENT(EVENT_IMAGO_KILLED))
     {
+#ifdef RANDOMIZER
+        // Update BG1 and clipdata on left side of room
+        ImagoRemoveWall();
+#endif // RANDOMIZER
         gCurrentSprite.status = 0;
         return;
     }

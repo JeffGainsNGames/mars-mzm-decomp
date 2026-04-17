@@ -83,8 +83,12 @@
   - `sChozoStatueTargetPathBrinstar` and `sChozoStatueTargetPathNorfair` in [pause_screen_sub_menus_data.c](src/data/menus/pause_screen_sub_menus_data.c)
 - Change charge beam OAM to work with any item (and don't spawn glow)
   - `ChargeBeamSpawnGlow`, `ChargeBeamVisibleInit`, and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
-- Unlock Imago door when it dies (instead of waiting to collect super missiles)
-  - `ImagoSetEvent` in [imago.c](src/sprites_ai/imago.c)
+- Imago item fixes
+  - Unlock Imago door when it dies (instead of waiting to collect super missiles)
+    - `ImagoSetEvent` in [imago.c](src/sprites_ai/imago.c)
+  - Only use original version of room so item is always there
+    - `sEventBasedConnections` in [hatch_data.c](src/data/hatch_data.c)
+    - 
 - Allow both escape timers to work in any order
   - `EscapeDetermineTimer` in [escape.c](src/escape.c)
 - Make Chozo pillar near power grip always extended

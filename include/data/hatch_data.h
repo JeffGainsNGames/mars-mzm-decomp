@@ -25,7 +25,11 @@ extern const struct HatchLockEvent sHatchLockEventsCrateria[2];
 
 extern const struct HatchLockEvent sHatchLockEventsChozodia[15];
 
+#ifdef RANDOMIZER
+extern const u8 sEventBasedConnections[39][EVENT_BASED_CONNECTION_FIELD_COUNT];
+#else // !RANDOMIZER
 extern const u8 sEventBasedConnections[41][EVENT_BASED_CONNECTION_FIELD_COUNT];
+#endif // RANDOMIZER
 
 extern const u8 sAreaConnections[][AREA_CONNECTION_FIELD_COUNT];
 
