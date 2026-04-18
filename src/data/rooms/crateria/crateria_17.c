@@ -14,17 +14,17 @@ const u8 sCrateria_8_Scrolls[SCROLL_DATA_SIZE(1)] = {
 };
 
 #ifdef RANDOMIZER
-const u8 sCrateria_17_Clipdata[230] = INCBIN_U8("data_rando/crateria_17_clipdata.rlebg");
+const u8 sCrateria_17_Clipdata[] = INCBIN_U8("data_rando/rooms/crateria_17_clipdata.rlebg");
 #else // !RANDOMIZER
-const u8 sCrateria_17_Clipdata[223] = INCBIN_U8("data/rooms/crateria/crateria_17_clipdata.gfx");
+const u8 sCrateria_17_Clipdata[] = INCBIN_U8("data/rooms/crateria/crateria_17_clipdata.gfx");
 #endif // RANDOMIZER
 
 const u8 sCrateria_17_Bg2[527] = INCBIN_U8("data/rooms/crateria/crateria_17_bg2.gfx");
 
 #ifdef RANDOMIZER
-const u8 sCrateria_17_Bg1[739] = INCBIN_U8("data_rando/crateria_17_bg1.rlebg");
+const u8 sCrateria_17_Bg1[] = INCBIN_U8("data_rando/rooms/crateria_17_bg1.rlebg");
 #else // !RANDOMIZER
-const u8 sCrateria_17_Bg1[735] = INCBIN_U8("data/rooms/crateria/crateria_17_bg1.gfx");
+const u8 sCrateria_17_Bg1[] = INCBIN_U8("data/rooms/crateria/crateria_17_bg1.gfx");
 #endif // RANDOMIZER
 
 const u8 sCrateria_17_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {

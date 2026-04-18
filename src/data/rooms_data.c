@@ -3664,13 +3664,22 @@ const struct Door sNorfairDoors[133] = {
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
+// Always load room 43 (imago cocoon)
+#ifdef RANDOMIZER
+		.type = DOOR_TYPE_CLOSED_HATCH,
+#else // !RANDOMIZER
 		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+#endif // RANDOMIZER
 		.sourceRoom = 33,
 		.xStart = 2,
 		.xEnd = 2,
 		.yStart = 4,
 		.yEnd = 7,
+#ifdef RANDOMIZER
+		.destinationDoor = 95,
+#else // !RANDOMIZER
 		.destinationDoor = 67,
+#endif // RANDOMIZER
 		.xExit = BLOCK_TO_PIXEL(2),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -3697,13 +3706,22 @@ const struct Door sNorfairDoors[133] = {
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
+// Always load room 43 (imago cocoon)
+#ifdef RANDOMIZER
+		.type = DOOR_TYPE_CLOSED_HATCH,
+#else // !RANDOMIZER
 		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+#endif // RANDOMIZER
 		.sourceRoom = 35,
 		.xStart = 2,
 		.xEnd = 2,
 		.yStart = 6,
 		.yEnd = 9,
+#ifdef RANDOMIZER
+		.destinationDoor = 96,
+#else // !RANDOMIZER
 		.destinationDoor = 124,
+#endif // RANDOMIZER
 		.xExit = BLOCK_TO_PIXEL(2),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -4877,7 +4895,12 @@ const struct Door sRidleyDoors[77] = {
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
+#ifdef RANDOMIZER
+		// Always load same imago room
+		.type = DOOR_TYPE_CLOSED_HATCH,
+#else // !RANDOMIZER
 		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+#endif // RANDOMIZER
 		.sourceRoom = 2,
 		.xStart = 2,
 		.xEnd = 2,
@@ -5097,7 +5120,12 @@ const struct Door sRidleyDoors[77] = {
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
+#ifdef RANDOMIZER
+		// Always load same imago room
+		.type = DOOR_TYPE_NO_HATCH,
+#else // !RANDOMIZER
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+#endif // RANDOMIZER
 		.sourceRoom = 2,
 		.xStart = 1,
 		.xEnd = 1,
@@ -12840,7 +12868,11 @@ const struct RoomEntryRom sNorfairRoomEntries[57] = {
 		.pClipData = sNorfair_43_Clipdata,
 		.pBg3Data = sNorfair_Bg3_2,
 		.bg3Scrolling = 3,
+#ifdef RANDOMIZER
+		.transparency = 33,
+#else // !RANDOMIZER
 		.transparency = 38,
+#endif // RANDOMIZER
 		.pDefaultSpriteData = sNorfair_43_Spriteset0,
 		.defaultSpriteset = 42,
 		.firstSpritesetEvent = EVENT_NONE,
@@ -13046,11 +13078,20 @@ const struct RoomEntryRom sNorfairRoomEntries[57] = {
 	},
 	[51] = {
 		.tileset = 68,
+// Remove BG0 since it's removed in room 43
+#ifdef RANDOMIZER
+		.bg0Prop = BG_PROP_NONE,
+#else // !RANDOMIZER
 		.bg0Prop = BG_PROP_RLE_COMPRESSED,
+#endif // RANDOMIZER
 		.bg1Prop = BG_PROP_RLE_COMPRESSED,
 		.bg2Prop = BG_PROP_RLE_COMPRESSED,
 		.bg3Prop = BG_PROP_LZ77_COMPRESSED,
+#ifdef RANDOMIZER
+		.pBg0Data = sBackground_Empty,
+#else // !RANDOMIZER
 		.pBg0Data = sNorfair_51_Bg0,
+#endif // RANDOMIZER
 		.pBg1Data = sNorfair_51_Bg1,
 		.pBg2Data = sNorfair_51_Bg2,
 		.pClipData = sNorfair_51_Clipdata,

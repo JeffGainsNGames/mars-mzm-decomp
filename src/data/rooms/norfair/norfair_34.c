@@ -10,7 +10,11 @@ const u8 sNorfair_12_Scrolls[SCROLL_DATA_SIZE(3)] = {
 	2, 14, // Y bounds
 	23, 13, // Breakable block position
 	3, // Breakable block direction
+#ifdef RANDOMIZER
+	41, // Breakable block Y bound extension
+#else // !RANDOMIZER
 	21, // Breakable block Y bound extension
+#endif // RANDOMIZER
 
 	// Scroll 1
 	31, 46, // X bounds
@@ -22,9 +26,15 @@ const u8 sNorfair_12_Scrolls[SCROLL_DATA_SIZE(3)] = {
 	// Scroll 2
 	32, 46, // X bounds
 	12, 21, // Y bounds
+#ifdef RANDOMIZER
+	UCHAR_MAX, UCHAR_MAX, // Breakable block position
+	UCHAR_MAX, // Breakable block direction
+	UCHAR_MAX, // Breakable block Y bound extension
+#else // !RANDOMIZER
 	32, 16, // Breakable block position
 	0, // Breakable block direction
 	16, // Breakable block Y bound extension
+#endif // RANDOMIZER
 };
 
 const u8 sNorfair_34_Clipdata[269] = INCBIN_U8("data/rooms/norfair/norfair_34_clipdata.gfx");

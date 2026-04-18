@@ -297,7 +297,11 @@ extern const u8 sNorfair_14_Scrolls[SCROLL_DATA_SIZE(1)];
 extern const u8 sNorfair_43_Clipdata[];
 extern const u8 sNorfair_43_Bg2[1237];
 extern const u8 sNorfair_43_Bg1[];
+#ifdef RANDOMIZER
+extern const u8 sNorfair_43_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)];
+#else // !RANDOMIZER
 extern const u8 sNorfair_43_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)];
+#endif // RANDOMIZER
 extern const u8 sNorfair_43_Bg0[];
 
 extern const u8 sNorfair_44_Clipdata[85];

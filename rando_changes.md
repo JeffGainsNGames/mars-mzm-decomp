@@ -83,12 +83,32 @@
   - `sChozoStatueTargetPathBrinstar` and `sChozoStatueTargetPathNorfair` in [pause_screen_sub_menus_data.c](src/data/menus/pause_screen_sub_menus_data.c)
 - Change charge beam OAM to work with any item (and don't spawn glow)
   - `ChargeBeamSpawnGlow`, `ChargeBeamVisibleInit`, and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
-- Imago item fixes
+- Imago cocoon room fixes
+  - Only use version of room with tunnel
+    - Remove event connections from doors
+      - `sNorfairDoors` in [rooms_data.c](src/data/rooms_data.c)
+    - Fix BG0, BG1, and clipdata
+      - `sNorfair_43_Clipdata`, `sNorfair_43_Bg1`, and `sNorfair_43_Bg0` in [norfair_43.c](src/data/rooms/norfair/norfair_43.c)
+    - Remove BG0 for room 51, since the BG0 blocks were removed from the tunnel
+      - `sNorfairRoomEntries` in [rooms_data.c](src/data/rooms_data.c)
+    - Fix transparency for water
+      - `sNorfairRoomEntries` in [rooms_data.c](src/data/rooms_data.c)
+    - Remove the floor if imago has been defeated
+      - `ImagoCocoonInit` in [imago_cocoon.c](src/sprites_ai/imago_cocoon.c)
+    - Use room 34's scrolls (if entering from top right door) and extend bounds down
+      - `ImagoCocoonInit` in [imago_cocoon.c](src/sprites_ai/imago_cocoon.c)
+      - `sNorfair_12_Scrolls` in [norfair_34.c](src/data/rooms/norfair/norfair_34.c)
+  - Set "tunnel discovered" event when imago is defeated
+    - Set event when imago is defeated
+      - `ImagoCocoonIdle` in [imago_cocoon.c](src/sprites_ai/imago_cocoon.c)
+    - Remove event trigger sprite
+      - `sNorfair_43_Spriteset0` in [norfair_43.c](src/data/rooms/norfair/norfair_43.c)
+- Imago room fixes
   - Unlock Imago door when it dies (instead of waiting to collect super missiles)
     - `ImagoSetEvent` in [imago.c](src/sprites_ai/imago.c)
   - Only use original version of room so item is always there
-    - `sEventBasedConnections` in [hatch_data.c](src/data/hatch_data.c)
-    - 
+    - `sRidleyDoors` in [rooms_data.c](src/data/rooms_data.c)
+    - `ImagoInit` in [imago.c](src/sprites_ai/imago.c)
 - Allow both escape timers to work in any order
   - `EscapeDetermineTimer` in [escape.c](src/escape.c)
 - Make Chozo pillar near power grip always extended

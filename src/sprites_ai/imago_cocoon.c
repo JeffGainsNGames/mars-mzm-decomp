@@ -7,6 +7,7 @@
 #include "data/sprites/enemy_drop.h"
 #include "data/sprite_data.h"
 #include "data/generic_data.h"
+#include "data/rooms/norfair_rooms_data.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"
@@ -23,6 +24,7 @@
 #include "structs/sprite.h"
 #include "structs/samus.h"
 #include "structs/clipdata.h"
+#include "structs/scroll.h"
 
 #define IMAGO_COCOON_POSE_IDLE 0x8
 #define IMAGO_COCOON_POSE_FALLING_BEFORE_BLOCKS 0x9
@@ -236,6 +238,19 @@ static void ImagoCocoonChangeOamScaling(u16 limit, u16 value)
     }
 }
 
+#ifdef RANDOMIZER
+static void ImagoRemoveFloor(void)
+{
+    s32 x;
+
+    for (x = 21; x <= 25; x++)
+    {
+        BgClipSetBg1BlockValue(0, 13, x);
+        BgClipSetClipdataBlockValue(0, 13, x);
+    }
+}
+#endif // RANDOMIZER
+
 /**
  * @brief 26e7c | 2ac | Initializes an Imago cocoon sprite
  * 
@@ -256,6 +271,10 @@ static void ImagoCocoonInit(void)
         SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0);
 
+#ifdef RANDOMIZER
+        ImagoRemoveFloor();
+        gCurrentSprite.status = 0;
+#else // !RANDOMIZER
         if (CHECK_EVENT(EVENT_ENTER_RIDLEY_DEMO_PLAYED))
         {
             gCurrentSprite.status = 0;
@@ -292,6 +311,7 @@ static void ImagoCocoonInit(void)
 
         gCurrentSprite.pose = IMAGO_COCOON_POSE_IN_GROUND;
         gSubSpriteData1.yPosition += BLOCK_SIZE * 15;
+#endif // RANDOMIZER
     }
     else
     {
@@ -326,7 +346,18 @@ static void ImagoCocoonInit(void)
         // Number of vines alive
         gSubSpriteData1.health = 6;
 
+#ifdef RANDOMIZER
+        // Set vanilla room's scroll if entered from top right
+        if (gLastDoorUsed == 95)
+        {
+            gCurrentRoomScrollDataPointer = sNorfair_12_Scrolls;
+            gCurrentRoomEntry.scrollsFlag = ROOM_SCROLLS_FLAG_HAS_SCROLLS;
+        }
+        // Don't lock the doors so the player can leave
+#else // !RANDOMIZER
         LOCK_DOORS();
+#endif // RANDOMIZER
+
         gCurrentSprite.pose = IMAGO_COCOON_POSE_IDLE;
         gCurrentSprite.roomSlot = IMAGO_COCOON_PART_IMAGO_COCOON;
 
@@ -448,6 +479,9 @@ static void ImagoCocoonIdle(void)
 
         // Set falling
         SET_EVENT(EVENT_IMAGO_COCOON_KILLED);
+#ifdef RANDOMIZER
+        SET_EVENT(EVENT_IMAGO_TUNNEL_DISCOVERED);
+#endif // RANDOMIZER
         SoundPlay(SOUND_IMAGO_COCOON_VINES_CRACKING);
     }
 }
@@ -557,6 +591,18 @@ static void ImagoCocoonFallingAfterBlocks(void)
         ParticleSet(yPosition + BLOCK_SIZE * 3, xPosition, PE_SPRITE_EXPLOSION_HUGE);
     }
 
+#ifdef RANDOMIZER
+    // Don't collide with floor in randomizer since the tunnel is open
+    if (gCurrentSprite.work0 == CONVERT_SECONDS(0.75f))
+    {
+        FadeMusic(CONVERT_SECONDS(1.4f + 1.f / 60));
+    }
+    else if (gCurrentSprite.work0 == CONVERT_SECONDS(2.0f))
+    {
+        PlayMusic(MUSIC_BOSS_KILLED, 0);
+        gCurrentSprite.status = 0;
+    }
+#else // !RANDOMIZER
     topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(yPosition, xPosition);
     if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
     {
@@ -580,6 +626,7 @@ static void ImagoCocoonFallingAfterBlocks(void)
 
         FadeMusic(CONVERT_SECONDS(1.4f + 1.f / 60));
     }
+#endif // RANDOMIZER
 }
 
 /**
