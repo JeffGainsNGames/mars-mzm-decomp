@@ -4,7 +4,11 @@
 #include "types.h"
 #include "macros.h"
 
+#ifdef RANDOMIZER
+#define BOOT_DEBUG_MAP_SCROLL_SPEED 32
+#else // !RANDOMIZER
 #define BOOT_DEBUG_MAP_SCROLL_SPEED 8
+#endif // RANDOMIZER
 
 MAKE_ENUM(u8, BootDebugMenuDepth) {
     BOOT_DEBUG_MENU_MAIN,

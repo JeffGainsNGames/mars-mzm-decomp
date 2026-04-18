@@ -1403,7 +1403,11 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
         if (i == 0)
         {
             // Draw room ID number
+#ifdef RANDOMIZER
+            number = gCurrentRoom;
+#else // !RANDOMIZER
             number = gCurrentRoom + 1;
+#endif // RANDOMIZER
             offset = 1;
             divisor = 10;
         }
