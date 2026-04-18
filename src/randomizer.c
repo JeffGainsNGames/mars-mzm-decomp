@@ -26,6 +26,8 @@
 
 #ifdef RANDOMIZER
 
+#define CATERPILLAR_ROOM_RIGHT_KEY MINOR_LOC_KEY(AREA_NORFAIR, 0x2E, 33, 5)
+
 static u8 sRandoHintEvents[TARGET_ITEM_COUNT][2] = {
     [TARGET_LONG_BEAM] = {
         EVENT_STATUE_LONG_BEAM_GRABBED,
@@ -72,6 +74,9 @@ const struct MinorLocation* RandoGetMinorLocation(Area area, u8 room, u8 blockX,
     u32 mid;
 
     key = MINOR_LOC_KEY(area, room, blockX, blockY);
+    if (key == CATERPILLAR_ROOM_RIGHT_KEY)
+        key = MINOR_LOC_KEY(area, 0x2A, blockX, blockY);
+
     left = 0;
     right = MINOR_LOCATION_COUNT - 1;
 
