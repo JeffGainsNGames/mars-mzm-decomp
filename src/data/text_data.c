@@ -426,11 +426,21 @@ static const u16* sEnglishTextPointers_Message[MESSAGE_COUNT] = {
     [MESSAGE_PRESS_SELECT_L_AND_R] = sEnglishText_Message_PressSelectLAndR,
     [MESSAGE_EASY_SLEEP_PROMPT] = sEnglishText_Message_EasySleepPrompt,
 #ifdef RANDOMIZER
+    // New items
     [MESSAGE_NOTHING_ACQUIRED] = sEnglishText_Message_Nothing,
     [MESSAGE_UNKNOWN_ITEM] = sEnglishText_Message_UnknownItem,
     [MESSAGE_ZIPLINES] = sEnglishText_Message_Ziplines,
     [MESSAGE_INFANT_METROID] = sEnglishText_Message_InfantMetroid,
     [MESSAGE_ICE_TRAP] = sEnglishText_Message_IceTrap,
+    // Hints
+    [MESSAGE_LONG_BEAM_HINT] = sEnglishText_Message_Dummy,
+    [MESSAGE_ICE_BEAM_HINT] = sEnglishText_Message_Dummy,
+    [MESSAGE_WAVE_BEAM_HINT] = sEnglishText_Message_Dummy,
+    [MESSAGE_BOMBS_HINT] = sEnglishText_Message_Dummy,
+    [MESSAGE_SPEED_BOOSTER_HINT] = sEnglishText_Message_Dummy,
+    [MESSAGE_HI_JUMP_HINT] = sEnglishText_Message_Dummy,
+    [MESSAGE_SCREW_ATTACK_HINT] = sEnglishText_Message_Dummy,
+    [MESSAGE_VARIA_SUIT_HINT] = sEnglishText_Message_Dummy,
 #endif // RANDOMIZER
 };
 

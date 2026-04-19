@@ -13,6 +13,7 @@
 #include "data/rooms_data.h"
 #include "data/samus/samus_palette_data.h"
 #include "data/sprite_data.h"
+#include "data/text_data.h"
 
 #include "structs/animated_graphics.h"
 #include "structs/connection.h"
@@ -43,6 +44,7 @@ static const u16* sSamusPalettes_Pointer = sSamusPal_PowerSuit_Default;
 static const u16* sHelmetCursorPalettes_Pointer = sFileSelectIconsPal;
 static const u16* sBeamPalettes_Pointer = sBeamPal;
 static const u16* sStatueCutscenePalette_Pointer = sStatueOpeningPal;
+static const u16*** sMessageTextPointers_Pointer = sMessageTextPointers;
 static const u8* sCharacterWidths_Pointer = sCharacterWidths;
 static const struct SoundEntry* sSoundDataEntries_Pointer = sSoundDataEntries;
 static const struct ChozoStatueTarget* sChozoStatueTargets_Pointer = sChozoStatueTargets;

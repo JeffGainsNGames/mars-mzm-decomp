@@ -22,7 +22,7 @@
   - Fix charge beam
     - `ChargeBeamInit` and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
     - `DeoremInit` in [deorem.c](src/sprites_ai/deorem.c)
-  - Fix chozo statues
+  - Fix item chozo statues
     - `ChozoStatueRegisterItem` and `ChozoStatueGetBehavior` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
     - `ChozoBallRegisterItem` in [chozo_ball.c](src/sprites_ai/chozo_ball.c)
   - Make unknown item chozo statues look like normal ones (since they don't have enough space in their graphics)
@@ -62,8 +62,16 @@
     - `PauseDebugActivateAbilities`, `PauseDebugStatusScreen`, `PauseDebugDrawAffectedGroups`, `PauseDebugEquipTank`, and `UpdateSuitType` in [status_screen.c](src/menus/status_screen.c)
 - Custom text on items
   - `TextProcessMessageBanner` in [text.c](src/text.c)
-- Chozo hints for any item
-  - `sChozoStatueTargetConditions` in [pause_screen_sub_menus_data.c](src/data/menus/pause_screen_sub_menus_data.c)
+- Chozo statue hints
+  - Add new messages for hints
+    - `MessageId` in [text.h](include/constants/text.h)
+    - `sEnglishTextPointers_Message` in [text_data.c](src/data/text_data.c)
+  - Make statues already sitting
+    - `ChozoStatueInit` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
+  - Display hint instead of going to map
+    - `ChozoStatueRegisterHint`, `ChozoStatueHintFlashing`, and `ChozoStatueDelayBeforeRefillAfterHint` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
+  - Allow viewing hint every time
+    - `ChozoStatuePartInit` in [chozo_statue.c](src/sprites_ai/chozo_statue.c)
 - Starting location and items
   - `CutsceneEnd` in [cutscene_utils.c](src/cutscenes/cutscene_utils.c)
   - `InGameCutsceneTryQueue`, `InGameCutsceneCheckPlayOnTransition`, and `InGameCutsceneSamusCloseUp` in [in_game_cutscene.c](src/in_game_cutscene.c)
@@ -77,10 +85,6 @@
 - Don't give varia automatically when getting fully powered suit
   - `ColorFadingProcess_GettingFullyPowered` in [room.c](src/color_fading.c)
   - `PauseScreenGetMinimapData` in [pause_screen.c](src/menus/pause_screen.c)
-- Allow Chozo hints in all areas
-  - `sElevatorRoomPairs` in [clipdata_data.c](src/data/clipdata_data.c)
-  - `sMapScreenChozoStatueAreaNamesEnglishGfx` in [pause_screen_data.c](src/data/menus/pause_screen_data.c)
-  - `sChozoStatueTargetPathBrinstar` and `sChozoStatueTargetPathNorfair` in [pause_screen_sub_menus_data.c](src/data/menus/pause_screen_sub_menus_data.c)
 - Change charge beam OAM to work with any item (and don't spawn glow)
   - `ChargeBeamSpawnGlow`, `ChargeBeamVisibleInit`, and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
 - Imago cocoon room fixes
@@ -192,3 +196,11 @@
   - `KraidInit` and `KraidDying` in [kraid.c](src/sprites_ai/kraid.c)
   - `RidleyCheckPlayCutscene` and `RidleyDying` in [ridley.c](src/sprites_ai/ridley.c)
   - `RuinsTestDespawn` in [ruins_test.c](src/sprites_ai/ruins_test.c)
+
+## Unused
+- Chozo hints for any item
+  - `sChozoStatueTargetConditions` in [pause_screen_sub_menus_data.c](src/data/menus/pause_screen_sub_menus_data.c)
+- Allow Chozo hint targets in all areas
+  - `sElevatorRoomPairs` in [clipdata_data.c](src/data/clipdata_data.c)
+  - `sMapScreenChozoStatueAreaNamesEnglishGfx` in [pause_screen_data.c](src/data/menus/pause_screen_data.c)
+  - `sChozoStatueTargetPathBrinstar` and `sChozoStatueTargetPathNorfair` in [pause_screen_sub_menus_data.c](src/data/menus/pause_screen_sub_menus_data.c)

@@ -342,9 +342,6 @@ void RandoSetHintEvents(u8 hint)
 {
     SET_EVENT(sRandoHintEvents[hint][0]);
     SET_EVENT(sRandoHintEvents[hint][1]);
-
-    if (hint == TARGET_LONG_BEAM)
-        InGameCutsceneCheckFlag(TRUE, IGC_LONG_BEAM_HINT);
 }
 
 /**

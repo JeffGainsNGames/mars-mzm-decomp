@@ -879,6 +879,9 @@ void InGameCutsceneCheckPlayOnTransition(void)
                     RandoSetHintEvents(i);
             }
 
+            // This removes BG0 in Brinstar 2 (otherwise the path is obscured)
+            InGameCutsceneCheckFlag(TRUE, IGC_LONG_BEAM_HINT);
+
             gHideHud = FALSE;
 #else // !RANDOMIZER
             // Starting Y position

@@ -524,6 +524,12 @@ static void ChozoStatueInit(void)
     {
         // Is hint
         gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;
+
+#ifdef RANDOMIZER
+        // Set seated
+        gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Seated;
+        ChozoStatueSeatedChangeClipdata(CAA_MAKE_NON_POWER_GRIP);
+#else // !RANDOMIZER
         if (behavior == CHOZO_STATUE_BEHAVIOR_HINT_TAKEN)
         {
             // Set seated
@@ -537,6 +543,7 @@ static void ChozoStatueInit(void)
             gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Standing;
             ChozoStatueStandingChangeClipdata(CAA_MAKE_NON_POWER_GRIP, CAA_MAKE_SOLID_GRIPPABLE);
         }
+#endif // RANDOMIZER
     }
     else
     {
@@ -633,8 +640,45 @@ static void ChozoStatueRegisterHint(void)
 
     // Register hint
     ChozoStatueRegisterItem(gCurrentSprite.spriteId);
+#ifndef RANDOMIZER
     FadeMusic(CONVERT_SECONDS(1.f));
+#endif // !RANDOMIZER
 }
+
+#ifdef RANDOMIZER
+static u8 ChozoStatueHintMessageId(void)
+{
+    switch (gCurrentSprite.spriteId)
+    {
+        case PSPRITE_CHOZO_STATUE_LONG_HINT:
+            return MESSAGE_LONG_BEAM_HINT;
+
+        case PSPRITE_CHOZO_STATUE_ICE_HINT:
+            return MESSAGE_ICE_BEAM_HINT;
+
+        case PSPRITE_CHOZO_STATUE_WAVE_HINT:
+            return MESSAGE_WAVE_BEAM_HINT;
+
+        case PSPRITE_CHOZO_STATUE_BOMB_HINT:
+            return MESSAGE_BOMBS_HINT;
+
+        case PSPRITE_CHOZO_STATUE_SPEEDBOOSTER_HINT:
+            return MESSAGE_SPEED_BOOSTER_HINT;
+
+        case PSPRITE_CHOZO_STATUE_HIGH_JUMP_HINT:
+            return MESSAGE_HI_JUMP_HINT;
+
+        case PSPRITE_CHOZO_STATUE_SCREW_HINT:
+            return MESSAGE_SCREW_ATTACK_HINT;
+
+        case PSPRITE_CHOZO_STATUE_VARIA_HINT:
+            return MESSAGE_VARIA_SUIT_HINT;
+
+        default:
+            return MESSAGE_DUMMY;
+    }
+}
+#endif // RANDOMIZER
 
 /**
  * @brief 142fc | bc | Handles the flashing before a chozo statue hint
@@ -651,6 +695,15 @@ static void ChozoStatueHintFlashing(void)
         APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
         if (gCurrentSprite.work0 == 0)
         {
+#ifdef RANDOMIZER
+            gCurrentSprite.pose = CHOZO_STATUE_POSE_DELAY_AFTER_SITTING;
+            gCurrentSprite.work0 = CONVERT_SECONDS(.5f);
+            gCurrentSprite.paletteRow = 0;
+            
+            // Display hint
+            SpriteSpawnPrimary(PSPRITE_MESSAGE_BANNER, ChozoStatueHintMessageId(), SPRITE_GFX_SLOT_SPECIAL,
+                gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
+#else // !RANDOMIZER
             gCurrentSprite.pose = CHOZO_STATUE_POSE_SITTING_INIT;
             gCurrentSprite.paletteRow = 0;
 
@@ -658,6 +711,7 @@ static void ChozoStatueHintFlashing(void)
             gPauseScreenFlag = PAUSE_SCREEN_CHOZO_HINT;
 
             PlayMusic(MUSIC_CHOZO_STATUE_HINT, 0);
+#endif // RANDOMIZER
         }
         else
         {
@@ -739,6 +793,12 @@ static void ChozoStatueSitting(void)
  */
 static void ChozoStatueDelayBeforeRefillAfterHint(void)
 {
+#ifdef RANDOMIZER
+    // Wait for hint to close
+    if (SpriteUtilFindPrimary(PSPRITE_MESSAGE_BANNER) != UCHAR_MAX)
+        return;
+#endif // RANDOMIZER
+
     APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
         gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;   
@@ -877,10 +937,15 @@ static void ChozoStatuePartInit(void)
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
+#ifdef RANDOMIZER
+            // Allow viewing hint every time
+            gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT;
+#else // !RANDOMIZER
             if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
                 gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT;
             else
                 gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_REFILL;
+#endif // RANDOMIZER
 
             if (behavior == CHOZO_STATUE_BEHAVIOR_ITEM)
                 gCurrentSprite.pOam = sChozoStatuePartOam_ArmIdle;
