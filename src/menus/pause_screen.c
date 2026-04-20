@@ -808,6 +808,14 @@ void PauseScreenUpdateWireframeSamus(u8 updateWireframeOption)
         return;
     }
 
+#ifdef RANDOMIZER
+    if (gEquipment.suitType == SUIT_SUITLESS)
+        oamId = MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME;
+    else if (gEquipment.suitMiscActivation & SMF_GRAVITY_SUIT)
+        oamId = MISC_OAM_ID_SAMUS_FULL_SUIT_WIREFRAME;
+    else
+        oamId = MISC_OAM_ID_SAMUS_POWER_SUIT_WIREFRAME;
+#else // !RANDOMIZER
     if (gEquipment.suitType == SUIT_NORMAL)
         oamId = MISC_OAM_ID_SAMUS_POWER_SUIT_WIREFRAME;
     else if (gEquipment.suitType == SUIT_FULLY_POWERED)
@@ -816,6 +824,7 @@ void PauseScreenUpdateWireframeSamus(u8 updateWireframeOption)
         oamId = MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME;
     else
         oamId = MISC_OAM_ID_SAMUS_POWER_SUIT_WIREFRAME;
+#endif // RANDOMIZER
 
     if (updateWireframeOption == 0 && gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
         oamId = MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME;

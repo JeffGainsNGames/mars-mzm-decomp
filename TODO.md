@@ -18,7 +18,6 @@
   - ~~Set hint events here for statues that don't have hints~~
 - Starting location
   - Allow spawning on a save platform
-- Add separate normal and varia palettes for full suit
 - Rooms names
 - Custom credits text
 - Ice trap item
@@ -33,13 +32,13 @@
 - ~~Fix obtaining unknown items~~
   - ~~Display "unknown item" if not full suit when text is loaded~~
   - ~~Don't play sound effect on status screen if full suit~~
-  - Replace Chozo statue graphics
+  - ~~Replace Chozo statue graphics~~
 - ~~Fix ending percent calculation~~
 - Include bug fixes for bugs that don't help speedrunners
 - Increase enemy drop rates for power bombs
 
 ## Room Changes
-- Remove duplicate rooms near Ruins Test?
+- Remove duplicate rooms near Ruins Test
 
 ## QoL
 - ~~Enable item toggle~~
@@ -49,7 +48,6 @@
 - ~~Remove cutscenes~~
 - ~~Skip door transitions~~
 - ~~Skip suitless sequence~~
-- Obtain unknown items?
 - ~~Use ball launchers without bombs~~
 - ~~Disable wall jump~~
 - ~~Disable infinite bomb jump~~

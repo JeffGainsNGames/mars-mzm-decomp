@@ -6863,6 +6863,12 @@ void SamusUpdateVelocityPosition(struct SamusData* pData)
     pData->xPosition += velocity;
 }
 
+#ifdef RANDOMIZER
+#define USE_FULL_SUIT_GFX (pEquipment->suitMiscActivation & SMF_GRAVITY_SUIT)
+#else // !RANDOMIZER
+#define USE_FULL_SUIT_GFX (pEquipment->suitType != SUIT_NORMAL)
+#endif // RANDOMIZER
+
 /**
  * @brief a688 | de4 | Updates the graphics and OAM of samus
  * 
@@ -6961,7 +6967,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             else if (!pData->speedboostingShinesparking)
             {
                 // Normal running graphics
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_Running[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Running[acd][direction];
@@ -6971,7 +6977,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             else
             {
                 // Speedboosting graphics
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_Running_Speedboosting[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Running_Speedboosting[acd][direction];
@@ -6988,7 +6994,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_Standing[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Standing[acd][direction];
@@ -7005,7 +7011,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_TurningAround[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_TurningAround[acd][direction];
@@ -7022,7 +7028,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_Shooting[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Shooting[acd][direction];
@@ -7039,7 +7045,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_Crouching[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Crouching[acd][direction];
@@ -7056,7 +7062,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_TurningAroundAndCrouching[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_TurningAroundAndCrouching[acd][direction];
@@ -7073,7 +7079,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_ShootingAndCrouching[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_ShootingAndCrouching[acd][direction];
@@ -7087,7 +7093,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             if (pWeapon->weaponHighlighted & (WH_MISSILE | WH_SUPER_MISSILE))
                 acd++;
 
-            if (pEquipment->suitType != SUIT_NORMAL)
+            if (USE_FULL_SUIT_GFX)
                 pAnim = sSamusAnimPointers_FullSuit_Skidding[acd][direction];
             else
                 pAnim = sSamusAnimPointers_PowerSuit_Skidding[acd][direction];
@@ -7103,7 +7109,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_MidAir[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_MidAir[acd][direction];
@@ -7120,7 +7126,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_TurningAroundMidAir[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_TurningAroundMidAir[acd][direction];
@@ -7137,7 +7143,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_Landing[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Landing[acd][direction];
@@ -7150,7 +7156,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             if (pEquipment->suitMiscActivation & SMF_SPACE_JUMP)
             {
                 // Space jumping graphics
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_ScrewAttacking[1][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_ScrewAttacking[1][direction];
@@ -7158,7 +7164,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             else
             {
                 // Screw attack graphics
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_ScrewAttacking[0][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_ScrewAttacking[0][direction];
@@ -7175,7 +7181,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_AimingWhileHanging[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_AimingWhileHanging[acd][direction];
@@ -7192,7 +7198,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit_ShootingWhileHanging[acd][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_ShootingWhileHanging[acd][direction];
@@ -7206,7 +7212,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             if (pData->elevatorDirection & KEY_UP)
                 acd++;
 
-            if (pEquipment->suitType != SUIT_NORMAL)
+            if (USE_FULL_SUIT_GFX)
                 pAnim = sSamusAnimPointers_FullSuit_UsingAnElevator[acd][direction];
             else
                 pAnim = sSamusAnimPointers_PowerSuit_UsingAnElevator[acd][direction];
@@ -7219,7 +7225,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             // Versions based on the shinesparking direction
             acd = pData->forcedMovement;
 
-            if (pEquipment->suitType != SUIT_NORMAL)
+            if (USE_FULL_SUIT_GFX)
                 pAnim = sSamusAnimPointers_FullSuit_Shinesparking[acd][direction];
             else
                 pAnim = sSamusAnimPointers_PowerSuit_Shinesparking[acd][direction];
@@ -7228,7 +7234,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             break;
 
         case SPOSE_ON_ZIPLINE:
-            if (pEquipment->suitType != SUIT_NORMAL)
+            if (USE_FULL_SUIT_GFX)
                 pAnim = sSamusAnimPointers_FullSuit_OnZipline[acd][direction];
             else
                 pAnim = sSamusAnimPointers_PowerSuit_OnZipline[acd][direction];
@@ -7237,7 +7243,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             break;
 
         case SPOSE_SHOOTING_ON_ZIPLINE:
-            if (pEquipment->suitType != SUIT_NORMAL)
+            if (USE_FULL_SUIT_GFX)
                 pAnim = sSamusAnimPointers_FullSuit_ShootingOnZipline[acd][direction];
             else
                 pAnim = sSamusAnimPointers_PowerSuit_ShootingOnZipline[acd][direction];
@@ -7246,7 +7252,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             break;
 
         case SPOSE_TURNING_ON_ZIPLINE:
-            if (pEquipment->suitType != SUIT_NORMAL)
+            if (USE_FULL_SUIT_GFX)
                 pAnim = sSamusAnimPointers_FullSuit_TurningOnZipline[acd][direction];
             else
                 pAnim = sSamusAnimPointers_PowerSuit_TurningOnZipline[acd][direction];
@@ -7286,7 +7292,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                 {
                     if (pData->lastWallTouchedMidAir)
                         pAnim = sSamusAnim_27f430;
@@ -7313,7 +7319,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
             }
             else
             {
-                if (pEquipment->suitType != SUIT_NORMAL)
+                if (USE_FULL_SUIT_GFX)
                     pAnim = sSamusAnimPointers_FullSuit[pose][direction];
                 else
                     pAnim = sSamusAnimPointers_PowerSuit[pose][direction];
@@ -7582,6 +7588,47 @@ void SamusUpdatePalette(struct SamusData* pData)
     if (pData->unmorphPaletteTimer != 0)
         pData->unmorphPaletteTimer--;
 
+#ifdef RANDOMIZER
+    if (pEquipment->suitType != SUIT_SUITLESS)
+    {
+        if (pEquipment->suitMiscActivation & SMF_GRAVITY_SUIT)
+        {
+            pDefaultPal = sSamusPal_GravitySuit_Default;
+            pReleasePal = sSamusPal_GravitySuit_BeamRelease;
+            pFlashingPal = sSamusPal_GravitySuit_Flashing;
+            pSpeedboostPal = sSamusPal_GravitySuit_Speedboost;
+            pUnmorphPal = sSamusPal_GravitySuit_Unmorph;
+            pChargingPal = sSamusPal_GravitySuit_ChargingBeam;
+            pSavingPal = sSamusPal_GravitySuit_SavingPointers[pData->currentAnimationFrame];
+            pDyingPal = sSamusPal_GravitySuit_Dying;
+            pMapDownloadPal = sSamusPal_GravitySuit_DownloadingMapPointers[pData->currentAnimationFrame];
+        }
+        else if (pEquipment->suitMiscActivation & SMF_VARIA_SUIT)
+        {
+            pDefaultPal = sSamusPal_VariaSuit_Default;
+            pReleasePal = sSamusPal_VariaSuit_BeamRelease;
+            pFlashingPal = sSamusPal_VariaSuit_Flashing;
+            pSpeedboostPal = sSamusPal_VariaSuit_Speedboost;
+            pUnmorphPal = sSamusPal_VariaSuit_Unmorph;
+            pChargingPal = sSamusPal_VariaSuit_ChargingBeam;
+            pSavingPal = sSamusPal_VariaSuit_SavingPointers[pData->currentAnimationFrame];
+            pDyingPal = sSamusPal_VariaSuit_Dying;
+            pMapDownloadPal = sSamusPal_VariaSuit_DownloadingMapPointers[pData->currentAnimationFrame];
+        }
+        else
+        {
+            pDefaultPal = sSamusPal_PowerSuit_Default;
+            pReleasePal = sSamusPal_PowerSuit_BeamRelease;
+            pFlashingPal = sSamusPal_PowerSuit_Flashing;
+            pSpeedboostPal = sSamusPal_PowerSuit_Speedboost;
+            pUnmorphPal = sSamusPal_PowerSuit_Unmorph;
+            pChargingPal = sSamusPal_PowerSuit_ChargingBeam;
+            pSavingPal = sSamusPal_PowerSuit_SavingPointers[pData->currentAnimationFrame];
+            pDyingPal = sSamusPal_PowerSuit_Dying;
+            pMapDownloadPal = sSamusPal_PowerSuit_DownloadingMapPointers[pData->currentAnimationFrame];
+        }
+    }
+#else // !RANDOMIZER
     if (pEquipment->suitType == SUIT_FULLY_POWERED)
     {
         if (pEquipment->suitMiscActivation & SMF_GRAVITY_SUIT)
@@ -7636,6 +7683,7 @@ void SamusUpdatePalette(struct SamusData* pData)
             pMapDownloadPal = sSamusPal_PowerSuit_DownloadingMapPointers[pData->currentAnimationFrame];
         }
     }
+#endif // RANDOMIZER
     else
     {
         pDefaultPal = sSamusPal_Suitless_Default;

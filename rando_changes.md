@@ -136,6 +136,11 @@
   - `SpriteUtilGetFinalCompletionPercentage` in [sprite_util.c](src/sprite_util.c)
 - Prevent Deorem from leaving, and only spawn at first location
   - `DeoremInit`, `DeoremHandler`, `DeoremRetracting`, `DeoremEyeInit`, and `DeoremEyeIdle` in [deorem.c](src/sprites_ai/deorem.c)
+- Only use fully powered suit graphics with gravity suit
+  - Check for gravity when loading graphics/palette
+    - `SamusUpdateGraphicsOam` and `SamusUpdatePalette` in [samus.c](src/samus.c)
+  - Use correct wireframe on status screen
+    - `PauseScreenUpdateWireframeSamus` in [pause_screen.c](src/menus/pause_screen.c)
 
 ## Room/Tileset Changes
 - Remove vines in Norfair and near varia

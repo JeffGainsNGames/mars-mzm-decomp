@@ -277,7 +277,7 @@ u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
     // Check for ziplines and fully powered suit
     if (CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
         completionPercentage++;
-    if (gEquipment.suitType == SUIT_FULLY_POWERED)
+    if (sStartingInfo.suitType != SUIT_FULLY_POWERED && gEquipment.suitType == SUIT_FULLY_POWERED)
         completionPercentage++;
 
     totalItemCount = ITEM_SOURCE_COUNT + MINOR_LOCATION_COUNT;

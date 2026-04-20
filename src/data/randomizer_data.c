@@ -73,7 +73,7 @@ const struct StartingInfo sStartingInfo = {
     .suitMisc = SMF_NONE,
     .mainItems = MIF_NONE,
     .downloadedMapStatus = 0,
-    .suitType = SUIT_NORMAL,
+    .suitType = SUIT_FULLY_POWERED,
     // Disabled hints
     .disabledHints = 0
 };
