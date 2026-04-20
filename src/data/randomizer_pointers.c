@@ -13,6 +13,7 @@
 #include "data/rooms_data.h"
 #include "data/samus/samus_palette_data.h"
 #include "data/sprite_data.h"
+#include "data/sprites/gunship.h"
 #include "data/text_data.h"
 
 #include "structs/animated_graphics.h"
@@ -39,6 +40,7 @@ static const u8 (*sAreaConnections_Pointer)[AREA_CONNECTION_FIELD_COUNT] = sArea
 static const struct AnimatedPaletteData* sAnimatedPaletteEntries_Pointer = sAnimatedPaletteEntries;
 static const u32** sSpritesGraphicsPointers_Pointer = sSpritesGraphicsPointers;
 static const u16** sSpritesPalettePointers_Pointer = sSpritesPalettePointers;
+static const u16* sGunshipFlashingPal_Pointer = sGunshipFlashingPal;
 static const u8** sSpritesetPointers_Pointer = sSpritesetPointers;
 static const u16* sSamusPalettes_Pointer = sSamusPal_PowerSuit_Default;
 static const u16* sHelmetCursorPalettes_Pointer = sFileSelectIconsPal;
