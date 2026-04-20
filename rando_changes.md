@@ -141,6 +141,11 @@
     - `SamusUpdateGraphicsOam` and `SamusUpdatePalette` in [samus.c](src/samus.c)
   - Use correct wireframe on status screen
     - `PauseScreenUpdateWireframeSamus` in [pause_screen.c](src/menus/pause_screen.c)
+- Ammo drop fixes
+  - Drop power bombs if empty on power bombs and full on everything else
+    - `SpriteUtilDetermineEnemyDrop` in [sprite_util.c](src/sprite_util.c)
+  - Change missile drops to super missile drops if missiles aren't obtained and super missiles are empty
+    - `SpriteUtilDetermineEnemyDrop` in [sprite_util.c](src/sprite_util.c)
 
 ## Room/Tileset Changes
 - Remove vines in Norfair and near varia

@@ -3173,6 +3173,16 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
         powerProb = sPrimarySpriteStats[spriteId][8];
     }
 
+#ifdef RANDOMIZER
+    // Drop a power bomb if out of power bombs and everything else is full
+    if (gEquipment.maxPowerBombs > 0 && gEquipment.currentPowerBombs == 0 && fullLife &&
+        gEquipment.maxMissiles == gEquipment.currentMissiles &&
+        gEquipment.maxSuperMissiles == gEquipment.maxSuperMissiles)
+    {
+        return PSPRITE_POWER_BOMB_DROP;
+    }
+#endif // RANDOMIZER
+
     if (powerProb != 0)
     {
         powerProb = SPRITE_DROP_MAX_PROB - powerProb;
@@ -3263,6 +3273,14 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
             {
                 drop = PSPRITE_MISSILE_DROP;
             }
+#ifdef RANDOMIZER
+            // Drop a super if you only have supers and no ammo
+            else if (!(gEquipment.mainItemsActivation & MIF_MISSILES) &&
+                gEquipment.maxSuperMissiles > 0 && gEquipment.currentSuperMissiles == 0)
+            {
+                return PSPRITE_SUPER_MISSILE_DROP;
+            }
+#endif // RANDOMIZER
             else
             {
                 if (fullLife)
