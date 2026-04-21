@@ -34,6 +34,8 @@ extern const u8 sRandoZiplinesGfx[384];
 extern const u8 sRandoInfantMetroidGfx[384];
 extern const u8 sRandoAnonymousGfx[384];
 
+extern const u16 sMissingRoomName[];
+
 // From patcher
 
 extern const u8 sRandoDifficultyOptions;
@@ -54,5 +56,7 @@ extern const struct StartingInfo sStartingInfo;
 
 extern const struct MajorLocation sMajorLocations[ITEM_SOURCE_COUNT];
 extern const struct MinorLocation sMinorLocations[MINOR_LOCATION_COUNT];
+
+extern const u16* const* const sRoomNames[AREA_NORMAL_COUNT];
 
 #endif // RANDOMIZER_DATA_H

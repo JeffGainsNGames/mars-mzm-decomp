@@ -23,7 +23,11 @@ extern const u16 sSamusWireframePal[4 * 16];
 // ... Oam
 
 extern const u32 sMotifBehindWireframeSamusGfx[278];
+#ifdef RANDOMIZER
 extern const u32 sPauseScreenHudGfx[1404];
+#else // !RANDOMIZER
+extern const u32 sPauseScreenHudGfx[1404];
+#endif // RANDOMIZER
 extern const u32 sMinimapLettersGfx[60];
 
 extern const u32 sMenuNamesJapaneseGfx[92];
@@ -52,7 +56,11 @@ extern const u32 sTestMinimap[78];
 
 extern const u32 sDebugMenuTileParts[175];
 extern const u32 sMapScreenVisorOverlayTilemap[122];
+#ifdef RANDOMIZER
+extern const u32 sMapScreenOverlayTilemap[114];
+#else // !RANDOMIZER
 extern const u32 sMapScreenOverlayTilemap[125];
+#endif // RANDOMIZER
 extern const u32 sWorldMapOverlayTilemap[206];
 extern const u32 sStatusScreenTilemap[264];
 extern const u32 sEasySleepTilemap[196];

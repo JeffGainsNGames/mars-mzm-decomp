@@ -2781,7 +2781,11 @@ static const struct FrameData sMiscOam_DebugSamusHeadAndArrows[2] = {
 
 
 const u32 sMotifBehindWireframeSamusGfx[278] = INCBIN_U32("data/menus/pause_screen/motif_behind_wireframe_samus.gfx.lz");
+#ifdef RANDOMIZER
+const u32 sPauseScreenHudGfx[1404] = INCBIN_U32("data_rando/pause_screen_hud.gfx.lz");
+#else // !RANDOMIZER
 const u32 sPauseScreenHudGfx[1404] = INCBIN_U32("data/menus/pause_screen/pause_screen_hud.gfx.lz");
+#endif // RANDOMIZER
 const u32 sMinimapLettersGfx[60] = INCBIN_U32("data/menus/pause_screen/minimap_letters.gfx.lz");
 
 const u32 sMenuNamesJapaneseGfx[92] = INCBIN_U32("data/menus/pause_screen/menu_names_japanese.gfx.lz");
@@ -2810,7 +2814,11 @@ const u32 sTestMinimap[78] = INCBIN_U32("data/menus/pause_screen/test_minimap.tt
 
 const u32 sDebugMenuTileParts[175] = INCBIN_U32("data/menus/pause_screen/debug_menu_tile_parts.tt");
 const u32 sMapScreenVisorOverlayTilemap[122] = INCBIN_U32("data/menus/pause_screen/map_screen_visor_overlay.tt");
+#ifdef RANDOMIZER
+const u32 sMapScreenOverlayTilemap[114] = INCBIN_U32("data_rando/map_screen_overlay.tt.lz");
+#else // !RANDOMIZER
 const u32 sMapScreenOverlayTilemap[125] = INCBIN_U32("data/menus/pause_screen/map_screen_overlay.tt");
+#endif // RANDOMIZER
 const u32 sWorldMapOverlayTilemap[206] = INCBIN_U32("data/menus/pause_screen/world_map_overlay.tt");
 const u32 sStatusScreenTilemap[264] = INCBIN_U32("data/menus/pause_screen/status_screen.tt");
 const u32 sEasySleepTilemap[196] = INCBIN_U32("data/menus/pause_screen/easy_sleep.tt");

@@ -2,11 +2,13 @@
 #include "menus/pause_screen.h"
 #include "menus/status_screen.h"
 #include "dma.h"
+#include "text.h"
 
 #include "data/shortcut_pointers.h"
 #include "data/block_data.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_map_data.h"
+#include "data/randomizer_data.h"
 
 #include "constants/audio.h"
 #include "constants/block.h"
@@ -17,6 +19,7 @@
 #include "structs/bg_clip.h"
 #include "structs/minimap.h"
 #include "structs/menus/pause_screen.h"
+#include "structs/text.h"
 
 static u32* sPauseScreen_7602a8 = VRAM_BASE + 0xBC00;
 
@@ -1071,12 +1074,71 @@ void MapScreenHandler(void)
     }
 
     // Check switch minimap
+#ifdef RANDOMIZER
+    if (!PAUSE_SCREEN_DATA.onWorldMap && gChangedInput & KEY_SELECT)
+#else // !RANDOMIZER
     if (gChangedInput & KEY_SELECT)
+#endif // RANDOMIZER
     {
         if (PAUSE_SCREEN_DATA.areasViewableTotal > 1 && PAUSE_SCREEN_DATA.currentArea < AREA_NORMAL_COUNT)
             PAUSE_SCREEN_DATA.changingMinimapStage = 1;
     }
 }
+
+#ifdef RANDOMIZER
+static void MapScreenDrawRoomName(void)
+{
+    s32 i;
+    const u16 *pText;
+    u16 *dst;
+
+    // Make a backup of some graphics
+    DmaTransfer(3, VRAM_BASE + 0x6000, PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup,
+        sizeof(PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup), 16);
+    DmaTransfer(3, VRAM_BASE + 0x6800, PAUSE_SCREEN_EWRAM.unk_b000,
+        sizeof(PAUSE_SCREEN_EWRAM.unk_b000), 16);
+
+    // Reset current message
+    BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
+    gCurrentMessage.isMessage = TRUE;
+    gCurrentMessage.indent = 8 * 3;
+
+    // Fill text graphics with color 15
+    BitFill(3, 0xFFFF, VRAM_BASE + 0x6000, 0x1000, 16);
+
+    // Get room name
+    pText = sRoomNames[gCurrentArea][gCurrentRoom];
+    if (pText == NULL)
+        pText = sMissingRoomName;
+    
+    // Draw room name graphics
+    for (i = 0; i < 300; i++) // 300 chars max as a sanity check
+    {
+        if (!TextProcessCurrentMessage(&gCurrentMessage, pText,
+            VRAM_BASE + 0x6000 + gCurrentMessage.line * 0x800))
+        {
+            continue;
+        }
+
+        gCurrentMessage.indent = 8 * 3;
+        if (gCurrentMessage.messageEnded)
+        {
+            gEquipment.currentMissiles = gCurrentMessage.line;
+            break;
+        }
+    }
+
+    // Update tilemap (draw 2 tiles in from the edge)
+    dst = VRAM_BASE + 0xD1C0;
+    for (i = 2; i < 28; i++)
+    {
+        dst[i] = 0xF000 | (0x300 + i);
+        dst[i + 0x20] = 0xF000 | (0x320 + i);
+        dst[i + 0x40] = 0xF000 | (0x340 + i);
+        dst[i + 0x60] = 0xF000 | (0x360 + i);
+    }
+}
+#endif // RANDOMIZER
 
 /**
  * @brief 6e1f4 | dc | Switches the world map on/off
@@ -1102,6 +1164,9 @@ void MapScreenToggleWorldMap(u8 forceOff)
 
     if (PAUSE_SCREEN_DATA.onWorldMap)
     {
+#ifdef RANDOMIZER
+        MapScreenDrawRoomName();
+#else // !RANDOMIZER
         // Apply world map overlay tilemap
         DmaTransfer(3, PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap, VRAM_BASE + 0xD000,
             sizeof(PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap), 16);
@@ -1111,15 +1176,27 @@ void MapScreenToggleWorldMap(u8 forceOff)
 
         // Setup oam
         PauseScreenUpdateWorldMap(TRUE);
+#endif // RANDOMIZER
+
         SoundPlay(SOUND_OPENING_WORLD_MAP);
     }
     else
     {
+#ifdef RANDOMIZER
+        // Restore graphics backup
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup, VRAM_BASE + 0x6000,
+            sizeof(PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup), 16);
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_b000, VRAM_BASE + 0x6800,
+            sizeof(PAUSE_SCREEN_EWRAM.unk_b000), 16);
+#endif // RANDOMIZER
+
         // Apply map screen tilemap
         DmaTransfer(3, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap, VRAM_BASE + 0xD000,
             sizeof(PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap), 16);
 
+#ifndef RANDOMIZER
         DmaTransfer(3, &sMinimapTilesPal[1], PALRAM_BASE + 2, sizeof(sMinimapTilesPal) - 2, 16);
+#endif // !RANDOMIZER
 
         if (!forceOff)
             SoundPlay(SOUND_CLOSING_WORLD_MAP);
@@ -1199,14 +1276,16 @@ void MapScreenChangeMap(void)
             PauseScreenMapSetSpawnPosition(PAUSE_SCREEN_DATA.currentArea != gCurrentArea ? 2 : 0);
 
             PAUSE_SCREEN_DATA.samusIconOam[0].exists = OAM_ID_CHANGED_FLAG;
-            
+
             // Update highlight
             PauseScreenUpdateWorldMapHighlight(PAUSE_SCREEN_DATA.currentArea);
 
+#ifndef RANDOMIZER
             // Update world map
             if (PAUSE_SCREEN_DATA.onWorldMap)
                 PauseScreenUpdateWorldMap(TRUE);
-            
+#endif // !RANDOMIZER
+
             PAUSE_SCREEN_DATA.bg3cnt = PAUSE_SCREEN_DATA.unk_6C;
 
             // Update palette and boss icons

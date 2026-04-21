@@ -929,12 +929,14 @@ void PauseScreenUpdateWorldMapHighlight(Area area)
     // Update area name at the top
     UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[area].nameSpawningOamId);
     
+#ifndef RANDOMIZER
     // Update hightlight border oam
     UpdateMenuOamDataId(&PAUSE_SCREEN_DATA.overlayOam[2], sPauseScreenAreaIconsData[area].outlineOamId);
 
     // Update hightlight border position
     PAUSE_SCREEN_DATA.overlayOam[2].xPosition = sPauseScreenAreaIconsData[area].xPosition;
     PAUSE_SCREEN_DATA.overlayOam[2].yPosition = sPauseScreenAreaIconsData[area].yPosition;
+#endif // !RANDOMIZER
 }
 
 /**
@@ -1121,7 +1123,9 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         PAUSE_SCREEN_DATA.overlayOam[3].oamId = 0;
         PAUSE_SCREEN_DATA.overlayOam[3].yPosition = BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE + 8;
         PAUSE_SCREEN_DATA.overlayOam[3].xPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE;
+#ifndef RANDOMIZER
         PauseScreenUpdateWorldMap(0);
+#endif // !RANDOMIZER
     }
 
     PauseScreenDrawCompletionInfo(FALSE);

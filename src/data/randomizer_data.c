@@ -2,9 +2,10 @@
 
 #include "data/randomizer_data.h"
 
+#include "constants/event.h"
 #include "constants/menus/pause_screen.h"
 #include "constants/randomizer.h"
-#include "constants/event.h"
+#include "constants/text.h"
 
 #ifdef RANDOMIZER
 
@@ -32,6 +33,8 @@ const u8 sRandoFullyPoweredGfx[384] = INCBIN_U8("data_rando/animated_gfx/fully_p
 const u8 sRandoZiplinesGfx[384] = INCBIN_U8("data_rando/animated_gfx/ziplines.gfx");
 const u8 sRandoInfantMetroidGfx[384] = INCBIN_U8("data_rando/animated_gfx/infant_metroid.gfx");
 const u8 sRandoAnonymousGfx[384] = INCBIN_U8("data_rando/animated_gfx/anonymous.gfx");
+
+const u16 sMissingRoomName[] = INCTEXT("Room name not provided");
 
 // From patcher
 
@@ -969,6 +972,24 @@ const struct MinorLocation sMinorLocations[MINOR_LOCATION_COUNT] = {
         .messageId = UCHAR_MAX,
         .customMessage = NULL,
     },
+};
+
+static const u16* const sBrinstarRoomNames[0x2A] = {0};
+static const u16* const sKraidRoomNames[0x2A] = {0};
+static const u16* const sNorfairRoomNames[0x39] = {0};
+static const u16* const sRidleyRoomNames[0x21] = {0};
+static const u16* const sTourianRoomNames[0x14] = {0};
+static const u16* const sCrateriaRoomNames[0x16] = {0};
+static const u16* const sChozodiaRoomNames[0x63] = {0};
+
+const u16* const* const sRoomNames[AREA_NORMAL_COUNT] = {
+    [AREA_BRINSTAR] = sBrinstarRoomNames,
+    [AREA_KRAID] = sKraidRoomNames,
+    [AREA_NORFAIR] = sNorfairRoomNames,
+    [AREA_RIDLEY] = sRidleyRoomNames,
+    [AREA_TOURIAN] = sTourianRoomNames,
+    [AREA_CRATERIA] = sCrateriaRoomNames,
+    [AREA_CHOZODIA] = sChozodiaRoomNames,
 };
 
 #endif // RANDOMIZER

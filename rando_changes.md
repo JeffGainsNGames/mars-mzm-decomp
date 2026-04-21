@@ -75,6 +75,16 @@
 - Starting location and items
   - `CutsceneEnd` in [cutscene_utils.c](src/cutscenes/cutscene_utils.c)
   - `InGameCutsceneTryQueue`, `InGameCutsceneCheckPlayOnTransition`, and `InGameCutsceneSamusCloseUp` in [in_game_cutscene.c](src/in_game_cutscene.c)
+- Room names
+  - Change graphics and tilemap of world map to show "room name"
+    - `sPauseScreenHudGfx` and `sMapScreenOverlayTilemap` in [pause_screen_data.c](src/data/menus/pause_screen_data.c)
+  - Don't draw highlighted area when changing areas
+    - `PauseScreenUpdateWorldMapHighlight` and `PauseScreenLoadAreaNamesAndIcons` in [pause_screen.c](src/menus/pause_screen.c)
+    - `MapScreenChangeMap` in [pause_screen_map.c](src/menus/pause_screen_map.c)
+  - Change world map sub-menu to show room name
+    - `MapScreenToggleWorldMap` in [pause_screen_map.c](src/menus/pause_screen_map.c)
+  - Prevent changing area when room name is shown
+    - `MapScreenHandler` in [pause_screen_map.c](src/menus/pause_screen_map.c)
 
 ## Fixes
 - Allow laying power bombs without bombs
