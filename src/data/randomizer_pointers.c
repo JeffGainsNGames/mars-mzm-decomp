@@ -46,6 +46,7 @@ static const u16* sSamusPalettes_Pointer = sSamusPal_PowerSuit_Default;
 static const u16* sHelmetCursorPalettes_Pointer = sFileSelectIconsPal;
 static const u16* sBeamPalettes_Pointer = sBeamPal;
 static const u16* sStatueCutscenePalette_Pointer = sStatueOpeningPal;
+static const u16* const* const* sRoomNames_Pointer = sRoomNames;
 static const u16*** sMessageTextPointers_Pointer = sMessageTextPointers;
 static const u8* sCharacterWidths_Pointer = sCharacterWidths;
 static const struct SoundEntry* sSoundDataEntries_Pointer = sSoundDataEntries;

@@ -1107,10 +1107,12 @@ static void MapScreenDrawRoomName(void)
     BitFill(3, 0xFFFF, VRAM_BASE + 0x6000, 0x1000, 16);
 
     // Get room name
-    pText = sRoomNames[gCurrentArea][gCurrentRoom];
+    pText = NULL;
+    if (gCurrentArea < AREA_NORMAL_COUNT)
+        pText = sRoomNames[gCurrentArea][gCurrentRoom];
     if (pText == NULL)
         pText = sMissingRoomName;
-    
+
     // Draw room name graphics
     for (i = 0; i < 300; i++) // 300 chars max as a sanity check
     {
