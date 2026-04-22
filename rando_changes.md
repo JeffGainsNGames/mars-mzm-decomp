@@ -75,6 +75,10 @@
 - Starting location and items
   - `CutsceneEnd` in [cutscene_utils.c](src/cutscenes/cutscene_utils.c)
   - `InGameCutsceneTryQueue`, `InGameCutsceneCheckPlayOnTransition`, and `InGameCutsceneSamusCloseUp` in [in_game_cutscene.c](src/in_game_cutscene.c)
+  - Allow starting on a save platform
+    - `InGameCutsceneInit` in [in_game_cutscene.c](src/in_game_cutscene.c)
+    - `SavePlatformInit` in [save_platform.c](src/sprites_ai/save_platform.c)
+    - `SavePlatformChozodiaInit` in [save_platform_chozodia.c](src/sprites_ai/save_platform_chozodia.c)
 - Room names
   - Change graphics and tilemap of world map to show "room name"
     - `sPauseScreenHudGfx` and `sMapScreenOverlayTilemap` in [pause_screen_data.c](src/data/menus/pause_screen_data.c)

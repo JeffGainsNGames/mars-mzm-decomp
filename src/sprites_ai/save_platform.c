@@ -107,8 +107,20 @@ static void SavePlatformInit(void)
         gCurrentSprite.pOam = sSavePlatformOam_IdleOff;
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_OFF;
     }
+#ifdef RANDOMIZER
+    else if (gIsLoadingFile || gSamusData.pose == SPOSE_FACING_THE_FOREGROUND)
+#else // !RANDOMIZER
     else if (gIsLoadingFile)
+#endif // RANDOMIZER
     {
+#ifdef RANDOMIZER
+        if (gSamusData.pose == SPOSE_FACING_THE_FOREGROUND)
+        {
+            SamusSetPose(SPOSE_SAVING_LOADING_GAME);
+            gSamusData.timer = FALSE;
+        }
+#endif // RANDOMIZER
+
         SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_PART, SAVE_PLATFORM_PART_TUBE, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 

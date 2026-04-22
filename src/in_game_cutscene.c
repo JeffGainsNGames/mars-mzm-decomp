@@ -759,7 +759,12 @@ void InGameCutsceneInit(void)
     switch (gInGameCutscene.cutsceneNumber)
     {
         case IGC_CLOSE_UP:
-            gPreventMovementTimer = CONVERT_SECONDS(6.f);
+#ifdef RANDOMIZER
+            if (gSamusData.pose != SPOSE_SAVING_LOADING_GAME)
+#endif // RANDOMIZER
+            {
+                gPreventMovementTimer = CONVERT_SECONDS(6.f);
+            }
             exists = TRUE;
             break;
 
@@ -823,15 +828,11 @@ void InGameCutsceneCheckPlayOnTransition(void)
 
 #ifdef RANDOMIZER
             PlayMusic(gCurrentRoomEntry.musicTrack, 0);
-#else // !RANDOMIZER
-            // Queue brinstar and play loading jingle
-            PlayMusic(MUSIC_BRINSTAR, 0);
-#endif // RANDOMIZER
             InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, TRUE);
 
             // Set samus to facing foreground
             SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
-#ifdef RANDOMIZER
+
             gSamusData.xPosition = gPreviousXPosition = sStartingInfo.blockX * BLOCK_SIZE + HALF_BLOCK_SIZE;
             gSamusData.yPosition = gPreviousYPosition = (sStartingInfo.blockY + 1) * BLOCK_SIZE - 1;
 
@@ -884,6 +885,12 @@ void InGameCutsceneCheckPlayOnTransition(void)
 
             gHideHud = FALSE;
 #else // !RANDOMIZER
+            // Queue brinstar and play loading jingle
+            PlayMusic(MUSIC_BRINSTAR, 0);
+            InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, TRUE);
+
+            // Set samus to facing foreground
+            SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
             // Starting Y position
             gSamusData.yPosition = gPreviousYPosition = BLOCK_SIZE * 30 - 1;
 
