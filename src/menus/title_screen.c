@@ -1563,6 +1563,10 @@ void TitleScreenDrawString(const u8* pString, u16* dst, u8 palette)
                 tile = 0x25;
             else if (*pString == '/')
                 tile = 0x26;
+#ifdef RANDOMIZER
+            else if (*pString == '.')
+                tile = 0x27;
+#endif // RANDOMIZER
             else if (*pString >= 'a' && *pString <= 'z')
                 tile = *pString - 'a' + 10;
             else
