@@ -69,6 +69,7 @@ static const struct MinorLocation* sMinorLocations_Pointer = sMinorLocations;
 // --------------------------------
 
 static const u8* sRandoDifficultyOptions_Pointer = &sRandoDifficultyOptions;
+static const boolu8* sRandoDefaultStereo_Pointer = &sRandoDefaultStereo;
 static const u16* sRandoMetroidSpriteStats_Pointer = sPrimarySpriteStats[PSPRITE_METROID];
 static const boolu8* sRandoBlackPiratesRequirePlasma_Pointer = &sRandoBlackPiratesRequirePlasma;
 static const boolu8* sRandoSkipDoorTransitions_Pointer = &sRandoSkipDoorTransitions;

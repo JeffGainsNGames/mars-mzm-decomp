@@ -8,6 +8,7 @@
 #include "structs/game_state.h"
 
 #include "data/menus/language_select_data.h"
+#include "data/randomizer_data.h"
 
 #define SOFT_RESET_KEYS (KEY_A | KEY_B | KEY_START | KEY_SELECT)
 
@@ -66,10 +67,23 @@ void SoftReset(void)
     CallbackSetVblank(SoftResetVBlankCallback);
     SramRead_All();
     InitializeAudio();
-    #ifdef BUGFIX
+
+#if defined(BUGFIX) || defined(RANDOMIZER)
+#ifdef RANDOMIZER
+    if (sRandoDefaultStereo)
+    {
+        gStereoFlag = TRUE;
+        SramWrite_SoundMode();
+    }
+    else
+    {
+        SramRead_SoundMode();
+    }
+#else // !RANDOMIZER
     SramRead_SoundMode();
+#endif // RANDOMIZER
     FileSelectApplyStereo();
-    #endif // BUGFIX
+#endif // BUGFIX || RANDOMIZER
 
     WRITE_16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
     WRITE_16(REG_DISPSTAT, DSTAT_IF_VBLANK);
@@ -84,7 +98,10 @@ void SoftReset(void)
     gSubGameMode1 = 0;
     gSubGameMode2 = 0;
     gResetGame = FALSE;
-    gStereoFlag = 0;
+
+#if !(defined(BUGFIX) || defined(RANDOMIZER))
+    gStereoFlag = FALSE;
+#endif // !(BUGFIX || RANDOMIZER)
 
     #ifdef REGION_EU
     #ifdef DEBUG
