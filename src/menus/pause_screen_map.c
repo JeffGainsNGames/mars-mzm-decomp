@@ -1124,10 +1124,7 @@ static void MapScreenDrawRoomName(void)
 
         gCurrentMessage.indent = 8 * 3;
         if (gCurrentMessage.messageEnded)
-        {
-            gEquipment.currentMissiles = gCurrentMessage.line;
             break;
-        }
     }
 
     // Update tilemap (draw 2 tiles in from the edge)
