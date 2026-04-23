@@ -47,8 +47,38 @@ const boolu8 sRandoDisableWallJump = FALSE;
 const boolu8 sRandoRemoveCutscenes = FALSE;
 const boolu8 sRandoSkipSuitlessSequence = FALSE;
 
-const u8 sRandoTitleLine1[31] = "RANDOMIZER LINE 1";
-const u8 sRandoTitleLine2[31] = "RANDOMIZER LINE 2";
+static const u8 sRandoTitleLine00[31] = "";
+static const u8 sRandoTitleLine01[31] = "";
+static const u8 sRandoTitleLine02[31] = "";
+static const u8 sRandoTitleLine03[31] = "";
+static const u8 sRandoTitleLine04[31] = "";
+static const u8 sRandoTitleLine05[31] = "";
+static const u8 sRandoTitleLine06[31] = "";
+static const u8 sRandoTitleLine07[31] = "";
+static const u8 sRandoTitleLine08[31] = "";
+static const u8 sRandoTitleLine09[31] = "";
+static const u8 sRandoTitleLine10[31] = "";
+static const u8 sRandoTitleLine11[31] = "";
+#ifdef DEBUG
+static const u8 sRandoTitleLine12[31] = "         DEBUG BUILD";
+#else // !DEBUG
+static const u8 sRandoTitleLine12[31] = "";
+#endif // DEBUG
+static const u8 sRandoTitleLine13[31] = "";
+static const u8 sRandoTitleLine14[31] = "";
+static const u8 sRandoTitleLine15[31] = "";
+static const u8 sRandoTitleLine16[31] = "";
+static const u8 sRandoTitleLine17[31] = "";
+static const u8 sRandoTitleLine18[31] = "";
+static const u8 sRandoTitleLine19[31] = "";
+
+const u8* const sRandoTitleLines[20] = {
+    sRandoTitleLine00, sRandoTitleLine01, sRandoTitleLine02, sRandoTitleLine03,
+    sRandoTitleLine04, sRandoTitleLine05, sRandoTitleLine06, sRandoTitleLine07,
+    sRandoTitleLine08, sRandoTitleLine09, sRandoTitleLine10, sRandoTitleLine11,
+    sRandoTitleLine12, sRandoTitleLine13, sRandoTitleLine14, sRandoTitleLine15,
+    sRandoTitleLine16, sRandoTitleLine17, sRandoTitleLine18, sRandoTitleLine19,
+};
 
 const struct TankIncreaseAmounts sRandoTankIncreaseAmounts = {
     .energyTank = 100,

@@ -47,8 +47,7 @@ extern const boolu8 sRandoDisableWallJump;
 extern const boolu8 sRandoRemoveCutscenes;
 extern const boolu8 sRandoSkipSuitlessSequence;
 
-extern const u8 sRandoTitleLine1[31];
-extern const u8 sRandoTitleLine2[31];
+extern const u8* const sRandoTitleLines[20];
 
 extern const struct TankIncreaseAmounts sRandoTankIncreaseAmounts;
 

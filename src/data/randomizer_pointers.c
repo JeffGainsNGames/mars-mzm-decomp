@@ -80,7 +80,6 @@ static const boolu8* sRandoSkipSuitlessSequence_Pointer = &sRandoSkipSuitlessSeq
 
 static const struct TankIncreaseAmounts* sRandoTankIncreaseAmounts_Pointer = &sRandoTankIncreaseAmounts;
 
-static const u8* sRandoTitleLine1_Pointer = sRandoTitleLine1;
-static const u8* sRandoTitleLine2_Pointer = sRandoTitleLine2;
+static const u8* const* sRandoTitleLines_Pointer = sRandoTitleLines;
 
 #endif

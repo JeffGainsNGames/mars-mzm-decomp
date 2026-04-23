@@ -1255,6 +1255,10 @@ void TitleScreenSetIdleStage(u8 stage)
  */
 void TitleScreenInit(void)
 {
+#ifdef RANDOMIZER
+    s32 line;
+#endif // RANDOMIZER
+
     CallbackSetVblank(TitleScreenVBlank_Empty);
 
     #ifdef REGION_EU
@@ -1343,10 +1347,12 @@ void TitleScreenInit(void)
 #ifdef RANDOMIZER
     DmaTransfer(3, sCharactersGfx, VRAM_BASE + 0xF800, 0x800, 16);
     DmaTransfer(3, sGameOverMenuPal + 1 * PAL_ROW_SIZE, PALRAM_BASE + 15 * PAL_ROW_SIZE, 1 * PAL_ROW_SIZE, 16);
-    TitleScreenDrawString(sRandoTitleLine1,
-        VRAM_BASE + sTitleScreenPageData[0].tiletablePage * 0x800, 15);
-    TitleScreenDrawString(sRandoTitleLine2,
-        VRAM_BASE + 0x40 + sTitleScreenPageData[0].tiletablePage * 0x800, 15);
+
+    for (line = 0; line < ARRAY_SIZE(sRandoTitleLines); line++)
+    {
+        TitleScreenDrawString(sRandoTitleLines[line],
+            VRAM_BASE + (sTitleScreenPageData[0].tiletablePage * 0x800) + (line * 0x40), 15);
+    }
 #else // !RANDOMIZER
     #ifdef DEBUG
     if (sRomInfoStringPointers[0][0] != '\0')
