@@ -24,6 +24,7 @@
 extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
 extern const u32* sMinimapDataPointers[AREA_COUNT];
 extern const struct Door* sAreaDoorsPointers[AREA_ENTRY_COUNT];
+extern const u16** sStoryTextPointers[7];
 
 // The pointers in this file are written to 0x7D0000 (see linker.ld)
 
@@ -47,6 +48,7 @@ static const u16* sHelmetCursorPalettes_Pointer = sFileSelectIconsPal;
 static const u16* sBeamPalettes_Pointer = sBeamPal;
 static const u16* sStatueCutscenePalette_Pointer = sStatueOpeningPal;
 static const u16*** sMessageTextPointers_Pointer = sMessageTextPointers;
+static const u16*** sStoryTextPointers_Pointer = sStoryTextPointers;
 static const u8* sCharacterWidths_Pointer = sCharacterWidths;
 static const struct SoundEntry* sSoundDataEntries_Pointer = sSoundDataEntries;
 static const struct ChozoStatueTarget* sChozoStatueTargets_Pointer = sChozoStatueTargets;
@@ -66,9 +68,7 @@ static const struct MinorLocation* sMinorLocations_Pointer = sMinorLocations;
 static const struct TankIncreaseAmounts* sRandoTankIncreaseAmounts_Pointer = &sRandoTankIncreaseAmounts;
 
 static const u8* const* sRandoTitleLines_Pointer = sRandoTitleLines;
-
 static const u16* sRandoSeedHash_Pointer = sRandoSeedHash;
-
 static const u16* const* const* sRoomNames_Pointer = sRoomNames;
 
 
