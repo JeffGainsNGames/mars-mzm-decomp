@@ -23,7 +23,11 @@ extern const u32 sFileSelectChozoBackgroundGfx[2985];
 extern const u32 sFileSelectAreaNamesGfx[331];
 extern const u32 sFileSelectBgIconsGfx[651];
 #else // !REGION_EU
+#ifdef RANDOMIZER
+extern const u32 sFileSelectCharactersGfx[1433];
+#else // !RANDOMIZER
 extern const u32 sFileSelectCharactersGfx[1531];
+#endif // RANDOMIZER
 #endif // REGION_EU
 
 extern const u32 sFileSelectOptionsTextEnglishGfx[345];

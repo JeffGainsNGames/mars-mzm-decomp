@@ -48,15 +48,17 @@ extern const boolu8 sRandoDisableWallJump;
 extern const boolu8 sRandoRemoveCutscenes;
 extern const boolu8 sRandoSkipSuitlessSequence; // Unused
 
-extern const u8* const sRandoTitleLines[20];
-
 extern const struct TankIncreaseAmounts sRandoTankIncreaseAmounts;
 
 extern const struct StartingInfo sStartingInfo;
 
-extern const struct MajorLocation sMajorLocations[ITEM_SOURCE_COUNT];
-extern const struct MinorLocation sMinorLocations[MINOR_LOCATION_COUNT];
+extern const u8* const sRandoTitleLines[20];
+
+extern const u16 sRandoSeedHash[12];
 
 extern const u16* const* const sRoomNames[AREA_NORMAL_COUNT];
+
+extern const struct MajorLocation sMajorLocations[ITEM_SOURCE_COUNT];
+extern const struct MinorLocation sMinorLocations[MINOR_LOCATION_COUNT];
 
 #endif // RANDOMIZER_DATA_H

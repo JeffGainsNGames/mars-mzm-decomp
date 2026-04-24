@@ -2782,7 +2782,7 @@ static const struct FrameData sMiscOam_DebugSamusHeadAndArrows[2] = {
 
 const u32 sMotifBehindWireframeSamusGfx[278] = INCBIN_U32("data/menus/pause_screen/motif_behind_wireframe_samus.gfx.lz");
 #ifdef RANDOMIZER
-const u32 sPauseScreenHudGfx[1404] = INCBIN_U32("data_rando/pause_screen_hud.gfx.lz");
+const u32 sPauseScreenHudGfx[1404] = INCBIN_U32("data_rando/pause_screen/pause_screen_hud.gfx.lz");
 #else // !RANDOMIZER
 const u32 sPauseScreenHudGfx[1404] = INCBIN_U32("data/menus/pause_screen/pause_screen_hud.gfx.lz");
 #endif // RANDOMIZER
@@ -2796,7 +2796,7 @@ const u32 sTankIconsGfx[1786] = INCBIN_U32("data/menus/pause_screen/tank_icons.g
 const u32 sMapScreenAreaNamesEnglishGfx[216] = INCBIN_U32("data/menus/pause_screen/map_screen_area_names_english.gfx.lz");
 const u32 sMapScreenUnknownItemsNamesJapaneseGfx[65] = INCBIN_U32("data/menus/pause_screen/map_screen_unknown_items_names_japanese.gfx.lz");
 #ifdef RANDOMIZER
-const u32 sMapScreenChozoStatueAreaNamesEnglishGfx[247] = INCBIN_U32("data_rando/map_screen_chozo_statue_area_names_english.gfx.lz");
+const u32 sMapScreenChozoStatueAreaNamesEnglishGfx[247] = INCBIN_U32("data_rando/pause_screen/map_screen_chozo_statue_area_names_english.gfx.lz");
 #else // !RANDOMIZER
 const u32 sMapScreenChozoStatueAreaNamesEnglishGfx[152] = INCBIN_U32("data/menus/pause_screen/map_screen_chozo_statue_area_names_english.gfx.lz");
 #endif // RANDOMIZER
@@ -2815,7 +2815,7 @@ const u32 sTestMinimap[78] = INCBIN_U32("data/menus/pause_screen/test_minimap.tt
 const u32 sDebugMenuTileParts[175] = INCBIN_U32("data/menus/pause_screen/debug_menu_tile_parts.tt");
 const u32 sMapScreenVisorOverlayTilemap[122] = INCBIN_U32("data/menus/pause_screen/map_screen_visor_overlay.tt");
 #ifdef RANDOMIZER
-const u32 sMapScreenOverlayTilemap[114] = INCBIN_U32("data_rando/map_screen_overlay.tt.lz");
+const u32 sMapScreenOverlayTilemap[114] = INCBIN_U32("data_rando/pause_screen/map_screen_overlay.tt.lz");
 #else // !RANDOMIZER
 const u32 sMapScreenOverlayTilemap[125] = INCBIN_U32("data/menus/pause_screen/map_screen_overlay.tt");
 #endif // RANDOMIZER

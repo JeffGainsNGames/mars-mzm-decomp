@@ -1865,7 +1865,11 @@ const u32 sFileSelectChozoBackgroundGfx[2985] = INCBIN_U32("data/menus/file_sele
 const u32 sFileSelectAreaNamesGfx[331] = INCBIN_U32("data/menus/file_select/area_names.gfx.lz");
 const u32 sFileSelectBgIconsGfx[651] = INCBIN_U32("data/menus/file_select/bg_icons.gfx.lz");
 #else // !REGION_EU
+#ifdef RANDOMIZER
+const u32 sFileSelectCharactersGfx[1433] = INCBIN_U32("data_rando/file_select/characters.gfx.lz");
+#else // !RANDOMIZER
 const u32 sFileSelectCharactersGfx[1531] = INCBIN_U32("data/menus/file_select/characters.gfx.lz");
+#endif // RANDOMIZER
 #endif // REGION_EU
 
 const u32 sFileSelectOptionsTextEnglishGfx[345] = INCBIN_U32("data/menus/file_select/options_text_english.gfx.lz");
@@ -1890,7 +1894,11 @@ const u32 sFileSelectDifficultyTextSpanishGfx[70] = INCBIN_U32("data/menus/file_
 
 const u32 sFileSelectObjIconsGfx[1722] = INCBIN_U32("data/menus/file_select/obj_icons.gfx.lz");
 const u32 sFileSelectChozoBackgroundTileTable[368] = INCBIN_U32("data/menus/file_select/chozo_background.tt");
+#ifdef RANDOMIZER
+const u32 sFileSelectMenuTileTable[] = INCBIN_U32("data_rando/file_select/menu.tt.lz");
+#else // !RANDOMIZER
 const u32 sFileSelectMenuTileTable[] = INCBIN_U32("data/menus/file_select/menu.tt");
+#endif // RANDOMIZER
 const u32 sFileSelectOptionsTileTable[] = INCBIN_U32("data/menus/file_select/options.tt");
 const u32 sFileSelect3BigPanelsTileTable[233] = INCBIN_U32("data/menus/file_select/3_big_panels.tt");
 const u32 sFileSelect1Small2BigPanelsTileTable[233] = INCBIN_U32("data/menus/file_select/1_small2_big_panels.tt");

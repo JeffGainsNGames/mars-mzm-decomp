@@ -48,6 +48,37 @@ const boolu8 sRandoDisableWallJump = FALSE;
 const boolu8 sRandoRemoveCutscenes = FALSE;
 const boolu8 sRandoSkipSuitlessSequence = FALSE;
 
+const struct TankIncreaseAmounts sRandoTankIncreaseAmounts = {
+    .energyTank = 100,
+    .missileTank = 5,
+    .superMissileTank = 5,
+    .powerBombTank = 2,
+    .mainMissiles = 5,
+    .mainSuperMissiles = 5,
+    .mainPowerBombs = 2
+};
+
+const struct StartingInfo sStartingInfo = {
+    // Location
+    .area = AREA_BRINSTAR,
+    .room = 0,
+    .door = 0,
+    .blockX = 39,
+    .blockY = 29,
+    // Equipment
+    .maxEnergy = 99,
+    .maxMissiles = 0,
+    .maxSuperMissiles = 0,
+    .maxPowerBombs = 0,
+    .beamBombs = BBF_NONE,
+    .suitMisc = SMF_NONE,
+    .mainItems = MIF_NONE,
+    .downloadedMapStatus = 0,
+    .suitType = SUIT_FULLY_POWERED,
+    // Disabled hints
+    .disabledHints = 0
+};
+
 static const u8 sRandoTitleLine00[31] = "";
 static const u8 sRandoTitleLine01[31] = "";
 static const u8 sRandoTitleLine02[31] = "";
@@ -81,35 +112,24 @@ const u8* const sRandoTitleLines[20] = {
     sRandoTitleLine16, sRandoTitleLine17, sRandoTitleLine18, sRandoTitleLine19,
 };
 
-const struct TankIncreaseAmounts sRandoTankIncreaseAmounts = {
-    .energyTank = 100,
-    .missileTank = 5,
-    .superMissileTank = 5,
-    .powerBombTank = 2,
-    .mainMissiles = 5,
-    .mainSuperMissiles = 5,
-    .mainPowerBombs = 2
-};
+const u16 sRandoSeedHash[12] = INCTEXT("");
 
-const struct StartingInfo sStartingInfo = {
-    // Location
-    .area = AREA_BRINSTAR,
-    .room = 0,
-    .door = 0,
-    .blockX = 39,
-    .blockY = 29,
-    // Equipment
-    .maxEnergy = 99,
-    .maxMissiles = 0,
-    .maxSuperMissiles = 0,
-    .maxPowerBombs = 0,
-    .beamBombs = BBF_NONE,
-    .suitMisc = SMF_NONE,
-    .mainItems = MIF_NONE,
-    .downloadedMapStatus = 0,
-    .suitType = SUIT_FULLY_POWERED,
-    // Disabled hints
-    .disabledHints = 0
+static const u16* const sBrinstarRoomNames[0x2A] = {0};
+static const u16* const sKraidRoomNames[0x2A] = {0};
+static const u16* const sNorfairRoomNames[0x39] = {0};
+static const u16* const sRidleyRoomNames[0x21] = {0};
+static const u16* const sTourianRoomNames[0x14] = {0};
+static const u16* const sCrateriaRoomNames[0x16] = {0};
+static const u16* const sChozodiaRoomNames[0x63] = {0};
+
+const u16* const* const sRoomNames[AREA_NORMAL_COUNT] = {
+    [AREA_BRINSTAR] = sBrinstarRoomNames,
+    [AREA_KRAID] = sKraidRoomNames,
+    [AREA_NORFAIR] = sNorfairRoomNames,
+    [AREA_RIDLEY] = sRidleyRoomNames,
+    [AREA_TOURIAN] = sTourianRoomNames,
+    [AREA_CRATERIA] = sCrateriaRoomNames,
+    [AREA_CHOZODIA] = sChozodiaRoomNames,
 };
 
 const struct MajorLocation sMajorLocations[ITEM_SOURCE_COUNT] = {
@@ -1003,24 +1023,6 @@ const struct MinorLocation sMinorLocations[MINOR_LOCATION_COUNT] = {
         .messageId = UCHAR_MAX,
         .customMessage = NULL,
     },
-};
-
-static const u16* const sBrinstarRoomNames[0x2A] = {0};
-static const u16* const sKraidRoomNames[0x2A] = {0};
-static const u16* const sNorfairRoomNames[0x39] = {0};
-static const u16* const sRidleyRoomNames[0x21] = {0};
-static const u16* const sTourianRoomNames[0x14] = {0};
-static const u16* const sCrateriaRoomNames[0x16] = {0};
-static const u16* const sChozodiaRoomNames[0x63] = {0};
-
-const u16* const* const sRoomNames[AREA_NORMAL_COUNT] = {
-    [AREA_BRINSTAR] = sBrinstarRoomNames,
-    [AREA_KRAID] = sKraidRoomNames,
-    [AREA_NORFAIR] = sNorfairRoomNames,
-    [AREA_RIDLEY] = sRidleyRoomNames,
-    [AREA_TOURIAN] = sTourianRoomNames,
-    [AREA_CRATERIA] = sCrateriaRoomNames,
-    [AREA_CHOZODIA] = sChozodiaRoomNames,
 };
 
 #endif // RANDOMIZER

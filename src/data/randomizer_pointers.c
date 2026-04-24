@@ -46,7 +46,6 @@ static const u16* sSamusPalettes_Pointer = sSamusPal_PowerSuit_Default;
 static const u16* sHelmetCursorPalettes_Pointer = sFileSelectIconsPal;
 static const u16* sBeamPalettes_Pointer = sBeamPal;
 static const u16* sStatueCutscenePalette_Pointer = sStatueOpeningPal;
-static const u16* const* const* sRoomNames_Pointer = sRoomNames;
 static const u16*** sMessageTextPointers_Pointer = sMessageTextPointers;
 static const u8* sCharacterWidths_Pointer = sCharacterWidths;
 static const struct SoundEntry* sSoundDataEntries_Pointer = sSoundDataEntries;
@@ -64,6 +63,15 @@ static const struct StartingInfo* sStartingInfo_Pointer = &sStartingInfo;
 static const struct MajorLocation* sMajorLocations_Pointer = sMajorLocations;
 static const struct MinorLocation* sMinorLocations_Pointer = sMinorLocations;
 
+static const struct TankIncreaseAmounts* sRandoTankIncreaseAmounts_Pointer = &sRandoTankIncreaseAmounts;
+
+static const u8* const* sRandoTitleLines_Pointer = sRandoTitleLines;
+
+static const u16* sRandoSeedHash_Pointer = sRandoSeedHash;
+
+static const u16* const* const* sRoomNames_Pointer = sRoomNames;
+
+
 // --------------------------------
 // Rando options
 // --------------------------------
@@ -78,9 +86,5 @@ static const boolu8* sRandoDisableMidAirBombJump_Pointer = &sRandoDisableMidAirB
 static const boolu8* sRandoDisableWallJump_Pointer = &sRandoDisableWallJump;
 static const boolu8* sRandoRemoveCutscenes_Pointer = &sRandoRemoveCutscenes;
 static const boolu8* sRandoSkipSuitlessSequence_Pointer = &sRandoSkipSuitlessSequence;
-
-static const struct TankIncreaseAmounts* sRandoTankIncreaseAmounts_Pointer = &sRandoTankIncreaseAmounts;
-
-static const u8* const* sRandoTitleLines_Pointer = sRandoTitleLines;
 
 #endif

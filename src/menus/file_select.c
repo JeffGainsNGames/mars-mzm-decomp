@@ -4679,6 +4679,10 @@ static void FileSelectSetLanguage(void)
  */
 static void FileSelectInit(void)
 {
+#ifdef RANDOMIZER
+    s32 i;
+#endif
+
     CallbackSetVblank(FileSelectVBlank_Empty);
 
     BitFill(3, 0, &gNonGameplayRam, sizeof(gNonGameplayRam), 32);
@@ -4760,6 +4764,19 @@ static void FileSelectInit(void)
 #endif // !(BUGFIX || RANDOMIZER)
 
     gSubGameMode1 = 2;
+
+#ifdef RANDOMIZER
+    // Draw seed hash at top of screen
+    BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
+    for (i = 0; i < 20; i++) // 20 chars max as a sanity check
+    {
+        if (!TextProcessCurrentMessage(&gCurrentMessage, sRandoSeedHash, VRAM_BASE + 0x4800))
+            continue;
+
+        if (gCurrentMessage.messageEnded);
+            break;
+    }
+#endif // !RANDOMIZER
 
     if (gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_A].corruptionFlag ||
         gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_B].corruptionFlag ||

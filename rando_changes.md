@@ -1,6 +1,11 @@
 ## Randomizer
 - Support showing text on title screen
   - `TitleScreenInit` in [title_screen.c](src/menus/title_screen.c)
+- Display seed hash on file select
+  - Make room for text in place of "SAMUS DATA"
+    - `sFileSelectCharactersGfx` and `sFileSelectMenuTileTable` in [file_select_data.c](src/data/menus/file_select_data.c)
+  - Draw text at top of screen
+    - `FileSelectInit` in [file_select.c](src/menus/file_select.c)
 - Disable title screen demos (to avoid spoilers)
   - `TitleScreenCheckPlayEffects` in [title_screen.c](src/menus/title_screen.c)
 - Allow getting unknown items as normal items
