@@ -7422,7 +7422,11 @@ const u16 * const sEndingImageOamPointers_NewRecord[LANGUAGE_COUNT] = {
 };
 #endif // REGION_EU
 
+#ifdef RANDOMIZER
+const u32 sCreditsCharactersGfx[] = INCBIN_U32("data_rando/credits_characters.gfx.lz");
+#else // !RANDOMIZER
 const u32 sCreditsCharactersGfx[] = INCBIN_U32("data/ending/credits_characters.gfx.lz");
+#endif // RANDOMIZER
 
 static const u32 sEndingImage_TopGfx_0[6186] = INCBIN_U32("data/ending/image_top_0.gfx.lz");
 static const u32 sEndingImage_TopTileTable_0[577] = INCBIN_U32("data/ending/image_top_0.tt");

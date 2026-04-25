@@ -94,6 +94,10 @@
     - `MapScreenToggleWorldMap` in [pause_screen_map.c](src/menus/pause_screen_map.c)
   - Prevent changing area when room name is shown
     - `MapScreenHandler` in [pause_screen_map.c](src/menus/pause_screen_map.c)
+- Credits
+  - Include all ASCII characters
+    - `sCreditsCharactersGfx` in [ending_and_gallery_data.c](src/data/ending_and_gallery_data.c)
+    - `CreditsDisplayLine` in [ending_and_gallery.c](src/ending_and_gallery.c)
 
 ## Fixes
 - Allow laying power bombs without bombs

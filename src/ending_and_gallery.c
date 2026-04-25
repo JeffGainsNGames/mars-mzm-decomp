@@ -553,6 +553,10 @@ static u8 CreditsDisplayLine(u32 line)
     u32 ret_1;
     u8 tilemapOffset;
     const struct CreditsEntry* pCredits;
+#ifdef RANDOMIZER
+    u32 offset;
+    u32 value;
+#endif // RANDOMIZER
 
     pCredits = sCredits;
     pCredits += line;
@@ -573,7 +577,7 @@ static u8 CreditsDisplayLine(u32 line)
     ret_0 = 0;
     ret_1 = 0;
     i = 0;
-    
+
     switch (pCredits->type)
     {
         case CREDIT_LINE_TYPE_BLUE:
@@ -599,7 +603,13 @@ static u8 CreditsDisplayLine(u32 line)
                 {
                     break;
                 }
-                
+
+#ifdef RANDOMIZER
+                if (pCredits->text[i] >= ' ' && pCredits->text[i] <= '~')
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile + pCredits->text[i] - ' ';
+                }
+#else // !RANDOMIZER
                 if ((u8)(pCredits->text[i] - 0x41) < 0x1A)
                 {
                     ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 0x40);
@@ -620,6 +630,7 @@ static u8 CreditsDisplayLine(u32 line)
                 {
                     ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile + 0x1D;
                 }
+#endif // RANDOMIZER
 
                 i++;
                 tilemapOffset++;
@@ -633,14 +644,22 @@ static u8 CreditsDisplayLine(u32 line)
 
         case CREDIT_LINE_TYPE_ALL_RIGHTS:
             for (i = 0; i < 20; i++)
+#ifdef RANDOMIZER
+                ENDING_DATA.creditLineTilemap_1[i + 5] = 0x120 + i + tile;
+#else // !RANDOMIZER
                 ENDING_DATA.creditLineTilemap_1[i + 5] = 0xC0 + i + tile;
+#endif // RANDOMIZER
             ret_0 = 1;
             ret_1 = 0x10;
             break;
 
         case CREDIT_LINE_TYPE_THE_COPYRIGHT:
             for (i = 0; i < 20; i++)
+#ifdef RANDOMIZER
+                ENDING_DATA.creditLineTilemap_1[i + 5] = 0x140 + i + tile;
+#else // !RANDOMIZER
                 ENDING_DATA.creditLineTilemap_1[i + 5] = 0xE0 + i + tile;
+#endif // RANDOMIZER
             ret_0 = 1;
             break;
 
@@ -650,13 +669,21 @@ static u8 CreditsDisplayLine(u32 line)
 
         case CREDIT_LINE_TYPE_SCENARIO:
             for (i = 0; i < 20; i++)
+#ifdef RANDOMIZER
+                ENDING_DATA.creditLineTilemap_1[i + 5] = 0x160 + i + tile;
+#else // !RANDOMIZER
                 ENDING_DATA.creditLineTilemap_1[i + 5] = 0x100 + i + tile;
+#endif // RANDOMIZER
             ret_0 = 1;
             break;
 
         case CREDIT_LINE_TYPE_RESERVED:
             for (i = 0; i < 20; i++)
+#ifdef RANDOMIZER
+                ENDING_DATA.creditLineTilemap_1[i + 5] = 0x180 + i + tile;
+#else // !RANDOMIZER
                 ENDING_DATA.creditLineTilemap_1[i + 5] = 0x120 + i + tile;
+#endif // RANDOMIZER
             ret_0 = 1;
             break;
 
@@ -682,6 +709,16 @@ static u8 CreditsDisplayLine(u32 line)
                     break;
                 }
                 
+#ifdef RANDOMIZER
+                if (pCredits->text[i] >= ' ' && pCredits->text[i] <= '~')
+                {
+                    offset = pCredits->text[i] - ' ';
+                    value = offset / 0x20 * 0x40;
+                    value += tile + (offset & 0x1F) + 0x60;
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = value;
+                    ENDING_DATA.creditLineTilemap_2[tilemapOffset] = value + 0x20;
+                }
+#else // !RANDOMIZER
                 if (pCredits->text[i] >= 'A' && pCredits->text[i] <= 'Z')
                 {
                     ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 1);
@@ -725,6 +762,7 @@ static u8 CreditsDisplayLine(u32 line)
                     ENDING_DATA.creditLineTilemap_2[tilemapOffset] = tile + 0x7E;
                 }
                 #endif // REGION_EU
+#endif // RANDOMIZER
 
                 i++;
                 tilemapOffset++;
