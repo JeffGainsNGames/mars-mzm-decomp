@@ -3,6 +3,7 @@
 #include "data/animated_graphics_data.h"
 #include "data/audio.h"
 #include "data/cutscenes/statue_opening_data.h"
+#include "data/ending_and_gallery_data.h"
 #include "data/hatch_data.h"
 #include "data/in_game_cutscene_data.h"
 #include "data/menus/file_select_data.h"
@@ -52,6 +53,7 @@ static const u16*** sStoryTextPointers_Pointer = sStoryTextPointers;
 static const u8* sCharacterWidths_Pointer = sCharacterWidths;
 static const struct SoundEntry* sSoundDataEntries_Pointer = sSoundDataEntries;
 static const struct ChozoStatueTarget* sChozoStatueTargets_Pointer = sChozoStatueTargets;
+const struct CreditsEntry* sCredits_Pointer = sCredits;
 
 // --------------------------------
 // Rando data

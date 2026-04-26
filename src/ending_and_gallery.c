@@ -4,6 +4,7 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/ending_and_gallery_data.h"
+#include "data/randomizer_pointers.h"
 
 #include "constants/audio.h"
 #include "constants/ending_and_gallery.h"
@@ -558,7 +559,11 @@ static u8 CreditsDisplayLine(u32 line)
     u32 value;
 #endif // RANDOMIZER
 
+#ifdef RANDOMIZER
+    pCredits = sCredits_Pointer;
+#else // !RANDOMIZER
     pCredits = sCredits;
+#endif // RANDOMIZER
     pCredits += line;
     
     for (i = 0; i < ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1); i++)
