@@ -135,7 +135,7 @@ static void RuinsTestCalculateDelay(u8 delay)
 {
 #if defined(DEBUG) && defined(RANDOMIZER)
     gBossWork.work5 = 30;
-#else
+#else // !(DEBUG && RANDOMIZER)
     gBossWork.work5 = sRandomNumberTable[gFrameCounter8Bit] + delay;
 #endif // DEBUG && RANDOMIZER
 }
@@ -1149,9 +1149,6 @@ static void RuinsTestDespawn(void)
         gInGameTimerAtBosses[2] = gInGameTimer;
 
 #ifdef RANDOMIZER
-        SET_EVENT(EVENT_MOTHER_BRAIN_KILLED);
-        SET_EVENT(EVENT_ESCAPED_ZEBES);
-
         // TODO: Restore previous suit type if suitless
         if (gEquipment.suitType == SUIT_SUITLESS)
         {
@@ -1184,9 +1181,6 @@ static void RuinsTestDespawn(void)
 #endif // RANDOMIZER
 
 // #ifdef RANDOMIZER
-//         SET_EVENT(EVENT_MOTHER_BRAIN_KILLED);
-//         SET_EVENT(EVENT_ESCAPED_ZEBES);
-
 //         if (sRandoRemoveCutscenes)
 //         {
 //             gEquipment.suitType = SUIT_FULLY_POWERED;

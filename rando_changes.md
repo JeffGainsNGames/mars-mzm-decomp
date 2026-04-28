@@ -94,6 +94,16 @@
     - `MapScreenToggleWorldMap` in [pause_screen_map.c](src/menus/pause_screen_map.c)
   - Prevent changing area when room name is shown
     - `MapScreenHandler` in [pause_screen_map.c](src/menus/pause_screen_map.c)
+- Skip escape for Mother Brain and Mecha Ridley (when not the main goal)
+  - Load destroyed room after Mother Brain defeated
+    - `MotherBrainStartEscape` and `MotherBrain` in [mother_brain.c](src/sprites_ai/mother_brain.c)
+  - Change trigger for gunship escaping Zebes
+    - `GunshipInit` in [gunship.c](src/sprites_ai/gunship.c)
+  - Use separate event for Mecha Ridley defeated with no escape
+    - `Event` in [event.h](include/constants/event.h)
+    - `MechaRidleyInit` in [mecha_ridley.c](src/sprites_ai/mecha_ridley.c)
+  - Don't trigger escape for Mecha Ridley
+    - `MechaRidleySpawnDrops` in [mecha_ridley.c](src/sprites_ai/mecha_ridley.c)
 - Credits
   - Include all ASCII characters
     - `sCreditsCharactersGfx` in [ending_and_gallery_data.c](src/data/ending_and_gallery_data.c)

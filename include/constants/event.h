@@ -16,7 +16,6 @@ MAKE_ENUM(u8, Event) {
     EVENT_ENTER_RIDLEY_DEMO_PLAYED,
     EVENT_ENTER_MOTHERSHIP_DEMO_PLAYED,
     EVENT_ENTER_TOURIAN_DEMO_PLAYED,
-    // In rando, these indicate when the hint statue should be seated
     EVENT_STATUE_LONG_BEAM_GRABBED,
     EVENT_STATUE_BOMBS_GRABBED,
     EVENT_STATUE_ICE_BEAM_GRABBED,
@@ -108,6 +107,10 @@ MAKE_ENUM(u8, Event) {
     EVENT_COLLECTED_VARIA_SUIT_HINT,
     EVENT_COLLECTED_WAVE_BEAM_HINT,
     EVENT_COLLECTED_SCREW_ATTACK_HINT,
+
+    // Used purely to check if Mecha Ridley should spawn, since the original
+    // event is used for the Chozodia escape
+    EVENT_MECHA_RIDLEY_KILLED_2,
 #endif // RANDOMIZER
 
     EVENT_END_UNUSED,

@@ -279,7 +279,11 @@ static void GunshipInit(void)
         gCurrentSprite.yPositionSpawn = 0;
         gCurrentSprite.samusCollision = SSC_CAN_STAND_ON_TOP;
 
+#ifdef RANDOMIZER
+        if (EscapeDetermineTimer() == ESCAPE_MOTHER_BRAIN)
+#else // !RANDOMIZER
         if (CHECK_EVENT(EVENT_MOTHER_BRAIN_KILLED))
+#endif // RANDOMIZER
             gCurrentSprite.pose = GUNSHIP_POSE_CHECK_ESCAPE;
         else
             gCurrentSprite.pose = GUNSHIP_POSE_IDLE;

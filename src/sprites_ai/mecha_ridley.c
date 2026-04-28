@@ -6,6 +6,7 @@
 
 #include "data/sprites/mecha_ridley.h"
 #include "data/sprite_data.h"
+#include "data/randomizer_data.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"
@@ -14,6 +15,7 @@
 #include "constants/sprite_util.h"
 #include "constants/sprite.h"
 #include "constants/text.h"
+#include "constants/randomizer.h"
 
 #include "structs/connection.h"
 #include "structs/in_game_timer.h"
@@ -519,7 +521,11 @@ static void MechaRidleyInit(void)
     u8 gfxSlot;
     u8 ramSlot;
 
+#ifdef RANDOMIZER
+    if (CHECK_EVENT(EVENT_MECHA_RIDLEY_KILLED) || CHECK_EVENT(EVENT_MECHA_RIDLEY_KILLED_2))
+#else // !RANDOMIZER
     if (CHECK_EVENT(EVENT_MECHA_RIDLEY_KILLED))
+#endif // RANDOMIZER
     {
         gCurrentSprite.status = 0;
         return;
@@ -570,7 +576,11 @@ static void MechaRidleyInit(void)
     gCurrentSprite.drawOrder = 10;
     gCurrentSprite.samusCollision = SSC_NONE;
 
+#if defined(DEBUG) && defined(RANDOMIZER)
+    gCurrentSprite.health = 2;
+#else // !(DEBUG && RANDOMIZER)
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
+#endif // DEBUG && RANDOMIZER
 
     // Triple health if 100% items
     if (gBossWork.work11 == 100)
@@ -1377,6 +1387,19 @@ static void MechaRidleySpawnDrops(void)
             SpriteSpawnDropFollowers(spriteId, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
+        
+#ifdef RANDOMIZER
+        case 40:
+            if (sRandoGoal != GOAL_MECHA_RIDLEY)
+            {
+                SET_EVENT(EVENT_MECHA_RIDLEY_KILLED_2);
+                gInGameTimerAtBosses[3] = gInGameTimer;
+                gDoorUnlockTimer = -ONE_THIRD_SECOND;
+                gCurrentSprite.status = 0;
+                return;
+            }
+            break;
+#endif // RANDOMIZER
     }
 
     if (gCurrentSprite.yPositionSpawn > CONVERT_SECONDS(6.f))

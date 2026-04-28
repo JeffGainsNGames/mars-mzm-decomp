@@ -6,6 +6,7 @@
 #include "data/sprites/mother_brain.h"
 #include "data/sprites/zebetite_and_cannon.h"
 #include "data/sprite_data.h"
+#include "data/randomizer_data.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"
@@ -16,6 +17,8 @@
 #include "constants/projectile.h"
 #include "constants/sprite.h"
 #include "constants/text.h"
+#include "constants/color_fading.h"
+#include "constants/randomizer.h"
 
 #include "structs/clipdata.h"
 #include "structs/display.h"
@@ -24,6 +27,7 @@
 #include "structs/samus.h"
 #include "structs/scroll.h"
 #include "structs/sprite.h"
+#include "structs/connection.h"
 
 #define MOTHER_BRAIN_POSE_WAITING_GLASS 0x1
 #define MOTHER_BRAIN_POSE_MAIN_LOOP 0x9
@@ -206,8 +210,13 @@ static void MotherBrainCheckGlassBroke(void)
     if (gSubSpriteData1.work3 == MB_FIGHT_STAGE_ACTIVE)
     {
         gCurrentSprite.pose = MOTHER_BRAIN_POSE_MAIN_LOOP;
+#if defined(DEBUG) && defined(RANDOMIZER)
+        gSpriteData[eyeSlot].health = 2;
+        gBossWork.work4 = 2;
+#else // !(DEBUG && RANDOMIZER)
         gSpriteData[eyeSlot].health = gCurrentSprite.health;
         gBossWork.work4 = gCurrentSprite.health;
+#endif // DEBUG && RANDOMIZER
 
         // Open eye
         gSpriteData[eyeSlot].pOam = sMotherBrainPartOam_EyeOpening;
@@ -473,6 +482,19 @@ static void MotherBrainStartEscape(void)
     {
         // Kill sprite
         gCurrentSprite.status = 0;
+
+#ifdef RANDOMIZER
+        if (sRandoGoal != GOAL_MOTHER_BRAIN)
+        {
+            SET_EVENT(EVENT_ESCAPED_ZEBES);
+            gLastDoorUsed = 16;
+            ColorFadingStart(COLOR_FADING_NO_TRANSITION);
+            gSubGameMode1 = SUB_GAME_MODE_LOADING_ROOM;
+            CheckPlayRoomMusicTrack(gCurrentArea, 9);
+            return;
+        }
+#endif // RANDOMIZER
+
         // Spawn banner and effects
         SpriteSpawnPrimary(PSPRITE_MESSAGE_BANNER, MESSAGE_ZEBES_ESCAPE, 0, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
         SpriteSpawnPrimary(PSPRITE_EXPLOSION_ZEBES_ESCAPE, 0, 0, gCurrentSprite.yPosition + BLOCK_SIZE * 4, gCurrentSprite.xPosition, 0);
@@ -783,7 +805,12 @@ void MotherBrain(void)
     }
     else
     {
-        gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
+#ifdef RANDOMIZER
+        if (sRandoGoal == GOAL_MOTHER_BRAIN)
+#endif // RANDOMIZER
+        {
+            gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
+        }
     }
 }
 

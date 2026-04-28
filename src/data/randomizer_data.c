@@ -38,6 +38,7 @@ const u16 sMissingRoomName[] = INCTEXT("Room name not provided");
 
 // From patcher
 
+const u8 sRandoGoal = GOAL_INFANT_METROIDS;
 const u8 sRandoDifficultyOptions = DIFF_OPT_UNCHANGED;
 const boolu8 sRandoDefaultStereo = TRUE;
 const boolu8 sRandoBlackPiratesRequirePlasma = TRUE;

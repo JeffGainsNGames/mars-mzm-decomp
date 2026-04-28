@@ -6004,6 +6004,7 @@ const struct Door sCrateriaDoors[53] = {
 		.yStart = 17,
 		.yEnd = 20,
 #ifdef RANDOMIZER
+		// Change destination to room with pillar already extended
 		.destinationDoor = 0x2F,
 #else // !RANDOMIZER
 		.destinationDoor = 15,
@@ -6233,7 +6234,7 @@ const struct Door sCrateriaDoors[53] = {
 	{
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_NORMAL,
 #ifdef RANDOMIZER
-		// Move door to room 0x11
+		// Move door to room 0x11 (pillar already extended)
 		.sourceRoom = 0x11,
 #else // !RANDOMIZER
 		.sourceRoom = 8,
@@ -14707,12 +14708,7 @@ const struct RoomEntryRom sCrateriaRoomEntries[22] = {
 		.transparency = 44,
 		.pDefaultSpriteData = sCrateria_0_Spriteset0,
 		.defaultSpriteset = 31,
-#ifdef RANDOMIZER
-		// Add blank room sprite layout after Zebes escape
-		.firstSpritesetEvent = EVENT_ESCAPED_ZEBES,
-#else // !RANDOMIZER
 		.firstSpritesetEvent = EVENT_NONE,
-#endif // RANDOMIZER
 		.pFirstSpriteData = sEnemyRoomData_Empty,
 		.firstSpriteset = 0,
 		.secondSpritesetEvent = EVENT_NONE,
