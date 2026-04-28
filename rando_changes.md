@@ -135,12 +135,16 @@
     - Use room 34's scrolls (if entering from top right door) and extend bounds down
       - `ImagoCocoonInit` in [imago_cocoon.c](src/sprites_ai/imago_cocoon.c)
       - `sNorfair_12_Scrolls` in [norfair_34.c](src/data/rooms/norfair/norfair_34.c)
+  - Only trigger music when entered from top right
+    - `ImagoCocoonIdle` in [imago_cocoon.c](src/sprites_ai/imago_cocoon.c)
   - Set "tunnel discovered" event when imago is defeated
     - Set event when imago is defeated
       - `ImagoCocoonIdle` in [imago_cocoon.c](src/sprites_ai/imago_cocoon.c)
     - Remove event trigger sprite
       - `sNorfair_43_Spriteset0` in [norfair_43.c](src/data/rooms/norfair/norfair_43.c)
 - Imago room fixes
+  - Don't allow spawning before cocoon is defeated
+    - `ImagoInit` in [imago.c](src/sprites_ai/imago.c)
   - Unlock Imago door when it dies (instead of waiting to collect super missiles)
     - `ImagoSetEvent` in [imago.c](src/sprites_ai/imago.c)
   - Only use original version of room so item is always there

@@ -371,6 +371,15 @@ static void ImagoInit(void)
     u16 status;
     u16 health;
 
+#ifdef RANDOMIZER
+    // Don't spawn before the cocoon is defeated
+    if (!CHECK_EVENT(EVENT_IMAGO_COCOON_KILLED))
+    {
+        gCurrentSprite.status = 0;
+        return;
+    }
+#endif // RANDOMIZER
+
     if (CHECK_EVENT(EVENT_IMAGO_KILLED))
     {
 #ifdef RANDOMIZER

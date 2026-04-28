@@ -416,11 +416,15 @@ static void ImagoCocoonIdle(void)
     u16 caf;
     
     // Update music
+#ifdef RANDOMIZER
+    if (gBossWork.work1 != IMAGO_COCOON_MUSIC_STAGE_STARTED_MUSIC && gLastDoorUsed == 95)
+#else // !RANDOMIZER
     if (gBossWork.work1 != IMAGO_COCOON_MUSIC_STAGE_STARTED_MUSIC)
+#endif // RANDOMIZER
     {
         if (gBossWork.work1 == IMAGO_COCOON_MUSIC_STAGE_WAITING_TO_FADE)
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gSubSpriteData1.yPosition < gSamusData.yPosition &&
+            if (gSubSpriteData1.yPosition < gSamusData.yPosition &&
                 gSamusData.yPosition - gSubSpriteData1.yPosition > BLOCK_SIZE * 8)
             {
                 FadeMusic(CONVERT_SECONDS(1.f) + ONE_THIRD_SECOND);
