@@ -225,6 +225,15 @@ static const u8 sBootDebugLanguage_Spanish_Text[8] = SHIFT_JIS("Spanish ");
 static const u8 sBootDebugDifficulty_Easy_Text[8] = SHIFT_JIS("EASY  ");
 static const u8 sBootDebugDifficulty_Normal_Text[8] = SHIFT_JIS("NORMAL");
 static const u8 sBootDebugDifficulty_Hard_Text[8] = SHIFT_JIS("HARD  ");
+#ifdef RANDOMIZER
+static const u8 sBootDebugSectionMenu_Brinstar_Text[8] = SHIFT_JIS("Brinstar");
+static const u8 sBootDebugSectionMenu_Kraid_Text[8] = SHIFT_JIS("Kraid   ");
+static const u8 sBootDebugSectionMenu_Norfair_Text[8] = SHIFT_JIS("Norfair ");
+static const u8 sBootDebugSectionMenu_Ridley_Text[8] = SHIFT_JIS("Ridley  ");
+static const u8 sBootDebugSectionMenu_Tourian_Text[8] = SHIFT_JIS("Tourian ");
+static const u8 sBootDebugSectionMenu_Crateria_Text[8] = SHIFT_JIS("Crateria");
+static const u8 sBootDebugSectionMenu_Chozodia_Text[8] = SHIFT_JIS("Chozodia");
+#else // !RANDOMIZER
 static const u8 sBootDebugSectionMenu_Brinstar_Text[8] = SHIFT_JIS("ブリンスタ  ");
 static const u8 sBootDebugSectionMenu_Kraid_Text[8] = SHIFT_JIS("クレイド   ");
 static const u8 sBootDebugSectionMenu_Norfair_Text[8] = SHIFT_JIS("ノルフェア   ");
@@ -232,6 +241,7 @@ static const u8 sBootDebugSectionMenu_Ridley_Text[8] = SHIFT_JIS("リドリー  
 static const u8 sBootDebugSectionMenu_Tourian_Text[8] = SHIFT_JIS("ツーリアン   ");
 static const u8 sBootDebugSectionMenu_Crateria_Text[8] = SHIFT_JIS("クレテリア   ");
 static const u8 sBootDebugSectionMenu_Chozodia_Text[8] = SHIFT_JIS("ナンパセン  ");
+#endif // RANDOMIZER
 static const u8 sBootDebugSectionMenu_Blank_Text[8] = SHIFT_JIS("        ");
 static const u8 sBootDebugSectionMenu_Test1_Text[8] = SHIFT_JIS("TEST 1  ");
 static const u8 sBootDebugSectionMenu_Test2_Text[8] = SHIFT_JIS("TEST 2  ");
