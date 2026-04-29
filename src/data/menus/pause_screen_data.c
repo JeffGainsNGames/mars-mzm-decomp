@@ -2837,7 +2837,11 @@ const u32 sEquipmentNamesSpanishGfx[] = INCBIN_U32("data/menus/pause_screen/equi
 const u32 sMapScreenAreaNamesHiraganaGfx[198] = INCBIN_U32("data/menus/pause_screen/map_screen_area_names_hiragana.gfx.lz");
 
 const u32 sMenuNamesHiraganaGfx[113] = INCBIN_U32("data/menus/pause_screen/menu_names_hiragana.gfx.lz");
+#ifdef RANDOMIZER
+const u32 sMenuNamesEnglishGfx[93] = INCBIN_U32("data_rando/pause_screen/menu_names_english.gfx.lz");
+#else // !RANDOMIZER
 const u32 sMenuNamesEnglishGfx[92] = INCBIN_U32("data/menus/pause_screen/menu_names_english.gfx.lz");
+#endif // RANDOMIZER
 const u32 sMenuNamesGermanGfx[97] = INCBIN_U32("data/menus/pause_screen/menu_names_german.gfx.lz");
 const u32 sMenuNamesFrenchGfx[91] = INCBIN_U32("data/menus/pause_screen/menu_names_french.gfx.lz");
 const u32 sMenuNamesItalianGfx[] = INCBIN_U32("data/menus/pause_screen/menu_names_italian.gfx.lz");

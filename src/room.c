@@ -142,7 +142,12 @@ void RoomLoad(void)
     TransparencySetRoomEffectsTransparency();
     InGameCutsceneCheckPlayOnTransition();
 
+#ifdef RANDOMIZER
+    // Player can spawn anywhere, so always fix BG positions
+    if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
+#else // !RANDOMIZER
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE && !gIsLoadingFile)
+#endif // RANDOMIZER
     {
         ScrollProcessGeneral();
         gBg1YPosition = gCamera.yPosition;

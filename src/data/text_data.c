@@ -377,8 +377,13 @@ const u16 sEnglishText_Message_FullyPoweredSuit[] = INCTEXT("{GAP(22)}You got yo
 const u16 sEnglishText_Message_ZebesEscape[] = INCTEXT("{GAP(15)}Self-destruct mechanism activated!\n{GAP(53)}Evacuate immediately!");
 const u16 sEnglishText_Message_ChozodiaEscape[] = INCTEXT("{GAP(15)}Self-destruct mechanism activated!\n{GAP(53)}Evacuate immediately!");
 const u16 sEnglishText_Message_EnemyLocationAbnormal[] = INCTEXT("{GAP(44)}Enemy location abnormal.\n{GAP(30)}Check message frame position.");
+#ifdef RANDOMIZER
+const u16 sEnglishText_Message_ActivateEasySleep[] = INCTEXT("{GAP(70)}Warp to start？\n{GAP(34)}You will return to your start");
+const u16 sEnglishText_Message_PressSelectLAndR[] = INCTEXT("{GAP(44)}location, but your recent\n{GAP(38)}progress will not be saved.");
+#else // !RANDOMIZER
 const u16 sEnglishText_Message_ActivateEasySleep[] = INCTEXT("{GAP(52)}Activate Easy Sleep？\n{GAP(57)}To exit Easy Sleep,");
 const u16 sEnglishText_Message_PressSelectLAndR[] = INCTEXT("{GAP(37)}press {Select_button}, {L_button}, and {R_button}\n{GAP(72)}simultaneously.");
+#endif // RANDOMIZER
 const u16 sEnglishText_Message_EasySleepPrompt[] = INCTEXT("{GAP(101)}Yes\n{GAP(104)}No");
 #ifdef RANDOMIZER
 const u16 sEnglishText_Message_Nothing[] = INCTEXT("{GAP(74)}{COLOR(5)}Nothing acquired.\n{GAP(110)}");

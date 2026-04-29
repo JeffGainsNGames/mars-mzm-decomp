@@ -78,7 +78,11 @@ extern const u32 sEquipmentNamesSpanishGfx[];
 extern const u32 sMapScreenAreaNamesHiraganaGfx[198];
 
 extern const u32 sMenuNamesHiraganaGfx[113];
+#ifdef RANDOMIZER
+extern const u32 sMenuNamesEnglishGfx[93];
+#else // !RANDOMIZER
 extern const u32 sMenuNamesEnglishGfx[92];
+#endif // RANDOMIZER
 extern const u32 sMenuNamesGermanGfx[97];
 extern const u32 sMenuNamesFrenchGfx[91];
 extern const u32 sMenuNamesItalianGfx[];

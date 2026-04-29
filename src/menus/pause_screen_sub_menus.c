@@ -5,11 +5,15 @@
 #include "syscalls.h"
 #include "oam_id.h"
 #include "event.h"
+#include "save_file.h"
+#include "audio_wrappers.h"
+#include "music_wrappers.h"
 
 #include "data/shortcut_pointers.h"
 #include "data/clipdata_data.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_sub_menus_data.h"
+#include "data/randomizer_data.h"
 
 #include "constants/audio.h"
 #include "constants/connection.h"
@@ -19,6 +23,7 @@
 
 #include "structs/display.h"
 #include "structs/minimap.h"
+#include "structs/room.h"
 
 static const s8* sChozoStatueTargetPathPointers[6] = {
     [AREA_BRINSTAR] = (s8*)sChozoStatueTargetPathBrinstar,
@@ -28,6 +33,56 @@ static const s8* sChozoStatueTargetPathPointers[6] = {
     [AREA_TOURIAN] = (s8*)NULL,
     [AREA_CRATERIA] = (s8*)sChozoStatueTargetPathCrateria
 };
+
+#ifdef RANDOMIZER
+extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
+
+static void WarpToStart(void)
+{
+    u8 spriteset;
+
+    if (gHasSaved)
+    {
+        gIsLoadingFile = TRUE;
+        SramRead_FromEwram();
+        SramRead_Arrays();
+        
+        gCurrentArea = sStartingInfo.area;
+        gCurrentRoom = sStartingInfo.room;
+        gLastDoorUsed = sStartingInfo.door;
+        gSamusData.xPosition = sStartingInfo.blockX * BLOCK_SIZE + HALF_BLOCK_SIZE;
+        gSamusData.yPosition = (sStartingInfo.blockY + 1) * BLOCK_SIZE - 1;
+        gSamusData.standingStatus = STANDING_GROUND;
+        
+        // If not in a save room, set pose to facing the foreground
+        spriteset = sAreaRoomEntryPointers[gCurrentArea][gCurrentRoom].defaultSpriteset;
+        if (spriteset != 0x1F && spriteset != 0x21 && spriteset != 0x3B && spriteset != 0x58)
+            gSamusData.pose = SPOSE_FACING_THE_FOREGROUND;
+
+        gMusicInfo.musicTrack = sAreaRoomEntryPointers[gCurrentArea][gCurrentRoom].musicTrack;
+    }
+    else
+    {
+        // Ship landing
+        Sram_InitSaveFile();
+
+        gCurrentArea = AREA_CRATERIA;
+        gCurrentRoom = 0;
+        gLastDoorUsed = 0;
+        gShipLandingFlag = TRUE;
+    }
+
+    gMainGameMode = GM_INGAME;
+    gSubGameMode1 = 0;
+    gSubGameMode2 = 0;
+    gSubGameMode3 = 0;
+    gPauseScreenFlag = PAUSE_SCREEN_NONE;
+
+    unk_35d0(0);
+    StopAllMusicAndSounds();
+    ResetMusicVolume();
+}
+#endif // RANDOMIZER
 
 /**
  * @brief 71f70 | 1da | Easy sleep menu main loop
@@ -90,10 +145,27 @@ u32 PauseScreenEasySleepHandler(void)
             break;
 
         case EASY_SLEEP_MENU_STAGE_SLEEP_DELAY:
+#ifdef RANDOMIZER
+            // Fad out screen
+            if (PAUSE_SCREEN_DATA.stateInfo.timer == CONVERT_SECONDS(.2f))
+            {
+                PauseScreenUpdateOrStartFading(PAUSE_SCREEN_FADING_OUT_INIT);
+            }
+            else if (PAUSE_SCREEN_DATA.stateInfo.timer > CONVERT_SECONDS(.2f))
+            {
+                if (PAUSE_SCREEN_DATA.mapScreenFading.stage != PAUSE_SCREEN_FADING_NONE)
+                    PauseScreenUpdateOrStartFading(0);
+            }
+#endif // RANDOMIZER
+
             if (PAUSE_SCREEN_DATA.stateInfo.timer > CONVERT_SECONDS(.5f))
             {
+#ifdef RANDOMIZER
+                WarpToStart();
+#else // !RANDOMIZER
                 PAUSE_SCREEN_DATA.stateInfo.stage++;
                 PAUSE_SCREEN_DATA.stateInfo.timer = 0;
+#endif // RANDOMIZER
             }
             break;
 

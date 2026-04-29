@@ -1450,7 +1450,11 @@ void Gunship(void)
 
     GunshipEntranceFlashingAnim();
 
+#ifdef RANDOMIZER
+    if (gCurrentSprite.yPositionSpawn != 0)
+#else // !RANDOMIZER
     if (!CHECK_EVENT(EVENT_ESCAPED_ZEBES) && gCurrentSprite.yPositionSpawn != 0)
+#endif // RANDOMIZER
     {
         gCurrentSprite.yPositionSpawn--;
         if (gCurrentSprite.yPositionSpawn == 0)

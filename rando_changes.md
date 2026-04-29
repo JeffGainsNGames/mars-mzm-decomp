@@ -108,6 +108,14 @@
   - Include all ASCII characters
     - `sCreditsCharactersGfx` in [ending_and_gallery_data.c](src/data/ending_and_gallery_data.c)
     - `CreditsDisplayLine` in [ending_and_gallery.c](src/ending_and_gallery.c)
+- Warp to start
+  - Replace text on sleep menu
+    - `sMenuNamesEnglishGfx` in [pause_screen_data.c](src/data/menus/pause_screen_data.c)
+    - `sEnglishText_Message_ActivateEasySleep` and `sEnglishText_Message_PressSelectLAndR` in [text_data.c](src/data/text_data.c)
+  - Load starting room
+    - `PauseScreenEasySleepHandler` in [pause_screen_sub_menus.c](src/menus/pause_screen_sub_menus.c)
+  - Fix BG positions when loading room
+    - `RoomLoad` in [room.c](src/room.c)
 
 ## Fixes
 - Allow laying power bombs without bombs
@@ -192,6 +200,8 @@
   - `sCrateriaRoomEntries` and `sCrateriaDoors` in [rooms_data.c](src/data/rooms_data.c)
   - `sHatchLockEventsCrateria` in [hatch_data.c](src/data/hatch_data.c)
   - `GunshipInit` in [gunship.c](src/sprites_ai/gunship.c)
+  - Release Samus when loading save from ship
+    - `Gunship` in [gunship.c](src/sprites_ai/gunship.c)
 - Fix Crateria rooms 1 and 0x15 (large room left of landing site)
   - `sHatchLockEventsCrateria` in [hatch_data.c](src/data/hatch_data.c)
   - `sCrateriaDoors` in [rooms_data.c](src/data/rooms_data.c)
