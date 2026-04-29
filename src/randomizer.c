@@ -131,7 +131,8 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (item == RIT_MAIN_MISSILES)
             {
                 gEquipment.mainItems |= MIF_MISSILES;
-                gEquipment.mainItemsActivation |= MIF_MISSILES;
+                if (sRandoFastItemGrab)
+                    gEquipment.mainItemsActivation |= MIF_MISSILES;
                 amount = sRandoTankIncreaseAmounts.mainMissiles;
                 message = MESSAGE_FIRST_MISSILE_TANK;
             }
@@ -155,7 +156,8 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (item == RIT_MAIN_SUPER_MISSILES)
             {
                 gEquipment.mainItems |= MIF_SUPER_MISSILES;
-                gEquipment.mainItemsActivation |= MIF_SUPER_MISSILES;
+                if (sRandoFastItemGrab)
+                    gEquipment.mainItemsActivation |= MIF_SUPER_MISSILES;
                 amount = sRandoTankIncreaseAmounts.mainSuperMissiles;
                 message = MESSAGE_FIRST_SUPER_MISSILE_TANK;
             }
@@ -179,7 +181,8 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (item == RIT_MAIN_POWER_BOMBS)
             {
                 gEquipment.mainItems |= MIF_POWER_BOMBS;
-                gEquipment.mainItemsActivation |= MIF_POWER_BOMBS;
+                if (sRandoFastItemGrab)
+                    gEquipment.mainItemsActivation |= MIF_POWER_BOMBS;
                 amount = sRandoTankIncreaseAmounts.mainPowerBombs;
                 message = MESSAGE_FIRST_POWER_BOMB_TANK;
             }
@@ -201,71 +204,114 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
         case RIT_LONG_BEAM:
             message = MESSAGE_LONG_BEAM;
             gEquipment.beamBombs |= BBF_LONG_BEAM;
+            if (sRandoFastItemGrab)
+            {
+                gEquipment.beamBombsActivation |= BBF_LONG_BEAM;
+                ProjectileLoadGraphics();
+            }
             break;
 
         case RIT_CHARGE_BEAM:
             message = MESSAGE_CHARGE_BEAM;
             gEquipment.beamBombs |= BBF_CHARGE_BEAM;
+            if (sRandoFastItemGrab)
+            {
+                gEquipment.beamBombsActivation |= BBF_CHARGE_BEAM;
+                ProjectileLoadGraphics();
+            }
             break;
 
         case RIT_ICE_BEAM:
             message = MESSAGE_ICE_BEAM;
             gEquipment.beamBombs |= BBF_ICE_BEAM;
+            if (sRandoFastItemGrab)
+            {
+                gEquipment.beamBombsActivation |= BBF_ICE_BEAM;
+                ProjectileLoadGraphics();
+            }
             break;
 
         case RIT_WAVE_BEAM:
             message = MESSAGE_WAVE_BEAM;
             gEquipment.beamBombs |= BBF_WAVE_BEAM;
+            if (sRandoFastItemGrab)
+            {
+                gEquipment.beamBombsActivation |= BBF_WAVE_BEAM;
+                ProjectileLoadGraphics();
+            }
             break;
 
         case RIT_PLASMA_BEAM:
             message = MESSAGE_UKNOWN_ITEM_PLASMA;
             gEquipment.beamBombs |= BBF_PLASMA_BEAM;
+            if (sRandoFastItemGrab && gEquipment.suitType == SUIT_FULLY_POWERED)
+            {
+                gEquipment.beamBombsActivation |= BBF_PLASMA_BEAM;
+                ProjectileLoadGraphics();
+            }
             break;
 
         case RIT_BOMBS:
             message = MESSAGE_BOMB;
             gEquipment.beamBombs |= BBF_BOMBS;
+            if (sRandoFastItemGrab)
+                gEquipment.beamBombsActivation |= BBF_BOMBS;
             break;
 
         case RIT_VARIA_SUIT:
             message = MESSAGE_VARIA_SUIT;
             gEquipment.suitMisc |= SMF_VARIA_SUIT;
+            if (sRandoFastItemGrab)
+                gEquipment.suitMiscActivation |= SMF_VARIA_SUIT;
             break;
 
         case RIT_GRAVITY_SUIT:
             message = MESSAGE_UNKNOWN_ITEM_GRAVITY;
             gEquipment.suitMisc |= SMF_GRAVITY_SUIT;
+            if (sRandoFastItemGrab && gEquipment.suitType == SUIT_FULLY_POWERED)
+                gEquipment.suitMiscActivation |= SMF_GRAVITY_SUIT;
             break;
 
         case RIT_MORPH_BALL:
             message = MESSAGE_MORPH_BALL;
             gEquipment.suitMisc |= SMF_MORPH_BALL;
+            if (sRandoFastItemGrab)
+                gEquipment.suitMiscActivation |= SMF_MORPH_BALL;
             break;
 
         case RIT_SPEED_BOOSTER:
             message = MESSAGE_SPEED_BOOSTER;
             gEquipment.suitMisc |= SMF_SPEEDBOOSTER;
+            if (sRandoFastItemGrab)
+                gEquipment.suitMiscActivation |= SMF_SPEEDBOOSTER;
             break;
 
         case RIT_HI_JUMP:
             message = MESSAGE_HIGH_JUMP;
             gEquipment.suitMisc |= SMF_HIGH_JUMP;
+            if (sRandoFastItemGrab)
+                gEquipment.suitMiscActivation |= SMF_HIGH_JUMP;
             break;
 
         case RIT_SCREW_ATTACK:
             message = MESSAGE_SCREW_ATTACK;
             gEquipment.suitMisc |= SMF_SCREW_ATTACK;
+            if (sRandoFastItemGrab)
+                gEquipment.suitMiscActivation |= SMF_SCREW_ATTACK;
             break;
 
         case RIT_SPACE_JUMP:
             message = MESSAGE_UNKNOWN_ITEM_SPACE_JUMP;
             gEquipment.suitMisc |= SMF_SPACE_JUMP;
+            if (sRandoFastItemGrab && gEquipment.suitType == SUIT_FULLY_POWERED)
+                gEquipment.suitMiscActivation |= SMF_SPACE_JUMP;
             break;
 
         case RIT_POWER_GRIP:
             message = MESSAGE_POWER_GRIP;
             gEquipment.suitMisc |= SMF_POWER_GRIP;
+            if (sRandoFastItemGrab)
+                gEquipment.suitMiscActivation |= SMF_POWER_GRIP;
             break;
 
         case RIT_FULLY_POWERED:

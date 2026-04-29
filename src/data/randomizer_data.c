@@ -47,6 +47,7 @@ const boolu8 sRandoBallLauncherWithoutBombs = FALSE;
 const boolu8 sRandoDisableMidAirBombJump = FALSE;
 const boolu8 sRandoDisableWallJump = FALSE;
 const boolu8 sRandoRemoveCutscenes = FALSE;
+const boolu8 sRandoFastItemGrab = FALSE;
 const boolu8 sRandoSkipSuitlessSequence = FALSE;
 
 const struct TankIncreaseAmounts sRandoTankIncreaseAmounts = {

@@ -253,6 +253,8 @@
   - `KraidInit` and `KraidDying` in [kraid.c](src/sprites_ai/kraid.c)
   - `RidleyCheckPlayCutscene` and `RidleyDying` in [ridley.c](src/sprites_ai/ridley.c)
   - `RuinsTestDespawn` in [ruins_test.c](src/sprites_ai/ruins_test.c)
+- Fast item grab
+  - `MessageBannerRemovalAnimation` in [message_banner.c](src/sprites_ai/message_banner.c)
 
 ## Unused
 - Chozo hints for any item

@@ -5,6 +5,7 @@
 #include "randomizer.h"
 
 #include "data/sprites/message_banner.h"
+#include "data/randomizer_data.h"
 
 #include "constants/audio.h"
 #include "constants/demo.h"
@@ -476,10 +477,16 @@ static void MessageBannerRemovalAnimation(void)
                 gBossWork.work2 + BLOCK_SIZE * 12, 0);
         }
         // Check replay sounds
-        else if (RandoIsItemMessage(msg) && gCurrentRandoItem.jingle == RIJ_MINOR)
+        else if ((RandoIsItemMessage(msg) && gCurrentRandoItem.jingle == RIJ_MINOR) ||
+            (gCurrentSprite.MESSAGE_BANNER_NEW_ITEM && sRandoFastItemGrab))
         {
             RetrieveTrackData2SoundChannels();
         }
+
+        gPreventMovementTimer = 0;
+
+        if (gCurrentSprite.MESSAGE_BANNER_NEW_ITEM && !sRandoFastItemGrab)
+            gPauseScreenFlag = PAUSE_SCREEN_ITEM_ACQUISITION;
 #else // !RANDOMIZER
         else if (msg == MESSAGE_FULLY_POWERED_SUIT)
         {
@@ -497,12 +504,12 @@ static void MessageBannerRemovalAnimation(void)
         {
             RetrieveTrackData2SoundChannels();
         }
-#endif // RANDOMIZER
 
         gPreventMovementTimer = 0;
 
         if (gCurrentSprite.MESSAGE_BANNER_NEW_ITEM)
             gPauseScreenFlag = PAUSE_SCREEN_ITEM_ACQUISITION;
+#endif // RANDOMIZER
     }
 }
 
