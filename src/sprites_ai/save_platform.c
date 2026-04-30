@@ -13,6 +13,7 @@
 #include "structs/hud.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
+#include "structs/randomizer.h"
 
 #define SAVE_PLATFORM_POSE_IDLE 0x9
 #define SAVE_PLATFORM_POSE_OPENING 0x23
@@ -108,7 +109,17 @@ static void SavePlatformInit(void)
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_OFF;
     }
 #ifdef RANDOMIZER
-    else if (gIsLoadingFile || !gHasSaved)
+    else if (gWarpingToStart)
+    {
+        // Skip loading jingle
+        SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
+        gSamusData.timer = TRUE;
+        gWarpingToStart = FALSE;
+
+        gCurrentSprite.pOam = sSavePlatformOam_OpenedOff;
+        gCurrentSprite.pose = SAVE_PLATFORM_POSE_AFTER_SAVE;
+    }
+    else if (gIsLoadingFile || (gSamusData.pose == SPOSE_FACING_THE_FOREGROUND && !gDebugMode))
 #else // !RANDOMIZER
     else if (gIsLoadingFile)
 #endif // RANDOMIZER

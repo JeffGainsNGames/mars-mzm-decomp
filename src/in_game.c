@@ -29,6 +29,7 @@
 #include "structs/room.h"
 #include "structs/sprite.h"
 #include "structs/connection.h"
+#include "structs/randomizer.h"
 
 /**
  * @brief c4b4 | 244 | Main loop in game
@@ -521,6 +522,9 @@ void InitAndLoadGenerics(void)
         SpriteUpdate();
         gSubGameMode3 = 1;
         gPreventMovementTimer = 0;
+#ifdef RANDOMIZER
+        gWarpingToStart = FALSE;
+#endif // RANDOMIZER
     }
 
     gWrittenToBldy_NonGameplay = BLDY_MAX_VALUE - 1;

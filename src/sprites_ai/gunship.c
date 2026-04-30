@@ -23,6 +23,7 @@
 #include "structs/hud.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
+#include "structs/randomizer.h"
 
 #define GUNSHIP_POSE_IDLE 0x9
 #define GUNSHIP_POSE_CHECK_ESCAPE 0xF
@@ -238,7 +239,11 @@ static void GunshipInit(void)
     SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_BACK, gCurrentSprite.spritesetGfxSlot,
         gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 
+#ifdef RANDOMIZER
+    if (gIsLoadingFile && !gWarpingToStart)
+#else // !RANDOMIZER
     if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
+#endif // RANDOMIZER
     {
         // Loading game from gunship
         gCurrentSprite.samusCollision = SSC_NONE;

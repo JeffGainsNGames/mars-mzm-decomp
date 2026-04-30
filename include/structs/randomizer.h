@@ -70,6 +70,8 @@ struct StartingInfo {
 
 extern struct CurrentRandoItem gCurrentRandoItem;
 
+extern boolu8 gWarpingToStart;
+
 #endif // RANDOMIZER
 
 #endif // RANDOMIZER_STRUCT_H

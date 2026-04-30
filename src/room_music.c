@@ -16,6 +16,7 @@
 #include "structs/room.h"
 #include "structs/samus.h"
 #include "structs/sprite.h"
+#include "structs/randomizer.h"
 
 extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
 
@@ -79,7 +80,11 @@ void CheckPlayLoadingJingle(void)
         if (gIsLoadingFile)
         {
             PlayCurrentMusicTrack();
+#ifdef RANDOMIZER
+            if (!gWarpingToStart)
+#else // !RANDOMIZER
             if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
+#endif // RANDOMIZER
             {
                 gDisablePause = TRUE;
                 InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, TRUE);

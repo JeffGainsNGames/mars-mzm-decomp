@@ -24,6 +24,7 @@
 #include "structs/display.h"
 #include "structs/minimap.h"
 #include "structs/room.h"
+#include "structs/randomizer.h"
 
 static const s8* sChozoStatueTargetPathPointers[6] = {
     [AREA_BRINSTAR] = (s8*)sChozoStatueTargetPathBrinstar,
@@ -39,10 +40,9 @@ extern const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
 
 static void WarpToStart(void)
 {
-    u8 spriteset;
-
     if (gHasSaved)
     {
+        gWarpingToStart = TRUE;
         gIsLoadingFile = TRUE;
         SramRead_FromEwram();
         SramRead_Arrays();
@@ -53,11 +53,7 @@ static void WarpToStart(void)
         gSamusData.xPosition = sStartingInfo.blockX * BLOCK_SIZE + HALF_BLOCK_SIZE;
         gSamusData.yPosition = (sStartingInfo.blockY + 1) * BLOCK_SIZE - 1;
         gSamusData.standingStatus = STANDING_GROUND;
-        
-        // If not in a save room, set pose to facing the foreground
-        spriteset = sAreaRoomEntryPointers[gCurrentArea][gCurrentRoom].defaultSpriteset;
-        if (spriteset != 0x1F && spriteset != 0x21 && spriteset != 0x3B && spriteset != 0x58)
-            gSamusData.pose = SPOSE_FACING_THE_FOREGROUND;
+        gSamusData.pose = SPOSE_FACING_THE_FOREGROUND;
 
         gMusicInfo.musicTrack = sAreaRoomEntryPointers[gCurrentArea][gCurrentRoom].musicTrack;
     }
@@ -78,7 +74,7 @@ static void WarpToStart(void)
     gSubGameMode3 = 0;
     gPauseScreenFlag = PAUSE_SCREEN_NONE;
 
-    unk_35d0(0);
+    unk_35d0(0); // Resume sounds?
     StopAllMusicAndSounds();
     ResetMusicVolume();
 }

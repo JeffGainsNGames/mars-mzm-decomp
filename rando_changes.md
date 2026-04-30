@@ -116,6 +116,12 @@
     - `PauseScreenEasySleepHandler` in [pause_screen_sub_menus.c](src/menus/pause_screen_sub_menus.c)
   - Fix BG positions when loading room
     - `RoomLoad` in [room.c](src/room.c)
+  - Don't play loading jingle
+    - `CheckPlayLoadingJingle` in [room_music.c](src/room_music.c)
+  - Don't play loading animation
+    - `SavePlatformInit` in [save_platform.c](src/sprites_ai/save_platform.c)
+    - `SavePlatformChozodiaInit` in [save_platform_chozodia.c](src/sprites_ai/save_platform_chozodia.c)
+    - `GunshipInit` in [gunship.c](src/sprites_ai/gunship.c)
 
 ## Fixes
 - Allow laying power bombs without bombs

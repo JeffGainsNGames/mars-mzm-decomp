@@ -75,4 +75,5 @@ IWRAM_DATA struct LinkInfo gLink = {};
 
 #ifdef RANDOMIZER
 IWRAM_DATA struct CurrentRandoItem gCurrentRandoItem = {};
+IWRAM_DATA boolu8 gWarpingToStart = 0;
 #endif
