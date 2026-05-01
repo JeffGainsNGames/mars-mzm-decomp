@@ -939,13 +939,13 @@ static void ChozoStatuePartInit(void)
 
 #ifdef RANDOMIZER
             // Allow viewing hint every time
-            gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT;
+            if (behavior >= CHOZO_STATUE_BEHAVIOR_HINT)
 #else // !RANDOMIZER
             if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
+#endif // RANDOMIZER
                 gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT;
             else
                 gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_REFILL;
-#endif // RANDOMIZER
 
             if (behavior == CHOZO_STATUE_BEHAVIOR_ITEM)
                 gCurrentSprite.pOam = sChozoStatuePartOam_ArmIdle;
