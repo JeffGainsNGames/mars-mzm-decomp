@@ -131,8 +131,7 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (item == RIT_MAIN_MISSILES)
             {
                 gEquipment.mainItems |= MIF_MISSILES;
-                if (sRandoFastItemGrab)
-                    gEquipment.mainItemsActivation |= MIF_MISSILES;
+                gEquipment.mainItemsActivation |= MIF_MISSILES;
                 amount = sRandoTankIncreaseAmounts.mainMissiles;
                 message = MESSAGE_FIRST_MISSILE_TANK;
             }
@@ -156,8 +155,7 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (item == RIT_MAIN_SUPER_MISSILES)
             {
                 gEquipment.mainItems |= MIF_SUPER_MISSILES;
-                if (sRandoFastItemGrab)
-                    gEquipment.mainItemsActivation |= MIF_SUPER_MISSILES;
+                gEquipment.mainItemsActivation |= MIF_SUPER_MISSILES;
                 amount = sRandoTankIncreaseAmounts.mainSuperMissiles;
                 message = MESSAGE_FIRST_SUPER_MISSILE_TANK;
             }
@@ -181,8 +179,7 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
             if (item == RIT_MAIN_POWER_BOMBS)
             {
                 gEquipment.mainItems |= MIF_POWER_BOMBS;
-                if (sRandoFastItemGrab)
-                    gEquipment.mainItemsActivation |= MIF_POWER_BOMBS;
+                gEquipment.mainItemsActivation |= MIF_POWER_BOMBS;
                 amount = sRandoTankIncreaseAmounts.mainPowerBombs;
                 message = MESSAGE_FIRST_POWER_BOMB_TANK;
             }

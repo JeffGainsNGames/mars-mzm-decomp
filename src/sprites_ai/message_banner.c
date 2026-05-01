@@ -287,6 +287,48 @@ static void MessageBannerPopUp(void)
             {
                 SoundPlay(MUSIC_GETTING_TANK_JINGLE);
             }
+
+            // Custom messages should always use two lines
+            if (!(isItem && gCurrentRandoItem.customMessage != NULL))
+            {
+                // Check is one line message (new item/ability, save complete, map text)
+                switch (msg)
+                {
+                    case MESSAGE_FIRST_MISSILE_TANK:
+                    case MESSAGE_FIRST_SUPER_MISSILE_TANK:
+                    case MESSAGE_FIRST_POWER_BOMB_TANK:
+                    case MESSAGE_LONG_BEAM:
+                    case MESSAGE_CHARGE_BEAM:
+                    case MESSAGE_ICE_BEAM:
+                    case MESSAGE_WAVE_BEAM:
+                    case MESSAGE_UKNOWN_ITEM_PLASMA:
+                    case MESSAGE_BOMB:
+                    case MESSAGE_VARIA_SUIT:
+                    case MESSAGE_UNKNOWN_ITEM_GRAVITY:
+                    case MESSAGE_MORPH_BALL:
+                    case MESSAGE_SPEED_BOOSTER:
+                    case MESSAGE_HIGH_JUMP:
+                    case MESSAGE_SCREW_ATTACK:
+                    case MESSAGE_UNKNOWN_ITEM_SPACE_JUMP:
+                    case MESSAGE_POWER_GRIP:
+                    case MESSAGE_SAVE_COMPLETE:
+                    case MESSAGE_BRINSTAR_MAP_ACQUIRED:
+                    case MESSAGE_KRAID_MAP_ACQUIRED:
+                    case MESSAGE_NORFAIR_MAP_ACQUIRED:
+                    case MESSAGE_RIDLEY_MAP_ACQUIRED:
+                    case MESSAGE_MOTHER_SHIP_MAP_ACQUIRED:
+                    case MESSAGE_FULLY_POWERED_SUIT:
+                    case MESSAGE_NOTHING_ACQUIRED:
+                    case MESSAGE_UNKNOWN_ITEM:
+                    case MESSAGE_ZIPLINES:
+                    case MESSAGE_INFANT_METROID:
+                    case MESSAGE_ICE_TRAP:
+                        gCurrentSprite.pOam = sMessageBannerOam_OneLineSpawn;
+                        gCurrentSprite.animationDurationCounter = 0;
+                        gCurrentSprite.currentAnimationFrame = 0;
+                        break;
+                }
+            }
 #else // !RANDOMIZER
             if (MESSAGE_IS_ITEM(msg))
             {
@@ -321,22 +363,16 @@ static void MessageBannerPopUp(void)
 
                 SoundPlay(MUSIC_GETTING_TANK_JINGLE);
             }
-#endif // RANDOMIZER
 
-#ifdef RANDOMIZER
-            // Custom messages should always use two lines
-            if (!(isItem && gCurrentRandoItem.customMessage != NULL))
-#endif // RANDOMIZER
+            // Check is one line message (new item/ability, save complete, map text)
+            if (gCurrentSprite.MESSAGE_BANNER_NEW_ITEM || msg == MESSAGE_SAVE_COMPLETE ||
+                (MESSAGE_IS_MAP(msg) || msg == MESSAGE_FULLY_POWERED_SUIT))
             {
-                // Check is one line message (new item/ability, save complete, map text)
-                if (gCurrentSprite.MESSAGE_BANNER_NEW_ITEM || msg == MESSAGE_SAVE_COMPLETE ||
-                    (MESSAGE_IS_MAP(msg) || msg == MESSAGE_FULLY_POWERED_SUIT))
-                {
-                    gCurrentSprite.pOam = sMessageBannerOam_OneLineSpawn;
-                    gCurrentSprite.animationDurationCounter = 0;
-                    gCurrentSprite.currentAnimationFrame = 0;
-                }
+                gCurrentSprite.pOam = sMessageBannerOam_OneLineSpawn;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
             }
+#endif // RANDOMIZER
         }
 
         return;
