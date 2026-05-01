@@ -134,6 +134,16 @@
   - `PauseScreenGetMinimapData` in [pause_screen.c](src/menus/pause_screen.c)
 - Change charge beam OAM to work with any item (and don't spawn glow)
   - `ChargeBeamSpawnGlow`, `ChargeBeamVisibleInit`, and `ChargeBeamIdle` in [charge_beam.c](src/sprites_ai/charge_beam.c)
+- Fix space pirate power bomb OAM
+  - Repeat frame 1 for frame 3
+    - `sFakePowerBombOam_Idle` in [space_pirate_carrying_power_bomb.c](src/data/sprites/space_pirate_carrying_power_bomb.c)
+  - Flip horizontally
+    - `sSpacePirateCarryingPowerBombOam_Frame*` in [space_pirate.c](src/data/sprites/space_pirate.c)
+- Make all items animate at the same speed
+  - `ANIMATED_GFX_TANK_FRAME_DELAY` in [animated_graphics.h](include/constants/animated_graphics.h)
+  - `sMorphBallOam_Idle` in [morph_ball](src/data/sprites/morph_ball.c)
+  - `sFakePowerBombOam_Idle` in [space_pirate_carrying_power_bomb.c](src/data/sprites/space_pirate_carrying_power_bomb.c)
+  - `sSpacePirateCarryingPowerBombOam_Frame*` in [space_pirate.c](src/data/sprites/space_pirate.c)
 - Imago cocoon room fixes
   - Only use version of room with tunnel
     - Remove event connections from doors
@@ -176,8 +186,6 @@
   - `RuinsTestDespawn` in [ruins_test.c](src/sprites_ai/ruins_test.c)
 - Fix space pirate alarm music
   - `DisableChozodiaAlarm` and `DecrementChozodiaAlarm` in [space_pirate.c](src/sprites_ai/space_pirate.c)
-- Fix space pirate power bomb OAM (flip horizontally)
-  - `sSpacePirateCarryingPowerBombOam_Frame*` in [space_pirate.c](src/data/sprites/space_pirate.c)
 - Fix searchlight eye vulnerability condition
   - `SearchlightEyeInit` in [searchlight_eye.c](src/sprites_ai/searchlight_eye.c)
 - Fix ending percent calculation and rescale to 100%

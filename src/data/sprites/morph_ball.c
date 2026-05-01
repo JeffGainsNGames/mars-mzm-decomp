@@ -44,22 +44,28 @@ static const u16 sMorphBallOutsideOam_Idle_Frame4[OAM_DATA_SIZE(1)] = {
     OAM_ENTRY(-8, -8, OAM_DIMS_16x16, OAM_NO_FLIP, 0x20e, 8, 0)
 };
 
+#ifdef RANDOMIZER
+    #define MORPH_ANIM_SPEED CONVERT_SECONDS(1.f / 6)
+#else // !RANDOMIZER
+    #define MORPH_ANIM_SPEED CONVERT_SECONDS(4.f / 15)
+#endif // RANDOMIZER
+
 const struct FrameData sMorphBallOam_Idle[5] = {
     [0] = {
         .pFrame = sMorphBallOam_Idle_Frame0,
-        .timer = CONVERT_SECONDS(4.f / 15)
+        .timer = MORPH_ANIM_SPEED
     },
     [1] = {
         .pFrame = sMorphBallOam_Idle_Frame1,
-        .timer = CONVERT_SECONDS(4.f / 15)
+        .timer = MORPH_ANIM_SPEED
     },
     [2] = {
         .pFrame = sMorphBallOam_Idle_Frame2,
-        .timer = CONVERT_SECONDS(4.f / 15)
+        .timer = MORPH_ANIM_SPEED
     },
     [3] = {
         .pFrame = sMorphBallOam_Idle_Frame1,
-        .timer = CONVERT_SECONDS(4.f / 15)
+        .timer = MORPH_ANIM_SPEED
     },
     [4] = FRAME_DATA_TERMINATOR
 };

@@ -24,22 +24,32 @@ static const u16 sFakePowerBombOam_Idle_Frame3[OAM_DATA_SIZE(1)] = {
     OAM_ENTRY(-8, -16, OAM_DIMS_16x16, OAM_NO_FLIP, 0x206, 8, 0)
 };
 
+#ifdef RANDOMIZER
+    #define PB_ANIM_SPEED 10
+#else // !RANDOMIZER
+    #define PB_ANIM_SPEED CONVERT_SECONDS(0.1f)
+#endif // RANDOMIZER
+
 const struct FrameData sFakePowerBombOam_Idle[5] = {
     [0] = {
         .pFrame = sFakePowerBombOam_Idle_Frame0,
-        .timer = CONVERT_SECONDS(0.1f)
+        .timer = PB_ANIM_SPEED
     },
     [1] = {
         .pFrame = sFakePowerBombOam_Idle_Frame1,
-        .timer = CONVERT_SECONDS(0.1f)
+        .timer = PB_ANIM_SPEED
     },
     [2] = {
         .pFrame = sFakePowerBombOam_Idle_Frame2,
-        .timer = CONVERT_SECONDS(0.1f)
+        .timer = PB_ANIM_SPEED
     },
     [3] = {
+#ifdef RANDOMIZER
+        .pFrame = sFakePowerBombOam_Idle_Frame1,
+#else // !RANDOMIZER
         .pFrame = sFakePowerBombOam_Idle_Frame3,
-        .timer = CONVERT_SECONDS(0.1f)
+#endif // RANDOMIZER
+        .timer = PB_ANIM_SPEED
     },
     [4] = FRAME_DATA_TERMINATOR
 };
