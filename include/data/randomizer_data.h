@@ -3,6 +3,7 @@
 
 #include "types.h"
 
+#include "constants/clipdata.h"
 #include "constants/menus/pause_screen.h"
 
 #include "structs/randomizer.h"
@@ -36,6 +37,8 @@ extern const u8 sRandoAnonymousGfx[384];
 
 extern const u16 sMissingRoomName[];
 
+extern const u16 sBreakableBlockBg1[CLIPDATA_COUNT];
+
 // From patcher
 
 extern const u8 sRandoGoal;
@@ -46,6 +49,7 @@ extern const boolu8 sRandoSkipDoorTransitions;
 extern const boolu8 sRandoBallLauncherWithoutBombs;
 extern const boolu8 sRandoDisableMidAirBombJump;
 extern const boolu8 sRandoDisableWallJump;
+extern const boolu8 sRandoRevealBreakableBlocks;
 extern const boolu8 sRandoRemoveCutscenes;
 extern const boolu8 sRandoFastItemGrab;
 extern const boolu8 sRandoSkipSuitlessSequence; // Unused

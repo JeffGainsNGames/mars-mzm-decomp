@@ -260,6 +260,15 @@
   - `TourianEscapeSubroutine` in [cutscene_utils.c](src/cutscenes/cutscene_utils.c)
   - `UpdateMusicAfterPause` in [room_music.c](src/room_music.c)
   - `GunshipFlying` in [gunship.c](src/sprites_ai/gunship.c)
+- Reveal breakable tiles
+  - Overwrite BG1 values after clipdata is loaded
+    - `RoomLoad` in [room.c](src/room.c)
+  - Copy code to IWRAM
+    - `InGameData` in [temp_globals.h](include/temp_globals.h)
+    - `RoomLoad` in [room.c](src/room.c)
+  - Add graphics and block for hidden tank
+    - `sCommonTilesGfx` and `sCommonTilesMothershipGfx` in [clipdata_types.c](src/data/clipdata_types.c)
+    - `sCommonTilemap` in [clipdata_types_tilemap.c](src/data/clipdata_types_tilemap.c)
 - Skip cutscenes
   - `ConnectionCheckPlayCutsceneDuringTransition` in [connection.c](src/connection.c)
   - `CheckPlayRoomMusicTrack` in [room_music.c](src/room_music.c)

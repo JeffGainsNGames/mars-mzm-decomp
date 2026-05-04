@@ -86,6 +86,7 @@ static const boolu8* sRandoSkipDoorTransitions_Pointer = &sRandoSkipDoorTransiti
 static const boolu8* sRandoBallLauncherWithoutBombs_Pointer = &sRandoBallLauncherWithoutBombs;
 static const boolu8* sRandoDisableMidAirBombJump_Pointer = &sRandoDisableMidAirBombJump;
 static const boolu8* sRandoDisableWallJump_Pointer = &sRandoDisableWallJump;
+// static const boolu8 sRandoRevealBreakableBlocks_Pointer = &sRandoRevealBreakableBlocks;
 static const boolu8* sRandoRemoveCutscenes_Pointer = &sRandoRemoveCutscenes;
 static const boolu8* sRandoFastItemGrab_Pointer = &sRandoFastItemGrab;
 static const boolu8* sRandoSkipSuitlessSequence_Pointer = &sRandoSkipSuitlessSequence;

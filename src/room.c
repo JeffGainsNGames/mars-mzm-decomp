@@ -2,12 +2,14 @@
 #include "dma.h"
 #include "gba.h"
 #include "event.h"
+#include "temp_globals.h"
 
 #include "data/empty_datatypes.h"
 #include "data/common_pals.h"
 #include "data/clipdata_types.h"
 #include "data/clipdata_types_tilemap.h"
 #include "data/rooms_data.h"
+#include "data/randomizer_data.h"
 #include "data/randomizer_pointers.h"
 
 #include "constants/audio.h"
@@ -73,6 +75,33 @@ const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT] = {
     #endif // DEBUG
 };
 
+#ifdef RANDOMIZER
+// This function can add lag frames when loading a room, so it's copied to
+// IWRAM to run a bit faster. Because of this, a lookup table is used for
+// the clipdata instead of a switch statement
+static void RoomRevealBreakableBlocks(void)
+{
+    s32 i;
+    s32 end;
+    u16* pClip;
+    u16* pBg1;
+
+    // Skip first 2 rows
+    i = gBgPointersAndDimensions.clipdataWidth * 2;
+    // Skip last 2 rows
+    end = (gBgPointersAndDimensions.clipdataWidth * gBgPointersAndDimensions.clipdataHeight) -
+        gBgPointersAndDimensions.clipdataWidth * 2;
+    pClip = gBgPointersAndDimensions.pClipDecomp;
+    pBg1 = gBgPointersAndDimensions.backgrounds[1].pDecomp;
+
+    for (; i < end; i++)
+    {
+        if (pClip[i] < CLIPDATA_COUNT && sBreakableBlockBg1[pClip[i]] != 0)
+            pBg1[i] = sBreakableBlockBg1[pClip[i]];
+    }
+}
+#endif // RANDOMIZER
+
 /**
  * @brief 55f7c | 26c | Loads the current room
  * 
@@ -80,6 +109,14 @@ const struct RoomEntryRom* sAreaRoomEntryPointers[AREA_ENTRY_COUNT] = {
 void RoomLoad(void)
 {
     ClipdataSetupCode();
+#ifdef RANDOMIZER
+    if (sRandoRevealBreakableBlocks)
+    {
+        // Copy reveal block code to IWRAM
+        DMA3_COPY_16(RoomRevealBreakableBlocks, gNonGameplayRam.inGame.revealBlocksCode,
+            sizeof(gNonGameplayRam.inGame.revealBlocksCode) / 2);
+    }
+#endif // RANDOMIZER
     RoomReset();
 
     // Check for PSF
@@ -137,6 +174,11 @@ void RoomLoad(void)
     RoomLoadTileset();
     RoomLoadBackgrounds();
     RoomRemoveNeverReformBlocksAndCollectedTanks();
+#ifdef RANDOMIZER
+    if (sRandoRevealBreakableBlocks)
+        ((Func_T)(gNonGameplayRam.inGame.revealBlocksCode + 1))();
+#endif // RANDOMIZER
+
     gPreviousXPosition = gSamusData.xPosition;
     gPreviousYPosition = gSamusData.yPosition;
     TransparencySetRoomEffectsTransparency();

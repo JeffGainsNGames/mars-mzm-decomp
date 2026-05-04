@@ -24,7 +24,12 @@
 struct InGameData {
     u8 clipdataCode[640];
     u8 hazeCode[512];
+#ifdef RANDOMIZER
+    u8 revealBlocksCode[96];
+    u8 unused[328];
+#else // !RANDOMIZER
     u8 unused[424];
+#endif // RANDOMIZER
 };
 
 union NonGameplayRam {

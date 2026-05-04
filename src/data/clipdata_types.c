@@ -200,5 +200,10 @@ const ClipBehavior sClipdataBehaviorTypes[CLIPDATA_COUNT] = {
     [CLIPDATA_ACID] = CLIP_BEHAVIOR_ACID
 };
 
+#ifdef RANDOMIZER
+const u8 sCommonTilesGfx[4096] = INCBIN_U8("data_rando/common/common_tiles.gfx");
+const u8 sCommonTilesMothershipGfx[4096] = INCBIN_U8("data_rando/common/common_tiles_mother_ship.gfx");
+#else // !RANDOMIZER
 const u8 sCommonTilesGfx[4096] = INCBIN_U8("data/common/common_tiles.gfx");
 const u8 sCommonTilesMothershipGfx[4096] = INCBIN_U8("data/common/common_tiles_mother_ship.gfx");
+#endif // RANDOMIZER
