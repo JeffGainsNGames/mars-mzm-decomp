@@ -162,7 +162,11 @@ const u32 sTitleScreenSpanishMenuGfx_Top[64] = INCBIN_U32("data/menus/title_scre
 const u32 sTitleScreenSpanishMenuGfx_Bottom[45] = INCBIN_U32("data/menus/title_screen/spanish_menu_bottom.gfx.lz");
 #endif // REGION_EU
 
+#ifdef RANDOMIZER
+const u32 sTitleScreenTitleTileTable[] = INCBIN_U32("data_rando/title.tt.lz");
+#else // !RANDOMIZER
 const u32 sTitleScreenTitleTileTable[] = INCBIN_U32("data/menus/title_screen/title.tt");
+#endif // RANDOMIZER
 const u32 sTitleScreenSpaceBackgroundTileTable[702] = INCBIN_U32("data/menus/title_screen/space_background.tt");
 
 const u8 sTitleScreenRomInfoPosition[4] = {

@@ -157,12 +157,12 @@ static const u8 sRandoTitleLine08[31] = "";
 static const u8 sRandoTitleLine09[31] = "";
 static const u8 sRandoTitleLine10[31] = "";
 static const u8 sRandoTitleLine11[31] = "";
-#ifdef DEBUG
-static const u8 sRandoTitleLine12[31] = "         DEBUG BUILD";
-#else // !DEBUG
 static const u8 sRandoTitleLine12[31] = "";
-#endif // DEBUG
+#ifdef DEBUG
+static const u8 sRandoTitleLine13[31] = "         DEBUG BUILD";
+#else // !DEBUG
 static const u8 sRandoTitleLine13[31] = "";
+#endif // DEBUG
 static const u8 sRandoTitleLine14[31] = "";
 static const u8 sRandoTitleLine15[31] = "";
 static const u8 sRandoTitleLine16[31] = "";
