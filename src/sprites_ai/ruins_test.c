@@ -1149,7 +1149,9 @@ static void RuinsTestDespawn(void)
         gInGameTimerAtBosses[2] = gInGameTimer;
 
 #ifdef RANDOMIZER
-        // TODO: Restore previous suit type if suitless
+        // TODO if stealth sequence ever exists in rando:
+        // - Restore previous suit type if suitless
+        // - Restore cutscene but check for "skip cutscenes" flag
         if (gEquipment.suitType == SUIT_SUITLESS)
         {
             gEquipment.suitType = SUIT_FULLY_POWERED;
@@ -1179,44 +1181,6 @@ static void RuinsTestDespawn(void)
         // Start getting fully powered cutscene
         StartEffectForCutscene(EFFECT_CUTSCENE_GETTING_FULLY_POWERED);
 #endif // RANDOMIZER
-
-// #ifdef RANDOMIZER
-//         if (sRandoRemoveCutscenes)
-//         {
-//             gEquipment.suitType = SUIT_FULLY_POWERED;
-//             // Set ammo full
-//             gEquipment.currentEnergy = gEquipment.maxEnergy;
-//             gEquipment.currentMissiles = gEquipment.maxMissiles;
-//             gEquipment.currentSuperMissiles = gEquipment.maxSuperMissiles;
-//             gEquipment.currentPowerBombs = gEquipment.maxPowerBombs;
-//             // Activate items
-//             gEquipment.beamBombsActivation = gEquipment.beamBombs;
-//             gEquipment.suitMiscActivation = gEquipment.suitMisc;
-
-//             // Copied from RoomLoad
-//             SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
-//             gSamusData.xPosition = BLOCK_SIZE * 24 + HALF_BLOCK_SIZE;
-//             gSamusData.yPosition = BLOCK_SIZE * 31 - ONE_SUB_PIXEL;
-
-//             gInGameCutscene.stage = 0;
-//             gInGameCutscene.queuedCutscene = IGC_GETTING_FULLY_POWERED;
-//             InGameCutsceneStart(IGC_GETTING_FULLY_POWERED);
-
-//             gDisablePause = TRUE;
-//             gSamusData.lastWallTouchedMidAir = TRUE;
-//             gCurrentItemBeingAcquired = ITEM_ACQUISITION_GRAVITY;
-//             gSamusWeaponInfo.chargeCounter = 0;
-
-//             // Extra fixes
-//             ProjectileLoadGraphics();
-//             gSubSpriteData1.work3 = RUINS_TEST_FIGHT_STAGE_STARTING_CUTSCENE;
-//         }
-//         else
-// #endif // RANDOMIZER
-//         {
-//             // Start getting fully powered cutscene
-//             StartEffectForCutscene(EFFECT_CUTSCENE_GETTING_FULLY_POWERED);
-//         }
     }
 }
 

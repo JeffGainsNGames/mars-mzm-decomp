@@ -111,7 +111,11 @@ extern const u8 sSpriteset51[4];
 
 extern const u8 sSpriteset52[12];
 
+#ifdef RANDOMIZER
+extern const u8 sSpriteset53[22];
+#else // !RANDOMIZER
 extern const u8 sSpriteset53[20];
+#endif // RANDOMIZER
 
 extern const u8 sSpriteset54[10];
 

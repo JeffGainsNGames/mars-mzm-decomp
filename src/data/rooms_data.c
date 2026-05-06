@@ -7035,13 +7035,22 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
+#ifdef RANDOMIZER
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_NORMAL,
+#else // !RANDOMIZER
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+#endif // RANDOMIZER
 		.sourceRoom = 26,
 		.xStart = 46,
 		.xEnd = 46,
 		.yStart = 20,
 		.yEnd = 20,
+#ifdef RANDOMIZER
+		// Redirect to shaft used after Ruins Test
+		.destinationDoor = 0x76,
+#else // !RANDOMIZER
 		.destinationDoor = 78,
+#endif // RANDOMIZER
 		.xExit = -BLOCK_TO_PIXEL(1),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -7244,13 +7253,22 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
+#ifdef RANDOMIZER
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_NORMAL,
+#else // !RANDOMIZER
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+#endif // RANDOMIZER
 		.sourceRoom = 35,
 		.xStart = 61,
 		.xEnd = 61,
 		.yStart = 7,
 		.yEnd = 10,
+#ifdef RANDOMIZER
+		// Redirect to shaft used after Ruins Test
+		.destinationDoor = 0x79,
+#else // !RANDOMIZER
 		.destinationDoor = 77,
+#endif // RANDOMIZER
 		.xExit = -BLOCK_TO_PIXEL(1),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -7354,13 +7372,22 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
+#ifdef RANDOMIZER
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_NORMAL,
+#else // !RANDOMIZER
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+#endif // RANDOMIZER
 		.sourceRoom = 40,
 		.xStart = 16,
 		.xEnd = 16,
 		.yStart = 5,
 		.yEnd = 8,
+#ifdef RANDOMIZER
+		// Redirect to room used after Ruins Test
+		.destinationDoor = 0xD1,
+#else // !RANDOMIZER
 		.destinationDoor = 87,
+#endif // RANDOMIZER
 		.xExit = -BLOCK_TO_PIXEL(1),
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
@@ -7377,7 +7404,12 @@ const struct Door sChozodiaDoors[246] = {
 	},
 	{
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_NORMAL,
+#ifdef RANDOMIZER
+		// Move door to Ruins Test fight
+		.sourceRoom = 90,
+#else // !RANDOMIZER
 		.sourceRoom = 41,
+#endif // RANDOMIZER
 		.xStart = 2,
 		.xEnd = 2,
 		.yStart = 7,

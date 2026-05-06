@@ -224,6 +224,15 @@
   - `sCrateriaDoors` in [rooms_data.c](src/data/rooms_data.c)
 - Fix Chozodia rooms near glass tube
   - `sChozodiaDoors` in [rooms_data.c](src/data/rooms_data.c)
+- Fix Chozodia rooms near Ruins Test
+  - Remove event connections
+    - `sChozodiaDoors` in [rooms_data.c](src/data/rooms_data.c)
+  - Add sprite to room before Ruins Test that removes Chozo blocks in front of the door
+    - `FallingChozoPillar` in [falling_chozo_pillar.c](src/sprites_ai/falling_chozo_pillar.c)
+    - `sSpriteset53` in [spriteset.c](src/data/spriteset.c)
+    - `sChozodia_90_Spriteset0` in [chozodia_90.c](src/data/rooms/chozodia/chozodia_90.c)
+  - Readjust Chozo blocks in shaft
+    - `sChozodia_57_Bg1`, `sChozodia_57_Clipdata`, and `sChozodia_57_Spriteset0` in [chozodia_57.c](src/data/rooms/chozodia/chozodia_57.c)
 - Fix miscolored super missile tank near varia (is this necessary?)
   - `sTileset_37_Tilemap` in [tilesets_set1.c](src/data/tilesets/tilesets_set1.c)
 - Ensure tile value 0 is only used to mark the end of tilemap data

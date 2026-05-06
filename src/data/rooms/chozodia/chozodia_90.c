@@ -38,11 +38,18 @@ const u8 sChozodia_90_Clipdata[943] = INCBIN_U8("data/rooms/chozodia/chozodia_90
 
 const u8 sChozodia_90_Bg1[1673] = INCBIN_U8("data/rooms/chozodia/chozodia_90_bg1.gfx");
 
+#ifdef RANDOMIZER
+const u8 sChozodia_90_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(6)] = {
+#else // !RANDOMIZER
 const u8 sChozodia_90_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(5)] = {
+#endif // RANDOMIZER
 	10, 17, SPRITESET_IDX(0),
 	10, 21, SPRITESET_IDX(0),
 	16, 29, SPRITESET_IDX(0),
 	28, 23, SPRITESET_IDX(2),
+#ifdef RANDOMIZER
+	7, 5, SPRITESET_IDX(9),
+#endif // RANDOMIZER
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

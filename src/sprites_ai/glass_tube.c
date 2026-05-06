@@ -125,8 +125,10 @@ static void GlassTubeInit(void)
         gCurrentSprite.pose = GLASS_TUBE_POSE_POWER_BOMB_COLLISION;
     }
 
+#ifndef RANDOMIZER
     if (!CHECK_EVENT(EVENT_FULLY_POWERED_SUIT_OBTAINED))
         SoundPlay(SOUND_RAIN_HITTING_GROUND);
+#endif // !RANDOMIZER
 }
 
 /**

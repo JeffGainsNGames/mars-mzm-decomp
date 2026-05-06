@@ -1,6 +1,8 @@
 #include "sprites_ai/falling_chozo_pillar.h"
 #include "sprites_ai/ruins_test.h"
 #include "macros.h"
+#include "bg_clip.h"
+#include "event.h"
 
 #include "gba/display.h"
 
@@ -13,12 +15,30 @@
 #include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/sprite.h"
+#include "structs/connection.h"
 
 #define FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED 0x9
 #define FALLING_CHOZO_PILLAR_POSE_CHECK_ON_SCREEN 0x23
 #define FALLING_CHOZO_PILLAR_POSE_FALLING 0x25
 #define FALLING_CHOZO_PILLAR_POSE_FALLEN 0x27
 #define FALLING_CHOZO_PILLAR_POSE_IDLE 0x29
+
+#ifdef RANDOMIZER
+static void FallingChozoPillarClearPath(void)
+{
+    s32 x;
+    s32 y;
+
+    for (y = 7; y <= 10; y++)
+    {
+        for (x = 5; x <= 8; x++)
+        {
+            BgClipSetBg1BlockValue(0, y, x);
+            BgClipSetClipdataBlockValue(0, y, x);
+        }
+    }
+}
+#endif // RANDOMIZER
 
 /**
  * @brief 4b884 | 218 | Falling chozo pillar AI
@@ -31,6 +51,17 @@ void FallingChozoPillar(void)
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:
+#ifdef RANDOMIZER
+            if (gCurrentArea == AREA_CHOZODIA && gCurrentRoom == 0x5A)
+            {
+                if (!CHECK_EVENT(EVENT_FULLY_POWERED_SUIT_OBTAINED))
+                    FallingChozoPillarClearPath();
+
+                gCurrentSprite.status = 0;
+                break;
+            }
+#endif // RANDOMIZER
+
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
 

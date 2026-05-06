@@ -377,10 +377,14 @@ extern const u8 sChozodia_56_Bg1[837];
 extern const u8 sChozodia_56_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(8)];
 extern const u8 sChozodia_56_Bg0[26];
 
-extern const u8 sChozodia_57_Clipdata[542];
+extern const u8 sChozodia_57_Clipdata[];
 extern const u8 sChozodia_57_Bg2[128];
-extern const u8 sChozodia_57_Bg1[1626];
+extern const u8 sChozodia_57_Bg1[];
+#ifdef RANDOMIZER
+extern const u8 sChozodia_57_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)];
+#else // !RANDOMIZER
 extern const u8 sChozodia_57_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(4)];
+#endif // RANDOMIZER
 extern const u8 sChozodia_57_Bg0[456];
 
 extern const u8 sChozodia_58_Clipdata[138];
@@ -576,7 +580,11 @@ extern const u8 sChozodia_89_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)];
 extern const u8 sChozodia_54_Scrolls[SCROLL_DATA_SIZE(4)];
 extern const u8 sChozodia_90_Clipdata[943];
 extern const u8 sChozodia_90_Bg1[1673];
+#ifdef RANDOMIZER
+extern const u8 sChozodia_90_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(6)];
+#else // !RANDOMIZER
 extern const u8 sChozodia_90_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(5)];
+#endif // RANDOMIZER
 
 extern const u8 sChozodia_55_Scrolls[SCROLL_DATA_SIZE(1)];
 extern const u8 sChozodia_91_Clipdata[170];
