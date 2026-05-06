@@ -5246,13 +5246,22 @@ const struct Door sRidleyDoors[77] = {
 		.yExit = BLOCK_TO_PIXEL(0)
 	},
 	{
+#ifdef RANDOMIZER
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_NORMAL,
+#else // !RANDOMIZER
 		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+#endif // RANDOMIZER
 		.sourceRoom = 32,
 		.xStart = 12,
 		.xEnd = 12,
 		.yStart = 1,
 		.yEnd = 1,
+#ifdef RANDOMIZER
+		// Redirect to room with full cocoon tunnel
+		.destinationDoor = 0x42,
+#else // !RANDOMIZER
 		.destinationDoor = 67,
+#endif // RANDOMIZER
 		.xExit = BLOCK_TO_PIXEL(0),
 		.yExit = BLOCK_TO_PIXEL(1)
 	},
@@ -13350,8 +13359,13 @@ const struct RoomEntryRom sRidleyRoomEntries[33] = {
 		.pBg3Data = sNorfair_Bg3_2,
 		.bg3Scrolling = 4,
 		.transparency = 38,
+#ifdef RANDOMIZER
+		.pDefaultSpriteData = sRidley_28_Spriteset0,
+		.defaultSpriteset = 97,
+#else // !RANDOMIZER
 		.pDefaultSpriteData = sRidley_2_Spriteset0,
 		.defaultSpriteset = 65,
+#endif // RANDOMIZER
 		.firstSpritesetEvent = EVENT_NONE,
 		.pFirstSpriteData = sEnemyRoomData_Empty,
 		.firstSpriteset = 0,

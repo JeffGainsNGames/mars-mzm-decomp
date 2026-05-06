@@ -2,6 +2,7 @@
 #include "fixed_point.h"
 #include "macros.h"
 #include "event.h"
+#include "bg_clip.h"
 
 #include "data/sprites/imago_cocoon.h"
 #include "data/sprites/enemy_drop.h"
@@ -1748,12 +1749,32 @@ void EventTriggerDiscoveredImagoPassage(void)
     }
 }
 
+#ifdef RANDOMIZER
+static void ImagoCocoonHideCocoon(void)
+{
+    s32 x;
+    s32 y;
+
+    for (y = 11; y <= 17; y++)
+    {
+        for (x = 6; x <= 9; x++)
+            BgClipSetBgBlockValue(2, 0, y, x);
+    }
+}
+#endif // RANDOMIZER
+
 /**
  * @brief 286b8 | 74 | Imago cocoon after fight AI
  * 
  */
 void ImagoCocoonAfterFight(void)
 {
+#ifdef RANDOMIZER
+    if (!CHECK_EVENT(EVENT_IMAGO_COCOON_KILLED))
+        ImagoCocoonHideCocoon();
+
+    gCurrentSprite.status = 0;
+#else // !RANDOMIZER
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
@@ -1783,4 +1804,5 @@ void ImagoCocoonAfterFight(void)
                 SoundPlay(SOUND_IMAGO_COCOON_IN_GROUND_IDLE);
         }
     }
+#endif // RANDOMIZER
 }

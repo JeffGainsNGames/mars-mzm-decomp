@@ -167,6 +167,12 @@
     - Remove event trigger sprite
       - `sNorfair_43_Spriteset0` in [norfair_43.c](src/data/rooms/norfair/norfair_43.c)
 - Imago room fixes
+  - In adjacent room, only use version of room with tunnel
+    - Remove event connections from door
+      - `sNorfairDoors` in [rooms_data.c](src/data/rooms_data.c)
+    - Use cocoon sprite to hide cocoon graphics
+      - `ImagoCocoonAfterFight` in [imago_cocoon.c](src/sprites_ai/imago_cocoon.c)
+      - `sRidleyRoomEntries` in [rooms_data.c](src/data/rooms_data.c)
   - Don't allow spawning before cocoon is defeated
     - `ImagoInit` in [imago.c](src/sprites_ai/imago.c)
   - Unlock Imago door when it dies (instead of waiting to collect super missiles)
