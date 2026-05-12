@@ -1519,10 +1519,10 @@ void PauseDebugEquipTank(u8 tankOrEquip)
             gEquipment.maxPowerBombs = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].powerBomb *
                 sTankIncreaseAmount[gDifficulty].powerBomb + sStartingHealthAmmo.powerBomb;
 
-#if !defined(BUGFIX) && !defined(RANDOMIZER)
+#if !(defined(BUGFIX) || defined(RANDOMIZER))
             gEquipment.suitMisc |= SMF_MORPH_BALL | SMF_POWER_GRIP;
             gEquipment.beamBombs |= BBF_BOMBS;
-#endif // !BUGFIX && !RANDOMIZER
+#endif // !(BUGFIX || RANDOMIZER)
 
             change = 1;
         }

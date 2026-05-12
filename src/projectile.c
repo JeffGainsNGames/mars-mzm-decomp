@@ -1432,13 +1432,13 @@ void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
     samusX = gSamusData.xPosition;
 
     // Check block below and block above Samus
-    #ifdef BUGFIX
+#if defined(BUGFIX) || defined(RANDOMIZER)
     if (!(ClipdataProcessForSamus(samusY + HALF_BLOCK_SIZE, samusX) & CLIPDATA_TYPE_SOLID_FLAG) ||
         !(ClipdataProcessForSamus(samusY - (BLOCK_SIZE + HALF_BLOCK_SIZE), samusX) & CLIPDATA_TYPE_SOLID_FLAG))
-    #else // !BUGFIX
+#else // !(BUGFIX || RANDOMIZER)
     if (!(ClipdataProcess(samusY + HALF_BLOCK_SIZE, samusX) & CLIPDATA_TYPE_SOLID_FLAG) ||
         !(ClipdataProcess(samusY - (BLOCK_SIZE + HALF_BLOCK_SIZE), samusX) & CLIPDATA_TYPE_SOLID_FLAG))
-    #endif // BUGFIX
+#endif // BUGFIX || RANDOMIZER
     {
         previousX = gPreviousXPosition;
         samusTop = samusY + gSamusPhysics.hitboxTop;

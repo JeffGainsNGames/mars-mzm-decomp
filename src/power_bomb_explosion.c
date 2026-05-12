@@ -71,13 +71,13 @@ static void PowerBombExplosion(void)
     
     verticalAxis = gCurrentPowerBomb.semiMinorAxis * 4;
     horizontalAxis = gCurrentPowerBomb.semiMinorAxis * 8;
-    #ifdef BUGFIX
+#if defined(BUGFIX) || defined(RANDOMIZER)
     verticalAxis = FixedMultiplication(verticalAxis, Q_8_8(0.95));
     horizontalAxis = FixedMultiplication(horizontalAxis, Q_8_8(0.95));
-    #else // !BUGFIX
+#else // !(BUGFIX || RANDOMIZER)
     verticalAxis *= 0.95;
     horizontalAxis *= 0.95;
-    #endif // BUGFIX
+#endif // BUGFIX || RANDOMIZER
 
     hitboxLeft = (s16)-horizontalAxis;
     hitboxRight = (s16)horizontalAxis;

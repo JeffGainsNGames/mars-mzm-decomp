@@ -211,6 +211,8 @@
     - `SpriteUtilDetermineEnemyDrop` in [sprite_util.c](src/sprite_util.c)
   - Change missile drops to super missile drops if missiles aren't obtained and super missiles are empty
     - `SpriteUtilDetermineEnemyDrop` in [sprite_util.c](src/sprite_util.c)
+- Include certain bug fixes
+  - Search for lines with BUGFIX and RANDOMIZER
 
 ## Room/Tileset Changes
 - Remove vines in Norfair and near varia
