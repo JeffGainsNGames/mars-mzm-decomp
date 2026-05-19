@@ -950,10 +950,18 @@ const u16 sHatchBehaviors[HATCH_COUNT][2] = {
         CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_MISSILE | CAA_DAMAGE_TYPE_SUPER_MISSILE | CAA_DAMAGE_TYPE_POWER_BOMB,
         0
     },
+#ifdef RANDOMIZER
+    // Make Missile Hatches immune to Super Missiles
+    [HATCH_MISSILE] = {
+        CAA_DAMAGE_TYPE_MISSILE,
+        0
+    },
+#else // !RANDOMIZER
     [HATCH_MISSILE] = {
         CAA_DAMAGE_TYPE_MISSILE | CAA_DAMAGE_TYPE_SUPER_MISSILE,
         0
     },
+#endif // RANDOMIZER
     [HATCH_SUPER_MISSILE] = {
         CAA_DAMAGE_TYPE_SUPER_MISSILE,
         0
