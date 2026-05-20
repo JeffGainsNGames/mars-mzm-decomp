@@ -162,9 +162,17 @@ extern const u8 sBrinstar_20_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(6)];
 extern const u8 sBrinstar_10_Scrolls[SCROLL_DATA_SIZE(2)];
 extern const u8 sBrinstar_21_Clipdata[241];
 extern const u8 sBrinstar_21_Bg2[174];
+#ifdef RANDOMIZER
+extern const u8 sBrinstar_21_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(8)];
+#else // !RANDOMIZER
 extern const u8 sBrinstar_21_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(9)];
+#endif // RANDOMIZER
 extern const u8 sBrinstar_21_Bg1[1038];
+#ifdef RANDOMIZER
+extern const u8 sBrinstar_21_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)];
+#else // !RANDOMIZER
 extern const u8 sBrinstar_21_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(4)];
+#endif // RANDOMIZER
 extern const u8 sBrinstar_21_Bg0[394];
 
 

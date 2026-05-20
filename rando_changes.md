@@ -188,8 +188,6 @@
   - `GlassTubeCheckPowerBombCollision` in [glass_tube.c](src/sprites_ai/glass_tube.c)
 - Using any beam on Ruins Test can hurt Samus
   - `RuinsTestProjectileCollision` in [ruins_test.c](src/sprites_ai/ruins_test.c)
-- Defeating Ruins Test sets Mother Brain killed event and Zebes escaped event
-  - `RuinsTestDespawn` in [ruins_test.c](src/sprites_ai/ruins_test.c)
 - Fix space pirate alarm music
   - `DisableChozodiaAlarm` and `DecrementChozodiaAlarm` in [space_pirate.c](src/sprites_ai/space_pirate.c)
 - Fix searchlight eye vulnerability condition
@@ -217,6 +215,7 @@
 ## Room/Tileset Changes
 - Remove vines in Norfair and near varia
   - `sNorfair_4_Spriteset0`, `sNorfair_4_Spriteset1`, and `sNorfair_4_Spriteset2` in [norfair_4.c](src/data/rooms/norfair/norfair_4.c)
+  - `sBrinstar_21_Spriteset0` and `sBrinstar_21_Spriteset1` in [brinstar_21.c](src/data/rooms/brinstar/brinstar_21.c)
   - `sBrinstar_28_Spriteset1` and `sBrinstar_28_Spriteset2` in [brinstar_28.c](src/data/rooms/brinstar/brinstar_28.c)
 - Use Crateria room 0 instead of room 5 (landing site)
   - `sCrateriaRoomEntries` and `sCrateriaDoors` in [rooms_data.c](src/data/rooms_data.c)
