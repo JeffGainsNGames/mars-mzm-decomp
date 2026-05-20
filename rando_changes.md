@@ -199,6 +199,9 @@
   - `SpriteUtilGetFinalCompletionPercentage` in [sprite_util.c](src/sprite_util.c)
 - Prevent Deorem from leaving, and only spawn at first location
   - `DeoremInit`, `DeoremHandler`, `DeoremRetracting`, `DeoremEyeInit`, and `DeoremEyeIdle` in [deorem.c](src/sprites_ai/deorem.c)
+- Reset Hatches to original types when unlocked by events
+  - `ConnectionLockHatches` and `ConnectionCheckUnlockDoors` in [connection.c](src/connection.c)
+  - `HatchData` in [connection.h](include/structs/connection.h)
 - Only use fully powered suit graphics with gravity suit
   - Check for gravity when loading graphics/palette
     - `SamusUpdateGraphicsOam` and `SamusUpdatePalette` in [samus.c](src/samus.c)

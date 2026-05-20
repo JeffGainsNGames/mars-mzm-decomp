@@ -71,6 +71,10 @@ struct HatchData {
     u8 xPosition;
     u8 yPosition;
     u8 sourceDoor;
+#ifdef RANDOMIZER
+    // Add data to temporarily store HatchType when locking a room during an event
+    HatchType temp_type;
+#endif
 };
 
 struct LastElevatorUsed {
