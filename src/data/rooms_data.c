@@ -9714,11 +9714,20 @@ const struct RoomEntryRom sBrinstarRoomEntries[42] = {
 		.pBg3Data = sBrinstar_Bg3_0,
 		.bg3Scrolling = 3,
 		.transparency = 29,
+#ifdef RANDOMIZER
+		// Use sprite layer with dessgeega
+		.pDefaultSpriteData = sBrinstar_9_Spriteset1,
+		.defaultSpriteset = 94,
+		.firstSpritesetEvent = EVENT_NONE,
+		.pFirstSpriteData = sEnemyRoomData_Empty,
+		.firstSpriteset = 0,
+#else // !RANDOMIZER
 		.pDefaultSpriteData = sBrinstar_9_Spriteset0,
 		.defaultSpriteset = 94,
 		.firstSpritesetEvent = EVENT_VIEWED_STATUE_ROOM,
 		.pFirstSpriteData = sBrinstar_9_Spriteset1,
 		.firstSpriteset = 94,
+#endif // RANDOMIZER
 		.secondSpritesetEvent = EVENT_NONE,
 		.pSecondSpriteData = sEnemyRoomData_Empty,
 		.secondSpriteset = 0,

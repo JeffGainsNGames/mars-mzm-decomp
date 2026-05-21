@@ -146,6 +146,13 @@
   - `sMorphBallOam_Idle` in [morph_ball](src/data/sprites/morph_ball.c)
   - `sFakePowerBombOam_Idle` in [space_pirate_carrying_power_bomb.c](src/data/sprites/space_pirate_carrying_power_bomb.c)
   - `sSpacePirateCarryingPowerBombOam_Frame*` in [space_pirate.c](src/data/sprites/space_pirate.c)
+- Dessgeega room fixes
+  - Don't require viewing statue room for dessgeega to spawn
+    - `DessgeegaInit` in [dessgeega.c](src/sprites_ai/dessgeega.c)
+  - Remove hatch lock event for room (let the dessgeega lock hatches)
+    - `sHatchLockEventsBrinstar` in [hatch_data.c](src/data/hatch_data.c)
+  - Use the dessgeega sprite layer as the default one
+  - `sBrinstarRoomEntries` in [rooms_data.c](src/data/rooms_data.c)
 - Imago cocoon room fixes
   - Only use version of room with tunnel
     - Remove event connections from doors

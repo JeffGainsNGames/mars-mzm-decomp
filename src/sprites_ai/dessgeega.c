@@ -56,7 +56,12 @@ static void DessgeegaInit(void)
     if (spriteId == PSPRITE_DESSGEEGA_AFTER_LONG_BEAM)
     {
         // Check should kill dessgeega
+#ifdef RANDOMIZER
+        // Don't require viewing statue room
+        if (CHECK_EVENT(EVENT_LONG_BEAM_DESSGEEGA_KILLED))
+#else // !RANDOMIZER
         if (CHECK_EVENT(EVENT_LONG_BEAM_DESSGEEGA_KILLED) || !CHECK_EVENT(EVENT_VIEWED_STATUE_ROOM))
+#endif // RANDOMIZER
         {
             // If already dead or didn't view statue room
             gCurrentSprite.status = 0;

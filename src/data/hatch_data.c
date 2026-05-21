@@ -16,6 +16,10 @@ const HatchType sHatchTypeTable[HATCH_COUNT] = {
     [7] = HATCH_LOCKED_NAVIGATION
 };
 
+#ifdef RANDOMIZER
+// Don't lock hatch in desgeega room (just let the dessgeega lock it)
+const struct HatchLockEvent sHatchLockEventsBrinstar[0] = {};
+#else // !RANDOMIZER
 const struct HatchLockEvent sHatchLockEventsBrinstar[1] = {
     {
         .room = 9,
@@ -39,6 +43,7 @@ const struct HatchLockEvent sHatchLockEventsBrinstar[1] = {
         .hatchesToLock_15 = FALSE
     }
 };
+#endif // RANDOMIZER
 
 #ifdef RANDOMIZER
 // Don't lock door in zipline generator room
