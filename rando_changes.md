@@ -62,7 +62,7 @@
     - `DeoremWaitingForFight` in [deorem.c](src/sprites_ai/deorem.c)
     - `StatusScreenSetBombsVisibility` and `StatusScreenSetMissilesVisibility` in [status_screen.c](src/menus/status_screen.c)
   - Make Missile Hatches only weak to regular Missiles
-    - `sHatchBehaviors` in [block_data.c](src\data\block_data.c)
+    - `sHatchBehaviors` in [block_data.c](src/data/block_data.c)
   - Allow toggling items on pause debug screen
     - `PauseDebugGroup` in [status_screen.h](include/constants/menus/status_screen.h)
     - `sPauseDebugGroupsPositions` in [status_screen_data.c](src/data/menus/status_screen_data.c)
