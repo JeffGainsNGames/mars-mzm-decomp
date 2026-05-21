@@ -61,6 +61,8 @@
     - `GunshipRefill` in [gunship.c](src/sprites_ai/gunship.c)
     - `DeoremWaitingForFight` in [deorem.c](src/sprites_ai/deorem.c)
     - `StatusScreenSetBombsVisibility` and `StatusScreenSetMissilesVisibility` in [status_screen.c](src/menus/status_screen.c)
+  - Make Missile Hatches only weak to regular Missiles
+    - `sHatchBehaviors` in [block_data.c](src/data/block_data.c)
   - Allow toggling items on pause debug screen
     - `PauseDebugGroup` in [status_screen.h](include/constants/menus/status_screen.h)
     - `sPauseDebugGroupsPositions` in [status_screen_data.c](src/data/menus/status_screen_data.c)
@@ -202,6 +204,8 @@
 - Reset Hatches to original types when unlocked by events
   - `ConnectionLockHatches` and `ConnectionCheckUnlockDoors` in [connection.c](src/connection.c)
   - `HatchData` in [connection.h](include/structs/connection.h)
+- The Brinstar Parasites before vanilla Bombs now only lock the hatches when Bombs and Morph Ball are acquired
+  - `ParasiteInit` in [parasite.c](src/sprites_ai/parasite.c)
 - Only use fully powered suit graphics with gravity suit
   - Check for gravity when loading graphics/palette
     - `SamusUpdateGraphicsOam` and `SamusUpdatePalette` in [samus.c](src/samus.c)

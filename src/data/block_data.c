@@ -951,7 +951,12 @@ const u16 sHatchBehaviors[HATCH_COUNT][2] = {
         0
     },
     [HATCH_MISSILE] = {
+#ifdef RANDOMIZER
+        // Make Missile Hatches only weak to regular Missiles
+        CAA_DAMAGE_TYPE_MISSILE,
+#else // !RANDOMIZER
         CAA_DAMAGE_TYPE_MISSILE | CAA_DAMAGE_TYPE_SUPER_MISSILE,
+#endif // RANDOMIZER
         0
     },
     [HATCH_SUPER_MISSILE] = {
