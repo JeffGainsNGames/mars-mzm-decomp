@@ -620,6 +620,10 @@ boolu32 ConnectionSetHatchAsOpened(HatchAction action, u8 hatch)
  */
 void ConnectionCheckUnlockDoors(void)
 {
+#ifdef RANDOMIZER
+    // Counter to be used later to loop through hatches
+    u8 i;
+#endif
     if (gDoorUnlockTimer >= 0)
     {
         // The door unlock timer isn't active, no need to do anything
@@ -633,6 +637,17 @@ void ConnectionCheckUnlockDoors(void)
         // Timer done and has hatches to unlock
         SoundPlay(SOUND_DOORS_UNLOCKING);
         gHatchesState.unlocking = TRUE;
+#ifdef RANDOMIZER
+        // Loop through all hatches and reset their HatchType to what it was before the event
+        for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
+        {
+            if (gHatchData[i].exists)
+            {
+                ConnectionOverrideOpenedHatch(i, gHatchData[i].originalType);
+                ConnectionUpdateHatches();
+            }
+        }
+#endif
     }
 }
 
@@ -691,6 +706,10 @@ void ConnectionLockHatches(boolu8 isEvent)
             if ((lockedHatches >> i) & 1)
             {
                 // Lock the hatch
+#ifdef RANDOMIZER
+                // Temporarily store the HatchType to be reset after the event
+                gHatchData[i].originalType = gHatchData[i].type;
+#endif // RANDOMIZER
                 gHatchData[i].locked = HATCH_LOCK_STATE_LOCKED;
                 gHatchData[i].type = HATCH_LOCKED;
 
