@@ -73,7 +73,7 @@ struct HatchData {
     u8 sourceDoor;
 #ifdef RANDOMIZER
     // Add data to temporarily store HatchType when locking a room during an event
-    HatchType temp_type;
+    HatchType originalType;
 #endif
 };
 

@@ -643,7 +643,7 @@ void ConnectionCheckUnlockDoors(void)
         {
             if (gHatchData[i].exists)
             {
-                ConnectionOverrideOpenedHatch(i, gHatchData[i].temp_type);
+                ConnectionOverrideOpenedHatch(i, gHatchData[i].originalType);
                 ConnectionUpdateHatches();
             }
         }
@@ -708,7 +708,7 @@ void ConnectionLockHatches(boolu8 isEvent)
                 // Lock the hatch
 #ifdef RANDOMIZER
                 // Temporarily store the HatchType to be reset after the event
-                gHatchData[i].temp_type = gHatchData[i].type;
+                gHatchData[i].originalType = gHatchData[i].type;
 #endif // RANDOMIZER
                 gHatchData[i].locked = HATCH_LOCK_STATE_LOCKED;
                 gHatchData[i].type = HATCH_LOCKED;
