@@ -1029,7 +1029,14 @@ void RoomUpdateHatchFlashingAnimation(void)
             if (gHatchFlashingAnimation.row1 >= 6)
                 gHatchFlashingAnimation.row1 = 0;
 
-            DmaTransfer(3, &pPalette[gHatchFlashingAnimation.row1 * PAL_ROW + 6], PALRAM_BASE + 1 * PAL_ROW_SIZE + 6 * sizeof(u16), 2 * sizeof(u16), 16);
+#ifdef RANDOMIZER
+            // Copy over all door colors, not just locked doors
+            DmaTransfer(3, &pPalette[gHatchFlashingAnimation.row1 * PAL_ROW + 6],
+                PALRAM_BASE + 1 * PAL_ROW_SIZE + 6 * sizeof(u16), 10 * sizeof(u16), 16);
+#else // !RANDOMIZER
+            DmaTransfer(3, &pPalette[gHatchFlashingAnimation.row1 * PAL_ROW + 6],
+                PALRAM_BASE + 1 * PAL_ROW_SIZE + 6 * sizeof(u16), 2 * sizeof(u16), 16);
+#endif // RANDOMIZER
         }
     }
 

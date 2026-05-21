@@ -8,5 +8,10 @@ const u16 sDoorTransitionPal[15 * 16] = INCBIN_U16("data/common/door_transition.
 const u16 sCommonTilesMotherShipPal[1 * 16] = INCBIN_U16("data/common/common_tiles_mother_ship.pal");
 const u16 sDoorTransitionMotherShipPal[15 * 16] = INCBIN_U16("data/common/door_transition_mother_ship.pal");
 
+#ifdef RANDOMIZER
+const u16 sHatchFlashingMotherShipPal[16 * 16] = INCBIN_U16("data_rando/common/hatch_flashing_mother_ship.pal");
+const u16 sHatchFlashingPal[16 * 16] = INCBIN_U16("data_rando/common/hatch_flashing.pal");
+#else // !RANDOMIZER
 const u16 sHatchFlashingMotherShipPal[16 * 16] = INCBIN_U16("data/common/hatch_flashing_mother_ship.pal");
 const u16 sHatchFlashingPal[16 * 16] = INCBIN_U16("data/common/hatch_flashing.pal");
+#endif // RANDOMIZER

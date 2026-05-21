@@ -622,8 +622,9 @@ void ConnectionCheckUnlockDoors(void)
 {
 #ifdef RANDOMIZER
     // Counter to be used later to loop through hatches
-    u8 i;
-#endif
+    s32 i;
+#endif // RANDOMIZER
+
     if (gDoorUnlockTimer >= 0)
     {
         // The door unlock timer isn't active, no need to do anything
@@ -637,17 +638,21 @@ void ConnectionCheckUnlockDoors(void)
         // Timer done and has hatches to unlock
         SoundPlay(SOUND_DOORS_UNLOCKING);
         gHatchesState.unlocking = TRUE;
+
 #ifdef RANDOMIZER
+        // Immediately copy first row of hatch flashing palette (provides a smoother transition
+        // from gray to the hatch's original color)
+        gHatchFlashingAnimation.timer1 = 8;
+        gHatchFlashingAnimation.row1 = 6;
+        RoomUpdateHatchFlashingAnimation();
+
         // Loop through all hatches and reset their HatchType to what it was before the event
         for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
         {
             if (gHatchData[i].exists)
-            {
                 ConnectionOverrideOpenedHatch(i, gHatchData[i].originalType);
-                ConnectionUpdateHatches();
-            }
         }
-#endif
+#endif // RANDOMIZER
     }
 }
 

@@ -201,9 +201,14 @@
   - `SpriteUtilGetFinalCompletionPercentage` in [sprite_util.c](src/sprite_util.c)
 - Prevent Deorem from leaving, and only spawn at first location
   - `DeoremInit`, `DeoremHandler`, `DeoremRetracting`, `DeoremEyeInit`, and `DeoremEyeIdle` in [deorem.c](src/sprites_ai/deorem.c)
-- Reset Hatches to original types when unlocked by events
-  - `ConnectionLockHatches` and `ConnectionCheckUnlockDoors` in [connection.c](src/connection.c)
-  - `HatchData` in [connection.h](include/structs/connection.h)
+- Reset hatches to original types when unlocked by events
+  - Store original type in `HatchData` struct
+    - `HatchData` in [connection.h](include/structs/connection.h)
+  - Restore type when hatches are unlocked
+    - `ConnectionLockHatches` and `ConnectionCheckUnlockDoors` in [connection.c](src/connection.c)
+  - Animate hatches that are unlocked
+    - `sHatchFlashingPal` and `sHatchFlashingMotherShipPal` in [common_pals.c](src/data/common_pals.c)
+    - `RoomUpdateHatchFlashingAnimation` in [room.c](src/room.c)
 - The Brinstar Parasites before vanilla Bombs now only lock the hatches when Bombs and Morph Ball are acquired
   - `ParasiteInit` in [parasite.c](src/sprites_ai/parasite.c)
 - Only use fully powered suit graphics with gravity suit
