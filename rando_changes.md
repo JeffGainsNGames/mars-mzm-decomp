@@ -201,7 +201,8 @@
   - `SpriteUtilGetFinalCompletionPercentage` in [sprite_util.c](src/sprite_util.c)
 - Prevent Deorem from leaving, and only spawn at first location
   - `DeoremInit`, `DeoremHandler`, `DeoremRetracting`, `DeoremEyeInit`, and `DeoremEyeIdle` in [deorem.c](src/sprites_ai/deorem.c)
-- The Brinstar Parasites before vanilla Bombs now only lock the hatches when Bombs and Morph Ball are acquired [parasite.c](src/sprites_ai/parasite.c)
+- The Brinstar Parasites before vanilla Bombs now only lock the hatches when Bombs and Morph Ball are acquired
+  - `ParasiteInit` in [parasite.c](src/sprites_ai/parasite.c)
 - Only use fully powered suit graphics with gravity suit
   - Check for gravity when loading graphics/palette
     - `SamusUpdateGraphicsOam` and `SamusUpdatePalette` in [samus.c](src/samus.c)
