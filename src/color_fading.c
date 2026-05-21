@@ -1171,13 +1171,13 @@ u8 ColorFadingUpdate_DoorTransition(void)
         case 1:
             if (gDoorPositionStart.y > gBackgroundPositions.doorTransition.y)
             {
-                gBackgroundPositions.doorTransition.y += 3;
+                gBackgroundPositions.doorTransition.y += DOOR_TRANSITION_Y_SPEED;
                 if (gBackgroundPositions.doorTransition.y > gDoorPositionStart.y)
                     gBackgroundPositions.doorTransition.y = gDoorPositionStart.y;
             }
             else if (gDoorPositionStart.y < gBackgroundPositions.doorTransition.y)
             {
-                gBackgroundPositions.doorTransition.y -= 3;
+                gBackgroundPositions.doorTransition.y -= DOOR_TRANSITION_Y_SPEED;
                 if (gBackgroundPositions.doorTransition.y < gDoorPositionStart.y)
                     gBackgroundPositions.doorTransition.y = gDoorPositionStart.y;
             }
@@ -1199,13 +1199,13 @@ u8 ColorFadingUpdate_DoorTransition(void)
         case 3:
             if (gDoorPositionStart.x > gBackgroundPositions.doorTransition.x)
             {
-                gBackgroundPositions.doorTransition.x += 6;
+                gBackgroundPositions.doorTransition.x += DOOR_TRANSITION_X_SPEED;
                 if (gDoorPositionStart.x < gBackgroundPositions.doorTransition.x)
                     gBackgroundPositions.doorTransition.x = gDoorPositionStart.x;
             }
             else if (gDoorPositionStart.x < gBackgroundPositions.doorTransition.x)
             {
-                gBackgroundPositions.doorTransition.x -= 6;
+                gBackgroundPositions.doorTransition.x -= DOOR_TRANSITION_X_SPEED;
                 if (gDoorPositionStart.x > gBackgroundPositions.doorTransition.x)
                     gBackgroundPositions.doorTransition.x = gDoorPositionStart.x;
             }

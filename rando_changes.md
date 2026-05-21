@@ -256,6 +256,8 @@
   - `sHatchLockEventsKraid` in [hatch_data.c](src/data/hatch_data.c)
 
 ## QoL
+- Faster door transitions
+  - `ColorFadingUpdate_DoorTransition` in [color_fading.c](src/color_fading.c)
 - Enable toggling items on status screen
   - `StatusScreenToggleItem` in [status_screen.c](src/menus/status_screen.c)
 - Always show in-game timer on pause screen (but don't show items)
