@@ -87,7 +87,12 @@ static void ParasiteInit(struct SpriteData* pSprite)
     if (spriteId == PSPRITE_PARASITE_MULTIPLE)
     {
         // Check lock doors
+#ifdef RANDOMIZER
+        // Also check that Morph Ball is acquired preventing a softlock
+        if (gEquipment.beamBombs & BBF_BOMBS && gEquipment.suitMisc & SMF_MORPH_BALL && !CHECK_EVENT(EVENT_BUGS_KILLED))
+#else // !RANDOMIZER
         if (gEquipment.beamBombs & BBF_BOMBS && !CHECK_EVENT(EVENT_BUGS_KILLED))
+#endif // RANDOMIZER
         {
             LOCK_DOORS();
         }
