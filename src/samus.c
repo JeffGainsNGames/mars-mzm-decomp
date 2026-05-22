@@ -1964,7 +1964,11 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
         case SPOSE_MORPH_BALL_MIDAIR:
             pCopy->lastWallTouchedMidAir++; // 1
 
+#ifdef RANDOMIZER
+            if (gButtonInput & KEY_A && gEquipment.extraItems & EIF_SPRING_BALL)
+#else // !RANDOMIZER
             if (gButtonInput & KEY_A && gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
+#endif // RANDOMIZER
             {
                 // Check bounce from maintained A
                 collision = SamusCheckCollisionAbove(pData, sSamusBlockHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_BLOCK_HITBOX_TOP]);
@@ -3407,7 +3411,7 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
     weaponHigh = WH_NONE;
 
 #ifdef RANDOMIZER
-    if (!(pEquipment->mainItemsActivation & MIF_SUPER_MISSILES) || pEquipment->currentSuperMissiles == 0)
+    if (!(pEquipment->extraItemsActivation & EIF_SUPER_MISSILES) || pEquipment->currentSuperMissiles == 0)
 #else // !RANDOMIZER
     if (pEquipment->currentSuperMissiles == 0)
 #endif // RANDOMIZER
@@ -3416,7 +3420,7 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
         pWeapon->missilesSelected = FALSE;
     }
 #ifdef RANDOMIZER
-    else if (!(pEquipment->mainItemsActivation & MIF_MISSILES) || pEquipment->currentMissiles == 0)
+    else if (!(pEquipment->extraItemsActivation & EIF_MISSILES) || pEquipment->currentMissiles == 0)
 #else // !RANDOMIZER
     else if (pEquipment->currentMissiles == 0)
 #endif // RANDOMIZER
@@ -3427,7 +3431,7 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
     else if (gChangedInput & KEY_SELECT)
     {
 #ifdef RANDOMIZER
-        if ((gEquipment.mainItemsActivation & (MIF_MISSILES | MIF_SUPER_MISSILES)) == (MIF_MISSILES | MIF_SUPER_MISSILES))
+        if ((gEquipment.extraItemsActivation & (EIF_MISSILES | EIF_SUPER_MISSILES)) == (EIF_MISSILES | EIF_SUPER_MISSILES))
 #endif // RANDOMIZER
         {
             // Toggle
@@ -3447,7 +3451,7 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
             // Check select power bombs
 #ifdef RANDOMIZER
             if (gButtonInput & gButtonAssignments.armWeapon &&
-                pEquipment->mainItemsActivation & MIF_POWER_BOMBS && pEquipment->currentPowerBombs != 0)
+                pEquipment->extraItemsActivation & EIF_POWER_BOMBS && pEquipment->currentPowerBombs != 0)
 #else // !RANDOMIZER
             if (gButtonInput & gButtonAssignments.armWeapon && pEquipment->currentPowerBombs != 0)
 #endif // RANDOMIZER
@@ -3479,7 +3483,7 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
                 if (!pWeapon->missilesSelected)
                 {
 #ifdef RANDOMIZER
-                    if (pEquipment->mainItemsActivation & MIF_MISSILES)
+                    if (pEquipment->extraItemsActivation & EIF_MISSILES)
 #endif // RANDOMIZER
                     {
                         // Missiles are select, check again because by default missiles are selected in any case
@@ -3490,7 +3494,7 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
                 else
                 {
 #ifdef RANDOMIZER
-                    if (pEquipment->mainItemsActivation & MIF_SUPER_MISSILES)
+                    if (pEquipment->extraItemsActivation & EIF_SUPER_MISSILES)
 #endif // RANDOMIZER
                     {
                         // Super missiles are selected
@@ -5038,7 +5042,11 @@ SamusPose SamusMorphball(struct SamusData* pData)
     }
 
     // Check start ballsparking
+#ifdef RANDOMIZER
+    if (gChangedInput & KEY_A && gEquipment.extraItemsActivation & EIF_SPRING_BALL && pData->shinesparkTimer != 0)
+#else // !RANDOMIZER
     if (gChangedInput & KEY_A && gEquipment.suitMiscActivation & SMF_HIGH_JUMP && pData->shinesparkTimer != 0)
+#endif // RANDOMIZER
     {
         hitbox = sSamusBlockHitboxData[SAMUS_HITBOX_TYPE_MORPHED][SAMUS_BLOCK_HITBOX_TOP] - BLOCK_SIZE;
         if (SamusCheckCollisionAbove(pData, hitbox) == SAMUS_COLLISION_DETECTION_NONE)
@@ -5053,7 +5061,11 @@ SamusPose SamusMorphball(struct SamusData* pData)
         if (pData->forcedMovement != FORCED_MOVEMENT_MID_AIR_JUMP)
             return SPOSE_MID_AIR_REQUEST;
 
+#ifdef RANDOMIZER
+        if (gEquipment.extraItemsActivation & EIF_SPRING_BALL)
+#else // !RANDOMIZER
         if (gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
+#endif // RANDOMIZER
             return SPOSE_MID_AIR_REQUEST;
 
         pData->forcedMovement = 0;
@@ -5138,7 +5150,11 @@ SamusPose SamusRolling(struct SamusData* pData)
     s32 velocityCap;
 
     // Check jumping
+#ifdef RANDOMIZER
+    if (gChangedInput & KEY_A && gEquipment.extraItemsActivation & EIF_SPRING_BALL)
+#else // !RANDOMIZER
     if (gChangedInput & KEY_A && gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
+#endif // RANDOMIZER
     {
         // Request jump
         pData->forcedMovement = FORCED_MOVEMENT_MID_AIR_JUMP;

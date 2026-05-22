@@ -60,7 +60,7 @@ struct StartingInfo {
     /* 0B */ u8 maxPowerBombs;
     /* 0C */ BeamBombFlags beamBombs;
     /* 0D */ SuitMiscFlags suitMisc;
-    /* 0E */ MainItemFlags mainItems;
+    /* 0E */ ExtraItemFlags extraItems;
     /* 0F */ u8 downloadedMapStatus;
     /* 10 */ SuitType suitType;
     /* 11 */ boolu8 ziplinesActivated;

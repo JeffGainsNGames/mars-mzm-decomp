@@ -431,7 +431,7 @@ static void GunshipRefill(void)
             gCurrentSprite.work0--;
 
 #ifdef RANDOMIZER
-            if (gEquipment.mainItemsActivation & MIF_MISSILES && gEquipment.maxMissiles != 0)
+            if (gEquipment.extraItemsActivation & EIF_MISSILES && gEquipment.maxMissiles != 0)
 #else // !RANDOMIZER
             if (gEquipment.maxMissiles != 0)
 #endif // RANDOMIZER
@@ -450,7 +450,7 @@ static void GunshipRefill(void)
             gCurrentSprite.work0--;
 
 #ifdef RANDOMIZER
-            if (gEquipment.mainItemsActivation & MIF_SUPER_MISSILES && gEquipment.maxSuperMissiles != 0)
+            if (gEquipment.extraItemsActivation & EIF_SUPER_MISSILES && gEquipment.maxSuperMissiles != 0)
 #else // !RANDOMIZER
             if (gEquipment.maxSuperMissiles != 0)
 #endif // RANDOMIZER
@@ -469,7 +469,7 @@ static void GunshipRefill(void)
             gCurrentSprite.work0--;
     
 #ifdef RANDOMIZER
-            if (gEquipment.mainItemsActivation & MIF_POWER_BOMBS && gEquipment.maxPowerBombs != 0)
+            if (gEquipment.extraItemsActivation & EIF_POWER_BOMBS && gEquipment.maxPowerBombs != 0)
 #else // !RANDOMIZER
             if (gEquipment.maxPowerBombs != 0)
 #endif // RANDOMIZER

@@ -2458,8 +2458,8 @@ const struct SaveDemo sDemo0_Ram = {
         .suitMisc = SMF_MORPH_BALL,
         .suitMiscActivation = SMF_MORPH_BALL,
 #ifdef RANDOMIZER
-        .mainItems = MIF_NONE,
-        .mainItemsActivation = MIF_NONE,
+        .extraItems = EIF_WALL_JUMP,
+        .extraItemsActivation = EIF_WALL_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -2649,8 +2649,8 @@ const struct SaveDemo sDemo1_Ram = {
         .suitMisc = SMF_MORPH_BALL,
         .suitMiscActivation = SMF_MORPH_BALL,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -2840,8 +2840,8 @@ const struct SaveDemo sDemo2_Ram = {
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -3031,8 +3031,8 @@ const struct SaveDemo sDemo3_Ram = {
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -3222,8 +3222,8 @@ const struct SaveDemo sDemo4_Ram = {
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -3413,8 +3413,8 @@ const struct SaveDemo sDemo5_Ram = {
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -3604,8 +3604,8 @@ const struct SaveDemo sDemo6_Ram = {
         .suitMisc = SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -3795,8 +3795,8 @@ const struct SaveDemo sDemo7_Ram = {
         .suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_VARIA_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_VARIA_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -3986,8 +3986,8 @@ const struct SaveDemo sDemo8_Ram = {
         .suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_VARIA_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_VARIA_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -4179,8 +4179,8 @@ const struct SaveDemo sDemo9_Ram = {
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SCREW_ATTACK | SMF_VARIA_SUIT |
             SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES | MIF_SUPER_MISSILES,
-        .mainItemsActivation = MIF_MISSILES | MIF_SUPER_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_SUPER_MISSILES | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_SUPER_MISSILES | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -4370,8 +4370,8 @@ const struct SaveDemo sDemo10_Ram = {
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -4561,8 +4561,8 @@ const struct SaveDemo sDemo11_Ram = {
         .suitMisc = SMF_MORPH_BALL,
         .suitMiscActivation = SMF_MORPH_BALL,
 #ifdef RANDOMIZER
-        .mainItems = MIF_NONE,
-        .mainItemsActivation = MIF_NONE,
+        .extraItems = EIF_WALL_JUMP,
+        .extraItemsActivation = EIF_WALL_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -4752,8 +4752,8 @@ const struct SaveDemo sDemo12_Ram = {
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -4945,8 +4945,8 @@ const struct SaveDemo sDemo13_Ram = {
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SPACE_JUMP | SMF_SCREW_ATTACK | SMF_VARIA_SUIT |
 			SMF_GRAVITY_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES | MIF_SUPER_MISSILES | MIF_POWER_BOMBS,
-        .mainItemsActivation = MIF_MISSILES | MIF_SUPER_MISSILES | MIF_POWER_BOMBS,
+        .extraItems = EIF_MISSILES | EIF_SUPER_MISSILES | EIF_POWER_BOMBS | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_SUPER_MISSILES | EIF_POWER_BOMBS | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -5136,8 +5136,8 @@ const struct SaveDemo sDemo14_Ram = {
         .suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,
@@ -5327,8 +5327,8 @@ const struct SaveDemo sDemo15_Ram = {
         .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
         .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
 #ifdef RANDOMIZER
-        .mainItems = MIF_MISSILES,
-        .mainItemsActivation = MIF_MISSILES,
+        .extraItems = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
+        .extraItemsActivation = EIF_MISSILES | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP,
 #endif // RANDOMIZER
         .downloadedMapStatus = 0,
         .lowHealth = FALSE,

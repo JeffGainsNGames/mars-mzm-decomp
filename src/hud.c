@@ -119,7 +119,7 @@ void HudUpdateOam(void)
         else
         {
 #ifdef RANDOMIZER
-            if (pEquipment->mainItemsActivation & MIF_MISSILES && pEquipment->maxMissiles != 0)
+            if (pEquipment->extraItemsActivation & EIF_MISSILES && pEquipment->maxMissiles != 0)
 #else // !RANDOMIZER
             if (pEquipment->maxMissiles != 0)
 #endif // RANDOMIZER
@@ -143,7 +143,7 @@ void HudUpdateOam(void)
             }
 
 #ifdef RANDOMIZER
-            if (pEquipment->mainItemsActivation & MIF_SUPER_MISSILES && pEquipment->maxSuperMissiles != 0)
+            if (pEquipment->extraItemsActivation & EIF_SUPER_MISSILES && pEquipment->maxSuperMissiles != 0)
 #else // !RANDOMIZER
             if (pEquipment->maxSuperMissiles != 0)
 #endif // RANDOMIZER
@@ -167,7 +167,7 @@ void HudUpdateOam(void)
             }
 
 #ifdef RANDOMIZER
-            if (pEquipment->mainItemsActivation & MIF_POWER_BOMBS && pEquipment->maxPowerBombs != 0)
+            if (pEquipment->extraItemsActivation & EIF_POWER_BOMBS && pEquipment->maxPowerBombs != 0)
 #else // !RANDOMIZER
             if (pEquipment->maxPowerBombs != 0)
 #endif // RANDOMIZER

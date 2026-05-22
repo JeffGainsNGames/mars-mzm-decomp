@@ -201,6 +201,11 @@ static void MessageBannerPopUp(void)
                     break;
 
                 case MESSAGE_FULLY_POWERED_SUIT:
+                // TODO: Add spring ball, wall jump, and IBJ to status screen
+                case MESSAGE_SPRING_BALL:
+                case MESSAGE_WALL_JUMP:
+                case MESSAGE_INF_BOMB_JUMP:
+                // --------
                 case MESSAGE_ZIPLINES:
                 case MESSAGE_INFANT_METROID:
                 case MESSAGE_ICE_TRAP:
@@ -238,6 +243,9 @@ static void MessageBannerPopUp(void)
                         case MESSAGE_HIGH_JUMP:
                         case MESSAGE_SCREW_ATTACK:
                         case MESSAGE_POWER_GRIP:
+                        case MESSAGE_SPRING_BALL:
+                        case MESSAGE_WALL_JUMP:
+                        case MESSAGE_INF_BOMB_JUMP:
                         case MESSAGE_ZIPLINES:
                         case MESSAGE_INFANT_METROID:
                             gCurrentRandoItem.jingle = RIJ_MAJOR;
@@ -320,6 +328,9 @@ static void MessageBannerPopUp(void)
                     case MESSAGE_FULLY_POWERED_SUIT:
                     case MESSAGE_NOTHING_ACQUIRED:
                     case MESSAGE_UNKNOWN_ITEM:
+                    case MESSAGE_SPRING_BALL:
+                    case MESSAGE_WALL_JUMP:
+                    case MESSAGE_INF_BOMB_JUMP:
                     case MESSAGE_ZIPLINES:
                     case MESSAGE_INFANT_METROID:
                     case MESSAGE_ICE_TRAP:

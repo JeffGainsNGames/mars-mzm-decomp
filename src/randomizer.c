@@ -130,8 +130,8 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
         case RIT_MAIN_MISSILES:
             if (item == RIT_MAIN_MISSILES)
             {
-                gEquipment.mainItems |= MIF_MISSILES;
-                gEquipment.mainItemsActivation |= MIF_MISSILES;
+                gEquipment.extraItems |= EIF_MISSILES;
+                gEquipment.extraItemsActivation |= EIF_MISSILES;
                 amount = sRandoTankIncreaseAmounts.mainMissiles;
                 message = MESSAGE_FIRST_MISSILE_TANK;
             }
@@ -154,8 +154,8 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
         case RIT_MAIN_SUPER_MISSILES:
             if (item == RIT_MAIN_SUPER_MISSILES)
             {
-                gEquipment.mainItems |= MIF_SUPER_MISSILES;
-                gEquipment.mainItemsActivation |= MIF_SUPER_MISSILES;
+                gEquipment.extraItems |= EIF_SUPER_MISSILES;
+                gEquipment.extraItemsActivation |= EIF_SUPER_MISSILES;
                 amount = sRandoTankIncreaseAmounts.mainSuperMissiles;
                 message = MESSAGE_FIRST_SUPER_MISSILE_TANK;
             }
@@ -178,8 +178,8 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
         case RIT_MAIN_POWER_BOMBS:
             if (item == RIT_MAIN_POWER_BOMBS)
             {
-                gEquipment.mainItems |= MIF_POWER_BOMBS;
-                gEquipment.mainItemsActivation |= MIF_POWER_BOMBS;
+                gEquipment.extraItems |= EIF_POWER_BOMBS;
+                gEquipment.extraItemsActivation |= EIF_POWER_BOMBS;
                 amount = sRandoTankIncreaseAmounts.mainPowerBombs;
                 message = MESSAGE_FIRST_POWER_BOMB_TANK;
             }
@@ -311,6 +311,61 @@ static void RandoCollectItem(RandoItemType item, u8 hintedBy)
                 gEquipment.suitMiscActivation |= SMF_POWER_GRIP;
             break;
 
+        case RIT_SPRING_BALL:
+            message = MESSAGE_SPRING_BALL;
+            gEquipment.extraItems |= EIF_SPRING_BALL;
+            if (sRandoFastItemGrab)
+                gEquipment.extraItemsActivation |= EIF_SPRING_BALL;
+            break;
+
+        case RIT_WALL_JUMP:
+            message = MESSAGE_WALL_JUMP;
+            gEquipment.extraItems |= EIF_WALL_JUMP;
+            if (sRandoFastItemGrab)
+                gEquipment.extraItemsActivation |= EIF_WALL_JUMP;
+            break;
+
+        case RIT_INF_BOMB_JUMP:
+            message = MESSAGE_INF_BOMB_JUMP;
+            gEquipment.extraItems |= EIF_INF_BOMB_JUMP;
+            if (sRandoFastItemGrab)
+                gEquipment.extraItemsActivation |= EIF_INF_BOMB_JUMP;
+            break;
+
+        case RIT_PROGRESSIVE_JUMP:
+            if (!(gEquipment.suitMisc & SMF_HIGH_JUMP))
+            {
+                message = MESSAGE_HIGH_JUMP;
+                gEquipment.suitMisc |= SMF_HIGH_JUMP;
+                if (sRandoFastItemGrab)
+                    gEquipment.suitMiscActivation |= SMF_HIGH_JUMP;
+            }
+            else
+            {
+                message = MESSAGE_UNKNOWN_ITEM_SPACE_JUMP;
+                gEquipment.suitMisc |= SMF_SPACE_JUMP;
+                if (sRandoFastItemGrab && gEquipment.suitType == SUIT_FULLY_POWERED)
+                    gEquipment.suitMiscActivation |= SMF_SPACE_JUMP;
+            }
+            break;
+
+        case RIT_PROGRESSIVE_BOMB:
+            if (!(gEquipment.beamBombs & BBF_BOMBS))
+            {
+                message = MESSAGE_BOMB;
+                gEquipment.beamBombs |= BBF_BOMBS;
+                if (sRandoFastItemGrab)
+                    gEquipment.beamBombsActivation |= BBF_BOMBS;
+            }
+            else
+            {
+                message = MESSAGE_INF_BOMB_JUMP;
+                gEquipment.extraItems |= EIF_INF_BOMB_JUMP;
+                if (sRandoFastItemGrab)
+                    gEquipment.extraItemsActivation |= EIF_INF_BOMB_JUMP;
+            }
+            break;
+
         case RIT_FULLY_POWERED:
             message = MESSAGE_FULLY_POWERED_SUIT;
             gEquipment.suitType = SUIT_FULLY_POWERED;
@@ -418,6 +473,9 @@ boolu8 RandoIsItemMessage(u8 message)
         case MESSAGE_FULLY_POWERED_SUIT:
         case MESSAGE_NOTHING_ACQUIRED:
         case MESSAGE_UNKNOWN_ITEM:
+        case MESSAGE_SPRING_BALL:
+        case MESSAGE_WALL_JUMP:
+        case MESSAGE_INF_BOMB_JUMP:
         case MESSAGE_ZIPLINES:
         case MESSAGE_INFANT_METROID:
         case MESSAGE_ICE_TRAP:

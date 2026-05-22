@@ -28,11 +28,14 @@ MAKE_ENUM(u8, SuitMiscFlags) ENUM_FLAG {
 };
 
 #ifdef RANDOMIZER
-MAKE_ENUM(u8, MainItemFlags) ENUM_FLAG {
-    MIF_NONE           = 0,
-    MIF_MISSILES       = 1 << 0,
-    MIF_SUPER_MISSILES = 1 << 1,
-    MIF_POWER_BOMBS    = 1 << 2,
+MAKE_ENUM(u8, ExtraItemFlags) ENUM_FLAG {
+    EIF_NONE           = 0,
+    EIF_MISSILES       = 1 << 0,
+    EIF_SUPER_MISSILES = 1 << 1,
+    EIF_POWER_BOMBS    = 1 << 2,
+    EIF_SPRING_BALL    = 1 << 3,
+    EIF_WALL_JUMP      = 1 << 4,
+    EIF_INF_BOMB_JUMP  = 1 << 5,
 };
 #endif // RANDOMIZER
 

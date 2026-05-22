@@ -562,7 +562,7 @@ static void DeoremWaitingForFight(void)
 
 // Deorem does not leave in randomizer
 #ifdef RANDOMIZER
-    if (!(gEquipment.mainItemsActivation & MIF_MISSILES) || gEquipment.maxMissiles == 0)
+    if (!(gEquipment.extraItemsActivation & EIF_MISSILES) || gEquipment.maxMissiles == 0)
 #else // !RANDOMIZER
     if (gEquipment.maxMissiles == 0)
 #endif // RANDOMIZER

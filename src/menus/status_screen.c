@@ -323,7 +323,7 @@ void PauseDebugActivateAbilities(void)
         gEquipment.beamBombsActivation = gEquipment.beamBombs;
         gEquipment.suitMiscActivation = gEquipment.suitMisc;
 #ifdef RANDOMIZER
-        gEquipment.mainItemsActivation = gEquipment.mainItems;
+        gEquipment.extraItemsActivation = gEquipment.extraItems;
 #endif // RANDOMIZER
     }
 }
@@ -810,7 +810,7 @@ void PauseDebugStatusScreen(void)
             break;
 
 #ifdef RANDOMIZER
-        case PAUSE_DEBUG_GROUP_MAINS:
+        case PAUSE_DEBUG_GROUP_EXTRA:
             if (gChangedInput & KEY_A)
             {
                 if (yPos == 0)
@@ -818,51 +818,93 @@ void PauseDebugStatusScreen(void)
                     if (xPos == 6)
                     {
                         // Main missiles
-                        gEquipment.mainItems ^= MIF_MISSILES;
-                        if (!(gEquipment.mainItems & MIF_MISSILES))
-                            gEquipment.mainItemsActivation &= ~MIF_MISSILES;
+                        gEquipment.extraItems ^= EIF_MISSILES;
+                        if (!(gEquipment.extraItems & EIF_MISSILES))
+                            gEquipment.extraItemsActivation &= ~EIF_MISSILES;
                     }
-                    else if (xPos <= 5 && xPos >= 4)
+                    else if (xPos == 5)
                     {
                         // Main missiles activation
-                        gEquipment.mainItemsActivation ^= MIF_MISSILES;
-                        if (gEquipment.mainItemsActivation & MIF_MISSILES)
-                            gEquipment.mainItems |= MIF_MISSILES;
+                        gEquipment.extraItemsActivation ^= EIF_MISSILES;
+                        if (gEquipment.extraItemsActivation & EIF_MISSILES)
+                            gEquipment.extraItems |= EIF_MISSILES;
+                    }
+                    else if (xPos == 4)
+                    {
+                        // Main super missiles
+                        gEquipment.extraItems ^= EIF_SUPER_MISSILES;
+                        if (!(gEquipment.extraItems & EIF_SUPER_MISSILES))
+                            gEquipment.extraItemsActivation &= ~EIF_SUPER_MISSILES;
+                    }
+                    else if (xPos == 3)
+                    {
+                        // Main super missiles activation
+                        gEquipment.extraItemsActivation ^= EIF_SUPER_MISSILES;
+                        if (gEquipment.extraItemsActivation & EIF_SUPER_MISSILES)
+                            gEquipment.extraItems |= EIF_SUPER_MISSILES;
                     }
                     else if (xPos == 2)
                     {
-                        // Main super missiles
-                        gEquipment.mainItems ^= MIF_SUPER_MISSILES;
-                        if (!(gEquipment.mainItems & MIF_SUPER_MISSILES))
-                            gEquipment.mainItemsActivation &= ~MIF_SUPER_MISSILES;
+                        // Main power bombs
+                        gEquipment.extraItems ^= EIF_POWER_BOMBS;
+                        if (!(gEquipment.extraItems & EIF_POWER_BOMBS))
+                            gEquipment.extraItemsActivation &= ~EIF_POWER_BOMBS;
                     }
-                    else if (xPos <= 1 && xPos >= 0)
+                    else if (xPos == 1)
                     {
-                        // Main super missiles activation
-                        gEquipment.mainItemsActivation ^= MIF_SUPER_MISSILES;
-                        if (gEquipment.mainItemsActivation & MIF_SUPER_MISSILES)
-                            gEquipment.mainItems |= MIF_SUPER_MISSILES;
+                        // Main power bombs activation
+                        gEquipment.extraItemsActivation ^= EIF_POWER_BOMBS;
+                        if (gEquipment.extraItemsActivation & EIF_POWER_BOMBS)
+                            gEquipment.extraItems |= EIF_POWER_BOMBS;
                     }
                 }
                 else if (yPos == 1)
                 {
                     if (xPos == 6)
                     {
-                        // Main power bombs
-                        gEquipment.mainItems ^= MIF_POWER_BOMBS;
-                        if (!(gEquipment.mainItems & MIF_POWER_BOMBS))
-                            gEquipment.mainItemsActivation &= ~MIF_POWER_BOMBS;
+                        // Spring ball
+                        gEquipment.extraItems ^= EIF_SPRING_BALL;
+                        if (!(gEquipment.extraItems & EIF_SPRING_BALL))
+                            gEquipment.extraItemsActivation &= ~EIF_SPRING_BALL;
                     }
-                    else if (xPos <= 5 && xPos >= 3)
+                    else if (xPos == 5)
                     {
-                        // Main power bombs activation
-                        gEquipment.mainItemsActivation ^= MIF_POWER_BOMBS;
-                        if (gEquipment.mainItemsActivation & MIF_POWER_BOMBS)
-                            gEquipment.mainItems |= MIF_POWER_BOMBS;
+                        // Spring ball activation
+                        gEquipment.extraItemsActivation ^= EIF_SPRING_BALL;
+                        if (gEquipment.extraItemsActivation & EIF_SPRING_BALL)
+                            gEquipment.extraItems |= EIF_SPRING_BALL;
+                    }
+                    else if (xPos == 4)
+                    {
+                        // Wall jump
+                        gEquipment.extraItems ^= EIF_WALL_JUMP;
+                        if (!(gEquipment.extraItems & EIF_WALL_JUMP))
+                            gEquipment.extraItemsActivation &= ~EIF_WALL_JUMP;
+                    }
+                    else if (xPos == 3)
+                    {
+                        // Wall jump activation
+                        gEquipment.extraItemsActivation ^= EIF_WALL_JUMP;
+                        if (gEquipment.extraItemsActivation & EIF_WALL_JUMP)
+                            gEquipment.extraItems |= EIF_WALL_JUMP;
+                    }
+                    else if (xPos == 2)
+                    {
+                        // IBJ
+                        gEquipment.extraItems ^= EIF_INF_BOMB_JUMP;
+                        if (!(gEquipment.extraItems & EIF_INF_BOMB_JUMP))
+                            gEquipment.extraItemsActivation &= ~EIF_INF_BOMB_JUMP;
+                    }
+                    else if (xPos == 1)
+                    {
+                        // IBJ activation
+                        gEquipment.extraItemsActivation ^= EIF_INF_BOMB_JUMP;
+                        if (gEquipment.extraItemsActivation & EIF_INF_BOMB_JUMP)
+                            gEquipment.extraItems |= EIF_INF_BOMB_JUMP;
                     }
                 }
 
-                PauseDebugDrawAffectedGroups(1 << PAUSE_DEBUG_GROUP_MAINS);
+                PauseDebugDrawAffectedGroups(1 << PAUSE_DEBUG_GROUP_EXTRA);
             }
             break;
 #endif // RANDOMIZER
@@ -1133,36 +1175,47 @@ void PauseDebugDrawAffectedGroups(u32 groups)
     }
 
 #ifdef RANDOMIZER
-    if (groups & (1 << PAUSE_DEBUG_GROUP_MAINS))
+    if (groups & (1 << PAUSE_DEBUG_GROUP_EXTRA))
     {
         dst = VRAM_BASE + 0xB000 +
-            sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_MAINS].top * 64 +
-            sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_MAINS].left * 2;
+            sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_EXTRA].top * 64 +
+            sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_EXTRA].left * 2;
         
         // Missiles
-        palette = gEquipment.mainItems & MIF_MISSILES ? 9 : 11;
+        palette = gEquipment.extraItems & EIF_MISSILES ? 9 : 11;
         dst[0] = 957 | (palette << 12);
-
-        palette = gEquipment.mainItemsActivation & MIF_MISSILES ? 9 : 11;
+        palette = gEquipment.extraItemsActivation & EIF_MISSILES ? 9 : 11;
         dst[1] = 941 | (palette << 12);
-        dst[2] = 937 | (palette << 12);
 
         // Super missiles
-        palette = gEquipment.mainItems & MIF_SUPER_MISSILES ? 9 : 11;
-        dst[4] = 957 | (palette << 12);
-
-        palette = gEquipment.mainItemsActivation & MIF_SUPER_MISSILES ? 9 : 11;
-        dst[5] = 947 | (palette << 12);
-        dst[6] = 941 | (palette << 12);
+        palette = gEquipment.extraItems & EIF_SUPER_MISSILES ? 9 : 11;
+        dst[2] = 957 | (palette << 12);
+        palette = gEquipment.extraItemsActivation & EIF_SUPER_MISSILES ? 9 : 11;
+        dst[3] = 947 | (palette << 12);
 
         // Power bombs
-        palette = gEquipment.mainItems & MIF_POWER_BOMBS ? 9 : 11;
-        dst[32] = 957 | (palette << 12);
+        palette = gEquipment.extraItems & EIF_POWER_BOMBS ? 9 : 11;
+        dst[4] = 957 | (palette << 12);
+        palette = gEquipment.extraItemsActivation & EIF_POWER_BOMBS ? 9 : 11;
+        dst[5] = 944 | (palette << 12);
 
-        palette = gEquipment.mainItemsActivation & MIF_POWER_BOMBS ? 9 : 11;
-        dst[33] = 944 | (palette << 12);
-        dst[34] = 930 | (palette << 12);
-        dst[35] = 947 | (palette << 12);
+        // Spring ball
+        palette = gEquipment.extraItems & EIF_SPRING_BALL ? 9 : 11;
+        dst[32] = 957 | (palette << 12);
+        palette = gEquipment.extraItemsActivation & EIF_SPRING_BALL ? 9 : 11;
+        dst[33] = 947 | (palette << 12);
+
+        // Wall jump
+        palette = gEquipment.extraItems & EIF_WALL_JUMP ? 9 : 11;
+        dst[34] = 957 | (palette << 12);
+        palette = gEquipment.extraItemsActivation & EIF_WALL_JUMP ? 9 : 11;
+        dst[35] = 951 | (palette << 12);
+
+        // IBJ
+        palette = gEquipment.extraItems & EIF_INF_BOMB_JUMP ? 9 : 11;
+        dst[36] = 957 | (palette << 12);
+        palette = gEquipment.extraItemsActivation & EIF_INF_BOMB_JUMP ? 9 : 11;
+        dst[37] = 937 | (palette << 12);
     }
 #endif // RANDOMIZER
 }
@@ -1543,7 +1596,7 @@ void PauseDebugEquipTank(u8 tankOrEquip)
             gEquipment.suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SPACE_JUMP | SMF_SCREW_ATTACK | SMF_VARIA_SUIT | SMF_GRAVITY_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP;
             gEquipment.beamBombs = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_WAVE_BEAM | BBF_PLASMA_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS;
 #ifdef RANDOMIZER
-            gEquipment.mainItems = MIF_MISSILES | MIF_SUPER_MISSILES | MIF_POWER_BOMBS;
+            gEquipment.extraItems = EIF_MISSILES | EIF_SUPER_MISSILES | EIF_POWER_BOMBS | EIF_SPRING_BALL | EIF_WALL_JUMP | EIF_INF_BOMB_JUMP;
 #endif // RANDOMIZER
 
             change = 2;
@@ -1553,7 +1606,7 @@ void PauseDebugEquipTank(u8 tankOrEquip)
             gEquipment.suitMisc = SMF_NONE;
             gEquipment.beamBombs = BBF_NONE;
 #ifdef RANDOMIZER
-            gEquipment.mainItems = MIF_NONE;
+            gEquipment.extraItems = EIF_NONE;
 #endif // RANDOMIZER
 
             change = 2;
@@ -1590,7 +1643,7 @@ void PauseDebugEquipTank(u8 tankOrEquip)
     {
 #ifdef RANDOMIZER
         PauseDebugDrawAffectedGroups((1 << PAUSE_DEBUG_GROUP_BEAM) | (1 << PAUSE_DEBUG_GROUP_BOMB) |
-            (1 << PAUSE_DEBUG_GROUP_SUIT) | (1 << PAUSE_DEBUG_GROUP_MISC) | (1 << PAUSE_DEBUG_GROUP_MAINS));
+            (1 << PAUSE_DEBUG_GROUP_SUIT) | (1 << PAUSE_DEBUG_GROUP_MISC) | (1 << PAUSE_DEBUG_GROUP_EXTRA));
 #else // !RANDOMIZER
         PauseDebugDrawAffectedGroups((1 << PAUSE_DEBUG_GROUP_BEAM) | (1 << PAUSE_DEBUG_GROUP_BOMB) |
             (1 << PAUSE_DEBUG_GROUP_SUIT) | (1 << PAUSE_DEBUG_GROUP_MISC));
@@ -1900,7 +1953,7 @@ void UpdateSuitType(SuitType newSuit)
             gEquipment.beamBombsActivation = gEquipment.beamBombs & ~BBF_PLASMA_BEAM;
             gEquipment.suitMiscActivation = gEquipment.suitMisc & ~(SMF_SPACE_JUMP | SMF_GRAVITY_SUIT);
 #ifdef RANDOMIZER
-            gEquipment.mainItemsActivation = gEquipment.mainItems;
+            gEquipment.extraItemsActivation = gEquipment.extraItems;
 #endif // RANDOMIZER
             break;
 
@@ -1913,7 +1966,7 @@ void UpdateSuitType(SuitType newSuit)
             gEquipment.beamBombsActivation = 0;
             gEquipment.suitMiscActivation = 0;
 #ifdef RANDOMIZER
-            gEquipment.mainItemsActivation = MIF_NONE;
+            gEquipment.extraItemsActivation = EIF_NONE;
 #endif // RANDOMIZER
             break;
 
@@ -1922,7 +1975,7 @@ void UpdateSuitType(SuitType newSuit)
             gEquipment.suitMiscActivation = SMF_POWER_GRIP;
             gEquipment.beamBombsActivation = BBF_LONG_BEAM | BBF_CHARGE_BEAM;
 #ifdef RANDOMIZER
-            gEquipment.mainItemsActivation = MIF_NONE;
+            gEquipment.extraItemsActivation = EIF_NONE;
 #endif // RANDOMIZER
     }
 }
@@ -2603,7 +2656,7 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
         }
         else if (i == 2)
         {
-            if (gEquipment.mainItemsActivation & MIF_POWER_BOMBS)
+            if (gEquipment.extraItemsActivation & EIF_POWER_BOMBS)
                 PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] |= BOMB_ACTIVATION_ACTIVATED;
 
             if (gEquipment.currentPowerBombs != 0)
@@ -2803,7 +2856,7 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
             if (PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_NORMAL] & MISSILE_ACTIVATION_COLLECTED && gEquipment.currentMissiles != 0)
             {
 #ifdef RANDOMIZER
-                if (gEquipment.mainItemsActivation & MIF_MISSILES)
+                if (gEquipment.extraItemsActivation & EIF_MISSILES)
 #endif // RANDOMIZER
                 {
                     PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_NORMAL] |= MISSILE_ACTIVATION_HAS_AMMO_REMAINING;
@@ -2817,7 +2870,7 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
             if (PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_SUPER] & MISSILE_ACTIVATION_COLLECTED && gEquipment.currentSuperMissiles != 0)
             {
 #ifdef RANDOMIZER
-                if (gEquipment.mainItemsActivation & MIF_SUPER_MISSILES)
+                if (gEquipment.extraItemsActivation & EIF_SUPER_MISSILES)
 #endif // RANDOMIZER
                 {
                     PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_SUPER] |= MISSILE_ACTIVATION_HAS_AMMO_REMAINING;

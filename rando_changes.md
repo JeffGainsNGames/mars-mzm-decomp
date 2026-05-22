@@ -45,13 +45,18 @@
   - `RuinsTestDespawn` and `RuinsTestSamusReflectionEnd` in [ruins_test.c](src/sprites_ai/ruins_test.c)
   - `FallingChozoPillar` in [falling_chozo_pillar.c](src/sprites_ai/falling_chozo_pillar.c)
   - `MessageBannerRemovalInit` and `MessageBannerRemovalAnimation` in [message_banner.c](src/sprites_ai/message_banner.c)
-- Main missiles, super missiles, and power bombs
-  - Equipment struct has additional bytes for main item flags
-    - `MainItemFlags` in [constants/samus.h](include/constants/samus.h)
+- Allow for extra abilities
+  - Equipment struct has additional bytes for extra item flags
+    - `ExtraItemFlags` in [constants/samus.h](include/constants/samus.h)
     - `Equipment` in [structs/samus.h](include/structs/samus.h)
     - `InGameCutsceneCheckPlayOnTransition` in [in_game_cutscene.c](src/in_game_cutscene.c)
     - `sDemo*_Ram` in [demo_data.c](src/data/demo_data.c)
     - `SaveFile` and `SaveDemo` in [save_file.h](include/structs/save_file.h)
+  - Allow toggling items on pause debug screen
+    - `PauseDebugGroup` in [status_screen.h](include/constants/menus/status_screen.h)
+    - `sPauseDebugGroupsPositions` in [status_screen_data.c](src/data/menus/status_screen_data.c)
+    - `PauseDebugActivateAbilities`, `PauseDebugStatusScreen`, `PauseDebugDrawAffectedGroups`, `PauseDebugEquipTank`, and `UpdateSuitType` in [status_screen.c](src/menus/status_screen.c)
+- Main missiles, super missiles, and power bombs
   - Fix checks related to current/max ammo amounts
     - `SamusSetHighlightedWeapon` in [samus.c](src/samus.c)
     - `HudUpdateOam` in [hud.c](src/hud.c)
@@ -61,12 +66,19 @@
     - `GunshipRefill` in [gunship.c](src/sprites_ai/gunship.c)
     - `DeoremWaitingForFight` in [deorem.c](src/sprites_ai/deorem.c)
     - `StatusScreenSetBombsVisibility` and `StatusScreenSetMissilesVisibility` in [status_screen.c](src/menus/status_screen.c)
-  - Make Missile Hatches only weak to regular Missiles
-    - `sHatchBehaviors` in [block_data.c](src/data/block_data.c)
-  - Allow toggling items on pause debug screen
-    - `PauseDebugGroup` in [status_screen.h](include/constants/menus/status_screen.h)
-    - `sPauseDebugGroupsPositions` in [status_screen_data.c](src/data/menus/status_screen_data.c)
-    - `PauseDebugActivateAbilities`, `PauseDebugStatusScreen`, `PauseDebugDrawAffectedGroups`, `PauseDebugEquipTank`, and `UpdateSuitType` in [status_screen.c](src/menus/status_screen.c)
+- New movement abilities
+  - Spring ball
+    - Check for spring ball instead of hi-jump
+      - `SamusSetLandingPose`, `SamusMorphball`, and `SamusRolling` in [samus.c](src/samus.c)
+  - Wall jump boots
+    - TODO
+  - Infinite bomb jump
+    - TODO
+- Progressive items
+  - Replace item graphics upon room load
+    - TODO
+- Make missile hatches only weak to regular Missiles
+  - `sHatchBehaviors` in [block_data.c](src/data/block_data.c)
 - Custom text on items
   - `TextProcessMessageBanner` in [text.c](src/text.c)
 - Chozo statue hints

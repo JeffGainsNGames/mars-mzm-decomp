@@ -55,11 +55,17 @@ MAKE_ENUM(u8, RandoItemType) {
     /* 19 */ RIT_SCREW_ATTACK,
     /* 20 */ RIT_SPACE_JUMP,
     /* 21 */ RIT_POWER_GRIP,
-    /* 22 */ RIT_FULLY_POWERED,
-    /* 23 */ RIT_ZIPLINES,
-    /* 24 */ RIT_ICE_TRAP,
+    /* 22 */ RIT_SPRING_BALL,
+    /* 23 */ RIT_WALL_JUMP,
+    /* 24 */ RIT_INF_BOMB_JUMP,
+    /* 25 */ RIT_PROGRESSIVE_JUMP, // Hi-Jump -> Space Jump
+    /* 26 */ RIT_PROGRESSIVE_BOMB, // Bombs -> IBJ
+    /* 27 */ RIT_FULLY_POWERED,
+    /* 28 */ RIT_ZIPLINES,
+    /* 29 */ RIT_ICE_TRAP,
 };
 
+// TODO: This may not be necessary
 MAKE_ENUM(u8, RandoItemSprite) {
     /* 00 */ RIS_DEFAULT,
     /* 01 */ RIS_EMPTY,
@@ -84,11 +90,15 @@ MAKE_ENUM(u8, RandoItemSprite) {
     /* 20 */ RIS_SCREW_ATTACK,
     /* 21 */ RIS_SPACE_JUMP,
     /* 22 */ RIS_POWER_GRIP,
-    /* 23 */ RIS_FULLY_POWERED,
-    /* 24 */ RIS_ZIPLINES,
-    /* 25 */ RIS_ANONYMOUS,
-    /* 26 */ RIS_SHINY_MISSILE_TANK,
-    /* 27 */ RIS_SHINY_POWER_BOMB_TANK,
+    /* 23 */ RIS_SPRING_BALL,
+    /* 24 */ RIS_WALL_JUMP,
+    /* 25 */ RIS_INF_BOMB_JUMP,
+    /* 26 */ RIS_FULLY_POWERED,
+    /* 27 */ RIS_ZIPLINES,
+    /* 28 */ RIS_ANONYMOUS,
+    /* 29 */ RIS_SHINY_MISSILE_TANK,
+    /* 30 */ RIS_SHINY_SUPER_MISSILE_TANK,
+    /* 31 */ RIS_SHINY_POWER_BOMB_TANK,
 };
 
 MAKE_ENUM(u8, RandoItemJingle) {

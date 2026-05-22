@@ -3201,7 +3201,7 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
                 {
                     // As default, either a small energy or a power bomb if the player unlocked them
 #ifdef RANDOMIZER
-                    if (gEquipment.mainItemsActivation & MIF_POWER_BOMBS && gEquipment.maxPowerBombs != 0)
+                    if (gEquipment.extraItemsActivation & EIF_POWER_BOMBS && gEquipment.maxPowerBombs != 0)
 #else // !RANDOMIZER
                     if (gEquipment.maxPowerBombs != 0)
 #endif // RANDOMIZER
@@ -3240,7 +3240,7 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
                 if (fullLife)
                 {
 #ifdef RANDOMIZER
-                    if (gEquipment.mainItemsActivation & MIF_SUPER_MISSILES && gEquipment.maxSuperMissiles != 0)
+                    if (gEquipment.extraItemsActivation & EIF_SUPER_MISSILES && gEquipment.maxSuperMissiles != 0)
 #else // !RANDOMIZER
                     if (gEquipment.maxSuperMissiles != 0)
 #endif // RANDOMIZER
@@ -3275,7 +3275,7 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
             }
 #ifdef RANDOMIZER
             // Drop a super if you only have supers and no ammo
-            else if (!(gEquipment.mainItemsActivation & MIF_MISSILES) &&
+            else if (!(gEquipment.extraItemsActivation & EIF_MISSILES) &&
                 gEquipment.maxSuperMissiles > 0 && gEquipment.currentSuperMissiles == 0)
             {
                 return PSPRITE_SUPER_MISSILE_DROP;
@@ -3286,7 +3286,7 @@ PrimarySprite SpriteUtilDetermineEnemyDrop(void)
                 if (fullLife)
                 {
 #ifdef RANDOMIZER
-                    if (gEquipment.mainItemsActivation & MIF_MISSILES && gEquipment.maxMissiles != 0)
+                    if (gEquipment.extraItemsActivation & EIF_MISSILES && gEquipment.maxMissiles != 0)
 #else // !RANDOMIZER
                     if (gEquipment.maxMissiles != 0)
 #endif // RANDOMIZER

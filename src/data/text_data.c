@@ -386,11 +386,14 @@ const u16 sEnglishText_Message_PressSelectLAndR[] = INCTEXT("{GAP(37)}press {Sel
 #endif // RANDOMIZER
 const u16 sEnglishText_Message_EasySleepPrompt[] = INCTEXT("{GAP(101)}Yes\n{GAP(104)}No");
 #ifdef RANDOMIZER
-const u16 sEnglishText_Message_Nothing[] = INCTEXT("{GAP(74)}{COLOR(5)}Nothing acquired.\n{GAP(110)}");
-const u16 sEnglishText_Message_UnknownItem[] = INCTEXT("{GAP(74)}{COLOR(5)}Unknown Item\n{GAP(110)}");
-const u16 sEnglishText_Message_Ziplines[] = INCTEXT("{GAP(74)}{COLOR(5)}Ziplines Activated\n{GAP(110)}");
-const u16 sEnglishText_Message_InfantMetroid[] = INCTEXT("{GAP(74)}{COLOR(5)}Infant Metroid\n{GAP(110)}");
-const u16 sEnglishText_Message_IceTrap[] = INCTEXT("{GAP(74)}You are a FOOL!\n{GAP(110)}");
+const u16 sEnglishText_Message_Nothing[] = INCTEXT("{GAP(68)}{COLOR(5)}Nothing acquired\n{GAP(110)}");
+const u16 sEnglishText_Message_UnknownItem[] = INCTEXT("{GAP(76)}{COLOR(5)}Unknown Item\n{GAP(110)}");
+const u16 sEnglishText_Message_SpringBall[] = INCTEXT("{GAP(83)}{COLOR(5)}Spring Ball\n{GAP(110)}");
+const u16 sEnglishText_Message_WallJump[] = INCTEXT("{GAP(68)}{COLOR(5)}Wall Jump Boots\n{GAP(110)}");
+const u16 sEnglishText_Message_InfBombJump[] = INCTEXT("{GAP(62)}{COLOR(5)}Infinite Bomb Jump\n{GAP(110)}");
+const u16 sEnglishText_Message_Ziplines[] = INCTEXT("{GAP(65)}{COLOR(5)}Ziplines Activated\n{GAP(110)}");
+const u16 sEnglishText_Message_InfantMetroid[] = INCTEXT("{GAP(73)}{COLOR(5)}Infant Metroid\n{GAP(110)}");
+const u16 sEnglishText_Message_IceTrap[] = INCTEXT("{GAP(65)}You are a FOOL!\n{GAP(110)}");
 #endif // RANDOMIZER
 #endif // REGION_EU
 
@@ -438,6 +441,9 @@ static const u16* sEnglishTextPointers_Message[MESSAGE_COUNT] = {
     // New items
     [MESSAGE_NOTHING_ACQUIRED] = sEnglishText_Message_Nothing,
     [MESSAGE_UNKNOWN_ITEM] = sEnglishText_Message_UnknownItem,
+    [MESSAGE_SPRING_BALL] = sEnglishText_Message_SpringBall,
+    [MESSAGE_WALL_JUMP] = sEnglishText_Message_WallJump,
+    [MESSAGE_INF_BOMB_JUMP] = sEnglishText_Message_InfBombJump,
     [MESSAGE_ZIPLINES] = sEnglishText_Message_Ziplines,
     [MESSAGE_INFANT_METROID] = sEnglishText_Message_InfantMetroid,
     [MESSAGE_ICE_TRAP] = sEnglishText_Message_IceTrap,

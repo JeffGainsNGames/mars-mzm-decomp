@@ -410,12 +410,12 @@ const struct StatusScreenGroupPositions sPauseDebugGroupsPositions[PAUSE_DEBUG_G
         .group = PAUSE_DEBUG_GROUP_SUIT_TYPE
     },
 #ifdef RANDOMIZER
-    [PAUSE_DEBUG_GROUP_MAINS] = {
+    [PAUSE_DEBUG_GROUP_EXTRA] = {
         .top = 18,
         .bottom = 19,
         .left = 9,
         .right = 15,
-        .group = PAUSE_DEBUG_GROUP_MAINS
+        .group = PAUSE_DEBUG_GROUP_EXTRA
     },
 #endif // RANDOMIZER
 };
