@@ -636,13 +636,16 @@ static void RidleyInit(void)
         gCurrentSprite.status = 0;
         return;
     }
-    
+
+// Don't spawn before the Gravity Suit Event
+#ifndef RANDOMIZER
     if (!CHECK_EVENT(EVENT_GRAVITY_SUIT_OBTAINED))
     {
         // Has gravity
         gCurrentSprite.status = 0;
         return;
     }
+#endif // !RANDOMIZER
 
     // Lock doors
     LOCK_DOORS();
