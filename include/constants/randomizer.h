@@ -109,10 +109,9 @@ MAKE_ENUM(u8, RandoItemJingle) {
     /* 4 */ RIJ_FULLY_POWERED,
 };
 
-MAKE_ENUM(u8, RandoGoal) {
-    /* 0 */ GOAL_MOTHER_BRAIN,
-    /* 1 */ GOAL_MECHA_RIDLEY,
-    /* 2 */ GOAL_INFANT_METROIDS
+MAKE_ENUM(u8, RandoFinalBoss) {
+    /* 0 */ FB_MOTHER_BRAIN,
+    /* 1 */ FB_MECHA_RIDLEY
 };
 
 MAKE_ENUM(u8, DifficultyOptions) {

@@ -1390,7 +1390,7 @@ static void MechaRidleySpawnDrops(void)
         
 #ifdef RANDOMIZER
         case 40:
-            if (sRandoGoal != GOAL_MECHA_RIDLEY)
+            if (sRandoFinalBoss != FB_MECHA_RIDLEY)
             {
                 SET_EVENT(EVENT_MECHA_RIDLEY_KILLED_2);
                 gInGameTimerAtBosses[3] = gInGameTimer;

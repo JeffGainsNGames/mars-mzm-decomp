@@ -104,7 +104,7 @@ const u16 sBreakableBlockBg1[CLIPDATA_COUNT] = {
 
 // From patcher
 
-const u8 sRandoGoal = GOAL_INFANT_METROIDS;
+const u8 sRandoFinalBoss = FB_MECHA_RIDLEY;
 const u8 sRandoDifficultyOptions = DIFF_OPT_UNCHANGED;
 const boolu8 sRandoDefaultStereo = TRUE;
 const boolu8 sRandoBlackPiratesRequirePlasma = TRUE;

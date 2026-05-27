@@ -484,8 +484,9 @@ static void MotherBrainStartEscape(void)
         gCurrentSprite.status = 0;
 
 #ifdef RANDOMIZER
-        if (sRandoGoal != GOAL_MOTHER_BRAIN)
+        if (sRandoFinalBoss != FB_MOTHER_BRAIN)
         {
+            // Reload into ruined version of room
             SET_EVENT(EVENT_ESCAPED_ZEBES);
             gLastDoorUsed = 16;
             ColorFadingStart(COLOR_FADING_NO_TRANSITION);
@@ -806,7 +807,7 @@ void MotherBrain(void)
     else
     {
 #ifdef RANDOMIZER
-        if (sRandoGoal == GOAL_MOTHER_BRAIN)
+        if (sRandoFinalBoss == FB_MOTHER_BRAIN)
 #endif // RANDOMIZER
         {
             gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;

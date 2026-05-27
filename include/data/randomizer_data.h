@@ -44,7 +44,7 @@ extern const u16 sBreakableBlockBg1[CLIPDATA_COUNT];
 
 // From patcher
 
-extern const u8 sRandoGoal;
+extern const u8 sRandoFinalBoss;
 extern const u8 sRandoDifficultyOptions;
 extern const boolu8 sRandoDefaultStereo;
 extern const boolu8 sRandoBlackPiratesRequirePlasma;
