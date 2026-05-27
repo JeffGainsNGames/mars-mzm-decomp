@@ -71,9 +71,11 @@
     - Check for spring ball instead of hi-jump
       - `SamusSetLandingPose`, `SamusMorphball`, and `SamusRolling` in [samus.c](src/samus.c)
   - Wall jump boots
-    - TODO
+    - Check for item when trying to wall jump
+      - `SamusSpinning` in [samus.c](src/samus.c)
   - Infinite bomb jump
-    - TODO
+    - Check for item when bomb jumping mid-air
+      - `SamusSetMidAir` in [samus.c](src/samus.c)
 - Progressive items
   - Replace item graphics upon room load
     - TODO

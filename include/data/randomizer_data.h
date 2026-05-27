@@ -50,8 +50,6 @@ extern const boolu8 sRandoDefaultStereo;
 extern const boolu8 sRandoBlackPiratesRequirePlasma;
 extern const boolu8 sRandoSkipDoorTransitions;
 extern const boolu8 sRandoBallLauncherWithoutBombs;
-extern const boolu8 sRandoDisableMidAirBombJump;
-extern const boolu8 sRandoDisableWallJump;
 extern const boolu8 sRandoRevealBreakableBlocks;
 extern const boolu8 sRandoRemoveCutscenes;
 extern const boolu8 sRandoFastItemGrab;

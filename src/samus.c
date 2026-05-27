@@ -1766,7 +1766,7 @@ void SamusSetMidAir(struct SamusData* pData, struct SamusData* pCopy, struct Wea
 
         case SPOSE_MORPH_BALL_MIDAIR:
 #ifdef RANDOMIZER
-            if (!sRandoDisableMidAirBombJump)
+            if (gEquipment.extraItemsActivation & EIF_INF_BOMB_JUMP)
 #endif // RANDOMIZER
             {
                 // Check perform bomb jump
@@ -4779,36 +4779,35 @@ SamusPose SamusSpinning(struct SamusData* pData)
     }
     else
     {
-#ifdef RANDOMIZER
-        if (!sRandoDisableWallJump)
-#endif // RANDOMIZER
+        // Check can wall jump
+        if (pData->walljumpTimer != 0)
         {
-            // Check can wall jump
-            if (pData->walljumpTimer != 0)
+            pData->walljumpTimer--;
+
+            // Holding correct direction and pressed A
+            if (pData->direction & pData->lastWallTouchedMidAir)
             {
-                pData->walljumpTimer--;
-
-                // Holding correct direction and pressed A
-                if (pData->direction & pData->lastWallTouchedMidAir)
+#ifdef RANDOMIZER
+                if (gEquipment.extraItemsActivation & EIF_WALL_JUMP && gChangedInput & KEY_A)
+#else // !RANDOMIZER
+                if (gChangedInput & KEY_A)
+#endif // RANDOMIZER
                 {
-                    if (gChangedInput & KEY_A)
+                    // Get check offset
+                    if (pData->lastWallTouchedMidAir & KEY_RIGHT)
+                        xOffset = -(HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+                    else
+                        xOffset = (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+
+                    // Check has block
+                    if (ClipdataProcessForSamus(pData->yPosition, pData->xPosition + xOffset) & CLIPDATA_TYPE_SOLID_FLAG)
                     {
-                        // Get check offset
-                        if (pData->lastWallTouchedMidAir & KEY_RIGHT)
-                            xOffset = -(HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
-                        else
-                            xOffset = (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
-
-                        // Check has block
-                        if (ClipdataProcessForSamus(pData->yPosition, pData->xPosition + xOffset) & CLIPDATA_TYPE_SOLID_FLAG)
-                        {
-                            pData->direction = pData->lastWallTouchedMidAir;
-                            return SPOSE_STARTING_WALL_JUMP;
-                        }
+                        pData->direction = pData->lastWallTouchedMidAir;
+                        return SPOSE_STARTING_WALL_JUMP;
                     }
-
-                    xAcceleration = 1;
                 }
+
+                xAcceleration = 1;
             }
         }
     }
