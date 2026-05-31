@@ -637,7 +637,7 @@ static void RidleyInit(void)
         return;
     }
 
-// Don't spawn before the Gravity Suit Event
+// Skip checking for the Gravity Suit event in the Randomizer
 #ifndef RANDOMIZER
     if (!CHECK_EVENT(EVENT_GRAVITY_SUIT_OBTAINED))
     {

@@ -370,7 +370,7 @@ static void AcidWormInit(void)
         return;
     }
 
-// Don't spawn before the Zipline Event
+// Skip checking for the Zipline event in the Randomizer
 #ifndef RANDOMIZER
     if (!CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
     {
