@@ -222,6 +222,10 @@
   - `SpriteUtilGetFinalCompletionPercentage` in [sprite_util.c](src/sprite_util.c)
 - Prevent Deorem from leaving, and only spawn at first location
   - `DeoremInit`, `DeoremHandler`, `DeoremRetracting`, `DeoremEyeInit`, and `DeoremEyeIdle` in [deorem.c](src/sprites_ai/deorem.c)
+- Remove event check for Ziplines to spawn Acid Worm
+  - `AcidWormInit` in [acid_worm.c](src/sprites_ai/acid_worm.c)
+- Remove event check for Gravity Suit to spawn Ridley
+  - `RidleyInit` in [ridley.c](src/sprites_ai/ridley.c)
 - Reset hatches to original types when unlocked by events
   - Store original type in `HatchData` struct
     - `HatchData` in [connection.h](include/structs/connection.h)

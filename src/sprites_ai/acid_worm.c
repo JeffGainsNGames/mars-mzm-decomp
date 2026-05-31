@@ -370,11 +370,14 @@ static void AcidWormInit(void)
         return;
     }
 
+// Skip checking for the Zipline event in the Randomizer
+#ifndef RANDOMIZER
     if (!CHECK_EVENT(EVENT_ZIPLINES_ACTIVATED))
     {
         gCurrentSprite.status = 0; // No ziplines, kill sprite
         return;
     }
+#endif // !RANDOMIZER
 
     LOCK_DOORS(); // Lock doors
     gSubSpriteData1.health = gCurrentSprite.yPositionSpawn - (BLOCK_SIZE * 2); // Acid base position
