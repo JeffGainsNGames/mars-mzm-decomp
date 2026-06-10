@@ -3668,6 +3668,57 @@ u8 SamusTakeHazardDamage(struct SamusData* pData, struct Equipment* pEquipment, 
     // Get hazard at the current position
     hazard = LOW_BYTE(ClipdataCheckCurrentAffectingAtPosition(yPosition, pData->xPosition));
 
+#ifdef RANDOMIZER
+    /**
+     * The Randomizer makes changes to the Damage Reduction (DR) and immunities for hazards
+     * Varia and Suitless are unchanged
+     * 
+     * Hazard      | Varia only | Gravity only | Both suits
+     * ------------|------------|--------------|------------
+     * Heat        |   immune   |     25%      |   immune
+     * Weak Acid   |   immune   |     50%      |   immune
+     * Lava        |    40%     |     50%      |   immune
+     * Strong Acid |    50%     |     50%      |    75%
+     */
+    if (pEquipment->suitMiscActivation & SMF_ALL_SUITS == SMF_ALL_SUITS)
+    {
+        // Has both suits, only check for acid
+        if (hazard == HAZARD_TYPE_ACID)
+        {
+            damaged = TRUE;
+            if (pHazard->damageTimer > 3)
+                damageType = SAMUS_HAZARD_DAMAGE_TYPE_LIQUID;
+        }
+    }
+    else if (pEquipment->suitMiscActivation & SMF_GRAVITY_SUIT)
+    {
+        // Has Gravity
+        if (hazard == HAZARD_TYPE_ACID)
+        {
+            damaged = TRUE;
+            if (pHazard->damageTimer > 1)
+                damageType = SAMUS_HAZARD_DAMAGE_TYPE_LIQUID;
+        }
+        else if (hazard == HAZARD_TYPE_STRONG_LAVA)
+        {
+            damaged = TRUE;
+            if (pHazard->damageTimer > 5)
+                damageType = SAMUS_HAZARD_DAMAGE_TYPE_LIQUID;
+        }
+        else if (hazard == HAZARD_TYPE_WEAK_LAVA)
+        {
+            damaged = TRUE;
+            if (pHazard->damageTimer > 15)
+                damageType = SAMUS_HAZARD_DAMAGE_TYPE_LIQUID;
+        }
+        else if (hazard == HAZARD_TYPE_HEAT)
+        {
+            damaged = TRUE;
+            if (pHazard->damageTimer > 7)
+                damageType = SAMUS_HAZARD_DAMAGE_TYPE_ROOM;
+        }
+    }
+#else // !RANDOMIZER
     if (pEquipment->suitMiscActivation & SMF_GRAVITY_SUIT)
     {
         // Has gravity, only check for acid
@@ -3678,6 +3729,7 @@ u8 SamusTakeHazardDamage(struct SamusData* pData, struct Equipment* pEquipment, 
                 damageType = SAMUS_HAZARD_DAMAGE_TYPE_LIQUID;
         }
     }
+#endif // RANDOMIZER
     else if (pEquipment->suitMiscActivation & SMF_VARIA_SUIT)
     {
         // Has varia, only check for acid and strong lava

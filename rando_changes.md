@@ -138,6 +138,8 @@
     - `SavePlatformInit` in [save_platform.c](src/sprites_ai/save_platform.c)
     - `SavePlatformChozodiaInit` in [save_platform_chozodia.c](src/sprites_ai/save_platform_chozodia.c)
     - `GunshipInit` in [gunship.c](src/sprites_ai/gunship.c)
+- Rebalance Hazard Damage reduction and immunity
+  - `SamusTakeHazardDamage` in [samus.c](src/samus.c)
 
 ## Fixes
 - Allow laying power bombs without bombs
